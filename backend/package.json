@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for the jet fighters online platform.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "build:ui": "rm -r build && cd ../frontend && npm run build --prod && cp -r build ../backend",
+    "logs:prod": "heroku logs --app APP_NAME_HERE --tail",
+    "lint": "eslint ."
+  },
+  "author": "Gaina Dan-Lucian",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8",
+    "mongoose-unique-validator": "^3.0.0",
+    "morgan": "^1.10.0"
+  }
+}
