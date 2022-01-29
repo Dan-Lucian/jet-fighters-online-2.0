@@ -2,6 +2,7 @@
 import dotenv from 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
+import websockets from './websockets/index.js';
 
 const app = express();
 
@@ -12,9 +13,6 @@ app.use(morgan('tiny'));
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'unknown endpoint' });
 };
-
-// handler of reqs with unknown endpoint
-app.use(unknownEndpoint);
 
 const errorHandler = (err, req, res, next) => {
   console.error(err.message);
@@ -28,6 +26,12 @@ let { PORT } = process.env;
 if (!PORT) {
   PORT = 3001;
 }
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
+// put on all the websocket related stuff on the server
+websockets(server);
+
+// handler of reqs with unknown endpoint
+app.use(unknownEndpoint);
