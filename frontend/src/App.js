@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
 
 // shared components
 import WrapperApp from './components/WrapperApp';
@@ -13,12 +12,6 @@ import './styles/index.scss';
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
-
-  // not changing theme in another way because I need the <body>
-  // making <App> 100% height will lead to problems with scrollbars in future
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
 
   const getTogglerTheme = () => {
     switch (theme) {
@@ -34,7 +27,7 @@ const App = () => {
   };
 
   return (
-    <WrapperApp>
+    <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
       <Outlet />
     </WrapperApp>

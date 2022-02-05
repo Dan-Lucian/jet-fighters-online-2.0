@@ -5,13 +5,13 @@ body {
   --color-yellow: #ffd23f;
 }
 
-.light {
+[data-theme='light'] {
   --color-bg-primary: #f5f8ff;
   --color-bg-secondary: #e5e5e5;
   --color-text: #6a7180;
 }
 
-.dark {
+[data-theme='dark'] {
   --color-bg-primary: #141c2f;
   --color-bg-secondary: #1f2a48;
   --color-text: #ffffff;

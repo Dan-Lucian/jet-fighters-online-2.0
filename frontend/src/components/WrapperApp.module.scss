@@ -1,6 +1,9 @@
 @use '../styles/variables';
 
 .wrapperApp {
+  background: var(--color-bg-primary);
+  color: var(--color-text);
+
   @media (min-width: variables.$size-screen-med) {
     font-size: 20px;
   }
