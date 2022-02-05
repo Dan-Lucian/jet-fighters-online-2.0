@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 // shared components
 import TogglerTheme from './components/TogglerTheme';
+import Nav from './components/Nav';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -15,6 +16,8 @@ import './styles/global.scss';
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
 
+  // not changing theme in another way because I need the <body>
+  // making <App> 100% height will lead to problems with scrollbars in future
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
@@ -34,13 +37,8 @@ const App = () => {
 
   return (
     <>
-      <TogglerTheme theme={theme} getTogglerTheme={getTogglerTheme} />
-      <nav>
-        <Link to="/">To index</Link>
-        <Link to="/about">To about</Link>
-        <Link to="/asadasd">To nonexistent</Link>
-        <Outlet />
-      </nav>
+      <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
+      <Outlet />
     </>
   );
 };

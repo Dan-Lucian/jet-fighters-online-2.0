@@ -1,0 +1,36 @@
+.nav {
+  height: 100px;
+  background: var(--color-bg-secondary);
+  position: fixed;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 0 150px;
+
+  @media screen and (max-width: 1200px) {
+    padding: 0 100px;
+  }
+}
+
+.index,
+.about,
+.signin {
+  text-decoration: none;
+  color: var(--color-text);
+  
+  &:hover {
+    color: var(--color-blue);
+  }
+}
+
+.index {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.spacer {
+  flex-grow: 1;
+  align-self: stretch;
+}

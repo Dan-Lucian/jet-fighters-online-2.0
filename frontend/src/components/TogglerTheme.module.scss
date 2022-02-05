@@ -1,4 +1,38 @@
-.togglerTheme {
-  color: var(--color-text);
+.inputToggle {
+  /* visually hidden but still accessible */
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+.btnToggle {
+  cursor: pointer;
+  width: 80px;
+  height: 40px;
+  display: block;
+  border-radius: 100px;
+  position: relative;
   background: var(--color-bg-primary);
+}
+
+.btnToggle:after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  background: var(--color-blue);
+  border-radius: 90px;
+  transition: 0.3s ease-in-out;
+}
+
+.btnToggleOn:after {
+  transform: translateX(40px);
 }

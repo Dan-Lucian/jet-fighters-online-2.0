@@ -1,6 +1,10 @@
 // @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 // helpfull styles
+:root {
+  font-size: 10px;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -9,6 +13,7 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+  transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
 }
 
 img {
@@ -25,6 +30,11 @@ textarea {
 
 body {
   font-family: Roboto, verdana, sans-serif;
+  font-size: 2.4rem;
   background: var(--color-bg-primary);
   color: var(--color-text);
+
+  @media screen and (max-width: 1200px) {
+    font-size: 2rem;
+  }
 }
