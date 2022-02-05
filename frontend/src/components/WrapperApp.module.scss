@@ -1,0 +1,13 @@
+@use '../styles/variables';
+
+.wrapperApp {
+  @media (min-width: variables.$size-screen-med) {
+    font-size: 20px;
+  }
+  @media (min-width: variables.$size-screen-lg) {
+    font-size: 22px;
+  }
+  @media (min-width: variables.$size-screen-xlg) {
+    font-size: 24px;
+  }
+}

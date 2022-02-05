@@ -1,3 +1,5 @@
+@use '../styles/variables';
+
 .nav {
   height: 100px;
   background: var(--color-bg-secondary);
@@ -9,8 +11,14 @@
   gap: 30px;
   padding: 0 150px;
 
-  @media screen and (max-width: 1200px) {
+  @media (min-width: variables.$size-screen-med) {
     padding: 0 100px;
+  }
+  @media (min-width: variables.$size-screen-lg) {
+    padding: 0 150px;
+  }
+  @media (min-width: variables.$size-screen-xlg) {
+    padding: 0 200px;
   }
 }
 
@@ -19,14 +27,14 @@
 .signin {
   text-decoration: none;
   color: var(--color-text);
-  
+
   &:hover {
     color: var(--color-blue);
   }
 }
 
 .index {
-  font-size: 1.8em;
+  font-size: 1.6em;
   font-weight: bold;
 }
 

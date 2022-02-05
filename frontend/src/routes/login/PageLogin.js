@@ -1,9 +1,8 @@
 import WrapperPage from './components/WrapperPage';
 
-const About = () => (
+const PageLogin = () => (
   <WrapperPage>
-    <div>PageAbout</div>
+    <div>PageLogin</div>
   </WrapperPage>
 );
-
-export default About;
+export default PageLogin;

@@ -6,6 +6,7 @@ import ScrollToTop from './components/ScrollToTop';
 import App from './App';
 import PageAbout from './routes/about/PageAbout';
 import PageIndex from './routes/index/PageIndex';
+import PageLogin from './routes/login/PageLogin';
 import PageNonexistent from './routes/nonexistent/PageNonexistent';
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
         <Route path="/" element={<App />}>
           <Route index element={<PageIndex />} />
           <Route path="about" element={<PageAbout />} />
+          <Route path="login" element={<PageLogin />} />
           <Route path="*" element={<PageNonexistent />} />
         </Route>
       </Routes>

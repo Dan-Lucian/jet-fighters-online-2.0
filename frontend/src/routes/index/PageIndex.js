@@ -1,5 +1,9 @@
-import styles from './PageIndex.module.scss';
+import WrapperPage from './components/WrapperPage';
 
-const PageIndex = () => <div className={styles.pageIndex}>PageIndex</div>;
+const PageIndex = () => (
+  <WrapperPage>
+    <div>PageIndex</div>
+  </WrapperPage>
+);
 
 export default PageIndex;

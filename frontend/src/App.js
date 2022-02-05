@@ -1,17 +1,15 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 
 // shared components
-import TogglerTheme from './components/TogglerTheme';
+import WrapperApp from './components/WrapperApp';
 import Nav from './components/Nav';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 // scss styles
-import './styles/reset.scss';
-import './styles/colors.scss';
-import './styles/global.scss';
+import './styles/index.scss';
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
@@ -36,10 +34,10 @@ const App = () => {
   };
 
   return (
-    <>
+    <WrapperApp>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
       <Outlet />
-    </>
+    </WrapperApp>
   );
 };
 

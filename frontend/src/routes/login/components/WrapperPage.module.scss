@@ -1,0 +1,13 @@
+@use '../../../styles/variables';
+
+.wrapperPage {
+  @media (min-width: variables.$size-screen-med) {
+    padding: 6em 100px;
+  }
+  @media (min-width: variables.$size-screen-lg) {
+    padding: 6em 150px;
+  }
+  @media (min-width: variables.$size-screen-xlg) {
+    padding: 6em 200px;
+  }
+}
