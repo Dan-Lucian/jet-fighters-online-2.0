@@ -1,0 +1,12 @@
+.btnJoin {
+  width: 13em;
+  padding: 0.7em 0;
+  border: none;
+  border-radius: 5px;
+  background: var(--color-blue);
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--color-white);
+  cursor: pointer;
+  grid-area: btnJoin;
+}

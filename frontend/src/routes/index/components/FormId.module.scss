@@ -1,0 +1,17 @@
+.form {
+  grid-area: inputId;
+}
+
+.input {
+  background: var(--color-bg-primary);
+  width: 19.5em;
+  border-radius: 5px;
+  text-align: center;
+  border: none;
+  height: 100%;
+  color: var(--color-text);
+
+  &:focus {
+    outline: 2px solid var(--color-blue);
+  }
+}

@@ -1,8 +1,9 @@
 import WrapperPage from './components/WrapperPage';
+import Menu from './components/Menu';
 
 const PageIndex = () => (
   <WrapperPage>
-    <div>PageIndex</div>
+    <Menu />
   </WrapperPage>
 );
 

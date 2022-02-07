@@ -1,0 +1,15 @@
+.menu {
+  background: var(--color-bg-secondary);
+  padding: 2.5em;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 1.5em auto 2.5em auto;
+  column-gap: 2.5em;
+  grid-template-areas:
+    'btnJoin btnCreate'
+    '. .'
+    'statusWs inputId'
+    '. .'
+    'customization customization';
+}

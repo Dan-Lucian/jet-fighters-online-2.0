@@ -1,6 +1,8 @@
 @use '../../../styles/variables';
 
 .wrapperPage {
+  height: 2000px;
+
   @media (min-width: variables.$size-screen-med) {
     padding: 6em 100px;
   }

@@ -15,6 +15,7 @@ const TogglerTheme = ({ theme, getTogglerTheme }) => {
         type="checkbox"
         checked={on}
         onClick={getTogglerTheme()}
+        onChange={() => {}}
       />
     </label>
   );
