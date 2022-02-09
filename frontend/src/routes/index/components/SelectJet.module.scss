@@ -1,12 +1,18 @@
-.wrapper {
-  display: inline-block;
-  text-align: center;
-}
+.selectJet {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  position: fixed;
+  width: 30em;
+  padding: 2.5em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-bg-secondary);
+  // transform: translateX(25em);
+  transition: transform 0.5s ease-in-out;
 
-.btn {
-  background: var(--color-blue);
-  border: none;
-  padding: 0.8em;
-  margin-top: 0.5em;
-  border-radius: 5px;
+  &:hover {
+    transform: translateX(0);
+  }
 }

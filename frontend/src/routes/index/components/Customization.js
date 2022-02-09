@@ -1,7 +1,7 @@
 // local components
 import Title from './Title';
 import Settings from './Settings';
-import SelectJet from './SelectJet';
+import JetSelected from './JetSelected';
 
 import styles from './Customization.module.scss';
 
@@ -11,7 +11,7 @@ const Customization = () => (
       <Title>Customize your game</Title>
       <div className={styles.wrapperInner}>
         <Settings />
-        <SelectJet />
+        <JetSelected />
       </div>
     </div>
   </div>

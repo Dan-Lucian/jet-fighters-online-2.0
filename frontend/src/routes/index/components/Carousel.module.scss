@@ -1,0 +1,14 @@
+.carousel {
+  padding: 1em;
+  background: var(--color-bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.containerJets {
+  display: flex;
+  overflow: hidden;
+  margin: 0 1em;
+  gap: 1em;
+}
