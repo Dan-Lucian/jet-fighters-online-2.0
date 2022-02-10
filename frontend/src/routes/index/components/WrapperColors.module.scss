@@ -20,14 +20,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
+  user-select: none;
 }
 
 .img {
-  width: 6.5em;
+  width: 6em;
   animation-name: rotate;
   animation-duration: 15s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+  pointer-events: none;
+  user-select: none;
 }
 
 @keyframes rotate {

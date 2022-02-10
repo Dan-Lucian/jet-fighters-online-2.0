@@ -9,4 +9,9 @@
   color: var(--color-white);
   cursor: pointer;
   grid-area: btnJoin;
+  transition: none;
+
+  &:hover {
+    background: var(--color-blue-dark);
+  }
 }

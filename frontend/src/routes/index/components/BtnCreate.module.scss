@@ -8,4 +8,9 @@
   color: var(--color-white);
   cursor: pointer;
   grid-area: btnCreate;
+  transition: none;
+
+  &:hover {
+    background: var(--color-blue-dark);
+  }
 }

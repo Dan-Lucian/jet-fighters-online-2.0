@@ -11,7 +11,7 @@ const Settings = () => (
         id="max-score"
       />
     </span>
-    <label htmlFor="map-width">Map width::</label>
+    <label htmlFor="map-width">Map width:</label>
     <span className={styles.tooltip} data-tooltip="Allowed 200-1000">
       <input
         className={styles.input}
