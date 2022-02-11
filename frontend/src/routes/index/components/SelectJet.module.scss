@@ -10,10 +10,10 @@
   top: 0;
   bottom: 0;
   background: var(--color-bg-secondary);
-  // transform: translateX(25em);
-  transition: transform 0.5s ease-in-out;
+  transform: translateX(30em);
+  transition: transform 0.5s cubic-bezier(0.15, 0.77, 0.57, 1);
+}
 
-  &:hover {
-    transform: translateX(0);
-  }
+.isOpen {
+  transform: translateX(0);
 }
