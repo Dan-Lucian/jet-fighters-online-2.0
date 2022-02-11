@@ -10,7 +10,13 @@ import { useCallback, useState } from 'react';
 
 const useToggle = (initialState = false) => {
   const [state, setState] = useState(initialState);
-  const toggle = useCallback(() => setState((s) => !s), []);
+  const toggle = useCallback(
+    (bool) =>
+      setState((currentValue) =>
+        typeof bool === 'boolean' ? bool : !currentValue
+      ),
+    []
+  );
 
   return [state, toggle];
 };

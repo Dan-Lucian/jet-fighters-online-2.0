@@ -19,7 +19,7 @@ const JetSelected = () => {
 
   useEffect(() => {
     if (isClickOutside) {
-      toggleIsOpen();
+      toggleIsOpen(false);
     }
   }, [isClickOutside, toggleIsOpen]);
 

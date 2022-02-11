@@ -16,7 +16,7 @@ const WrapperColors = ({ toggleIsOpen }) => (
     <div className={styles.wrapperColorPicker}>
       <TitleSmall>Pick a color</TitleSmall>
       <ColorPicker />
-      <BtnDone onClick={() => toggleIsOpen()} />
+      <BtnDone onClick={() => toggleIsOpen(false)} />
     </div>
     <div className={styles.jet}>
       <img className={styles.img} src={ImgJet} alt="jet" />
