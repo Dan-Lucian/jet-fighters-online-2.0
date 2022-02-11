@@ -9,4 +9,12 @@
   padding: 0.8em;
   margin-top: 0.5em;
   border-radius: 5px;
+  transition: none;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+  }
 }

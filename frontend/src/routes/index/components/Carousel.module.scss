@@ -10,5 +10,7 @@
   display: flex;
   overflow: hidden;
   margin: 0 1em;
+  margin-left: calc(1em - 7px);
+  padding-left: 7px;
   gap: 1em;
 }

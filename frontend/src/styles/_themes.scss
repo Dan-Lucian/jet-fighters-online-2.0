@@ -18,3 +18,13 @@ body {
   --color-bg-secondary: #1f2a48;
   --color-text: #ffffff;
 }
+
+
+// scrollbar color
+[data-color-scheme="light"] {
+  color-scheme: light;
+}
+
+[data-color-scheme="dark"] {
+  color-scheme: dark;
+}

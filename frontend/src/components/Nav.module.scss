@@ -18,8 +18,10 @@
   text-decoration: none;
   color: var(--color-text);
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: var(--color-blue);
+    outline: none;
   }
 }
 
