@@ -1,8 +1,10 @@
+// local components
 import WrapperPage from './components/WrapperPage';
+import Card from './components/Card';
 
 const About = () => (
   <WrapperPage>
-    <div>PageAbout</div>
+    <Card />
   </WrapperPage>
 );
 

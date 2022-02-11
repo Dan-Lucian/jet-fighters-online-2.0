@@ -1,0 +1,11 @@
+.heading {
+  display: inline-block;
+  background: var(--color-bg-secondary);
+  font-size: 1.5em;
+  font-weight: 700;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 0 1em;
+  height: 1.666em; // had to be 2.5em but since font size here bigger, maths
+  line-height: 1.666em;
+}

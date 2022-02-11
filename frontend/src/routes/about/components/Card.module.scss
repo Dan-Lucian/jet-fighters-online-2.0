@@ -1,0 +1,24 @@
+.card {
+  background: var(--color-bg-secondary);
+  width: 46em;
+  padding: 2.5em;
+}
+
+.wrapperInner {
+  background: var(--color-bg-primary);
+  padding: 2.5em 2.5em 2.5em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
+}
+
+.wrapperSection {
+  line-height: 1.5;
+
+  p,
+  ol {
+    padding-top: 1em;
+    padding-left: 2.5em;
+    list-style-type: number;
+  }
+}
