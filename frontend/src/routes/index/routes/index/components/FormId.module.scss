@@ -1,15 +1,15 @@
 .form {
-  grid-area: inputId;
+  grid-area: formId;
 }
 
 .input {
   background: var(--color-bg-primary);
-  width: 19.5em;
   border-radius: 5px;
   text-align: center;
   border: none;
   height: 100%;
   color: var(--color-text);
+  width: 100%;
 
   &:focus {
     outline: 2px solid var(--color-blue);

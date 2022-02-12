@@ -1,0 +1,9 @@
+.wrapper {
+  width: 41.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'btnCreate btnJoin'
+    'statusWs formId';
+  gap: 1.5em 2.5em;
+}
