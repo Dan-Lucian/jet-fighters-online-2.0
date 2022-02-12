@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+import { useRef } from 'react';
 
 // local components
 import ArrowLeft from './ArrowLeft';
@@ -12,16 +13,28 @@ import styles from './Carousel.module.scss';
 
 const Carousel = () => {
   const [, setJet] = useJet();
+  const refWrapperInner = useRef();
+
+  const handleArrowLeft = () => {
+    refWrapperInner.current.scrollBy({
+      left: -150,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleArrowRight = () => {
+    refWrapperInner.current.scrollBy({ left: 150, behavior: 'smooth' });
+  };
 
   return (
     <div className={styles.carousel}>
-      <ArrowLeft />
-      <div className={styles.containerJets}>
+      <ArrowLeft onClick={handleArrowLeft} />
+      <div ref={refWrapperInner} className={styles.wrapperJets}>
         {jets.map((jet, idx) => (
           <Jet onClick={() => setJet(jet)} key={idx} />
         ))}
       </div>
-      <ArrowRight />
+      <ArrowRight onClick={handleArrowRight} />
     </div>
   );
 };

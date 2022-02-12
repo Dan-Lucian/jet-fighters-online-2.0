@@ -11,20 +11,21 @@ body {
   --color-bg-primary: #f5f8ff;
   --color-bg-secondary: #e5e5e5;
   --color-text: #6a7180;
+  --color-shadow-box: rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='dark'] {
   --color-bg-primary: #141c2f;
   --color-bg-secondary: #1f2a48;
   --color-text: #ffffff;
+  --color-shadow-box: rgba(255, 255, 255, 0.2);
 }
 
-
 // scrollbar color
-[data-color-scheme="light"] {
+[data-color-scheme='light'] {
   color-scheme: light;
 }
 
-[data-color-scheme="dark"] {
+[data-color-scheme='dark'] {
   color-scheme: dark;
 }
