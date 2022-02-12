@@ -21,5 +21,4 @@ const jetDefault = {
   type: 'balanced',
 };
 
-export default ProviderJet;
-export { useJet };
+export { ProviderJet, useJet };

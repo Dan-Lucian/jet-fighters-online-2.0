@@ -7,7 +7,7 @@ import ArrowRight from './ArrowRight';
 import Jet from './Jet';
 
 // local hooks
-import { useJet } from './ProviderJet';
+import { useJet } from '../providers/ProviderJet';
 
 import styles from './Carousel.module.scss';
 

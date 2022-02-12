@@ -3,7 +3,7 @@ import TitleSmall from './TitleSmall';
 import Polygon from './Polygon';
 
 // local hooks
-import { useJet } from './ProviderJet';
+import { useJet } from '../providers/ProviderJet';
 
 // styles
 import styles from './WrapperStats.module.scss';

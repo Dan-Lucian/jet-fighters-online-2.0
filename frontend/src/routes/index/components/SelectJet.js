@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // local compoenents
 import Carousel from './Carousel';
 import Preview from './Preview';
-import ProviderJet from './ProviderJet';
+import { ProviderJet } from '../providers/ProviderJet';
 
 // styles
 import styles from './SelectJet.module.scss';
