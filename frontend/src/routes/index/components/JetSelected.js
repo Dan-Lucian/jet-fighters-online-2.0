@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 
 // assets
 import ImgJet from '../../../assets/jet.png';
-
-// local components
-import SelectJet from './SelectJet';
 
 // shared hooks
 import { useClickOutside } from '../../../hooks/useClickOutside';
@@ -12,6 +9,9 @@ import { useToggle } from '../../../hooks/useToggle';
 
 // styles
 import styles from './JetSelected.module.scss';
+
+// lazy loaded components
+const SelectJet = lazy(() => import('./SelectJet'));
 
 const JetSelected = () => {
   const [isOpen, toggleIsOpen] = useToggle(false);
@@ -33,7 +33,9 @@ const JetSelected = () => {
       >
         <img src={ImgJet} alt="jet" />
       </button>
-      <SelectJet isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+      <Suspense fallback={<div />}>
+        <SelectJet isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+      </Suspense>
     </div>
   );
 };

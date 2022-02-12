@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // shared components
@@ -29,7 +30,9 @@ const App = () => {
   return (
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-      <Outlet />
+      <Suspense fallback={<div style={{ background: 'red' }}>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </WrapperApp>
   );
 };

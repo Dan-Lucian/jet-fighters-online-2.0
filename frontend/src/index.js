@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ScrollToTop from './components/ScrollToTop';
 import App from './App';
-import PageAbout from './routes/about/PageAbout';
 import PageIndex from './routes/index/PageIndex';
-import PageLogin from './routes/login/PageLogin';
-import PageNonexistent from './routes/nonexistent/PageNonexistent';
-import Lobby from './routes/index/routes/lobby/Lobby';
 import PreLobby from './routes/index/routes/index/PreLobby';
+
+// lazy loaded components
+const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
+const PageAbout = lazy(() => import('./routes/about/PageAbout'));
+const PageLogin = lazy(() => import('./routes/login/PageLogin'));
+const PageNonexistent = lazy(() =>
+  import('./routes/nonexistent/PageNonexistent')
+);
 
 ReactDOM.render(
   <React.StrictMode>
