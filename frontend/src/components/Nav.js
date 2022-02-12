@@ -11,6 +11,9 @@ const Nav = ({ theme, getTogglerTheme }) => (
       Jet Fighters Online
     </Link>
     <span className={styles.spacer} />
+    <Link to="/lobby" className={styles.about}>
+      Lobby
+    </Link>
     <Link to="/about" className={styles.about}>
       About
     </Link>

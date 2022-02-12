@@ -8,6 +8,8 @@ import PageAbout from './routes/about/PageAbout';
 import PageIndex from './routes/index/PageIndex';
 import PageLogin from './routes/login/PageLogin';
 import PageNonexistent from './routes/nonexistent/PageNonexistent';
+import Lobby from './routes/index/routes/lobby/Lobby';
+import PreLobby from './routes/index/routes/index/PreLobby';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +17,10 @@ ReactDOM.render(
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<PageIndex />} />
+          <Route path="/" element={<PageIndex />}>
+            <Route path="/" element={<PreLobby />} />
+            <Route path="lobby" element={<Lobby />} />
+          </Route>
           <Route path="about" element={<PageAbout />} />
           <Route path="login" element={<PageLogin />} />
           <Route path="*" element={<PageNonexistent />} />
