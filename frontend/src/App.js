@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom';
 // shared components
 import WrapperApp from './components/WrapperApp';
 import Nav from './components/Nav';
+import ErrorBoundary from './components/ErrorBoundary';
+import ErrorRouteFallback from './components/ErrorRouteFallback';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -30,9 +32,13 @@ const App = () => {
   return (
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-      <Suspense fallback={<div style={{ background: 'red' }}>Loading...</div>}>
-        <Outlet />
-      </Suspense>
+      <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+        <Suspense
+          fallback={<div style={{ background: 'red' }}>Loading...</div>}
+        >
+          <Outlet />
+        </Suspense>
+      </ErrorBoundary>
     </WrapperApp>
   );
 };

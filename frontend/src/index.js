@@ -15,6 +15,9 @@ const PageNonexistent = lazy(() =>
   import('./routes/nonexistent/PageNonexistent')
 );
 
+// <Suspense> is put around outlets inside components and not here because
+// Error if attempt to put <Suspense> around nested routes here
+// and nested routes are needed in order to save the same nav throught the app
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

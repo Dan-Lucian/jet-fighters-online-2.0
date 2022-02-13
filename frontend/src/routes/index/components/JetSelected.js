@@ -7,6 +7,10 @@ import ImgJet from '../../../assets/jet.png';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 import { useToggle } from '../../../hooks/useToggle';
 
+// shared components
+import ErrorBoundary from '../../../components/ErrorBoundary';
+import ErrorRouteFallback from '../../../components/ErrorRouteFallback';
+
 // styles
 import styles from './JetSelected.module.scss';
 
@@ -33,9 +37,11 @@ const JetSelected = () => {
       >
         <img src={ImgJet} alt="jet" />
       </button>
-      <Suspense fallback={<div />}>
-        <SelectJet isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
-      </Suspense>
+      <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+        <Suspense fallback={<span />}>
+          <SelectJet isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };
