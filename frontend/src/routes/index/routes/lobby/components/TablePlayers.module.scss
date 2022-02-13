@@ -1,0 +1,53 @@
+.table {
+  border-radius: 5px;
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+  grid-area: tablePlayers;
+
+  tr {
+    &:first-child {
+      border-bottom: 2px solid var(--color-white);
+    }
+
+    &:last-child {
+      border-top: 2px solid var(--color-white);
+    }
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.name {
+  padding-left: 1em;
+  color: var(--color-green);
+}
+
+.score {
+  width: 15%;
+  text-align: center;
+}
+
+.ready {
+  width: 25%;
+  text-align: center;
+  background: var(--color-green);
+  color: var(--color-white);
+}
+
+.bg-green {
+  background: var(--color-green);
+}
+
+.bg-red {
+  background: var(--color-red);
+}
+
+.text-green {
+  color: var(--color-green);
+}
+
+.text-red {
+  color: var(--color-red);
+}

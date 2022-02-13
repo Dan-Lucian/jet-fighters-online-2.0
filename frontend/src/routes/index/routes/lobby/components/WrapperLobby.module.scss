@@ -1,0 +1,13 @@
+.wrapper {
+  width: 41.5em;
+  padding: 1.5em 3em;
+  background: var(--color-bg-primary);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 1em 3em;
+  grid-template-areas:
+    'id id statusPlayer statusPlayer'
+    'tablePlayers tablePlayers btnReady btnReady'
+    'tablePlayers tablePlayers btnStart btnStart';
+}
