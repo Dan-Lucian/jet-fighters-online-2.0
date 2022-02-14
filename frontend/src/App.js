@@ -6,6 +6,7 @@ import WrapperApp from './components/WrapperApp';
 import Nav from './components/Nav';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorRouteFallback from './components/ErrorRouteFallback';
+import Loader from './components/Loader';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -33,9 +34,7 @@ const App = () => {
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
       <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-        <Suspense
-          fallback={<div style={{ background: 'red' }}>Loading...</div>}
-        >
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </ErrorBoundary>

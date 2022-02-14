@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 // shared components
 import ErrorBoundary from '../../../components/ErrorBoundary';
 import ErrorRouteFallback from '../../../components/ErrorRouteFallback';
+import Loader from '../../../components/Loader';
 
 // local components
 import Customization from './Customization';
@@ -15,7 +16,9 @@ import styles from './Menu.module.scss';
 const Menu = () => (
   <main className={styles.menu}>
     <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-      <Suspense fallback={<div style={{ width: '41.5em' }}>Loading...</div>}>
+      <Suspense
+        fallback={<Loader style={{ width: '41.5em', paddingTop: '1em' }} />}
+      >
         <Outlet />
       </Suspense>
     </ErrorBoundary>
