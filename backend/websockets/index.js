@@ -4,7 +4,7 @@ import queryString from 'query-string';
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
     noServer: true,
-    path: '/websockets',
+    path: '/websocket',
   });
 
   expressServer.on('upgrade', (request, socket, head) => {

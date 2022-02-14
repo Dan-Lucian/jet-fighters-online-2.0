@@ -11,12 +11,17 @@ import { ProviderSettings } from './providers/ProviderSettings';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useWebsocket } from './hooks/useWebsocket';
 
 // scss styles
 import './styles/index.scss';
 
+// config
+import { config } from './config/config';
+
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
+  useWebsocket(`ws://${config.hostname}${config.port}${config.routeWs}`);
 
   const getTogglerTheme = () => {
     switch (theme) {
