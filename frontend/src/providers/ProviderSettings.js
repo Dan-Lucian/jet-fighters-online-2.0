@@ -23,6 +23,7 @@ const settingsDefault = {
   scoreMax: '',
   widthMap: '',
   heightMap: '',
+  idJoin: '',
 };
 
 export { ProviderSettings, useSettings };
