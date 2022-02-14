@@ -3,17 +3,17 @@ import TitleSmall from './TitleSmall';
 import Polygon from './Polygon';
 
 // local hooks
-import { useJet } from '../providers/ProviderJet';
+import { useSettings } from '../../../providers/ProviderSettings';
 
 // styles
 import styles from './WrapperStats.module.scss';
 
 const WrapperStats = () => {
-  const [jet] = useJet();
+  const [settings] = useSettings();
 
   return (
     <div className={styles.wrapperStats}>
-      <TitleSmall>Type: {jet.type}</TitleSmall>
+      <TitleSmall>Type: {settings.typeJet}</TitleSmall>
       <Polygon />
     </div>
   );

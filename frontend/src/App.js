@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorRouteFallback from './components/ErrorRouteFallback';
 import Loader from './components/Loader';
+import { ProviderSettings } from './providers/ProviderSettings';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -33,11 +34,13 @@ const App = () => {
   return (
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-      <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
-      </ErrorBoundary>
+      <ProviderSettings>
+        <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
+      </ProviderSettings>
     </WrapperApp>
   );
 };

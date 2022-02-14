@@ -7,12 +7,12 @@ import ArrowRight from './ArrowRight';
 import Jet from './Jet';
 
 // local hooks
-import { useJet } from '../providers/ProviderJet';
+import { useSettings } from '../../../providers/ProviderSettings';
 
 import styles from './Carousel.module.scss';
 
 const Carousel = () => {
-  const [, setJet] = useJet();
+  const [, setSettings] = useSettings();
   const refWrapperInner = useRef();
 
   const handleArrowLeft = () => {
@@ -31,7 +31,10 @@ const Carousel = () => {
       <ArrowLeft onClick={handleArrowLeft} />
       <div ref={refWrapperInner} className={styles.wrapperJets}>
         {jets.map((jet, idx) => (
-          <Jet onClick={() => setJet(jet)} key={idx} />
+          <Jet
+            onClick={() => setSettings((prev) => ({ ...prev, ...jet }))}
+            key={idx}
+          />
         ))}
       </div>
       <ArrowRight onClick={handleArrowRight} />
@@ -40,15 +43,15 @@ const Carousel = () => {
 };
 
 const jets = [
-  { type: 'speedster' },
-  { type: 'trickster' },
-  { type: 'tank' },
-  { type: '4' },
-  { type: '5' },
-  { type: '6' },
-  { type: '7' },
-  { type: '8' },
-  { type: '9' },
+  { typeJet: 'speedster' },
+  { typeJet: 'trickster' },
+  { typeJet: 'tank' },
+  { typeJet: '4' },
+  { typeJet: '5' },
+  { typeJet: '6' },
+  { typeJet: '7' },
+  { typeJet: '8' },
+  { typeJet: '9' },
 ];
 
 export default Carousel;
