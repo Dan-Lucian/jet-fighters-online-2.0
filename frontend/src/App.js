@@ -9,7 +9,7 @@ import ErrorRouteFallback from './components/ErrorRouteFallback';
 import Loader from './components/Loader';
 import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
-
+import { ProviderGame } from './providers/ProviderGame';
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
 
@@ -36,13 +36,15 @@ const App = () => {
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
       <ProviderSettings>
-        <ProviderWebsocket>
-          <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-            <Suspense fallback={<Loader />}>
-              <Outlet />
-            </Suspense>
-          </ErrorBoundary>
-        </ProviderWebsocket>
+        <ProviderGame>
+          <ProviderWebsocket>
+            <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+              <Suspense fallback={<Loader />}>
+                <Outlet />
+              </Suspense>
+            </ErrorBoundary>
+          </ProviderWebsocket>
+        </ProviderGame>
       </ProviderSettings>
     </WrapperApp>
   );

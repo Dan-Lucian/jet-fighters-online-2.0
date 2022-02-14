@@ -1,23 +1,15 @@
-// shared components
-import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextSettings } from '../../../../../providers/ProviderSettings';
+import PropTypes from 'prop-types';
 
 // styles
 import styles from './BtnJoin.module.scss';
 
-const BtnJoin = () => {
-  const { sendMessage } = useContextWebsocket();
-  const [settings] = useContextSettings();
-
-  const handleClick = () => {
-    sendMessage({ ...settings, event: 'join' });
-  };
-
-  return (
-    <button onClick={handleClick} className={styles.btnJoin} type="button">
-      Join a lobby
-    </button>
-  );
+const BtnJoin = ({ onClick }) => (
+  <button onClick={onClick} className={styles.btnJoin} type="button">
+    Join a lobby
+  </button>
+);
+BtnJoin.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default BtnJoin;

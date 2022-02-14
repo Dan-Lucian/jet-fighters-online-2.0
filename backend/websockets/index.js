@@ -28,9 +28,28 @@ const websockets = (expressServer) => {
     // }, 1000);
 
     websocketConnection.on('message', (message) => {
-      const parsedMessage = JSON.parse(message);
-      console.log(parsedMessage);
-      // here you can respond
+      const messageJson = JSON.parse(message);
+      const { event } = messageJson;
+      console.log(messageJson);
+
+      // create
+      if (event === 'create') {
+        const response = JSON.stringify({
+          event: 'createAllowed',
+          idLobby: 'x12354',
+        });
+        websocketConnection.send(response);
+      }
+
+      // changeReady
+      if (event === 'changeReady') {
+        const { isOwnerLobby } = messageJson;
+        const response = JSON.stringify({
+          event: 'changeReady',
+          isOwnerLobby,
+        });
+        websocketConnection.send(response);
+      }
     });
   });
 

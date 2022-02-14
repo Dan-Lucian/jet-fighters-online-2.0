@@ -19,6 +19,13 @@
   }
 }
 
+.textLight {
+  color: var(--color-text);
+  opacity: 0.4;
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
 .name {
   padding-left: 1em;
   color: var(--color-green);
@@ -36,18 +43,18 @@
   color: var(--color-white);
 }
 
-.bg-green {
+.bgGreen {
   background: var(--color-green);
 }
 
-.bg-red {
+.bgRed {
   background: var(--color-red);
 }
 
-.text-green {
+.textGreen {
   color: var(--color-green);
 }
 
-.text-red {
+.textRed {
   color: var(--color-red);
 }

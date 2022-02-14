@@ -7,24 +7,28 @@ const useWebsocket = (link) => {
 
   useEffect(() => {
     ws.current = new WebSocket(link);
+
+    // connection open
     ws.current.onopen = () => {
       console.log('ws opened');
       setReadyState('OPEN');
     };
-    ws.current.onmessage = (messageReceived) => {
-      console.log('message received');
-      const messageJson = JSON.parse(messageReceived.data);
-      setMessage(messageJson);
-    };
+
+    // connection close
     ws.current.onclose = () => {
       console.log('ws closed');
       setReadyState('CLOSED');
     };
 
-    const wsCurrent = ws.current;
+    // message received
+    ws.current.onmessage = (messageReceived) => {
+      console.log('message received');
+      const messageJson = JSON.parse(messageReceived.data);
+      setMessage(messageJson);
+    };
 
     return () => {
-      wsCurrent.close();
+      ws.current.close();
     };
   }, [link]);
 
