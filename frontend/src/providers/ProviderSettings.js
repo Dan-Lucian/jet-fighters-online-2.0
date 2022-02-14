@@ -13,7 +13,7 @@ const ProviderSettings = (props) => {
 const useSettings = () => {
   const settings = useContext(ContextSettings);
   if (settings === null)
-    throw new Error('useSettings must be used within ProvideJet');
+    throw new Error('useSettings must be used within ProviderSettings');
 
   return settings;
 };

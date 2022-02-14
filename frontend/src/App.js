@@ -8,20 +8,16 @@ import ErrorBoundary from './components/ErrorBoundary';
 import ErrorRouteFallback from './components/ErrorRouteFallback';
 import Loader from './components/Loader';
 import { ProviderSettings } from './providers/ProviderSettings';
+import { ProviderWebsocket } from './providers/ProviderWebsocket';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { useWebsocket } from './hooks/useWebsocket';
 
 // scss styles
 import './styles/index.scss';
 
-// config
-import { config } from './config/config';
-
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
-  useWebsocket(`ws://${config.hostname}${config.port}${config.routeWs}`);
 
   const getTogglerTheme = () => {
     switch (theme) {
@@ -40,11 +36,13 @@ const App = () => {
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
       <ProviderSettings>
-        <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-          <Suspense fallback={<Loader />}>
-            <Outlet />
-          </Suspense>
-        </ErrorBoundary>
+        <ProviderWebsocket>
+          <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+            <Suspense fallback={<Loader />}>
+              <Outlet />
+            </Suspense>
+          </ErrorBoundary>
+        </ProviderWebsocket>
       </ProviderSettings>
     </WrapperApp>
   );

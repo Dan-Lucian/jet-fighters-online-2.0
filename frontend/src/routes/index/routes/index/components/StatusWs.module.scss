@@ -1,7 +1,23 @@
-.statusWs {
+.status {
   background: var(--color-bg-primary);
   padding: 0.8em 0;
   border-radius: 5px;
   text-align: center;
   grid-area: statusWs;
+}
+
+.connecting {
+  color: var(--color-text);
+}
+
+.open {
+  color: var(--color-green);
+}
+
+.closed {
+  color: var(--color-red);
+}
+
+.error {
+  color: var(--color-red);
 }
