@@ -1,11 +1,11 @@
 // shared components
-import { useSettings } from '../../../providers/ProviderSettings';
+import { useContextSettings } from '../../../providers/ProviderSettings';
 
 // styles
 import styles from './Settings.module.scss';
 
 const Settings = () => {
-  const [settings, setSettings] = useSettings();
+  const [settings, setSettings] = useContextSettings();
   const { scoreMax, widthMap, heightMap } = settings;
 
   const getHandlerInput = (prop) => (e) => {

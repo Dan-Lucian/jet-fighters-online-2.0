@@ -7,12 +7,12 @@ import ArrowRight from './ArrowRight';
 import Jet from './Jet';
 
 // local hooks
-import { useSettings } from '../../../providers/ProviderSettings';
+import { useContextSettings } from '../../../providers/ProviderSettings';
 
 import styles from './Carousel.module.scss';
 
 const Carousel = () => {
-  const [, setSettings] = useSettings();
+  const [, setSettings] = useContextSettings();
   const refWrapperInner = useRef();
 
   const handleArrowLeft = () => {

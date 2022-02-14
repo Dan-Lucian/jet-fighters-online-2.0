@@ -1,13 +1,13 @@
 // shared components
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useSettings } from '../../../../../providers/ProviderSettings';
+import { useContextSettings } from '../../../../../providers/ProviderSettings';
 
 // styles
 import styles from './BtnJoin.module.scss';
 
 const BtnJoin = () => {
   const { sendMessage } = useContextWebsocket();
-  const [settings] = useSettings();
+  const [settings] = useContextSettings();
 
   const handleClick = () => {
     sendMessage({ ...settings, event: 'join' });

@@ -10,10 +10,10 @@ const ProviderSettings = (props) => {
   return <ContextSettings.Provider value={settings} {...props} />;
 };
 
-const useSettings = () => {
+const useContextSettings = () => {
   const settings = useContext(ContextSettings);
   if (settings === null)
-    throw new Error('useSettings must be used within ProviderSettings');
+    throw new Error('useContextSettings must be used within ProviderSettings');
 
   return settings;
 };
@@ -26,4 +26,4 @@ const settingsDefault = {
   idJoin: '',
 };
 
-export { ProviderSettings, useSettings };
+export { ProviderSettings, useContextSettings };

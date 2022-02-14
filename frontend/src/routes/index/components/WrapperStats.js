@@ -3,13 +3,13 @@ import TitleSmall from './TitleSmall';
 import Polygon from './Polygon';
 
 // local hooks
-import { useSettings } from '../../../providers/ProviderSettings';
+import { useContextSettings } from '../../../providers/ProviderSettings';
 
 // styles
 import styles from './WrapperStats.module.scss';
 
 const WrapperStats = () => {
-  const [settings] = useSettings();
+  const [settings] = useContextSettings();
 
   return (
     <div className={styles.wrapperStats}>

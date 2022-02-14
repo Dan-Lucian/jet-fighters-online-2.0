@@ -1,11 +1,11 @@
 // shared components
-import { useSettings } from '../../../../../providers/ProviderSettings';
+import { useContextSettings } from '../../../../../providers/ProviderSettings';
 
 // styles
 import styles from './FormId.module.scss';
 
 const FormId = () => {
-  const [settings, setSettings] = useSettings();
+  const [settings, setSettings] = useContextSettings();
   const { idJoin } = settings;
 
   const handleSubmit = (e) => {
