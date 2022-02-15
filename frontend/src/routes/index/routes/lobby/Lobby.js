@@ -9,11 +9,14 @@ import BtnReady from './components/BtnReady';
 import BtnStart from './components/BtnStart';
 
 // shared hooks
-import { useContextGame } from '../../../../providers/ProviderGame';
 import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
+import { useContextGame } from '../../../../providers/ProviderGame';
+import { useContextUser } from '../../../../providers/ProviderUser';
 
 const Lobby = () => {
+  const { message, sendMessage } = useContextWebsocket();
   const [game, setGame] = useContextGame();
+  const [user] = useContextUser();
   console.log('Game: ', game);
 
   const {
@@ -26,9 +29,10 @@ const Lobby = () => {
     namePlayer2,
     isReadyPlayer2,
     scorePlayer2,
-    isOwnerLobby,
     statusGame,
   } = game;
+  const { event, success } = message;
+  const { isOwnerLobby } = user;
 
   const propsTablePlayers = {
     statusConnectionPlayer1,
@@ -41,13 +45,10 @@ const Lobby = () => {
     scorePlayer2,
   };
 
-  const { message, sendMessage } = useContextWebsocket();
-  const { event, success } = message;
-
   useEffect(() => {
-    // if (event === 'updateLobby') {
-    //   setGame(message.game);
-    // }
+    if (event === 'updateLobby') {
+      setGame(message.game);
+    }
 
     if (event === 'join' && success && statusGame === 'lobby') {
       setGame((prev) => ({

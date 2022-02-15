@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../providers/ProviderGame';
 import { useContextSettings } from '../../../../providers/ProviderSettings';
+import { useContextGame } from '../../../../providers/ProviderGame';
+import { useContextUser } from '../../../../providers/ProviderUser';
 
 // local components
 import WrapperPreLobby from './components/WrapperPreLobby';
@@ -17,12 +18,13 @@ import FormId from './components/FormId';
 
 const PreLobby = () => {
   const { message, sendMessage } = useContextWebsocket();
+  const [user, setUser] = useContextUser();
   const [game, setGame] = useContextGame();
   const [settings] = useContextSettings();
   const navigate = useNavigate();
 
   const { event, success, idLobby } = message;
-  const { namePlayerCurrent, statusGame } = game;
+  const { statusGame } = game;
 
   useEffect(() => {
     if (event === 'create' && success && statusGame === 'preLobby') {
@@ -30,8 +32,11 @@ const PreLobby = () => {
         ...prev,
         idLobby,
         statusGame: 'lobby',
-        isOwnerLobby: true,
         statusConnectionPlayer1: 'connected',
+      }));
+      setUser((prev) => ({
+        ...prev,
+        isOwnerLobby: true,
       }));
       navigate('/lobby');
     }
@@ -42,22 +47,29 @@ const PreLobby = () => {
         ...prev,
         idLobby,
         statusGame: 'lobby',
-        isOwnerLobby: false,
         namePlayer1: nameOwner,
         namePlayer2: nameJoiner,
         statusConnectionPlayer1: 'connected',
         statusConnectionPlayer2: 'connected',
+      }));
+      setUser((prev) => ({
+        ...prev,
+        isOwnerLobby: false,
       }));
       navigate('/lobby');
     }
   }, [message]);
 
   const handleClickCreate = () => {
-    sendMessage({ namePlayerCurrent, event: 'create' });
+    sendMessage({ name: user.name, event: 'create' });
   };
 
   const handleClickJoin = () => {
-    sendMessage({ namePlayerCurrent, idLobby: settings.idJoin, event: 'join' });
+    sendMessage({
+      name: user.name,
+      idLobby: settings.idJoin,
+      event: 'join',
+    });
   };
 
   return (

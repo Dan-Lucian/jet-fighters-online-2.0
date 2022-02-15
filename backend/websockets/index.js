@@ -32,13 +32,13 @@ const websockets = (expressServer) => {
 
       // create request
       if (event === 'create') {
-        const { namePlayerCurrent } = messageJson;
+        const { name } = messageJson;
 
         // returns created lobby's ID
         const idLobby = createLobby();
 
         joinLobby(idLobby, {
-          name: namePlayerCurrent,
+          name,
           ws: websocketConnection,
         });
 
@@ -54,11 +54,11 @@ const websockets = (expressServer) => {
 
       // join request
       if (event === 'join') {
-        const { idLobby, namePlayerCurrent } = messageJson;
+        const { idLobby, name } = messageJson;
 
         // returns join attempt's result
         const statusJoin = joinLobby(idLobby, {
-          name: namePlayerCurrent,
+          name,
           ws: websocketConnection,
         });
 
@@ -87,15 +87,18 @@ const websockets = (expressServer) => {
       }
 
       // updateLobby request
-      // if (event === 'updateLobby') {
-      //   const { game } = messageJson;
-      //   const response = {
-      //     event: 'updateLobby',
-      //     game,
-      //   };
+      if (event === 'updateLobby') {
+        const { game } = messageJson;
+        const lobby = getLobby(game.idLobby);
 
-      //   websocketConnection.send(JSON.stringify(response));
-      // }
+        const response = {
+          event: 'updateLobby',
+          game,
+        };
+
+        lobby.owner.ws.send(JSON.stringify(response));
+        lobby.joiner.ws.send(JSON.stringify(response));
+      }
     });
   });
 

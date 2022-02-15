@@ -20,18 +20,16 @@ const useContextGame = () => {
 
 const valueDefault = {
   statusConnectionPlayer1: '',
-  namePlayer1: 'Anon',
+  namePlayer1: 'Empty...',
   scorePlayer1: 0,
   isReadyPlayer1: false,
   statusConnectionPlayer2: '',
   namePlayer2: 'Empty...',
   isReadyPlayer2: false,
   scorePlayer2: 0,
-  idLobby: 'null',
+  idLobby: null,
   statusGame: 'preLobby',
-  isOwnerLobby: false,
   statusJoin: null,
-  namePlayerCurrent: 'Anon',
 };
 
 export { ProviderGame, useContextGame };

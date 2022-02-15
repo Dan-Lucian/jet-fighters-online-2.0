@@ -10,6 +10,8 @@ import Loader from './components/Loader';
 import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
 import { ProviderGame } from './providers/ProviderGame';
+import { ProviderUser } from './providers/ProviderUser';
+
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
 
@@ -35,17 +37,19 @@ const App = () => {
   return (
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-      <ProviderSettings>
-        <ProviderGame>
-          <ProviderWebsocket>
-            <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-              <Suspense fallback={<Loader />}>
-                <Outlet />
-              </Suspense>
-            </ErrorBoundary>
-          </ProviderWebsocket>
-        </ProviderGame>
-      </ProviderSettings>
+      <ProviderUser>
+        <ProviderSettings>
+          <ProviderGame>
+            <ProviderWebsocket>
+              <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+                <Suspense fallback={<Loader />}>
+                  <Outlet />
+                </Suspense>
+              </ErrorBoundary>
+            </ProviderWebsocket>
+          </ProviderGame>
+        </ProviderSettings>
+      </ProviderUser>
     </WrapperApp>
   );
 };
