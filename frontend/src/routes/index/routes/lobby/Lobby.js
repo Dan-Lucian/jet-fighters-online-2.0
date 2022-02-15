@@ -13,21 +13,22 @@ import { useContextGame } from '../../../../providers/ProviderGame';
 import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
 
 const Lobby = () => {
-  const [
-    {
-      idLobby,
-      statusConnectionPlayer1,
-      namePlayer1,
-      scorePlayer1,
-      isReadyPlayer1,
-      statusConnectionPlayer2,
-      namePlayer2,
-      isReadyPlayer2,
-      scorePlayer2,
-      isOwnerLobby,
-    },
-    setGame,
-  ] = useContextGame();
+  const [game, setGame] = useContextGame();
+  console.log('Game: ', game);
+
+  const {
+    idLobby,
+    statusConnectionPlayer1,
+    namePlayer1,
+    scorePlayer1,
+    isReadyPlayer1,
+    statusConnectionPlayer2,
+    namePlayer2,
+    isReadyPlayer2,
+    scorePlayer2,
+    isOwnerLobby,
+    statusGame,
+  } = game;
 
   const propsTablePlayers = {
     statusConnectionPlayer1,
@@ -41,23 +42,47 @@ const Lobby = () => {
   };
 
   const { message, sendMessage } = useContextWebsocket();
+  const { event, success } = message;
 
   useEffect(() => {
-    if (message.event === 'changeReady') {
-      if (message.isOwnerLobby) {
-        setGame((prev) => ({ ...prev, isReadyPlayer1: !prev.isReadyPlayer1 }));
-        return;
-      }
-      setGame((prev) => ({ ...prev, isReadyPlayer2: !prev.isReadyPlayer2 }));
+    // if (event === 'updateLobby') {
+    //   setGame(message.game);
+    // }
+
+    if (event === 'join' && success && statusGame === 'lobby') {
+      setGame((prev) => ({
+        ...prev,
+        idLobby: message.idLobby,
+        namePlayer1: message.nameOwner,
+        namePlayer2: message.nameJoiner,
+        statusConnectionPlayer2: 'connected',
+      }));
     }
   }, [message]);
 
   const handleClickReady = () => {
-    sendMessage({ event: 'changeReady', isOwnerLobby });
+    if (isOwnerLobby) {
+      sendMessage({
+        event: 'updateLobby',
+        game: {
+          ...game,
+          isReadyPlayer1: !isReadyPlayer1,
+        },
+      });
+      return;
+    }
+
+    sendMessage({
+      event: 'updateLobby',
+      game: {
+        ...game,
+        isReadyPlayer2: !isReadyPlayer2,
+      },
+    });
   };
 
   const handleClickStart = () => {
-    sendMessage({ event: 'start', isOwnerLobby });
+    console.log('Start game');
   };
 
   return (

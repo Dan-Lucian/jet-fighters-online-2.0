@@ -1,5 +1,8 @@
 import { WebSocketServer } from 'ws';
-import queryString from 'query-string';
+// import queryString from 'query-string';
+
+// lobby
+import { createLobby, joinLobby, getLobby } from './lobby.js';
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -15,41 +18,84 @@ const websockets = (expressServer) => {
   });
 
   websocketServer.on('connection', (websocketConnection, connectionRequest) => {
-    const [_path, params] = connectionRequest?.url?.split('?') || [
-      'error',
-      null,
-    ];
-    const connectionParams = queryString.parse(params);
-
-    console.log(connectionParams);
-
-    // setInterval(() => {
-    //   websocketConnection.send('lol');
-    // }, 1000);
+    // const [_path, params] = connectionRequest?.url?.split('?') || [
+    //   'error',
+    //   null,
+    // ];
+    // const connectionParams = queryString.parse(params);
+    // console.log('params: ', connectionParams);
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
-      const { event } = messageJson;
       console.log(messageJson);
+      const { event } = messageJson;
 
-      // create
+      // create request
       if (event === 'create') {
-        const response = JSON.stringify({
-          event: 'createAllowed',
-          idLobby: 'x12354',
+        const { namePlayerCurrent } = messageJson;
+
+        // returns created lobby's ID
+        const idLobby = createLobby();
+
+        joinLobby(idLobby, {
+          name: namePlayerCurrent,
+          ws: websocketConnection,
         });
-        websocketConnection.send(response);
+
+        const response = {
+          event: 'create',
+          success: true,
+          idLobby,
+        };
+
+        websocketConnection.send(JSON.stringify(response));
+        // console.log('lobby: ', getLobby(idLobby));
       }
 
-      // changeReady
-      if (event === 'changeReady') {
-        const { isOwnerLobby } = messageJson;
-        const response = JSON.stringify({
-          event: 'changeReady',
-          isOwnerLobby,
+      // join request
+      if (event === 'join') {
+        const { idLobby, namePlayerCurrent } = messageJson;
+
+        // returns join attempt's result
+        const statusJoin = joinLobby(idLobby, {
+          name: namePlayerCurrent,
+          ws: websocketConnection,
         });
-        websocketConnection.send(response);
+
+        const response = {
+          event: 'join',
+          success: false,
+          idLobby,
+        };
+
+        if (statusJoin === 'notFound' || statusJoin === 'full') {
+          response.reason = statusJoin;
+        }
+
+        if (statusJoin === 'success') {
+          const lobby = getLobby(idLobby);
+          response.success = true;
+          response.nameOwner = lobby.owner.name;
+          response.nameJoiner = lobby.joiner.name;
+
+          // send message to owner that somebody joined the lobby
+          lobby.owner.ws.send(JSON.stringify(response));
+        }
+
+        websocketConnection.send(JSON.stringify(response));
+        // console.log('lobby: ', getLobby(idLobby));
       }
+
+      // updateLobby request
+      // if (event === 'updateLobby') {
+      //   const { game } = messageJson;
+      //   const response = {
+      //     event: 'updateLobby',
+      //     game,
+      //   };
+
+      //   websocketConnection.send(JSON.stringify(response));
+      // }
     });
   });
 

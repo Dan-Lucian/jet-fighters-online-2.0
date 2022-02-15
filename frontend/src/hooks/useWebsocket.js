@@ -22,8 +22,8 @@ const useWebsocket = (link) => {
 
     // message received
     ws.current.onmessage = (messageReceived) => {
-      console.log('message received');
       const messageJson = JSON.parse(messageReceived.data);
+      console.log('message received', messageJson);
       setMessage(messageJson);
     };
 

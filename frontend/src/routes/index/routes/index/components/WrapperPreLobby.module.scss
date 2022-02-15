@@ -2,8 +2,11 @@
   width: 41.5em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto 1.5em auto;
   grid-template-areas:
+    'statusCreate statusJoin'
     'btnCreate btnJoin'
+    '. .'
     'statusWs formId';
-  gap: 1.5em 2.5em;
+  gap: 0 2.5em;
 }

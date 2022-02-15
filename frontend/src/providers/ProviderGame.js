@@ -5,31 +5,33 @@ const ContextGame = createContext(null);
 ContextGame.displayName = 'ContextGame';
 
 const ProviderGame = (props) => {
-  const players = useState(valueDefault);
+  const game = useState(valueDefault);
 
-  return <ContextGame.Provider value={players} {...props} />;
+  return <ContextGame.Provider value={game} {...props} />;
 };
 
 const useContextGame = () => {
-  const players = useContext(ContextGame);
-  if (players === null)
+  const game = useContext(ContextGame);
+  if (game === null)
     throw new Error('useContextGame must be used within ProviderGame');
 
-  return players;
+  return game;
 };
 
 const valueDefault = {
-  statusConnectionPlayer1: 'connected',
+  statusConnectionPlayer1: '',
   namePlayer1: 'Anon',
   scorePlayer1: 0,
-  isReadyPlayer1: true,
+  isReadyPlayer1: false,
   statusConnectionPlayer2: '',
   namePlayer2: 'Empty...',
   isReadyPlayer2: false,
   scorePlayer2: 0,
   idLobby: 'null',
-  status: 'pre-lobby',
+  statusGame: 'preLobby',
   isOwnerLobby: false,
+  statusJoin: null,
+  namePlayerCurrent: 'Anon',
 };
 
 export { ProviderGame, useContextGame };

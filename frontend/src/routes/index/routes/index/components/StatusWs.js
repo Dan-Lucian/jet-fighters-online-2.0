@@ -1,4 +1,4 @@
-// shared components
+// shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
 // styles
