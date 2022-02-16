@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
-import { useContextSettings } from '../../../../providers/ProviderSettings';
 import { useContextGame } from '../../../../providers/ProviderGame';
 import { useContextUser } from '../../../../providers/ProviderUser';
 
@@ -17,10 +16,9 @@ import StatusWs from './components/StatusWs';
 import FormId from './components/FormId';
 
 const PreLobby = () => {
-  const { message, sendMessage } = useContextWebsocket();
-  const [user, setUser] = useContextUser();
+  const { message } = useContextWebsocket();
+  const [, setUser] = useContextUser();
   const [game, setGame] = useContextGame();
-  const [settings] = useContextSettings();
   const navigate = useNavigate();
 
   const { event, success, idLobby } = message;
@@ -61,28 +59,12 @@ const PreLobby = () => {
     }
   }, [message]);
 
-  const handleClickCreate = () => {
-    if (statusGame === 'preLobby') {
-      sendMessage({ name: user.name, event: 'create' });
-    } else {
-      console.log('lobby already created');
-    }
-  };
-
-  const handleClickJoin = () => {
-    sendMessage({
-      name: user.name,
-      idLobby: settings.idJoin,
-      event: 'join',
-    });
-  };
-
   return (
     <WrapperPreLobby>
       <StatusCreate />
       <StatusJoin />
-      <BtnCreate onClick={handleClickCreate} />
-      <BtnJoin onClick={handleClickJoin} />
+      <BtnCreate />
+      <BtnJoin />
       <StatusWs />
       <FormId />
     </WrapperPreLobby>

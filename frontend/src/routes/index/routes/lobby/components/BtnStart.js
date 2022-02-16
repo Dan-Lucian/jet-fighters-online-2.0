@@ -1,15 +1,25 @@
-import PropTypes from 'prop-types';
+// shared hooks
+import { useContextGame } from '../../../../../providers/ProviderGame';
 
 // styles
 import styles from './BtnStart.module.scss';
 
-const BtnStart = ({ onClick }) => (
-  <button onClick={onClick} className={styles.btn} type="button">
-    START
-  </button>
-);
-BtnStart.propTypes = {
-  onClick: PropTypes.func,
+const BtnStart = () => {
+  const [game] = useContextGame();
+
+  const { statusGame } = game;
+
+  const handleClick = () => {
+    if (statusGame === 'lobby') {
+      console.log('Start game');
+    }
+  };
+
+  return (
+    <button onClick={handleClick} className={styles.btn} type="button">
+      START
+    </button>
+  );
 };
 
 export default BtnStart;

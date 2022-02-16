@@ -11,12 +11,10 @@ import BtnStart from './components/BtnStart';
 // shared hooks
 import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
 import { useContextGame } from '../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../providers/ProviderUser';
 
 const Lobby = () => {
   const { message, sendMessage } = useContextWebsocket();
   const [game, setGame] = useContextGame();
-  const [user] = useContextUser();
   console.log('Game: ', game);
 
   const {
@@ -32,7 +30,6 @@ const Lobby = () => {
     statusGame,
   } = game;
   const { event, success } = message;
-  const { isOwnerLobby } = user;
 
   const propsTablePlayers = {
     statusConnectionPlayer1,
@@ -70,42 +67,13 @@ const Lobby = () => {
     }
   }, [message]);
 
-  const handleClickReady = () => {
-    if (statusGame === 'lobby') {
-      if (isOwnerLobby) {
-        sendMessage({
-          event: 'updateLobby',
-          game: {
-            ...game,
-            isReadyPlayer1: !isReadyPlayer1,
-          },
-        });
-        return;
-      }
-
-      sendMessage({
-        event: 'updateLobby',
-        game: {
-          ...game,
-          isReadyPlayer2: !isReadyPlayer2,
-        },
-      });
-    }
-  };
-
-  const handleClickStart = () => {
-    if (statusGame === 'lobby') {
-      console.log('Start game');
-    }
-  };
-
   return (
     <WrapperLobby>
       <IdLobby idLobby={idLobby} />
       <TablePlayers {...propsTablePlayers} />
       <StatusPlayer />
-      <BtnReady onClick={handleClickReady} />
-      <BtnStart onClick={handleClickStart} />
+      <BtnReady />
+      <BtnStart />
     </WrapperLobby>
   );
 };
