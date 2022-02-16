@@ -62,28 +62,32 @@ const Lobby = () => {
   }, [message]);
 
   const handleClickReady = () => {
-    if (isOwnerLobby) {
+    if (statusGame === 'lobby') {
+      if (isOwnerLobby) {
+        sendMessage({
+          event: 'updateLobby',
+          game: {
+            ...game,
+            isReadyPlayer1: !isReadyPlayer1,
+          },
+        });
+        return;
+      }
+
       sendMessage({
         event: 'updateLobby',
         game: {
           ...game,
-          isReadyPlayer1: !isReadyPlayer1,
+          isReadyPlayer2: !isReadyPlayer2,
         },
       });
-      return;
     }
-
-    sendMessage({
-      event: 'updateLobby',
-      game: {
-        ...game,
-        isReadyPlayer2: !isReadyPlayer2,
-      },
-    });
   };
 
   const handleClickStart = () => {
-    console.log('Start game');
+    if (statusGame === 'lobby') {
+      console.log('Start game');
+    }
   };
 
   return (
