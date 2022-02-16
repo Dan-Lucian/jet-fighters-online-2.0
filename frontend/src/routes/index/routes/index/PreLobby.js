@@ -62,7 +62,11 @@ const PreLobby = () => {
   }, [message]);
 
   const handleClickCreate = () => {
-    sendMessage({ name: user.name, event: 'create' });
+    if (statusGame === 'preLobby') {
+      sendMessage({ name: user.name, event: 'create' });
+    } else {
+      console.log('lobby already created');
+    }
   };
 
   const handleClickJoin = () => {
