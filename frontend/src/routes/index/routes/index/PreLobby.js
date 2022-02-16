@@ -45,6 +45,7 @@ const PreLobby = () => {
 
     // this event is receveied by the one who attempt to join lobby
     if (success && event === 'join' && statusGame === 'preLobby') {
+      console.log('lobby + prelobby event fired');
       const { nameOwner, nameJoiner } = message;
       setGame((prev) => ({
         ...prev,

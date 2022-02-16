@@ -95,6 +95,7 @@ const websockets = (expressServer) => {
 
       // updateLobby request
       if (event === 'updateLobby') {
+        console.log('update event:');
         const { game } = messageJson;
         const lobby = getLobby(game.idLobby);
 
@@ -114,12 +115,12 @@ const websockets = (expressServer) => {
         const { idLobby, isOwnerLobby } = messageJson;
         const lobby = getLobby(idLobby);
         const response = {
-          event: 'quitLobby',
+          event: isOwnerLobby ? 'destroyLobby' : 'quitLobby',
         };
 
         if (isOwnerLobby) {
-          response.event = 'destroyLobby';
-          lobby.joiner.ws.send(JSON.stringify(response));
+          // if lobby has no joiner then don't send msg
+          lobby.joiner?.ws.send(JSON.stringify(response));
           destroyLobby(idLobby);
           return;
         }

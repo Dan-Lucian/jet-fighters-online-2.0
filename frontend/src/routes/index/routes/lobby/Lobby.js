@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../providers/ProviderGame';
+import {
+  useContextGame,
+  valueDefaultProviderGame,
+} from '../../../../providers/ProviderGame';
 
 // local components
 import WrapperLobby from './components/WrapperLobby';
@@ -15,6 +19,7 @@ import BtnQuit from './components/BtnQuit';
 const Lobby = () => {
   const { message, sendMessage } = useContextWebsocket();
   const [game, setGame] = useContextGame();
+  const navigate = useNavigate();
 
   const { idLobby, statusGame } = game;
   const { event, success } = message;
@@ -22,6 +27,8 @@ const Lobby = () => {
   useEffect(() => {
     // this event is receveied by both players
     if (event === 'updateLobby') {
+      console.log('updateLobby');
+
       // this game object is relayed from the player who requested a change
       setGame(message.game);
     }
@@ -29,6 +36,7 @@ const Lobby = () => {
     // this event is receveied by the one who created the lobby
     // about someone joining the lobby
     if (success && event === 'join' && statusGame === 'lobby') {
+      console.log('join + lobby');
       setGame((prev) => {
         const gameNew = {
           ...prev,
@@ -45,6 +53,22 @@ const Lobby = () => {
 
         return gameNew;
       });
+    }
+
+    if (event === 'quitLobby' && statusGame === 'lobby') {
+      console.log('quitLobby');
+      setGame((prev) => ({
+        ...prev,
+        namePlayer2: 'Empty...',
+        statusConnectionPlayer2: 'notConnected',
+        isReadyPlayer2: false,
+      }));
+    }
+
+    if (event === 'destroyLobby' && statusGame === 'lobby') {
+      console.log('destroyLobby');
+      setGame({ ...valueDefaultProviderGame });
+      navigate('/');
     }
   }, [message]);
 

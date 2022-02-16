@@ -5,7 +5,7 @@ const ContextGame = createContext(null);
 ContextGame.displayName = 'ContextGame';
 
 const ProviderGame = (props) => {
-  const game = useState(valueDefault);
+  const game = useState(valueDefaultProviderGame);
 
   return <ContextGame.Provider value={game} {...props} />;
 };
@@ -18,7 +18,7 @@ const useContextGame = () => {
   return game;
 };
 
-const valueDefault = {
+const valueDefaultProviderGame = {
   statusConnectionPlayer1: '',
   namePlayer1: 'Empty...',
   scorePlayer1: 0,
@@ -32,4 +32,4 @@ const valueDefault = {
   statusJoin: null,
 };
 
-export { ProviderGame, useContextGame };
+export { ProviderGame, useContextGame, valueDefaultProviderGame };
