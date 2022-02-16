@@ -13,9 +13,9 @@ const createLobby = () => {
   } while (lobby);
 
   allLobbies.set(id, {
-    ws1: null,
-    ws2: null,
-    settingsGame: null,
+    owner: null,
+    joiner: null,
+    settings: null,
   });
 
   return id;
@@ -36,6 +36,7 @@ const joinLobby = (id, player) => {
         name,
         ws,
       },
+      settings: null,
     });
 
     return 'success';
@@ -47,9 +48,25 @@ const joinLobby = (id, player) => {
       ws,
     },
     joiner: null,
+    settings: null,
   });
 
   return 'success';
+};
+
+const removeJoinerFromLobby = (id) => {
+  const lobby = allLobbies.get(id);
+  if (!lobby) {
+    console.log(`No lobby found when quiting, lobby ID: ${id}`);
+    return;
+  }
+
+  lobby.joiner = null;
+  lobby.settings = null;
+};
+
+const destroyLobby = (id) => {
+  allLobbies.delete(id);
 };
 
 const getLobby = (id) => {
@@ -58,4 +75,10 @@ const getLobby = (id) => {
   return lobby;
 };
 
-export { createLobby, joinLobby, getLobby };
+export {
+  createLobby,
+  joinLobby,
+  removeJoinerFromLobby,
+  destroyLobby,
+  getLobby,
+};

@@ -2,7 +2,13 @@ import { WebSocketServer } from 'ws';
 // import queryString from 'query-string';
 
 // lobby
-import { createLobby, joinLobby, getLobby } from './lobby.js';
+import {
+  createLobby,
+  joinLobby,
+  removeJoinerFromLobby,
+  destroyLobby,
+  getLobby,
+} from './lobby.js';
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -101,6 +107,25 @@ const websockets = (expressServer) => {
         if (lobby.joiner) {
           lobby.joiner.ws.send(JSON.stringify(response));
         }
+      }
+
+      // quitLobby event
+      if (event === 'quitLobby') {
+        const { idLobby, isOwnerLobby } = messageJson;
+        const lobby = getLobby(idLobby);
+        const response = {
+          event: 'quitLobby',
+        };
+
+        if (isOwnerLobby) {
+          response.event = 'destroyLobby';
+          lobby.joiner.ws.send(JSON.stringify(response));
+          destroyLobby(idLobby);
+          return;
+        }
+
+        removeJoinerFromLobby(idLobby);
+        lobby.owner.ws.send(JSON.stringify(response));
       }
     });
   });
