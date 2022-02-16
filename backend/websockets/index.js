@@ -46,6 +46,7 @@ const websockets = (expressServer) => {
           event: 'create',
           success: true,
           idLobby,
+          name,
         };
 
         websocketConnection.send(JSON.stringify(response));

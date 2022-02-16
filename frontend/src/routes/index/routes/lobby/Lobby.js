@@ -51,16 +51,21 @@ const Lobby = () => {
     }
 
     if (event === 'join' && success && statusGame === 'lobby') {
-      setGame((prev) => ({
-        ...prev,
-        idLobby: message.idLobby,
-        namePlayer1: message.nameOwner,
-        namePlayer2: message.nameJoiner,
-        statusConnectionPlayer2: 'connected',
-      }));
-      sendMessage({
-        event: 'updateLobby',
-        game,
+      setGame((prev) => {
+        const gameNew = {
+          ...prev,
+          idLobby: message.idLobby,
+          namePlayer1: message.nameOwner,
+          namePlayer2: message.nameJoiner,
+          statusConnectionPlayer2: 'connected',
+        };
+
+        sendMessage({
+          event: 'updateLobby',
+          game: gameNew,
+        });
+
+        return gameNew;
       });
     }
   }, [message]);

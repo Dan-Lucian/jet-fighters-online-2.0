@@ -32,6 +32,7 @@ const PreLobby = () => {
         ...prev,
         idLobby,
         statusGame: 'lobby',
+        namePlayer1: message.name,
         statusConnectionPlayer1: 'connected',
       }));
       setUser((prev) => ({
