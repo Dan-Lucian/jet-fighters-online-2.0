@@ -1,5 +1,9 @@
 import { useEffect } from 'react';
 
+// shared hooks
+import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
+import { useContextGame } from '../../../../providers/ProviderGame';
+
 // local components
 import WrapperLobby from './components/WrapperLobby';
 import IdLobby from './components/IdLobby';
@@ -8,46 +12,23 @@ import StatusPlayer from './components/StatusPlayer';
 import BtnReady from './components/BtnReady';
 import BtnStart from './components/BtnStart';
 
-// shared hooks
-import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../providers/ProviderGame';
-
 const Lobby = () => {
   const { message, sendMessage } = useContextWebsocket();
   const [game, setGame] = useContextGame();
-  console.log('Game: ', game);
 
-  const {
-    idLobby,
-    statusConnectionPlayer1,
-    namePlayer1,
-    scorePlayer1,
-    isReadyPlayer1,
-    statusConnectionPlayer2,
-    namePlayer2,
-    isReadyPlayer2,
-    scorePlayer2,
-    statusGame,
-  } = game;
+  const { idLobby, statusGame } = game;
   const { event, success } = message;
 
-  const propsTablePlayers = {
-    statusConnectionPlayer1,
-    namePlayer1,
-    scorePlayer1,
-    isReadyPlayer1,
-    statusConnectionPlayer2,
-    namePlayer2,
-    isReadyPlayer2,
-    scorePlayer2,
-  };
-
   useEffect(() => {
+    // this event is receveied by both players
     if (event === 'updateLobby') {
+      // this game object is relayed from the player who requested a change
       setGame(message.game);
     }
 
-    if (event === 'join' && success && statusGame === 'lobby') {
+    // this event is receveied by the one who created the lobby
+    // about someone joining the lobby
+    if (success && event === 'join' && statusGame === 'lobby') {
       setGame((prev) => {
         const gameNew = {
           ...prev,
@@ -70,7 +51,7 @@ const Lobby = () => {
   return (
     <WrapperLobby>
       <IdLobby idLobby={idLobby} />
-      <TablePlayers {...propsTablePlayers} />
+      <TablePlayers />
       <StatusPlayer />
       <BtnReady />
       <BtnStart />

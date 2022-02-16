@@ -25,12 +25,15 @@ const PreLobby = () => {
   const { statusGame } = game;
 
   useEffect(() => {
-    if (event === 'create' && success && statusGame === 'preLobby') {
+    const { name } = message;
+
+    // this event is receveied by the one who attempt to create lobby
+    if (success && event === 'create' && statusGame === 'preLobby') {
       setGame((prev) => ({
         ...prev,
         idLobby,
         statusGame: 'lobby',
-        namePlayer1: message.name,
+        namePlayer1: name,
         statusConnectionPlayer1: 'connected',
       }));
       setUser((prev) => ({
@@ -40,7 +43,8 @@ const PreLobby = () => {
       navigate('/lobby');
     }
 
-    if (event === 'join' && success && statusGame === 'preLobby') {
+    // this event is receveied by the one who attempt to join lobby
+    if (success && event === 'join' && statusGame === 'preLobby') {
       const { nameOwner, nameJoiner } = message;
       setGame((prev) => ({
         ...prev,
