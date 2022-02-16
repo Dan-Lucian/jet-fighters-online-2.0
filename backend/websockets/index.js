@@ -70,14 +70,11 @@ const websockets = (expressServer) => {
         });
 
         const response = {
-          event: 'join',
+          event: 'joinResponse',
           success: false,
           idLobby,
+          reason: statusJoin,
         };
-
-        if (statusJoin === 'notFound' || statusJoin === 'full') {
-          response.reason = statusJoin;
-        }
 
         if (statusJoin === 'success') {
           const lobby = getLobby(idLobby);
@@ -85,8 +82,10 @@ const websockets = (expressServer) => {
           response.nameOwner = lobby.owner.name;
           response.nameJoiner = lobby.joiner.name;
 
+          const responseToOwner = { ...response, event: 'join' };
+
           // send message to owner that somebody joined the lobby
-          lobby.owner.ws.send(JSON.stringify(response));
+          lobby.owner.ws.send(JSON.stringify(responseToOwner));
         }
 
         websocketConnection.send(JSON.stringify(response));

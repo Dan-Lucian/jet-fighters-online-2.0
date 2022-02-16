@@ -30,7 +30,6 @@ const BtnQuit = () => {
         });
 
         setGame({ ...valueDefaultProviderGame });
-        console.log('value default', { ...valueDefaultProviderGame });
         navigate('/');
       };
 

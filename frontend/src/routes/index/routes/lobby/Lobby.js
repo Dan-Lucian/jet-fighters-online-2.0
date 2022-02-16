@@ -22,7 +22,7 @@ const Lobby = () => {
   const navigate = useNavigate();
 
   const { idLobby, statusGame } = game;
-  const { event, success } = message;
+  const { event, success, toOwner } = message;
 
   useEffect(() => {
     // this event is receveied by both players
@@ -36,7 +36,7 @@ const Lobby = () => {
     // this event is receveied by the one who created the lobby
     // about someone joining the lobby
     if (success && event === 'join' && statusGame === 'lobby') {
-      console.log('EVENT: join + lobby');
+      console.log('EVENT: join');
       setGame((prev) => {
         const gameNew = {
           ...prev,

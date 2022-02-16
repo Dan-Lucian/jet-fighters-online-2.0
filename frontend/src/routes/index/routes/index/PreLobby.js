@@ -21,7 +21,7 @@ const PreLobby = () => {
   const [game, setGame] = useContextGame();
   const navigate = useNavigate();
 
-  const { event, success, idLobby } = message;
+  const { event, success, idLobby, toOwner } = message;
   const { statusGame } = game;
 
   useEffect(() => {
@@ -45,8 +45,8 @@ const PreLobby = () => {
     }
 
     // this event is receveied by the one who attempt to join lobby
-    if (success && event === 'join' && statusGame === 'preLobby') {
-      console.log('EVENT: lobby + prelobby');
+    if (success && event === 'joinResponse' && statusGame === 'preLobby') {
+      console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
       setGame((prev) => ({
         ...prev,
