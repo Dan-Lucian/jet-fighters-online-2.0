@@ -8,9 +8,9 @@ import { useContextGame } from '../../../../providers/ProviderGame';
 import WrapperLobby from './components/WrapperLobby';
 import IdLobby from './components/IdLobby';
 import TablePlayers from './components/TablePlayers';
-import StatusPlayer from './components/StatusPlayer';
 import BtnReady from './components/BtnReady';
 import BtnStart from './components/BtnStart';
+import BtnQuit from './components/BtnQuit';
 
 const Lobby = () => {
   const { message, sendMessage } = useContextWebsocket();
@@ -52,7 +52,7 @@ const Lobby = () => {
     <WrapperLobby>
       <IdLobby idLobby={idLobby} />
       <TablePlayers />
-      <StatusPlayer />
+      <BtnQuit />
       <BtnReady />
       <BtnStart />
     </WrapperLobby>

@@ -7,7 +7,7 @@
   grid-template-rows: repeat(3, auto);
   gap: 1em 3em;
   grid-template-areas:
-    'id id statusPlayer statusPlayer'
+    'id id btnQuit btnQuit'
     'tablePlayers tablePlayers btnReady btnReady'
     'tablePlayers tablePlayers btnStart btnStart';
 }
