@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 const useWebsocket = (link) => {
   const ws = useRef();
   const [readyState, setReadyState] = useState('CONNECTING');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({});
 
   useEffect(() => {
     ws.current = new WebSocket(link);
@@ -36,7 +36,9 @@ const useWebsocket = (link) => {
     ws.current.send(JSON.stringify(obj));
   }, []);
 
-  return { readyState, message, sendMessage };
+  const resetMessage = useCallback(() => setMessage({}));
+
+  return { readyState, message, sendMessage, resetMessage };
 };
 
 export { useWebsocket };

@@ -17,12 +17,12 @@ import BtnStart from './components/BtnStart';
 import BtnQuit from './components/BtnQuit';
 
 const Lobby = () => {
-  const { message, sendMessage } = useContextWebsocket();
+  const { message, sendMessage, resetMessage } = useContextWebsocket();
   const [game, setGame] = useContextGame();
   const navigate = useNavigate();
 
   const { idLobby, statusGame } = game;
-  const { event, success, toOwner } = message;
+  const { event, success } = message;
 
   useEffect(() => {
     // this event is receveied by both players
@@ -31,6 +31,7 @@ const Lobby = () => {
 
       // this game object is relayed from the player who requested a change
       setGame(message.game);
+      resetMessage();
     }
 
     // this event is receveied by the one who created the lobby
@@ -53,6 +54,7 @@ const Lobby = () => {
 
         return gameNew;
       });
+      resetMessage();
     }
 
     if (event === 'quitLobby' && statusGame === 'lobby') {
@@ -63,11 +65,13 @@ const Lobby = () => {
         statusConnectionPlayer2: 'notConnected',
         isReadyPlayer2: false,
       }));
+      resetMessage();
     }
 
     if (event === 'destroyLobby' && statusGame === 'lobby') {
       console.log('EVENT: destroyLobby');
       setGame({ ...valueDefaultProviderGame });
+      resetMessage();
       navigate('/');
     }
   }, [message]);

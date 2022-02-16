@@ -16,12 +16,12 @@ import StatusWs from './components/StatusWs';
 import FormId from './components/FormId';
 
 const PreLobby = () => {
-  const { message } = useContextWebsocket();
+  const { message, resetMessage } = useContextWebsocket();
   const [, setUser] = useContextUser();
   const [game, setGame] = useContextGame();
   const navigate = useNavigate();
 
-  const { event, success, idLobby, toOwner } = message;
+  const { event, success, idLobby } = message;
   const { statusGame } = game;
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const PreLobby = () => {
         ...prev,
         isOwnerLobby: true,
       }));
+      resetMessage();
       navigate('/lobby');
     }
 
@@ -61,6 +62,7 @@ const PreLobby = () => {
         ...prev,
         isOwnerLobby: false,
       }));
+      resetMessage();
       navigate('/lobby');
     }
   }, [message]);
