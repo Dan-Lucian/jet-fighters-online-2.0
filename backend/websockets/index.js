@@ -97,7 +97,9 @@ const websockets = (expressServer) => {
         };
 
         lobby.owner.ws.send(JSON.stringify(response));
-        lobby.joiner.ws.send(JSON.stringify(response));
+        if (lobby.joiner) {
+          lobby.joiner.ws.send(JSON.stringify(response));
+        }
       }
     });
   });

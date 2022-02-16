@@ -58,6 +58,10 @@ const Lobby = () => {
         namePlayer2: message.nameJoiner,
         statusConnectionPlayer2: 'connected',
       }));
+      sendMessage({
+        event: 'updateLobby',
+        game,
+      });
     }
   }, [message]);
 
