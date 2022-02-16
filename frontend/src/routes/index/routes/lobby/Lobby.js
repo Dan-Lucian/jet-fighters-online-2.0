@@ -26,8 +26,8 @@ const Lobby = () => {
 
   useEffect(() => {
     // this event is receveied by both players
-    if (event === 'updateLobby') {
-      console.log('updateLobby');
+    if (event === 'updateLobby' && statusGame === 'lobby') {
+      console.log('EVENT: updateLobby');
 
       // this game object is relayed from the player who requested a change
       setGame(message.game);
@@ -36,7 +36,7 @@ const Lobby = () => {
     // this event is receveied by the one who created the lobby
     // about someone joining the lobby
     if (success && event === 'join' && statusGame === 'lobby') {
-      console.log('join + lobby');
+      console.log('EVENT: join + lobby');
       setGame((prev) => {
         const gameNew = {
           ...prev,
@@ -56,7 +56,7 @@ const Lobby = () => {
     }
 
     if (event === 'quitLobby' && statusGame === 'lobby') {
-      console.log('quitLobby');
+      console.log('EVENT: quitLobby');
       setGame((prev) => ({
         ...prev,
         namePlayer2: 'Empty...',
@@ -66,7 +66,7 @@ const Lobby = () => {
     }
 
     if (event === 'destroyLobby' && statusGame === 'lobby') {
-      console.log('destroyLobby');
+      console.log('EVENT: destroyLobby');
       setGame({ ...valueDefaultProviderGame });
       navigate('/');
     }
