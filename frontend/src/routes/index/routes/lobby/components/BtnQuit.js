@@ -20,22 +20,28 @@ const BtnQuit = () => {
   const { statusGame, idLobby } = game;
   const { isOwnerLobby } = user;
 
-  const handleClick = () => {
-    if (statusGame === 'lobby') {
-      sendMessage({
-        event: 'quitLobby',
-        idLobby,
-        isOwnerLobby,
-      });
+  const getHandlerClick = () => {
+    if (statusGame === 'lobby')
+      return () => {
+        sendMessage({
+          event: 'quitLobby',
+          idLobby,
+          isOwnerLobby,
+        });
 
-      setGame({ ...valueDefaultProviderGame });
-      console.log('value default', { ...valueDefaultProviderGame });
-      navigate('/');
-    }
+        setGame({ ...valueDefaultProviderGame });
+        console.log('value default', { ...valueDefaultProviderGame });
+        navigate('/');
+      };
+
+    return () =>
+      console.log(
+        `quit denial because needed statusGame: lobby but currently statusGame: ${statusGame}`
+      );
   };
 
   return (
-    <button onClick={handleClick} className={styles.btn} type="button">
+    <button onClick={getHandlerClick()} className={styles.btn} type="button">
       Quit lobby
     </button>
   );

@@ -9,14 +9,19 @@ const BtnStart = () => {
 
   const { statusGame } = game;
 
-  const handleClick = () => {
+  const getHandlerClick = () => {
     if (statusGame === 'lobby') {
-      console.log('Start game');
+      return () => console.log('Start game');
     }
+
+    return () =>
+      console.log(
+        `updateLobby denial because needed statusGame: lobby but currently statusGame: ${statusGame}`
+      );
   };
 
   return (
-    <button onClick={handleClick} className={styles.btn} type="button">
+    <button onClick={getHandlerClick()} className={styles.btn} type="button">
       START
     </button>
   );
