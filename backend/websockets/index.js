@@ -55,6 +55,7 @@ const websockets = (expressServer) => {
           name,
         };
 
+        websocketConnection.idLobby = idLobby;
         websocketConnection.send(JSON.stringify(response));
         // console.log('lobby: ', getLobby(idLobby));
       }
@@ -86,6 +87,7 @@ const websockets = (expressServer) => {
 
           // send message to owner that somebody joined the lobby
           lobby.owner.ws.send(JSON.stringify(responseToOwner));
+          websocketConnection.idLobby = idLobby;
         }
 
         websocketConnection.send(JSON.stringify(response));
@@ -118,15 +120,48 @@ const websockets = (expressServer) => {
         };
 
         if (isOwnerLobby) {
-          // if lobby has no joiner then don't send msg
-          lobby.joiner?.ws.send(JSON.stringify(response));
+          // if lobby has a joiner then send msg to him as well
+          if (lobby.joiner) {
+            lobby.joiner.ws.send(JSON.stringify(response));
+            lobby.joiner.idLobby = null;
+          }
+
+          websocketConnection.idLobby = null;
           destroyLobby(idLobby);
           return;
         }
 
+        websocketConnection.idLobby = null;
         removeJoinerFromLobby(idLobby);
         lobby.owner.ws.send(JSON.stringify(response));
       }
+    });
+
+    websocketConnection.on('close', () => {
+      const { idLobby } = websocketConnection;
+      if (!idLobby) return;
+
+      const lobby = getLobby(idLobby);
+      if (!lobby) return;
+      const isOwnerLobby = websocketConnection === lobby.owner.ws;
+
+      const response = {
+        event: isOwnerLobby ? 'destroyLobby' : 'quitLobby',
+      };
+
+      if (isOwnerLobby) {
+        // if lobby has a joiner then send msg to him as well
+        if (lobby.joiner) {
+          lobby.joiner.ws.send(JSON.stringify(response));
+          lobby.joiner.idLobby = null;
+        }
+        destroyLobby(idLobby);
+        return;
+      }
+
+      websocketConnection.idLobby = null;
+      removeJoinerFromLobby(idLobby);
+      lobby.owner.ws.send(JSON.stringify(response));
     });
   });
 
