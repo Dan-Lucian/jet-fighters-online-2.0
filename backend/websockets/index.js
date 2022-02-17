@@ -33,7 +33,7 @@ const websockets = (expressServer) => {
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
-      console.log(messageJson);
+      console.log('Received:', messageJson);
       const { event } = messageJson;
 
       // create request
@@ -57,7 +57,7 @@ const websockets = (expressServer) => {
 
         websocketConnection.idLobby = idLobby;
         websocketConnection.send(JSON.stringify(response));
-        // console.log('lobby: ', getLobby(idLobby));
+        return;
       }
 
       // join request
@@ -91,12 +91,11 @@ const websockets = (expressServer) => {
         }
 
         websocketConnection.send(JSON.stringify(response));
-        // console.log('lobby: ', getLobby(idLobby));
+        return;
       }
 
       // updateLobby request
       if (event === 'updateLobby') {
-        console.log('update event:');
         const { game } = messageJson;
         const lobby = getLobby(game.idLobby);
 
@@ -109,6 +108,7 @@ const websockets = (expressServer) => {
         if (lobby.joiner) {
           lobby.joiner.ws.send(JSON.stringify(response));
         }
+        return;
       }
 
       // quitLobby event

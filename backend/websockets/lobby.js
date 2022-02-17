@@ -9,7 +9,6 @@ const createLobby = () => {
   do {
     id = `r${createId(6)}`;
     lobby = allLobbies.get(id);
-    console.log(Boolean(lobby));
   } while (lobby);
 
   allLobbies.set(id, {
