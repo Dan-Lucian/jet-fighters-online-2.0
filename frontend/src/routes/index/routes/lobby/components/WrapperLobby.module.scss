@@ -3,11 +3,11 @@
   padding: 1.5em 3em;
   background: var(--color-bg-primary);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, auto);
   gap: 1em 3em;
   grid-template-areas:
-    'id id btnQuit btnQuit'
-    'tablePlayers tablePlayers btnReady btnReady'
-    'tablePlayers tablePlayers btnStart btnStart';
+    'id id btnQuit'
+    'tablePlayers tablePlayers btnReady'
+    'tablePlayers tablePlayers btnStart';
 }
