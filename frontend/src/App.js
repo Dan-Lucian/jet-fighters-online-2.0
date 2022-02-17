@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useLayoutEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // shared components
@@ -20,6 +20,11 @@ import './styles/index.scss';
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
+
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-color-scheme', theme);
+  });
 
   const getTogglerTheme = () => {
     switch (theme) {
