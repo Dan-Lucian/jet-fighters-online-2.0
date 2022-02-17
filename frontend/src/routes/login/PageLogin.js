@@ -1,8 +1,2 @@
-import WrapperPage from './components/WrapperPage';
-
-const PageLogin = () => (
-  <WrapperPage>
-    <div>PageLogin</div>
-  </WrapperPage>
-);
+const PageLogin = () => <div>PageLogin</div>;
 export default PageLogin;

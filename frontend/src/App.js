@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 // shared components
 import WrapperApp from './components/WrapperApp';
+import WrapperPage from './components/WrapperPage';
 import Nav from './components/Nav';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorRouteFallback from './components/ErrorRouteFallback';
@@ -42,19 +43,21 @@ const App = () => {
   return (
     <WrapperApp theme={theme}>
       <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-      <ProviderUser>
-        <ProviderSettings>
-          <ProviderGame>
-            <ProviderWebsocket>
-              <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-                <Suspense fallback={<Loader />}>
-                  <Outlet />
-                </Suspense>
-              </ErrorBoundary>
-            </ProviderWebsocket>
-          </ProviderGame>
-        </ProviderSettings>
-      </ProviderUser>
+      <WrapperPage>
+        <ProviderUser>
+          <ProviderSettings>
+            <ProviderGame>
+              <ProviderWebsocket>
+                <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+                  <Suspense fallback={<Loader />}>
+                    <Outlet />
+                  </Suspense>
+                </ErrorBoundary>
+              </ProviderWebsocket>
+            </ProviderGame>
+          </ProviderSettings>
+        </ProviderUser>
+      </WrapperPage>
     </WrapperApp>
   );
 };

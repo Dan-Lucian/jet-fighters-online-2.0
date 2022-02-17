@@ -1,10 +1,5 @@
-import WrapperPage from './components/WrapperPage';
 import Menu from './components/Menu';
 
-const PageIndex = () => (
-  <WrapperPage>
-    <Menu />
-  </WrapperPage>
-);
+const PageIndex = () => <Menu />;
 
 export default PageIndex;
