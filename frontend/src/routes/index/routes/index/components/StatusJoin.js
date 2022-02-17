@@ -8,9 +8,9 @@ const StatusJoin = () => {
   const { message } = useContextWebsocket();
   const { event, success, reason } = message;
 
-  let text = 'No lobby joined';
+  let text = '';
 
-  if (event === 'join' && !success) {
+  if (event === 'joinResponse' && !success) {
     switch (reason) {
       case 'notFound':
         text = `Lobby not found`;
