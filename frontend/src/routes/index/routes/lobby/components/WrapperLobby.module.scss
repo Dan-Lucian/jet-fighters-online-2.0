@@ -1,6 +1,7 @@
 .wrapper {
   width: 41.5em;
   padding: 1.5em 3em;
+  border-radius: 5px;
   background: var(--color-bg-primary);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
