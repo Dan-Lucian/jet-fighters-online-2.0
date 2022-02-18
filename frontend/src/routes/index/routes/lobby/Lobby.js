@@ -107,6 +107,42 @@ const Lobby = () => {
     }
   }, [message]);
 
+  useEffect(() => {
+    if (isOwnerLobby && statusGame === 'lobby')
+      return () => {
+        setGame((prev) => {
+          const gameNew = {
+            ...prev,
+            isReadyPlayer1: false,
+          };
+          sendMessage({
+            event: 'updateLobby',
+            game: {
+              ...gameNew,
+            },
+          });
+          return gameNew;
+        });
+      };
+
+    if (statusGame === 'lobby')
+      return () => {
+        setGame((prev) => {
+          const gameNew = {
+            ...prev,
+            isReadyPlayer2: false,
+          };
+          sendMessage({
+            event: 'updateLobby',
+            game: {
+              ...gameNew,
+            },
+          });
+          return gameNew;
+        });
+      };
+  }, [isOwnerLobby, sendMessage, setGame, statusGame]);
+
   return (
     <WrapperLobby>
       <IdLobby idLobby={idLobby} />

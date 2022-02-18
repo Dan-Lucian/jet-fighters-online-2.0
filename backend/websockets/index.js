@@ -98,6 +98,10 @@ const websockets = (expressServer) => {
       if (event === 'updateLobby') {
         const { game } = messageJson;
         const lobby = getLobby(game.idLobby);
+        if (!lobby) {
+          console.log('no loby at EVENT: update');
+          return;
+        }
 
         const response = {
           event: 'updateLobby',
