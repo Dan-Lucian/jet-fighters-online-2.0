@@ -3,7 +3,7 @@ import { useContextGame } from '../../../../providers/ProviderGame';
 
 // local hooks
 import { useLobbyWsEvents } from './hooks/useLobbyWsEvents';
-import { useUnmountWsMessage } from './hooks/useMessageUnmount';
+import { useUnmountWsMessage } from './hooks/useUnmountWsMessage';
 
 // local components
 import WrapperLobby from './components/WrapperLobby';
