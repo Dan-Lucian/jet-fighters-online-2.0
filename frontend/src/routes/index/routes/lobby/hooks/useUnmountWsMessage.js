@@ -2,51 +2,51 @@ import { useEffect } from 'react';
 
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 
 const useUnmountWsMessage = () => {
   const { sendMessage } = useContextWebsocket();
-  const [game, setGame] = useContextGame();
+  const [lobby, setLobby] = useContextLobby();
   const [user] = useContextUser();
 
-  const { statusGame } = game;
+  const { statusGame } = lobby;
   const { isOwnerLobby } = user;
 
   useEffect(() => {
     if (isOwnerLobby && statusGame === 'lobby')
       return () => {
-        setGame((prev) => {
-          const gameNew = {
+        setLobby((prev) => {
+          const lobbyNew = {
             ...prev,
             isReadyPlayer1: false,
           };
           sendMessage({
             event: 'updateLobby',
-            game: {
-              ...gameNew,
+            lobby: {
+              ...lobbyNew,
             },
           });
-          return gameNew;
+          return lobbyNew;
         });
       };
 
     if (statusGame === 'lobby')
       return () => {
-        setGame((prev) => {
-          const gameNew = {
+        setLobby((prev) => {
+          const lobbyNew = {
             ...prev,
             isReadyPlayer2: false,
           };
           sendMessage({
             event: 'updateLobby',
-            game: {
-              ...gameNew,
+            lobby: {
+              ...lobbyNew,
             },
           });
-          return gameNew;
+          return lobbyNew;
         });
       };
-  }, [isOwnerLobby, sendMessage, setGame, statusGame]);
+  }, [isOwnerLobby, sendMessage, setLobby, statusGame]);
 };
 export { useUnmountWsMessage };

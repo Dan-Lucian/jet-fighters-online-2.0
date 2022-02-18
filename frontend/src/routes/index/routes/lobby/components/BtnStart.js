@@ -1,6 +1,6 @@
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
 
@@ -9,11 +9,11 @@ import styles from './BtnStart.module.scss';
 
 const BtnStart = () => {
   const { sendMessage } = useContextWebsocket();
-  const [game] = useContextGame();
+  const [lobby] = useContextLobby();
   const [user] = useContextUser();
   const [settings] = useContextSettings();
 
-  const { statusGame, idLobby, isReadyPlayer1, isReadyPlayer2 } = game;
+  const { statusGame, idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
   const { isOwnerLobby } = user;
 
   const getHandlerClick = () => {

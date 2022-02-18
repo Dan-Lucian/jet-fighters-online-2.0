@@ -1,5 +1,5 @@
 // shared hooks
-import { useContextGame } from '../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../providers/ProviderLobby';
 
 // local hooks
 import { useLobbyWsEvents } from './hooks/useLobbyWsEvents';
@@ -16,9 +16,9 @@ import BtnQuit from './components/BtnQuit';
 const Lobby = () => {
   useLobbyWsEvents();
   useUnmountWsMessage();
-  const [game] = useContextGame();
+  const [lobby] = useContextLobby();
 
-  const { idLobby } = game;
+  const { idLobby } = lobby;
 
   return (
     <WrapperLobby>

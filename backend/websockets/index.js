@@ -96,8 +96,8 @@ const websockets = (expressServer) => {
 
       // updateLobby request
       if (event === 'updateLobby') {
-        const { game } = messageJson;
-        const lobby = getLobby(game.idLobby);
+        const { lobby: lobbyReceived } = messageJson;
+        const lobby = getLobby(lobbyReceived.idLobby);
         if (!lobby) {
           console.log('no loby at EVENT: update');
           return;
@@ -105,7 +105,7 @@ const websockets = (expressServer) => {
 
         const response = {
           event: 'updateLobby',
-          game,
+          lobby: lobbyReceived,
         };
 
         lobby.owner.ws.send(JSON.stringify(response));

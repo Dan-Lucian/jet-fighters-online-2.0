@@ -1,6 +1,6 @@
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 
 // styles
@@ -8,10 +8,10 @@ import styles from './BtnReady.module.scss';
 
 const BtnReady = () => {
   const { sendMessage } = useContextWebsocket();
-  const [game] = useContextGame();
+  const [lobby] = useContextLobby();
   const [user] = useContextUser();
 
-  const { statusGame, isReadyPlayer1, isReadyPlayer2 } = game;
+  const { statusGame, isReadyPlayer1, isReadyPlayer2 } = lobby;
   const { isOwnerLobby } = user;
 
   const getHandlerClick = () => {
@@ -19,8 +19,8 @@ const BtnReady = () => {
       return () => {
         sendMessage({
           event: 'updateLobby',
-          game: {
-            ...game,
+          lobby: {
+            ...lobby,
             isReadyPlayer1: !isReadyPlayer1,
           },
         });
@@ -30,8 +30,8 @@ const BtnReady = () => {
       return () =>
         sendMessage({
           event: 'updateLobby',
-          game: {
-            ...game,
+          lobby: {
+            ...lobby,
             isReadyPlayer2: !isReadyPlayer2,
           },
         });

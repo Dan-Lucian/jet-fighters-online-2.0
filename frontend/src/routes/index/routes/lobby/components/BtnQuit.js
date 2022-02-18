@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 import {
-  useContextGame,
-  valueDefaultProviderGame,
-} from '../../../../../providers/ProviderGame';
+  useContextLobby,
+  valueDefaultProviderLobby,
+} from '../../../../../providers/ProviderLobby';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 
 // styles
@@ -13,11 +13,11 @@ import styles from './BtnQuit.module.scss';
 
 const BtnQuit = () => {
   const { sendMessage } = useContextWebsocket();
-  const [game, setGame] = useContextGame();
+  const [lobby, setLobby] = useContextLobby();
   const [user] = useContextUser();
   const navigate = useNavigate();
 
-  const { statusGame, idLobby } = game;
+  const { statusGame, idLobby } = lobby;
   const { isOwnerLobby } = user;
 
   const getHandlerClick = () => {
@@ -29,7 +29,7 @@ const BtnQuit = () => {
           isOwnerLobby,
         });
 
-        setGame({ ...valueDefaultProviderGame });
+        setLobby({ ...valueDefaultProviderLobby });
         navigate('/');
       };
 

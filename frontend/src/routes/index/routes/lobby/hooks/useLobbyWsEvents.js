@@ -4,21 +4,21 @@ import { useNavigate } from 'react-router-dom';
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 import {
-  useContextGame,
-  valueDefaultProviderGame,
-} from '../../../../../providers/ProviderGame';
+  useContextLobby,
+  valueDefaultProviderLobby,
+} from '../../../../../providers/ProviderLobby';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 
 const useLobbyWsEvents = () => {
   const { message, sendMessage, resetMessage } = useContextWebsocket();
-  const [game, setGame] = useContextGame();
+  const [lobby, setLobby] = useContextLobby();
   const [settings] = useContextSettings();
   const [user] = useContextUser();
   const navigate = useNavigate();
 
   const { event, success } = message;
-  const { idLobby, statusGame, isReadyPlayer1, isReadyPlayer2 } = game;
+  const { idLobby, statusGame, isReadyPlayer1, isReadyPlayer2 } = lobby;
   const { isOwnerLobby } = user;
 
   useEffect(() => {
@@ -26,8 +26,8 @@ const useLobbyWsEvents = () => {
     if (event === 'updateLobby' && statusGame === 'lobby') {
       console.log('EVENT: updateLobby');
 
-      // this game object is relayed from the player who requested a change
-      setGame(message.game);
+      // this lobby object is relayed from the player who requested a change
+      setLobby(message.lobby);
       resetMessage();
     }
 
@@ -35,8 +35,8 @@ const useLobbyWsEvents = () => {
     // about someone joining the lobby
     if (success && event === 'join' && statusGame === 'lobby') {
       console.log('EVENT: join');
-      setGame((prev) => {
-        const gameNew = {
+      setLobby((prev) => {
+        const lobbyNew = {
           ...prev,
           idLobby: message.idLobby,
           namePlayer1: message.nameOwner,
@@ -46,17 +46,17 @@ const useLobbyWsEvents = () => {
 
         sendMessage({
           event: 'updateLobby',
-          game: gameNew,
+          lobby: lobbyNew,
         });
 
-        return gameNew;
+        return lobbyNew;
       });
       resetMessage();
     }
 
     if (event === 'quitLobby' && statusGame === 'lobby') {
       console.log('EVENT: quitLobby');
-      setGame((prev) => ({
+      setLobby((prev) => ({
         ...prev,
         namePlayer2: 'Empty...',
         statusConnectionPlayer2: 'notConnected',
@@ -67,7 +67,7 @@ const useLobbyWsEvents = () => {
 
     if (event === 'destroyLobby' && statusGame === 'lobby') {
       console.log('EVENT: destroyLobby');
-      setGame({ ...valueDefaultProviderGame });
+      setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
       navigate('/');
     }
@@ -87,10 +87,10 @@ const useLobbyWsEvents = () => {
       resetMessage();
     }
 
-    // received when server starts the real-time game
+    // received when server starts the real-time lobby
     if (event === 'start' && statusGame === 'lobby') {
       console.log('EVENT: start');
-      setGame((prev) => ({
+      setLobby((prev) => ({
         ...prev,
         statusGame: 'game',
       }));

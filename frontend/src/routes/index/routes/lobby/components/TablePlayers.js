@@ -1,12 +1,12 @@
 /* eslint-disable no-use-before-define */
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 
 // styles
 import styles from './TablePlayers.module.scss';
 
 const TablePlayers = () => {
-  const [game] = useContextGame();
+  const [lobby] = useContextLobby();
 
   const {
     statusConnectionPlayer1,
@@ -17,7 +17,7 @@ const TablePlayers = () => {
     namePlayer2,
     isReadyPlayer2,
     scorePlayer2,
-  } = game;
+  } = lobby;
 
   return (
     <table className={styles.table}>

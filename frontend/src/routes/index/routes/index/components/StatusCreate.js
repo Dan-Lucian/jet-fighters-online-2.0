@@ -1,13 +1,13 @@
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 
 // styles
 import styles from './StatusCreate.module.scss';
 
 const StatusCreate = () => {
-  const [game] = useContextGame();
+  const [lobby] = useContextLobby();
 
-  const { statusGame } = game;
+  const { statusGame } = lobby;
 
   if (statusGame === 'lobby') {
     return (

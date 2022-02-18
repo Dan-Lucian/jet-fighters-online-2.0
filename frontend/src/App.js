@@ -10,7 +10,7 @@ import ErrorRouteFallback from './components/ErrorRouteFallback';
 import Loader from './components/Loader';
 import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
-import { ProviderGame } from './providers/ProviderGame';
+import { ProviderLobby } from './providers/ProviderLobby';
 import { ProviderUser } from './providers/ProviderUser';
 
 // shared hooks
@@ -46,7 +46,7 @@ const App = () => {
       <WrapperPage>
         <ProviderUser>
           <ProviderSettings>
-            <ProviderGame>
+            <ProviderLobby>
               <ProviderWebsocket>
                 <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
                   <Suspense fallback={<Loader />}>
@@ -54,7 +54,7 @@ const App = () => {
                   </Suspense>
                 </ErrorBoundary>
               </ProviderWebsocket>
-            </ProviderGame>
+            </ProviderLobby>
           </ProviderSettings>
         </ProviderUser>
       </WrapperPage>

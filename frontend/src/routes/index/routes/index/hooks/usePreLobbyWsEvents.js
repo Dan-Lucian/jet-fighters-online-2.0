@@ -3,17 +3,17 @@ import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 
 const usePreLobbyWsEvents = () => {
   const { message, resetMessage } = useContextWebsocket();
   const [, setUser] = useContextUser();
-  const [game, setGame] = useContextGame();
+  const [lobby, setLobby] = useContextLobby();
   const navigate = useNavigate();
 
   const { event, success, idLobby } = message;
-  const { statusGame } = game;
+  const { statusGame } = lobby;
 
   useEffect(() => {
     const { name } = message;
@@ -21,7 +21,7 @@ const usePreLobbyWsEvents = () => {
     // this event is receveied by the one who attempt to create lobby
     if (success && event === 'create' && statusGame === 'preLobby') {
       console.log('EVENT: create');
-      setGame((prev) => ({
+      setLobby((prev) => ({
         ...prev,
         idLobby,
         statusGame: 'lobby',
@@ -40,7 +40,7 @@ const usePreLobbyWsEvents = () => {
     if (success && event === 'joinResponse' && statusGame === 'preLobby') {
       console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
-      setGame((prev) => ({
+      setLobby((prev) => ({
         ...prev,
         idLobby,
         statusGame: 'lobby',

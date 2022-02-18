@@ -2,7 +2,7 @@
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
 
 // styles
 import styles from './BtnJoin.module.scss';
@@ -11,11 +11,11 @@ const BtnJoin = () => {
   const { sendMessage } = useContextWebsocket();
   const [settings] = useContextSettings();
   const [user] = useContextUser();
-  const [game] = useContextGame();
+  const [lobby] = useContextLobby();
 
   const { name } = user;
   const { idJoin } = settings;
-  const { statusGame } = game;
+  const { statusGame } = lobby;
 
   const getHandlerClick = () => {
     if (statusGame === 'preLobby')
