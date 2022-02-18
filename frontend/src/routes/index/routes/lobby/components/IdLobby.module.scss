@@ -1,11 +1,31 @@
-.idLobby {
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
   background: var(--color-bg-secondary);
+  grid-area: id;
+}
+
+.title {
   font-size: 1.2em;
   line-height: 1.2em;
-  padding: 0.5em 2.5em;
   font-weight: 700;
-  display: inline-block;
-  border-radius: 5px;
   text-align: center;
-  grid-area: id;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--color-bg-primary);
+  border-radius: 5px;
+  padding: 0.3em 0;
+  width: 6em;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-text);
+    color: var(--color-bg-primary);
+  }
 }
