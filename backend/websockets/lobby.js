@@ -1,5 +1,18 @@
 import { createId } from '../utils/createId.js';
 
+// how the lobby states are stored in the map
+// const structureLobbyInMap = {
+//   owner: {
+//     name: namePlayer,
+//     ws: objectWebsocket,
+//   },
+//   joiner: {
+//     name: namePlayer,
+//     ws: objectWebsocket,
+//   },
+//   settings: {},
+// };
+
 const allLobbies = new Map();
 
 const createLobby = () => {

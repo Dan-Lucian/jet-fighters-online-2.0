@@ -111,6 +111,68 @@ const websockets = (expressServer) => {
         return;
       }
 
+      // a game start request
+      // received when a player's lobby shows both players to be ready
+      if (event === 'start') {
+        const { idLobby, isOwnerLobby, settings } = messageJson;
+        const { typeJet } = settings;
+        const lobby = getLobby(idLobby);
+        if (!lobby) {
+          console.error('No lobby found at EVENT: start');
+          return;
+        }
+        const response = { event: 'requestReady' };
+
+        if (isOwnerLobby && lobby.joiner) {
+          const { scoreMax, widthMap, heightMap } = settings;
+          lobby.owner.typeJet = typeJet;
+          lobby.settings = { scoreMax, widthMap, heightMap };
+          lobby.joiner.ws.send(JSON.stringify(response));
+          return;
+        }
+
+        if (isOwnerLobby) {
+          console.error('No joiner');
+          return;
+        }
+
+        lobby.joiner.typeJet = typeJet;
+        lobby.owner.ws.send(JSON.stringify(response));
+        return;
+      }
+
+      // requestReady's response
+      // received are isReady for double checking and player's settings
+      if (event === 'responseReady') {
+        const { idLobby, isReady, isOwnerLobby, settings } = messageJson;
+        const { typeJet } = settings;
+        const lobby = getLobby(idLobby);
+        if (!lobby) {
+          console.error('No lobby found at EVENT: responseReady');
+          return;
+        }
+        const response = { event: 'start' };
+
+        if (isOwnerLobby && isReady) {
+          const { scoreMax, widthMap, heightMap } = settings;
+          lobby.owner.typeJet = typeJet;
+          lobby.settings = { scoreMax, widthMap, heightMap };
+          lobby.owner.ws.send(JSON.stringify(response));
+          lobby.joiner.ws.send(JSON.stringify(response));
+          return;
+        }
+
+        if (!isReady) {
+          console.error('Other player not ready');
+          return;
+        }
+
+        lobby.joiner.typeJet = typeJet;
+        lobby.owner.ws.send(JSON.stringify(response));
+        lobby.joiner.ws.send(JSON.stringify(response));
+        return;
+      }
+
       // quitLobby event
       if (event === 'quitLobby') {
         const { idLobby, isOwnerLobby } = messageJson;
