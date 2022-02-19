@@ -1,6 +1,11 @@
+import PropTypes from 'prop-types';
+
 // styles
 import styles from './Header.module.scss';
 
-const Header = () => <h2 className={styles.header}>Max score: 20</h2>;
+const Header = ({ text }) => <h2 className={styles.header}>{text}</h2>;
+Header.propTypes = {
+  text: PropTypes.string,
+};
 
 export default Header;
