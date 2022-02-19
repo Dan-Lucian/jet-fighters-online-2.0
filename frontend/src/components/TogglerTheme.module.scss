@@ -19,6 +19,7 @@
   border-radius: 100px;
   position: relative;
   background: var(--color-bg-primary);
+  flex-shrink: 0;
 }
 
 .btnToggle:after {
