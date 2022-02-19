@@ -2,18 +2,20 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
-import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextGame } from '../../../../../providers/ProviderGame';
 import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
 const usePreLobbyWsEvents = () => {
-  const { message, resetMessage } = useContextWebsocket();
-  const [, setUser] = useContextUser();
-  const [lobby, setLobby] = useContextLobby();
   const navigate = useNavigate();
+  const [game, setGame] = useContextGame();
+  const [, setUser] = useContextUser();
+  const [, setLobby] = useContextLobby();
+  const { message, resetMessage } = useContextWebsocket();
 
+  const { statusGame } = game;
   const { event, success, idLobby } = message;
-  const { statusGame } = lobby;
 
   useEffect(() => {
     const { name } = message;
@@ -21,10 +23,10 @@ const usePreLobbyWsEvents = () => {
     // this event is receveied by the one who attempt to create lobby
     if (success && event === 'create' && statusGame === 'preLobby') {
       console.log('EVENT: create');
+      setGame((prev) => ({ ...prev, statusGame: 'lobby' }));
       setLobby((prev) => ({
         ...prev,
         idLobby,
-        statusGame: 'lobby',
         namePlayer1: name,
         isConnectedPlayer1: true,
       }));
@@ -40,10 +42,10 @@ const usePreLobbyWsEvents = () => {
     if (success && event === 'joinResponse' && statusGame === 'preLobby') {
       console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
+      setGame((prev) => ({ ...prev, statusGame: 'lobby' }));
       setLobby((prev) => ({
         ...prev,
         idLobby,
-        statusGame: 'lobby',
         namePlayer1: nameOwner,
         namePlayer2: nameJoiner,
         isConnectedPlayer1: true,

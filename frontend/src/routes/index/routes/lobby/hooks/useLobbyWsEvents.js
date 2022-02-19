@@ -2,30 +2,32 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
-import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
+import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextSettings } from '../../../../../providers/ProviderSettings';
 import {
   useContextLobby,
   valueDefaultProviderLobby,
 } from '../../../../../providers/ProviderLobby';
-import { useContextSettings } from '../../../../../providers/ProviderSettings';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
 const useLobbyWsEvents = () => {
-  const { message, sendMessage, resetMessage } = useContextWebsocket();
-  const [lobby, setLobby] = useContextLobby();
-  const [settings] = useContextSettings();
+  const [game, setGame] = useContextGame();
   const [user] = useContextUser();
+  const [settings] = useContextSettings();
+  const [lobby, setLobby] = useContextLobby();
+  const { message, sendMessage, resetMessage } = useContextWebsocket();
   const navigate = useNavigate();
 
-  const { event, success } = message;
-  const { idLobby, statusGame, isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { statusGame } = game;
   const { isOwnerLobby } = user;
+  const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { event, success } = message;
 
   useEffect(() => {
     // this event is receveied by both players
     if (event === 'updateLobby' && statusGame === 'lobby') {
       console.log('EVENT: updateLobby');
-
       // this lobby object is relayed from the player who requested a change
       setLobby(message.lobby);
       resetMessage();
@@ -35,12 +37,14 @@ const useLobbyWsEvents = () => {
     // about someone joining the lobby
     if (success && event === 'join' && statusGame === 'lobby') {
       console.log('EVENT: join');
+      const { idLobby: idLobbyReceived, nameOwner, nameJoiner } = message;
+
       setLobby((prev) => {
         const lobbyNew = {
           ...prev,
-          idLobby: message.idLobby,
-          namePlayer1: message.nameOwner,
-          namePlayer2: message.nameJoiner,
+          idLobby: idLobbyReceived,
+          namePlayer1: nameOwner,
+          namePlayer2: nameJoiner,
           isConnectedPlayer2: true,
         };
 
@@ -90,10 +94,7 @@ const useLobbyWsEvents = () => {
     // received when server starts the real-time lobby
     if (event === 'start' && statusGame === 'lobby') {
       console.log('EVENT: start');
-      setLobby((prev) => ({
-        ...prev,
-        statusGame: 'game',
-      }));
+      setGame((prev) => ({ ...prev, statusGame: 'game' }));
       resetMessage();
       navigate('/game');
     }

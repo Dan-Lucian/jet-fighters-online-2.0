@@ -27,8 +27,7 @@ const valueDefaultProviderLobby = {
   namePlayer2: 'Empty...',
   isReadyPlayer2: false,
   scorePlayer2: 0,
-  idLobby: null,
-  statusGame: 'preLobby',
+  idLobby: 'No lobby',
 };
 
 export { ProviderLobby, useContextLobby, valueDefaultProviderLobby };

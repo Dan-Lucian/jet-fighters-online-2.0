@@ -1,21 +1,21 @@
 // shared hooks
-import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
+import { useContextGame } from '../../../../../providers/ProviderGame';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
-import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
 // styles
 import styles from './BtnJoin.module.scss';
 
 const BtnJoin = () => {
-  const { sendMessage } = useContextWebsocket();
-  const [settings] = useContextSettings();
+  const [game] = useContextGame();
   const [user] = useContextUser();
-  const [lobby] = useContextLobby();
+  const [settings] = useContextSettings();
+  const { sendMessage } = useContextWebsocket();
 
+  const { statusGame } = game;
   const { name } = user;
   const { idJoin } = settings;
-  const { statusGame } = lobby;
 
   const getHandlerClick = () => {
     if (statusGame === 'preLobby')

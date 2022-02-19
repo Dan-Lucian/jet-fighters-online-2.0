@@ -1,20 +1,23 @@
 // shared hooks
-import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextGame } from '../../../../../providers/ProviderGame';
 import { useContextUser } from '../../../../../providers/ProviderUser';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
 // styles
 import styles from './BtnStart.module.scss';
 
 const BtnStart = () => {
-  const { sendMessage } = useContextWebsocket();
-  const [lobby] = useContextLobby();
+  const [game] = useContextGame();
   const [user] = useContextUser();
   const [settings] = useContextSettings();
+  const [lobby] = useContextLobby();
+  const { sendMessage } = useContextWebsocket();
 
-  const { statusGame, idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { statusGame } = game;
   const { isOwnerLobby } = user;
+  const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
 
   const getHandlerClick = () => {
     // the start btn will work only if both players are shown to be ready

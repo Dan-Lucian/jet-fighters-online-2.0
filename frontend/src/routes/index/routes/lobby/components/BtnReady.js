@@ -1,18 +1,21 @@
 // shared hooks
-import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextGame } from '../../../../../providers/ProviderGame';
 import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextLobby } from '../../../../../providers/ProviderLobby';
+import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
 // styles
 import styles from './BtnReady.module.scss';
 
 const BtnReady = () => {
-  const { sendMessage } = useContextWebsocket();
-  const [lobby] = useContextLobby();
+  const [game] = useContextGame();
   const [user] = useContextUser();
+  const [lobby] = useContextLobby();
+  const { sendMessage } = useContextWebsocket();
 
-  const { statusGame, isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { statusGame } = game;
   const { isOwnerLobby } = user;
+  const { isReadyPlayer1, isReadyPlayer2 } = lobby;
 
   const getHandlerClick = () => {
     if (isOwnerLobby && statusGame === 'lobby')
@@ -39,7 +42,7 @@ const BtnReady = () => {
 
     return () =>
       console.log(
-        `updateLobby denial because needed statusGame: lobby but currently statusGame: ${statusGame}`
+        `updateLobby denial because needed statusGame=lobby but currently statusGame=${statusGame}`
       );
   };
 
