@@ -1,7 +1,7 @@
 import { WebSocketServer } from 'ws';
 // import queryString from 'query-string';
 
-// lobby
+// lobby.js
 import {
   createLobby,
   joinLobby,
@@ -9,6 +9,9 @@ import {
   destroyLobby,
   getLobby,
 } from './lobby.js';
+
+// game.js
+import { createStateGameInitial } from './game.js';
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -130,7 +133,7 @@ const websockets = (expressServer) => {
         if (isOwnerLobby && lobby.joiner) {
           const { scoreMax, widthMap, heightMap } = settings;
           lobby.owner.typeJet = typeJet;
-          lobby.settings = { scoreMax, widthMap, heightMap };
+          lobby.settings = { scoreMax, widthMap, heightMap, idLobby };
           lobby.joiner.ws.send(JSON.stringify(response));
           return;
         }
@@ -161,6 +164,8 @@ const websockets = (expressServer) => {
           const { scoreMax, widthMap, heightMap } = settings;
           lobby.owner.typeJet = typeJet;
           lobby.settings = { scoreMax, widthMap, heightMap };
+
+          response.stateGame = createStateGameInitial(lobby);
           lobby.owner.ws.send(JSON.stringify(response));
           lobby.joiner.ws.send(JSON.stringify(response));
           return;
@@ -172,6 +177,7 @@ const websockets = (expressServer) => {
         }
 
         lobby.joiner.typeJet = typeJet;
+        response.stateGame = createStateGameInitial(lobby);
         lobby.owner.ws.send(JSON.stringify(response));
         lobby.joiner.ws.send(JSON.stringify(response));
         return;

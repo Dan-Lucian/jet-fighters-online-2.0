@@ -106,7 +106,9 @@ const useLobbyWsEvents = () => {
     // received when the server is starting the real-time game.
     if (isStateGameLobby && event === 'start') {
       console.log('EVENT: start');
-      setGame((prev) => ({ ...prev, stateGame: 'game' }));
+      const { stateGame: receivedStateGame } = message;
+
+      setGame((prev) => ({ ...prev, ...receivedStateGame, stateGame: 'game' }));
       resetMessage();
       navigate('/game');
     }
