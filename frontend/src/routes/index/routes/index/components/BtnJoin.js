@@ -13,14 +13,14 @@ const BtnJoin = () => {
   const [settings] = useContextSettings();
   const { sendMessage } = useContextWebsocket();
 
-  const { statusGame } = game;
+  const { stateGame } = game;
   const { name } = user;
   const { idJoin } = settings;
 
-  const isStatusGamePreLobby = statusGame === 'preLobby';
+  const isstateGamePreLobby = stateGame === 'preLobby';
 
   const getHandlerClick = () => {
-    if (isStatusGamePreLobby)
+    if (isstateGamePreLobby)
       return () => {
         sendMessage({
           name,
@@ -31,13 +31,13 @@ const BtnJoin = () => {
 
     return () =>
       console.log(
-        `join denial because needed statusGame: preLobby but currently statusGame: ${statusGame}`
+        `join denial because needed stateGame: preLobby but currently stateGame: ${stateGame}`
       );
   };
 
   return (
     <button
-      disabled={!isStatusGamePreLobby}
+      disabled={!isstateGamePreLobby}
       onClick={getHandlerClick()}
       className={styles.btnJoin}
       type="button"

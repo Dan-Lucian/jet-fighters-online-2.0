@@ -19,11 +19,11 @@ const BtnQuit = () => {
   const [lobby, setLobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { statusGame } = game;
+  const { stateGame } = game;
   const { isOwnerLobby } = user;
   const { idLobby } = lobby;
 
-  const isStateGameLobby = statusGame === 'lobby';
+  const isStateGameLobby = stateGame === 'lobby';
 
   const getHandlerClick = () => {
     if (isStateGameLobby)
@@ -33,14 +33,14 @@ const BtnQuit = () => {
           idLobby,
           isOwnerLobby,
         });
-        setGame((prev) => ({ ...prev, statusGame: 'preLobby' }));
+        setGame((prev) => ({ ...prev, stateGame: 'preLobby' }));
         setLobby({ ...valueDefaultProviderLobby });
         navigate('/');
       };
 
     return () =>
       console.log(
-        `quit denial because needed statusGame=lobby but currently statusGame=${statusGame}`
+        `quit denial because needed stateGame=lobby but currently stateGame=${stateGame}`
       );
   };
 

@@ -13,11 +13,11 @@ const BtnReady = () => {
   const [lobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { statusGame } = game;
+  const { stateGame } = game;
   const { isOwnerLobby } = user;
   const { isReadyPlayer1, isReadyPlayer2 } = lobby;
 
-  const isStateGameLobby = statusGame === 'lobby';
+  const isStateGameLobby = stateGame === 'lobby';
 
   const getHandlerClick = () => {
     if (isOwnerLobby && isStateGameLobby)
@@ -44,7 +44,7 @@ const BtnReady = () => {
 
     return () =>
       console.log(
-        `updateLobby denial because needed statusGame=lobby but currently statusGame=${statusGame}`
+        `updateLobby denial because needed stateGame=lobby but currently stateGame=${stateGame}`
       );
   };
 

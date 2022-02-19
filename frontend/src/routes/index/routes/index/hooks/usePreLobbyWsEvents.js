@@ -18,16 +18,16 @@ const usePreLobbyWsEvents = () => {
   const [, setLobby] = useContextLobby();
   const { message, resetMessage } = useContextWebsocket();
 
-  const { statusGame } = game;
+  const { stateGame } = game;
   const { event, success, idLobby } = message;
 
   useEffect(() => {
     const { name } = message;
 
     // receveied by the player who attempted to create a lobby
-    if (success && event === 'create' && statusGame === 'preLobby') {
+    if (success && event === 'create' && stateGame === 'preLobby') {
       console.log('EVENT: create');
-      setGame((prev) => ({ ...prev, statusGame: 'lobby' }));
+      setGame((prev) => ({ ...prev, stateGame: 'lobby' }));
       setLobby((prev) => ({
         ...prev,
         idLobby,
@@ -43,11 +43,11 @@ const usePreLobbyWsEvents = () => {
     }
 
     // receveied by the player who attempted to join a lobby
-    if (success && event === 'joinResponse' && statusGame === 'preLobby') {
+    if (success && event === 'joinResponse' && stateGame === 'preLobby') {
       console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
 
-      setGame((prev) => ({ ...prev, statusGame: 'lobby' }));
+      setGame((prev) => ({ ...prev, stateGame: 'lobby' }));
       setLobby((prev) => ({
         ...prev,
         idLobby,

@@ -19,7 +19,7 @@ const useContextGame = () => {
 };
 
 const valueDefaultProviderGame = {
-  statusGame: 'preLobby',
+  stateGame: 'preLobby',
 };
 
 export { ProviderGame, useContextGame };

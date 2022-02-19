@@ -18,11 +18,11 @@ const useUnmountWsMessage = () => {
   const [, setLobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { statusGame } = game;
+  const { stateGame } = game;
   const { isOwnerLobby } = user;
 
   useEffect(() => {
-    if (isOwnerLobby && statusGame === 'lobby')
+    if (isOwnerLobby && stateGame === 'lobby')
       return () => {
         setLobby((prev) => {
           const lobbyNew = {
@@ -41,7 +41,7 @@ const useUnmountWsMessage = () => {
         });
       };
 
-    if (statusGame === 'lobby')
+    if (stateGame === 'lobby')
       return () => {
         setLobby((prev) => {
           const lobbyNew = {
@@ -59,7 +59,7 @@ const useUnmountWsMessage = () => {
           return lobbyNew;
         });
       };
-  }, [isOwnerLobby, sendMessage, setLobby, statusGame]);
+  }, [isOwnerLobby, sendMessage, setLobby, stateGame]);
 };
 
 export { useUnmountWsMessage };

@@ -11,24 +11,24 @@ const BtnCreate = () => {
   const [game] = useContextGame();
   const [user] = useContextUser();
 
-  const { statusGame } = game;
+  const { stateGame } = game;
   const { name } = user;
 
-  const isStatusGamePreLobby = statusGame === 'preLobby';
+  const isstateGamePreLobby = stateGame === 'preLobby';
 
   const getHandlerClick = () => {
-    if (isStatusGamePreLobby)
+    if (isstateGamePreLobby)
       return () => sendMessage({ name, event: 'create' });
 
     return () =>
       console.log(
-        `create denial because needed statusGame: preLobby but currently statusGame: ${statusGame}`
+        `create denial because needed stateGame: preLobby but currently stateGame: ${stateGame}`
       );
   };
 
   return (
     <button
-      disabled={!isStatusGamePreLobby}
+      disabled={!isstateGamePreLobby}
       onClick={getHandlerClick()}
       className={styles.btnCreate}
       type="button"
