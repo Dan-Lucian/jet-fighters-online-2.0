@@ -19,14 +19,17 @@ const BtnStart = () => {
   const { isOwnerLobby } = user;
   const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
 
+  const isStateGameLobby = statusGame === 'lobby';
+  const arePlayersReady = isReadyPlayer1 && isReadyPlayer2;
+
   const getHandlerClick = () => {
     // the start btn will work only if both players are shown to be ready
-    if (isReadyPlayer1 && isReadyPlayer2 && statusGame === 'lobby') {
+    if (isStateGameLobby && arePlayersReady) {
       return () =>
         sendMessage({ event: 'start', isOwnerLobby, idLobby, settings });
     }
 
-    if ((!isReadyPlayer1 || !isReadyPlayer2) && statusGame === 'lobby') {
+    if (isStateGameLobby && (!isReadyPlayer1 || !isReadyPlayer2)) {
       return () =>
         console.log(`start denial because one of the players is not ready`);
     }
@@ -38,7 +41,12 @@ const BtnStart = () => {
   };
 
   return (
-    <button onClick={getHandlerClick()} className={styles.btn} type="button">
+    <button
+      disabled={!isStateGameLobby || !arePlayersReady}
+      onClick={getHandlerClick()}
+      className={styles.btn}
+      type="button"
+    >
       START
     </button>
   );

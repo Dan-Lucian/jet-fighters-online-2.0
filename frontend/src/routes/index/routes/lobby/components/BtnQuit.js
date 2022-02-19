@@ -23,8 +23,10 @@ const BtnQuit = () => {
   const { isOwnerLobby } = user;
   const { idLobby } = lobby;
 
+  const isStateGameLobby = statusGame === 'lobby';
+
   const getHandlerClick = () => {
-    if (statusGame === 'lobby')
+    if (isStateGameLobby)
       return () => {
         sendMessage({
           event: 'quitLobby',
@@ -43,7 +45,12 @@ const BtnQuit = () => {
   };
 
   return (
-    <button onClick={getHandlerClick()} className={styles.btn} type="button">
+    <button
+      disabled={!isStateGameLobby}
+      onClick={getHandlerClick()}
+      className={styles.btn}
+      type="button"
+    >
       Quit lobby
     </button>
   );

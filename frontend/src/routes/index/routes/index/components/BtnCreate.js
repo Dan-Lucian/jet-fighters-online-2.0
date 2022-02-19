@@ -14,8 +14,10 @@ const BtnCreate = () => {
   const { statusGame } = game;
   const { name } = user;
 
+  const isStatusGamePreLobby = statusGame === 'preLobby';
+
   const getHandlerClick = () => {
-    if (statusGame === 'preLobby')
+    if (isStatusGamePreLobby)
       return () => sendMessage({ name, event: 'create' });
 
     return () =>
@@ -26,6 +28,7 @@ const BtnCreate = () => {
 
   return (
     <button
+      disabled={!isStatusGamePreLobby}
       onClick={getHandlerClick()}
       className={styles.btnCreate}
       type="button"

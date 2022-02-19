@@ -17,8 +17,10 @@ const BtnReady = () => {
   const { isOwnerLobby } = user;
   const { isReadyPlayer1, isReadyPlayer2 } = lobby;
 
+  const isStateGameLobby = statusGame === 'lobby';
+
   const getHandlerClick = () => {
-    if (isOwnerLobby && statusGame === 'lobby')
+    if (isOwnerLobby && isStateGameLobby)
       return () => {
         sendMessage({
           event: 'updateLobby',
@@ -29,7 +31,7 @@ const BtnReady = () => {
         });
       };
 
-    if (statusGame === 'lobby') {
+    if (isStateGameLobby) {
       return () =>
         sendMessage({
           event: 'updateLobby',
@@ -47,7 +49,12 @@ const BtnReady = () => {
   };
 
   return (
-    <button onClick={getHandlerClick()} className={styles.btn} type="button">
+    <button
+      disabled={!isStateGameLobby}
+      onClick={getHandlerClick()}
+      className={styles.btn}
+      type="button"
+    >
       I'm ready
     </button>
   );

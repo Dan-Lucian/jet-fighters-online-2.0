@@ -17,8 +17,10 @@ const BtnJoin = () => {
   const { name } = user;
   const { idJoin } = settings;
 
+  const isStatusGamePreLobby = statusGame === 'preLobby';
+
   const getHandlerClick = () => {
-    if (statusGame === 'preLobby')
+    if (isStatusGamePreLobby)
       return () => {
         sendMessage({
           name,
@@ -35,6 +37,7 @@ const BtnJoin = () => {
 
   return (
     <button
+      disabled={!isStatusGamePreLobby}
       onClick={getHandlerClick()}
       className={styles.btnJoin}
       type="button"
