@@ -28,10 +28,12 @@ const useLobbyWsEvents = () => {
   const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
   const { event, success } = message;
 
+  const isStateGameLobby = stateGame === 'lobby';
+
   useEffect(() => {
     // receveied by both players when any of them makes a
     // lobby change (isReadyPlayer).
-    if (event === 'updateLobby' && stateGame === 'lobby') {
+    if (isStateGameLobby && event === 'updateLobby') {
       console.log('EVENT: updateLobby');
       // this lobby object is relayed from the player who requested a change
       setLobby(message.lobby);
@@ -40,7 +42,7 @@ const useLobbyWsEvents = () => {
 
     // receveied by the one who created the lobby
     // about someone joining the lobby.
-    if (success && event === 'join' && stateGame === 'lobby') {
+    if (isStateGameLobby && success && event === 'join') {
       console.log('EVENT: join');
       const { idLobby: idLobbyReceived, nameOwner, nameJoiner } = message;
 
@@ -64,7 +66,7 @@ const useLobbyWsEvents = () => {
     }
 
     // received by the owner when the joiner quit the lobby.
-    if (event === 'quitLobby' && stateGame === 'lobby') {
+    if (isStateGameLobby && event === 'quitLobby') {
       console.log('EVENT: quitLobby');
       setLobby((prev) => ({
         ...prev,
@@ -76,7 +78,7 @@ const useLobbyWsEvents = () => {
     }
 
     // received by the joiner when the owner quit the lobby
-    if (event === 'destroyLobby' && stateGame === 'lobby') {
+    if (isStateGameLobby && event === 'destroyLobby') {
       console.log('EVENT: destroyLobby');
       setGame((prev) => ({ ...prev, stateGame: 'preLobby' }));
       setLobby({ ...valueDefaultProviderLobby });
@@ -89,7 +91,7 @@ const useLobbyWsEvents = () => {
     // lobby showed that both players are ready.
     // The purpose is to double check readiness and also get the current
     // player's jet settings.
-    if (event === 'requestReady' && stateGame === 'lobby') {
+    if (isStateGameLobby && event === 'requestReady') {
       console.log('EVENT: requestReady');
       sendMessage({
         event: 'responseReady',
@@ -102,7 +104,7 @@ const useLobbyWsEvents = () => {
     }
 
     // received when the server is starting the real-time game.
-    if (event === 'start' && stateGame === 'lobby') {
+    if (isStateGameLobby && event === 'start') {
       console.log('EVENT: start');
       setGame((prev) => ({ ...prev, stateGame: 'game' }));
       resetMessage();

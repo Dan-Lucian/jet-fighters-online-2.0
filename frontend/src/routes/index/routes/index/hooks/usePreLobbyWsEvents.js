@@ -21,11 +21,13 @@ const usePreLobbyWsEvents = () => {
   const { stateGame } = game;
   const { event, success, idLobby } = message;
 
+  const isStateGamePreLobby = stateGame === 'preLobby';
+
   useEffect(() => {
     const { name } = message;
 
     // receveied by the player who attempted to create a lobby
-    if (success && event === 'create' && stateGame === 'preLobby') {
+    if (isStateGamePreLobby && success && event === 'create') {
       console.log('EVENT: create');
       setGame((prev) => ({ ...prev, stateGame: 'lobby' }));
       setLobby((prev) => ({
@@ -43,7 +45,7 @@ const usePreLobbyWsEvents = () => {
     }
 
     // receveied by the player who attempted to join a lobby
-    if (success && event === 'joinResponse' && stateGame === 'preLobby') {
+    if (isStateGamePreLobby && success && event === 'joinResponse') {
       console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
 

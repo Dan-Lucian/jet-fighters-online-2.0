@@ -21,8 +21,10 @@ const useUnmountWsMessage = () => {
   const { stateGame } = game;
   const { isOwnerLobby } = user;
 
+  const isStateGameLobby = stateGame === 'lobby';
+
   useEffect(() => {
-    if (isOwnerLobby && stateGame === 'lobby')
+    if (isOwnerLobby && isStateGameLobby)
       return () => {
         setLobby((prev) => {
           const lobbyNew = {
@@ -41,7 +43,7 @@ const useUnmountWsMessage = () => {
         });
       };
 
-    if (stateGame === 'lobby')
+    if (isStateGameLobby)
       return () => {
         setLobby((prev) => {
           const lobbyNew = {
@@ -59,7 +61,7 @@ const useUnmountWsMessage = () => {
           return lobbyNew;
         });
       };
-  }, [isOwnerLobby, sendMessage, setLobby, stateGame]);
+  }, [isOwnerLobby, isStateGameLobby, sendMessage, setLobby, stateGame]);
 };
 
 export { useUnmountWsMessage };
