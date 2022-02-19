@@ -9,11 +9,11 @@ const TablePlayers = () => {
   const [lobby] = useContextLobby();
 
   const {
-    statusConnectionPlayer1,
+    isConnectedPlayer1,
     namePlayer1,
     scorePlayer1,
     isReadyPlayer1,
-    statusConnectionPlayer2,
+    isConnectedPlayer2,
     namePlayer2,
     isReadyPlayer2,
     scorePlayer2,
@@ -23,7 +23,7 @@ const TablePlayers = () => {
     <table className={styles.table}>
       <tbody>
         <tr>
-          <td className={getStylesName(statusConnectionPlayer1)}>
+          <td className={getStylesName(isConnectedPlayer1)}>
             {namePlayer1}
             <span className={styles.textLight}> (owner)</span>
           </td>
@@ -31,9 +31,7 @@ const TablePlayers = () => {
           <td className={getStylesReady(isReadyPlayer1)}>ready</td>
         </tr>
         <tr>
-          <td className={getStylesName(statusConnectionPlayer2)}>
-            {namePlayer2}
-          </td>
+          <td className={getStylesName(isConnectedPlayer2)}>{namePlayer2}</td>
           <td className={styles.score}>{scorePlayer2}</td>
           <td className={getStylesReady(isReadyPlayer2)}>ready</td>
         </tr>
@@ -43,15 +41,14 @@ const TablePlayers = () => {
 };
 
 // helper function to compose css module classes for name
-const getStylesName = (statusConnection) => {
-  if (statusConnection === 'connected')
-    return `${styles.name} ${styles.textGreen}`;
+const getStylesName = (isConnectedPlayer) => {
+  if (isConnectedPlayer) return `${styles.name} ${styles.textGreen}`;
   return `${styles.name} ${styles.textRed}`;
 };
 
 // helper function to compose css module classes for ready
-const getStylesReady = (statusReady) => {
-  if (statusReady) return `${styles.ready} ${styles.bgGreen}`;
+const getStylesReady = (isReadyPlayer) => {
+  if (isReadyPlayer) return `${styles.ready} ${styles.bgGreen}`;
   return `${styles.ready} ${styles.bgRed}`;
 };
 

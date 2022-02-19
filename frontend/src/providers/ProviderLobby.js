@@ -19,17 +19,16 @@ const useContextLobby = () => {
 };
 
 const valueDefaultProviderLobby = {
-  statusConnectionPlayer1: '',
+  isConnectedPlayer1: false,
   namePlayer1: 'Empty...',
   scorePlayer1: 0,
   isReadyPlayer1: false,
-  statusConnectionPlayer2: '',
+  isConnectedPlayer2: false,
   namePlayer2: 'Empty...',
   isReadyPlayer2: false,
   scorePlayer2: 0,
   idLobby: null,
   statusGame: 'preLobby',
-  statusJoin: null,
 };
 
 export { ProviderLobby, useContextLobby, valueDefaultProviderLobby };

@@ -41,7 +41,7 @@ const useLobbyWsEvents = () => {
           idLobby: message.idLobby,
           namePlayer1: message.nameOwner,
           namePlayer2: message.nameJoiner,
-          statusConnectionPlayer2: 'connected',
+          isConnectedPlayer2: true,
         };
 
         sendMessage({
@@ -59,7 +59,7 @@ const useLobbyWsEvents = () => {
       setLobby((prev) => ({
         ...prev,
         namePlayer2: 'Empty...',
-        statusConnectionPlayer2: 'notConnected',
+        isConnectedPlayer2: false,
         isReadyPlayer2: false,
       }));
       resetMessage();

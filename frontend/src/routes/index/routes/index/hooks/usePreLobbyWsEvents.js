@@ -26,7 +26,7 @@ const usePreLobbyWsEvents = () => {
         idLobby,
         statusGame: 'lobby',
         namePlayer1: name,
-        statusConnectionPlayer1: 'connected',
+        isConnectedPlayer1: true,
       }));
       setUser((prev) => ({
         ...prev,
@@ -46,8 +46,8 @@ const usePreLobbyWsEvents = () => {
         statusGame: 'lobby',
         namePlayer1: nameOwner,
         namePlayer2: nameJoiner,
-        statusConnectionPlayer1: 'connected',
-        statusConnectionPlayer2: 'connected',
+        isConnectedPlayer1: true,
+        isConnectedPlayer2: true,
       }));
       setUser((prev) => ({
         ...prev,
