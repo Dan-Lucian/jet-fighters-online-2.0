@@ -6,6 +6,12 @@ import { useContextUser } from '../../../../../providers/ProviderUser';
 import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
+/**
+ * Notifies the server which in turn will notify the other player that
+ * the current player has navigated away from the '/lobby'.
+ * It will update isReadyPlayer and use the 'updateLobby' syncing method to
+ * sync both player's lobby.
+ */
 const useUnmountWsMessage = () => {
   const [game] = useContextGame();
   const [user] = useContextUser();

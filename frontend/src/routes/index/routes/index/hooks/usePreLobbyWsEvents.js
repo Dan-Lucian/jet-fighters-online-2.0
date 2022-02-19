@@ -7,6 +7,10 @@ import { useContextUser } from '../../../../../providers/ProviderUser';
 import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
+/**
+ * Listens and reacts to all the server-sent websocket messages intended for
+ * the application in the 'preLobby' game state.
+ */
 const usePreLobbyWsEvents = () => {
   const navigate = useNavigate();
   const [game, setGame] = useContextGame();
@@ -20,7 +24,7 @@ const usePreLobbyWsEvents = () => {
   useEffect(() => {
     const { name } = message;
 
-    // this event is receveied by the one who attempt to create lobby
+    // receveied by the player who attempted to create a lobby
     if (success && event === 'create' && statusGame === 'preLobby') {
       console.log('EVENT: create');
       setGame((prev) => ({ ...prev, statusGame: 'lobby' }));
@@ -38,10 +42,11 @@ const usePreLobbyWsEvents = () => {
       navigate('/lobby');
     }
 
-    // this event is receveied by the one who attempt to join lobby
+    // receveied by the player who attempted to join a lobby
     if (success && event === 'joinResponse' && statusGame === 'preLobby') {
       console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
+
       setGame((prev) => ({ ...prev, statusGame: 'lobby' }));
       setLobby((prev) => ({
         ...prev,
