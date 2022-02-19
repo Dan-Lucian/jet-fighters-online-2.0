@@ -71,6 +71,7 @@ const useLobbyWsEvents = () => {
 
     if (event === 'destroyLobby' && statusGame === 'lobby') {
       console.log('EVENT: destroyLobby');
+      setGame((prev) => ({ ...prev, statusGame: 'preLobby' }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
       navigate('/');
