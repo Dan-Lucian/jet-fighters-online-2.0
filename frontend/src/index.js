@@ -11,6 +11,7 @@ import PreLobby from './routes/index/routes/index/PreLobby';
 const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
 const PageAbout = lazy(() => import('./routes/about/PageAbout'));
 const PageLogin = lazy(() => import('./routes/login/PageLogin'));
+const PageGame = lazy(() => import('./routes/game/PageGame'));
 const PageNonexistent = lazy(() =>
   import('./routes/nonexistent/PageNonexistent')
 );
@@ -30,6 +31,7 @@ ReactDOM.render(
           </Route>
           <Route path="about" element={<PageAbout />} />
           <Route path="login" element={<PageLogin />} />
+          <Route path="game" element={<PageGame />} />
           <Route path="*" element={<PageNonexistent />} />
         </Route>
       </Routes>
