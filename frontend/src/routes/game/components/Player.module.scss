@@ -1,0 +1,51 @@
+.wrapper {
+  padding: 0.8em 1em;
+  background: var(--color-bg-secondary);
+  display: grid;
+  align-items: center;
+  grid-template-columns: 10px auto;
+  grid-template-areas:
+    'ball name'
+    '. jetType'
+    '. color';
+  gap: 0.4em;
+}
+
+.name {
+  grid-area: name;
+}
+
+.ball {
+  width: 10px;
+  height: 10px;
+  background: var(--color-green);
+  border-radius: 50%;
+  grid-area: ball;
+}
+
+.jetType {
+  grid-area: jetType;
+  opacity: 0.5;
+  font-size: 0.8em;
+}
+
+.wrapperColor {
+  display: flex;
+  align-items: end;
+  gap: 0.4em;
+  grid-area: color;
+}
+
+.textColor {
+  grid-area: color;
+  opacity: 0.5;
+  font-size: 0.8em;
+}
+
+.squareColor {
+  display: inline-block;
+  background: var(--color-red);
+  border-radius: 25%;
+  height: 0.8em;
+  width: 0.8em;
+}

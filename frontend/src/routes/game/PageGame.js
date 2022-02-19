@@ -1,6 +1,6 @@
 // local components
 import Game from './components/Game';
-import TablePlayers from './TablePlayers';
+import TablePlayers from './components/TablePlayers';
 
 // styles
 import styles from './PageGame.module.scss';
