@@ -1,12 +1,27 @@
-// shared components
+// shared hooks
+import { useContextGame } from '../../../providers/ProviderGame';
+import { useContextUser } from '../../../providers/ProviderUser';
 import { useContextSettings } from '../../../providers/ProviderSettings';
+import { useContextLobby } from '../../../providers/ProviderLobby';
+import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
 
 // styles
 import styles from './Settings.module.scss';
 
 const Settings = () => {
+  const [game] = useContextGame();
+  const [user] = useContextUser();
   const [settings, setSettings] = useContextSettings();
+  const [lobby] = useContextLobby();
+  const { sendMessage } = useContextWebsocket();
+
+  const { stateGame } = game;
+  const { isOwnerLobby } = user;
   const { scoreMax, widthMap, heightMap } = settings;
+  const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
+
+  const isStateGameLobby = stateGame === 'lobby';
+  const arePlayersReady = isReadyPlayer1 && isReadyPlayer2;
 
   const getHandlerInput = (prop) => (e) => {
     const valueInput = {};
@@ -14,8 +29,36 @@ const Settings = () => {
     setSettings((prev) => ({ ...prev, ...valueInput }));
   };
 
+  const getHandlerSubmit = () => {
+    // the sform will work only if both players are shown to be ready
+    if (isStateGameLobby && arePlayersReady) {
+      return (e) => {
+        e.preventDefault();
+        sendMessage({ event: 'start', isOwnerLobby, idLobby, settings });
+      };
+    }
+
+    if (isStateGameLobby && (!isReadyPlayer1 || !isReadyPlayer2)) {
+      return (e) => {
+        e.preventDefault();
+        console.log(`start denial because one of the players is not ready`);
+      };
+    }
+
+    return (e) => {
+      e.preventDefault();
+      console.log(
+        `start denial because needed stateGame=lobby but currently stateGame=${stateGame}`
+      );
+    };
+  };
+
   return (
-    <form className={styles.form}>
+    <form
+      onSubmit={getHandlerSubmit()}
+      className={styles.form}
+      id="form-settings-game"
+    >
       <label htmlFor="max-score">Max score:</label>
       <span className={styles.tooltip} data-tooltip="Allowed 1-50">
         <input
@@ -25,6 +68,7 @@ const Settings = () => {
           id="max-score"
           value={scoreMax}
           onChange={getHandlerInput('scoreMax')}
+          required
         />
       </span>
       <label htmlFor="width-map">Map width:</label>
@@ -36,6 +80,7 @@ const Settings = () => {
           id="width-map"
           value={widthMap}
           onChange={getHandlerInput('widthMap')}
+          required
         />
       </span>
       <label htmlFor="height-map">Map height:</label>
@@ -47,6 +92,7 @@ const Settings = () => {
           id="height-map"
           value={heightMap}
           onChange={getHandlerInput('heightMap')}
+          required
         />
       </span>
     </form>
