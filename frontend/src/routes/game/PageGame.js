@@ -14,11 +14,10 @@ import styles from './PageGame.module.scss';
 
 const PageGame = () => {
   const [global, setGlobal] = useContextGlobal();
-  const stateGameCurrent = useRef(game);
   const { message, sendMessage } = useContextWebsocket();
 
   const { stateApp, isOwnerLobby } = global;
-  const { event, stateGame: stateGameReceived } = message;
+  const { event, stateGame } = message;
 
   const isStateAppCountdown = stateApp === 'countdown';
   const isStateAppGame = stateApp === 'game';
@@ -33,7 +32,7 @@ const PageGame = () => {
   const getHandlerCountdownEnd = () => {
     if (isOwnerLobby)
       return () => {
-        sendMessage({ event: 'countdownEnd', game });
+        sendMessage({ event: 'countdownEnd', stateGame });
         setGlobal((prev) => ({ ...prev, stateApp: 'game' }));
       };
 
@@ -42,7 +41,7 @@ const PageGame = () => {
 
   return (
     <main className={styles.pageGame}>
-      <Game stateGame={stateGameCurrent} />
+      <Game stateGame={stateGame} />
       <TablePlayers />
       {isStateAppCountdown && (
         <Countdown handleCountownEnd={getHandlerCountdownEnd()} />

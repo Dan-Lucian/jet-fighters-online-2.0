@@ -7,9 +7,11 @@ import styles from './StatusCreate.module.scss';
 const StatusCreate = () => {
   const [game] = useContextGlobal();
 
-  const { stateGame } = game;
+  const { stateApp } = game;
 
-  if (stateGame === 'lobby') {
+  const isStateAppLobby = stateApp === 'lobby';
+
+  if (isStateAppLobby) {
     return (
       <div className={`${styles.statusCreate} ${styles.textGreen}`}>
         Already in a lobby

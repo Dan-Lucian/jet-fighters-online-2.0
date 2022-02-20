@@ -5,15 +5,15 @@ import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import styles from './BtnJoin.module.scss';
 
 const BtnJoin = () => {
-  const [game] = useContextGlobal();
+  const [global] = useContextGlobal();
 
-  const { stateGame } = game;
+  const { stateApp } = global;
 
-  const isstateGamePreLobby = stateGame === 'preLobby';
+  const isStateAppPreLobby = stateApp === 'preLobby';
 
   return (
     <input
-      disabled={!isstateGamePreLobby}
+      disabled={!isStateAppPreLobby}
       className={styles.btnJoin}
       type="submit"
       value="Join a lobby"

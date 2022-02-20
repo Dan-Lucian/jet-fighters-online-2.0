@@ -2,9 +2,6 @@
 /* eslint-disable no-use-before-define */
 import { useRef, useEffect } from 'react';
 
-// shared hooks
-import { useContextGame } from '../../../providers/ProviderGlobal';
-
 // styles
 import styles from './Game.module.scss';
 
@@ -25,7 +22,6 @@ const draw = (ctx, stateGame) => {
 const Game = ({ stateGame }) => {
   console.log('Render: <Game />');
   const refCanvas = useRef();
-  const [game] = useContextGame();
 
   useEffect(() => {
     const canvas = refCanvas.current;
@@ -43,7 +39,7 @@ const Game = ({ stateGame }) => {
     };
   });
 
-  const { widthMap, heightMap } = game.settings;
+  const { widthMap, heightMap } = stateGame.settings;
 
   return (
     <canvas

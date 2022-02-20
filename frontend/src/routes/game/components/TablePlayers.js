@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 // shared hooks
-// import { useContextGame } from '../../../providers/ProviderGame';
 
 // local components
 import Header from './Header';
@@ -8,10 +8,9 @@ import Player from './Player';
 // styles
 import styles from './TablePlayers.module.scss';
 
-const TablePlayers = () => {
-  const [game] = useContextGame();
-  const { owner, joiner } = game;
-  const { scoreMax } = game.settings;
+const TablePlayers = ({ stateGame }) => {
+  const { owner, joiner } = stateGame;
+  const { scoreMax } = stateGame.settings;
 
   return (
     <div className={styles.table}>
