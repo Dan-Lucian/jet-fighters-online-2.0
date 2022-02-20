@@ -14,4 +14,8 @@
   &:focus {
     outline: 2px solid var(--color-blue);
   }
+
+  &:invalid {
+    outline: 1px solid var(--color-red);
+  }
 }
