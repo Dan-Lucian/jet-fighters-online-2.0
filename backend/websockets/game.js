@@ -42,4 +42,11 @@ const createStateGameInitial = (lobby) => ({
   },
 });
 
-export { createStateGameInitial };
+const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
+  setInterval(() => {
+    wsOwner.send(JSON.stringify({ event: 'updateGame' }));
+    wsJoiner.send(JSON.stringify({ event: 'updateGame' }));
+  }, 1000);
+};
+
+export { createStateGameInitial, startLoopGame };

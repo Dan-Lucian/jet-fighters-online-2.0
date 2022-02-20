@@ -8,7 +8,7 @@ import {
   destroyLobby,
   getLobby,
 } from './lobby.js';
-import { createStateGameInitial } from './game.js';
+import { createStateGameInitial, startLoopGame } from './game.js';
 import { areValidSettingsGame } from './validation.js';
 
 const websockets = (expressServer) => {
@@ -181,6 +181,13 @@ const websockets = (expressServer) => {
         lobby.owner.ws.send(JSON.stringify(response));
         lobby.joiner.ws.send(JSON.stringify(response));
         return;
+      }
+
+      if (event === 'countdownEnd') {
+        const { idLobby } = messageJson.game.settings;
+        const lobby = getLobby(idLobby);
+
+        startLoopGame(lobby.owner.ws, lobby.joiner.ws, message.game);
       }
 
       // quitLobby event

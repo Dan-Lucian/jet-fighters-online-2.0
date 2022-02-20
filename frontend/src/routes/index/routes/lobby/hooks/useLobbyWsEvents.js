@@ -108,7 +108,7 @@ const useLobbyWsEvents = () => {
       console.log('EVENT: start');
       const { stateGame: receivedStateGame } = message;
 
-      setGame((prev) => ({ ...prev, ...receivedStateGame, stateGame: 'game' }));
+      setGame({ ...receivedStateGame, stateGame: 'countdown' });
       resetMessage();
       navigate('/game');
     }
