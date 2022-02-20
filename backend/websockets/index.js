@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { WebSocketServer } from 'ws';
 // import queryString from 'query-string';
 
@@ -109,9 +110,10 @@ const websockets = (expressServer) => {
           lobby: lobbyReceived,
         };
 
-        lobby.owner.ws.send(JSON.stringify(response));
+        const responseString = JSON.stringify(response);
+        lobby.owner.ws.send(responseString);
         if (lobby.joiner) {
-          lobby.joiner.ws.send(JSON.stringify(response));
+          lobby.joiner.ws.send(responseString);
         }
         return;
       }
@@ -166,8 +168,10 @@ const websockets = (expressServer) => {
         if (isOwnerLobby && isReady) {
           lobby.owner.typeJet = typeJet;
           response.stateGame = createStateGameInitial(lobby);
-          lobby.owner.ws.send(JSON.stringify(response));
-          lobby.joiner.ws.send(JSON.stringify(response));
+
+          const responseString = JSON.stringify(response);
+          lobby.owner.ws.send(responseString);
+          lobby.joiner.ws.send(responseString);
           return;
         }
 
@@ -178,8 +182,10 @@ const websockets = (expressServer) => {
 
         lobby.joiner.typeJet = typeJet;
         response.stateGame = createStateGameInitial(lobby);
-        lobby.owner.ws.send(JSON.stringify(response));
-        lobby.joiner.ws.send(JSON.stringify(response));
+
+        const responseString = JSON.stringify(response);
+        lobby.owner.ws.send(responseString);
+        lobby.joiner.ws.send(responseString);
         return;
       }
 
@@ -187,7 +193,7 @@ const websockets = (expressServer) => {
         const { idLobby } = messageJson.game.settings;
         const lobby = getLobby(idLobby);
 
-        startLoopGame(lobby.owner.ws, lobby.joiner.ws, message.game);
+        startLoopGame(lobby.owner.ws, lobby.joiner.ws, messageJson.game);
       }
 
       // quitLobby event

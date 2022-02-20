@@ -43,9 +43,11 @@ const createStateGameInitial = (lobby) => ({
 });
 
 const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
+  console.log('stateGame:', stateGame);
   setInterval(() => {
-    wsOwner.send(JSON.stringify({ event: 'updateGame' }));
-    wsJoiner.send(JSON.stringify({ event: 'updateGame' }));
+    const responseString = JSON.stringify({ event: 'updateGame', stateGame });
+    wsOwner.send(responseString);
+    wsJoiner.send(responseString);
   }, 1000);
 };
 
