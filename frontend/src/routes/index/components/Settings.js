@@ -63,7 +63,7 @@ const Settings = () => {
       <span className={styles.tooltip} data-tooltip="Allowed 1-50">
         <input
           className={styles.input}
-          pattern="[1-9]|[1-4][0-9]|50"
+          pattern="^[1-9]|[1-4][0-9]|50$"
           type="text"
           id="max-score"
           value={scoreMax}
@@ -75,7 +75,7 @@ const Settings = () => {
       <span className={styles.tooltip} data-tooltip="Allowed 200-1000">
         <input
           className={styles.input}
-          pattern="[2-9][0-9][0-9]|1000"
+          pattern="^[2-9][0-9][0-9]|1000$"
           type="text"
           id="width-map"
           value={widthMap}
@@ -87,7 +87,7 @@ const Settings = () => {
       <span className={styles.tooltip} data-tooltip="Allowed 200-1000">
         <input
           className={styles.input}
-          pattern="[2-9][0-9][0-9]|1000"
+          pattern="^[2-9][0-9][0-9]|1000$"
           type="text"
           id="height-map"
           value={heightMap}

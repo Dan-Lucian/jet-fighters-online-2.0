@@ -1,7 +1,6 @@
 import { WebSocketServer } from 'ws';
 // import queryString from 'query-string';
 
-// lobby.js
 import {
   createLobby,
   joinLobby,
@@ -9,9 +8,8 @@ import {
   destroyLobby,
   getLobby,
 } from './lobby.js';
-
-// game.js
 import { createStateGameInitial } from './game.js';
+import { areValidSettingsGame } from './validation.js';
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -122,7 +120,13 @@ const websockets = (expressServer) => {
       // received when a player's lobby shows both players to be ready
       if (event === 'start') {
         const { idLobby, isOwnerLobby, settings } = messageJson;
+        if (!areValidSettingsGame(settings)) {
+          console.log('Received game settings are invalid');
+          return;
+        }
+
         const { typeJet, scoreMax, widthMap, heightMap } = settings;
+
         const lobby = getLobby(idLobby);
         if (!lobby) {
           console.error('No lobby found at EVENT: start');
