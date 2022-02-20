@@ -122,18 +122,17 @@ const websockets = (expressServer) => {
       // received when a player's lobby shows both players to be ready
       if (event === 'start') {
         const { idLobby, isOwnerLobby, settings } = messageJson;
-        const { typeJet } = settings;
+        const { typeJet, scoreMax, widthMap, heightMap } = settings;
         const lobby = getLobby(idLobby);
         if (!lobby) {
           console.error('No lobby found at EVENT: start');
           return;
         }
         const response = { event: 'requestReady' };
+        lobby.settings = { scoreMax, widthMap, heightMap, idLobby };
 
         if (isOwnerLobby && lobby.joiner) {
-          const { scoreMax, widthMap, heightMap } = settings;
           lobby.owner.typeJet = typeJet;
-          lobby.settings = { scoreMax, widthMap, heightMap, idLobby };
           lobby.joiner.ws.send(JSON.stringify(response));
           return;
         }
@@ -161,10 +160,7 @@ const websockets = (expressServer) => {
         const response = { event: 'start' };
 
         if (isOwnerLobby && isReady) {
-          const { scoreMax, widthMap, heightMap } = settings;
           lobby.owner.typeJet = typeJet;
-          lobby.settings = { scoreMax, widthMap, heightMap };
-
           response.stateGame = createStateGameInitial(lobby);
           lobby.owner.ws.send(JSON.stringify(response));
           lobby.joiner.ws.send(JSON.stringify(response));
