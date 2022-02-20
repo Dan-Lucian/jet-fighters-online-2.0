@@ -1,11 +1,14 @@
 /* eslint-disable no-use-before-define */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
+
+// shared hooks
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const ContextSettings = createContext(null);
 ContextSettings.displayName = 'ContextSettings';
 
 const ProviderSettings = (props) => {
-  const settings = useState(settingsDefault);
+  const settings = useLocalStorage('settingsJetGame', settingsDefault);
 
   return <ContextSettings.Provider value={settings} {...props} />;
 };
@@ -20,9 +23,9 @@ const useContextSettings = () => {
 
 const settingsDefault = {
   typeJet: 'balanced',
-  scoreMax: '',
-  widthMap: '',
-  heightMap: '',
+  scoreMax: '5',
+  widthMap: '600',
+  heightMap: '300',
   idJoin: '',
 };
 
