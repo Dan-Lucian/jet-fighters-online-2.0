@@ -6,18 +6,18 @@ import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import styles from './BtnStart.module.scss';
 
 const BtnStart = () => {
-  const [game] = useContextGlobal();
+  const [global] = useContextGlobal();
   const [lobby] = useContextLobby();
 
-  const { stateGame } = game;
+  const { stateApp } = global;
   const { isReadyPlayer1, isReadyPlayer2 } = lobby;
 
-  const isStateGameLobby = stateGame === 'lobby';
+  const isStateAppLobby = stateApp === 'lobby';
   const arePlayersReady = isReadyPlayer1 && isReadyPlayer2;
 
   return (
     <input
-      disabled={!isStateGameLobby || !arePlayersReady}
+      disabled={!isStateAppLobby || !arePlayersReady}
       className={styles.btn}
       type="submit"
       value="START"
