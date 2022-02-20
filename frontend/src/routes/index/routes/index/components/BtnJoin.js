@@ -1,11 +1,11 @@
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 
 // styles
 import styles from './BtnJoin.module.scss';
 
 const BtnJoin = () => {
-  const [game] = useContextGame();
+  const [game] = useContextGlobal();
 
   const { stateGame } = game;
 

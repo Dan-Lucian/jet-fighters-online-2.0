@@ -23,4 +23,4 @@ const valueDefault = {
   name: 'Anon',
 };
 
-export { ProviderUser, useContextUser };
+// export { ProviderUser, useContextUser };

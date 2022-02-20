@@ -1,11 +1,11 @@
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 
 // styles
 import styles from './StatusCreate.module.scss';
 
 const StatusCreate = () => {
-  const [game] = useContextGame();
+  const [game] = useContextGlobal();
 
   const { stateGame } = game;
 

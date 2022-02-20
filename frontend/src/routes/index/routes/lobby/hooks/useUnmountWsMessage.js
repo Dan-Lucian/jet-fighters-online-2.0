@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
@@ -13,18 +12,16 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
  * sync both player's lobby.
  */
 const useUnmountWsMessage = () => {
-  const [game] = useContextGame();
-  const [user] = useContextUser();
+  const [global] = useContextGlobal();
   const [, setLobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { stateGame } = game;
-  const { isOwnerLobby } = user;
+  const { stateGame, isOwnerLobby } = global;
 
-  const isStateGameLobby = stateGame === 'lobby';
+  const isStateAppLobby = stateGame === 'lobby';
 
   useEffect(() => {
-    if (isOwnerLobby && isStateGameLobby)
+    if (isOwnerLobby && isStateAppLobby)
       return () => {
         setLobby((prev) => {
           const lobbyNew = {
@@ -43,7 +40,7 @@ const useUnmountWsMessage = () => {
         });
       };
 
-    if (isStateGameLobby)
+    if (isStateAppLobby)
       return () => {
         setLobby((prev) => {
           const lobbyNew = {
@@ -61,7 +58,7 @@ const useUnmountWsMessage = () => {
           return lobbyNew;
         });
       };
-  }, [isOwnerLobby, isStateGameLobby, sendMessage, setLobby, stateGame]);
+  }, [isOwnerLobby, isStateAppLobby, sendMessage, setLobby, stateGame]);
 };
 
 export { useUnmountWsMessage };

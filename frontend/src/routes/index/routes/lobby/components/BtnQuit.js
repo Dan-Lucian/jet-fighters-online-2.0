@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import {
   useContextLobby,
   valueDefaultProviderLobby,
@@ -14,39 +13,37 @@ import styles from './BtnQuit.module.scss';
 
 const BtnQuit = () => {
   const navigate = useNavigate();
-  const [game, setGame] = useContextGame();
-  const [user] = useContextUser();
+  const [global, setGlobal] = useContextGlobal();
   const [lobby, setLobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { stateGame } = game;
-  const { isOwnerLobby } = user;
+  const { stateApp, isOwnerLobby } = global;
   const { idLobby } = lobby;
 
-  const isStateGameLobby = stateGame === 'lobby';
+  const isStateAppLobby = stateApp === 'lobby';
 
   const getHandlerClick = () => {
-    if (isStateGameLobby)
+    if (isStateAppLobby)
       return () => {
         sendMessage({
           event: 'quitLobby',
           idLobby,
           isOwnerLobby,
         });
-        setGame((prev) => ({ ...prev, stateGame: 'preLobby' }));
+        setGlobal((prev) => ({ ...prev, stateApp: 'preLobby' }));
         setLobby({ ...valueDefaultProviderLobby });
         navigate('/');
       };
 
     return () =>
       console.log(
-        `quit denial because needed stateGame=lobby but currently stateGame=${stateGame}`
+        `quit denial because needed stateApp=lobby but currently stateApp=${stateApp}`
       );
   };
 
   return (
     <button
-      disabled={!isStateGameLobby}
+      disabled={!isStateAppLobby}
       onClick={getHandlerClick()}
       className={styles.btn}
       type="button"

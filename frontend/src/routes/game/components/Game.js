@@ -3,7 +3,7 @@
 import { useRef, useEffect } from 'react';
 
 // shared hooks
-import { useContextGame } from '../../../providers/ProviderGame';
+import { useContextGame } from '../../../providers/ProviderGlobal';
 
 // styles
 import styles from './Game.module.scss';

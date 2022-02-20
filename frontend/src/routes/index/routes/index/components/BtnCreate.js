@@ -1,34 +1,30 @@
 // shared hooks
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 
 // styles
 import styles from './BtnCreate.module.scss';
 
 const BtnCreate = () => {
   const { sendMessage } = useContextWebsocket();
-  const [game] = useContextGame();
-  const [user] = useContextUser();
+  const [global] = useContextGlobal();
 
-  const { stateGame } = game;
-  const { name } = user;
+  const { stateApp, name } = global;
 
-  const isstateGamePreLobby = stateGame === 'preLobby';
+  const isStateAppPreLobby = stateApp === 'preLobby';
 
   const getHandlerClick = () => {
-    if (isstateGamePreLobby)
-      return () => sendMessage({ name, event: 'create' });
+    if (isStateAppPreLobby) return () => sendMessage({ name, event: 'create' });
 
     return () =>
       console.log(
-        `create denial because needed stateGame: preLobby but currently stateGame: ${stateGame}`
+        `create denial because needed stateApp: preLobby but currently stateApp: ${stateApp}`
       );
   };
 
   return (
     <button
-      disabled={!isstateGamePreLobby}
+      disabled={!isStateAppPreLobby}
       onClick={getHandlerClick()}
       className={styles.btnCreate}
       type="button"

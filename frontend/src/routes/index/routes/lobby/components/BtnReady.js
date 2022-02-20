@@ -1,6 +1,5 @@
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
@@ -8,19 +7,17 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
 import styles from './BtnReady.module.scss';
 
 const BtnReady = () => {
-  const [game] = useContextGame();
-  const [user] = useContextUser();
+  const [global] = useContextGlobal();
   const [lobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { stateGame } = game;
-  const { isOwnerLobby } = user;
+  const { stateApp, isOwnerLobby } = global;
   const { isReadyPlayer1, isReadyPlayer2 } = lobby;
 
-  const isStateGameLobby = stateGame === 'lobby';
+  const isStateAppLobby = stateApp === 'lobby';
 
   const getHandlerClick = () => {
-    if (isOwnerLobby && isStateGameLobby)
+    if (isOwnerLobby && isStateAppLobby)
       return () => {
         sendMessage({
           event: 'updateLobby',
@@ -31,7 +28,7 @@ const BtnReady = () => {
         });
       };
 
-    if (isStateGameLobby) {
+    if (isStateAppLobby) {
       return () =>
         sendMessage({
           event: 'updateLobby',
@@ -44,13 +41,13 @@ const BtnReady = () => {
 
     return () =>
       console.log(
-        `updateLobby denial because needed stateGame=lobby but currently stateGame=${stateGame}`
+        `updateLobby denial because needed stateApp=lobby but currently stateApp=${stateApp}`
       );
   };
 
   return (
     <button
-      disabled={!isStateGameLobby}
+      disabled={!isStateAppLobby}
       onClick={getHandlerClick()}
       className={styles.btn}
       type="button"

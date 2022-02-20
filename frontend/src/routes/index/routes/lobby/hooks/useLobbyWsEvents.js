@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
 import {
   useContextLobby,
@@ -16,24 +15,23 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
  * the application in the 'lobby' game state.
  */
 const useLobbyWsEvents = () => {
-  const [game, setGame] = useContextGame();
-  const [user] = useContextUser();
+  const [global, setGlobal] = useContextGlobal();
   const [settings] = useContextSettings();
   const [lobby, setLobby] = useContextLobby();
   const { message, sendMessage, resetMessage } = useContextWebsocket();
   const navigate = useNavigate();
 
-  const { stateGame } = game;
-  const { isOwnerLobby } = user;
+  const { stateApp } = global;
+  const { isOwnerLobby } = global;
   const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
   const { event, success } = message;
 
-  const isStateGameLobby = stateGame === 'lobby';
+  const isStateAppLobby = stateApp === 'lobby';
 
   useEffect(() => {
     // receveied by both players when any of them makes a
     // lobby change (isReadyPlayer).
-    if (isStateGameLobby && event === 'updateLobby') {
+    if (isStateAppLobby && event === 'updateLobby') {
       console.log('EVENT: updateLobby');
       // this lobby object is relayed from the player who requested a change
       setLobby(message.lobby);
@@ -42,7 +40,7 @@ const useLobbyWsEvents = () => {
 
     // receveied by the one who created the lobby
     // about someone joining the lobby.
-    if (isStateGameLobby && success && event === 'join') {
+    if (isStateAppLobby && success && event === 'join') {
       console.log('EVENT: join');
       const { idLobby: idLobbyReceived, nameOwner, nameJoiner } = message;
 
@@ -66,7 +64,7 @@ const useLobbyWsEvents = () => {
     }
 
     // received by the owner when the joiner quit the lobby.
-    if (isStateGameLobby && event === 'quitLobby') {
+    if (isStateAppLobby && event === 'quitLobby') {
       console.log('EVENT: quitLobby');
       setLobby((prev) => ({
         ...prev,
@@ -78,9 +76,9 @@ const useLobbyWsEvents = () => {
     }
 
     // received by the joiner when the owner quit the lobby
-    if (isStateGameLobby && event === 'destroyLobby') {
+    if (isStateAppLobby && event === 'destroyLobby') {
       console.log('EVENT: destroyLobby');
-      setGame((prev) => ({ ...prev, stateGame: 'preLobby' }));
+      setGlobal((prev) => ({ ...prev, stateApp: 'preLobby' }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
       navigate('/');
@@ -91,7 +89,7 @@ const useLobbyWsEvents = () => {
     // lobby showed that both players are ready.
     // The purpose is to double check readiness and also get the current
     // player's jet settings.
-    if (isStateGameLobby && event === 'requestReady') {
+    if (isStateAppLobby && event === 'requestReady') {
       console.log('EVENT: requestReady');
       sendMessage({
         event: 'responseReady',
@@ -104,11 +102,13 @@ const useLobbyWsEvents = () => {
     }
 
     // received when the server is starting the real-time game.
-    if (isStateGameLobby && event === 'start') {
+    if (isStateAppLobby && event === 'start') {
       console.log('EVENT: start');
       const { stateGame: receivedStateGame } = message;
 
-      setGame({ ...receivedStateGame, stateGame: 'countdown' });
+      setGlobal((prev) => ({ ...prev, stateApp: 'countdown' }));
+      // create new game provider
+      // setGame({ receivedStateGame });
       resetMessage();
       navigate('/game');
     }

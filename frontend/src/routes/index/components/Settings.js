@@ -1,6 +1,5 @@
 // shared hooks
-import { useContextGame } from '../../../providers/ProviderGame';
-import { useContextUser } from '../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../providers/ProviderGlobal';
 import { useContextSettings } from '../../../providers/ProviderSettings';
 import { useContextLobby } from '../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
@@ -9,18 +8,16 @@ import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
 import styles from './Settings.module.scss';
 
 const Settings = () => {
-  const [game] = useContextGame();
-  const [user] = useContextUser();
+  const [global] = useContextGlobal();
   const [settings, setSettings] = useContextSettings();
   const [lobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { stateGame } = game;
-  const { isOwnerLobby } = user;
+  const { stateApp, isOwnerLobby } = global;
   const { scoreMax, widthMap, heightMap } = settings;
   const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
 
-  const isStateGameLobby = stateGame === 'lobby';
+  const isStateAppLobby = stateApp === 'lobby';
   const arePlayersReady = isReadyPlayer1 && isReadyPlayer2;
 
   const getHandlerInput = (prop) => (e) => {
@@ -31,14 +28,14 @@ const Settings = () => {
 
   const getHandlerSubmit = () => {
     // the sform will work only if both players are shown to be ready
-    if (isStateGameLobby && arePlayersReady) {
+    if (isStateAppLobby && arePlayersReady) {
       return (e) => {
         e.preventDefault();
         sendMessage({ event: 'start', isOwnerLobby, idLobby, settings });
       };
     }
 
-    if (isStateGameLobby && (!isReadyPlayer1 || !isReadyPlayer2)) {
+    if (isStateAppLobby && (!isReadyPlayer1 || !isReadyPlayer2)) {
       return (e) => {
         e.preventDefault();
         console.log(`start denial because one of the players is not ready`);
@@ -48,7 +45,7 @@ const Settings = () => {
     return (e) => {
       e.preventDefault();
       console.log(
-        `start denial because needed stateGame=lobby but currently stateGame=${stateGame}`
+        `start denial because needed stateApp=lobby but currently stateApp=${stateApp}`
       );
     };
   };

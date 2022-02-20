@@ -1,12 +1,12 @@
 // // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextLobby } from '../../../../../providers/ProviderLobby';
 
 // styles
 import styles from './BtnStart.module.scss';
 
 const BtnStart = () => {
-  const [game] = useContextGame();
+  const [game] = useContextGlobal();
   const [lobby] = useContextLobby();
 
   const { stateGame } = game;

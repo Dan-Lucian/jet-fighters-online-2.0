@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextLobby } from '../../../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
@@ -13,43 +12,42 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
  */
 const usePreLobbyWsEvents = () => {
   const navigate = useNavigate();
-  const [game, setGame] = useContextGame();
-  const [, setUser] = useContextUser();
+  const [global, setGlobal] = useContextGlobal();
   const [, setLobby] = useContextLobby();
   const { message, resetMessage } = useContextWebsocket();
 
-  const { stateGame } = game;
+  const { stateApp } = global;
   const { event, success, idLobby } = message;
 
-  const isStateGamePreLobby = stateGame === 'preLobby';
+  const isStateAppPreLobby = stateApp === 'preLobby';
 
   useEffect(() => {
     const { name } = message;
 
     // receveied by the player who attempted to create a lobby
-    if (isStateGamePreLobby && success && event === 'create') {
+    if (isStateAppPreLobby && success && event === 'create') {
       console.log('EVENT: create');
-      setGame((prev) => ({ ...prev, stateGame: 'lobby' }));
+      setGlobal((prev) => ({ ...prev, stateApp: 'lobby', isOwnerLobby: true }));
       setLobby((prev) => ({
         ...prev,
         idLobby,
         namePlayer1: name,
         isConnectedPlayer1: true,
       }));
-      setUser((prev) => ({
-        ...prev,
-        isOwnerLobby: true,
-      }));
       resetMessage();
       navigate('/lobby');
     }
 
     // receveied by the player who attempted to join a lobby
-    if (isStateGamePreLobby && success && event === 'joinResponse') {
+    if (isStateAppPreLobby && success && event === 'joinResponse') {
       console.log('EVENT: joinRepsponse');
       const { nameOwner, nameJoiner } = message;
 
-      setGame((prev) => ({ ...prev, stateGame: 'lobby' }));
+      setGlobal((prev) => ({
+        ...prev,
+        stateApp: 'lobby',
+        isOwnerLobby: false,
+      }));
       setLobby((prev) => ({
         ...prev,
         idLobby,
@@ -57,10 +55,6 @@ const usePreLobbyWsEvents = () => {
         namePlayer2: nameJoiner,
         isConnectedPlayer1: true,
         isConnectedPlayer2: true,
-      }));
-      setUser((prev) => ({
-        ...prev,
-        isOwnerLobby: false,
       }));
       resetMessage();
       navigate('/lobby');

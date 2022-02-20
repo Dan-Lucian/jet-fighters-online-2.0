@@ -1,6 +1,5 @@
 // shared hooks
-import { useContextGame } from '../../../../../providers/ProviderGame';
-import { useContextUser } from '../../../../../providers/ProviderUser';
+import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
 
@@ -8,19 +7,17 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
 import styles from './FormId.module.scss';
 
 const FormId = () => {
-  const [game] = useContextGame();
-  const [user] = useContextUser();
+  const [global] = useContextGlobal();
   const [settings, setSettings] = useContextSettings();
   const { sendMessage } = useContextWebsocket();
 
-  const { stateGame } = game;
-  const { name } = user;
+  const { stateApp, name } = global;
   const { idJoin } = settings;
 
-  const isstateGamePreLobby = stateGame === 'preLobby';
+  const isstateAppPreLobby = stateApp === 'preLobby';
 
   const getHandlerSubmit = () => {
-    if (isstateGamePreLobby)
+    if (isstateAppPreLobby)
       return (e) => {
         e.preventDefault();
         setSettings((prev) => ({ ...prev, idJoin: '' }));
@@ -34,7 +31,7 @@ const FormId = () => {
     return (e) => {
       e.preventDefault();
       console.log(
-        `join denial because needed stateGame: preLobby but currently stateGame: ${stateGame}`
+        `join denial because needed stateApp: preLobby but currently stateApp: ${stateApp}`
       );
     };
   };
