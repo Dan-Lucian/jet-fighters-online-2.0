@@ -70,6 +70,9 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
   wsJoiner.idInterval = idInterval;
 };
 
+// Moves the jet/bullet one tick towards the direction it is facing
+// based on it's speed value.
+// Steers left/right according to jet's rotation sensitivity.
 const goTheWayIsFacing = (statePlayer) => {
   const { isPressedArrowRight, isPressedArrowLeft, sensitivityRotation } =
     statePlayer;
