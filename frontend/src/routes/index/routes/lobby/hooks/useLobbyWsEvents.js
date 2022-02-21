@@ -65,7 +65,7 @@ const useLobbyWsEvents = () => {
 
     // received by the owner when the joiner quit the lobby.
     if (isStateAppLobby && event === 'quitJoiner') {
-      console.log('EVENT: quitLobby');
+      console.log('EVENT: quitJoiner');
       setLobby((prev) => ({
         ...prev,
         nameJoiner: 'Empty...',
@@ -74,7 +74,7 @@ const useLobbyWsEvents = () => {
       }));
       setGlobal((prev) => ({
         ...prev,
-        msgPopup: 'The lobby joiner has quit/disconnected.',
+        msgPopup: `${lobby.nameJoiner} has quit/disconnected.`,
       }));
       resetMessage();
     }
@@ -85,7 +85,7 @@ const useLobbyWsEvents = () => {
       setGlobal((prev) => ({
         ...prev,
         stateApp: 'preLobby',
-        msgPopup: 'The lobby owner has quit/disconnected.',
+        msgPopup: `${lobby.nameOwner} has quit/disconnected.`,
       }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();

@@ -13,7 +13,7 @@ import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
 const useGameWsEvents = () => {
   const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
-  const [, setLobby] = useContextLobby();
+  const [lobby, setLobby] = useContextLobby();
   const { message, resetMessage } = useContextWebsocket();
   const navigate = useNavigate();
 
@@ -33,11 +33,11 @@ const useGameWsEvents = () => {
 
     // received by the owner when the joiner quit the lobby.
     if ((isStateAppGame || isStateAppCountdown) && event === 'quitJoiner') {
-      console.log('EVENT: quitLobby');
+      console.log('EVENT: quitJoiner');
       setGlobal((prev) => ({
         ...prev,
         stateApp: 'lobby',
-        msgPopup: 'The lobby joiner has quit/disconnected.',
+        msgPopup: `${lobby.nameJoiner} has quit/disconnected.`,
       }));
       setLobby((prev) => ({
         ...prev,
@@ -55,7 +55,7 @@ const useGameWsEvents = () => {
       setGlobal((prev) => ({
         ...prev,
         stateApp: 'preLobby',
-        msgPopup: 'The lobby owner has quit/disconnected.',
+        msgPopup: `${lobby.nameOwner} has quit/disconnected.`,
       }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
