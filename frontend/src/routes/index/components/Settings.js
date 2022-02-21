@@ -15,10 +15,10 @@ const Settings = () => {
 
   const { stateApp, isOwnerLobby } = global;
   const { scoreMax, widthMap, heightMap } = settings;
-  const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { idLobby, isReadyOwner, isReadyJoiner } = lobby;
 
   const isStateAppLobby = stateApp === 'lobby';
-  const arePlayersReady = isReadyPlayer1 && isReadyPlayer2;
+  const arePlayersReady = isReadyOwner && isReadyJoiner;
 
   const getHandlerInput = (prop) => (e) => {
     const valueInput = {};
@@ -35,7 +35,7 @@ const Settings = () => {
       };
     }
 
-    if (isStateAppLobby && (!isReadyPlayer1 || !isReadyPlayer2)) {
+    if (isStateAppLobby && (!isReadyOwner || !isReadyJoiner)) {
       return (e) => {
         e.preventDefault();
         console.log(`start denial because one of the players is not ready`);

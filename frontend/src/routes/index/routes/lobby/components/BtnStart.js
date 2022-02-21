@@ -10,10 +10,10 @@ const BtnStart = () => {
   const [lobby] = useContextLobby();
 
   const { stateApp } = global;
-  const { isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { isReadyOwner, isReadyJoiner } = lobby;
 
   const isStateAppLobby = stateApp === 'lobby';
-  const arePlayersReady = isReadyPlayer1 && isReadyPlayer2;
+  const arePlayersReady = isReadyOwner && isReadyJoiner;
 
   return (
     <input

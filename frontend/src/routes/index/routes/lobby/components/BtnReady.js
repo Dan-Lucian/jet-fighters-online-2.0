@@ -12,7 +12,7 @@ const BtnReady = () => {
   const { sendMessage } = useContextWebsocket();
 
   const { stateApp, isOwnerLobby } = global;
-  const { isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { isReadyOwner, isReadyJoiner } = lobby;
 
   const isStateAppLobby = stateApp === 'lobby';
 
@@ -23,7 +23,7 @@ const BtnReady = () => {
           event: 'updateLobby',
           lobby: {
             ...lobby,
-            isReadyPlayer1: !isReadyPlayer1,
+            isReadyOwner: !isReadyOwner,
           },
         });
       };
@@ -34,7 +34,7 @@ const BtnReady = () => {
           event: 'updateLobby',
           lobby: {
             ...lobby,
-            isReadyPlayer2: !isReadyPlayer2,
+            isReadyJoiner: !isReadyJoiner,
           },
         });
     }

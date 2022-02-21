@@ -23,7 +23,7 @@ const useLobbyWsEvents = () => {
 
   const { stateApp } = global;
   const { isOwnerLobby } = global;
-  const { idLobby, isReadyPlayer1, isReadyPlayer2 } = lobby;
+  const { idLobby, isReadyOwner, isReadyJoiner } = lobby;
   const { event, success } = message;
 
   const isStateAppLobby = stateApp === 'lobby';
@@ -48,9 +48,9 @@ const useLobbyWsEvents = () => {
         const lobbyNew = {
           ...prev,
           idLobby: idLobbyReceived,
-          namePlayer1: nameOwner,
-          namePlayer2: nameJoiner,
-          isConnectedPlayer2: true,
+          nameOwner,
+          nameJoiner,
+          isConnectedJoiner: true,
         };
 
         sendMessage({
@@ -68,9 +68,9 @@ const useLobbyWsEvents = () => {
       console.log('EVENT: quitLobby');
       setLobby((prev) => ({
         ...prev,
-        namePlayer2: 'Empty...',
-        isConnectedPlayer2: false,
-        isReadyPlayer2: false,
+        nameJoiner: 'Empty...',
+        isConnectedJoiner: false,
+        isReadyJoiner: false,
       }));
       setGlobal((prev) => ({
         ...prev,
@@ -100,7 +100,7 @@ const useLobbyWsEvents = () => {
       console.log('EVENT: requestReady');
       sendMessage({
         event: 'responseReady',
-        isReady: isReadyPlayer1 && isReadyPlayer2,
+        isReady: isReadyOwner && isReadyJoiner,
         idLobby,
         settings,
         isOwnerLobby,

@@ -26,7 +26,7 @@ const useUnmountWsMessage = () => {
         setLobby((prev) => {
           const lobbyNew = {
             ...prev,
-            isReadyPlayer1: false,
+            isReadyOwner: false,
           };
 
           sendMessage({
@@ -45,7 +45,7 @@ const useUnmountWsMessage = () => {
         setLobby((prev) => {
           const lobbyNew = {
             ...prev,
-            isReadyPlayer2: false,
+            isReadyJoiner: false,
           };
 
           sendMessage({

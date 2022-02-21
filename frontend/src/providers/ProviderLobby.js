@@ -19,14 +19,14 @@ const useContextLobby = () => {
 };
 
 const valueDefaultProviderLobby = {
-  isConnectedPlayer1: false,
-  namePlayer1: 'Empty...',
-  scorePlayer1: 0,
-  isReadyPlayer1: false,
-  isConnectedPlayer2: false,
-  namePlayer2: 'Empty...',
-  isReadyPlayer2: false,
-  scorePlayer2: 0,
+  isConnectedOwner: false,
+  nameOwner: 'Empty...',
+  scoreOwner: 0,
+  isReadyOwner: false,
+  isConnectedJoiner: false,
+  nameJoiner: 'Empty...',
+  isReadyJoiner: false,
+  scoreJoiner: 0,
   idLobby: 'No lobby',
 };
 

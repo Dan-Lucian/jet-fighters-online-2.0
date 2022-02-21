@@ -31,8 +31,8 @@ const usePreLobbyWsEvents = () => {
       setLobby((prev) => ({
         ...prev,
         idLobby,
-        namePlayer1: name,
-        isConnectedPlayer1: true,
+        nameOwner: name,
+        isConnectedOwner: true,
       }));
       resetMessage();
       navigate('/lobby');
@@ -51,10 +51,10 @@ const usePreLobbyWsEvents = () => {
       setLobby((prev) => ({
         ...prev,
         idLobby,
-        namePlayer1: nameOwner,
-        namePlayer2: nameJoiner,
-        isConnectedPlayer1: true,
-        isConnectedPlayer2: true,
+        nameOwner,
+        nameJoiner,
+        isConnectedOwner: true,
+        isConnectedJoiner: true,
       }));
       resetMessage();
       navigate('/lobby');

@@ -48,9 +48,9 @@ const PageGame = () => {
       }));
       setLobby((prev) => ({
         ...prev,
-        namePlayer2: 'Empty...',
-        isConnectedPlayer2: false,
-        isReadyPlayer2: false,
+        nameJoiner: 'Empty...',
+        isConnectedJoiner: false,
+        isReadyJoiner: false,
       }));
       resetMessage();
       navigate('/lobby');
