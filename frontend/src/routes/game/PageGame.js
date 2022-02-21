@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ const PageGame = () => {
 
   const isStateAppCountdown = stateApp === 'countdown';
   const isStateAppGame = stateApp === 'game';
+  const stateGameValid = stateGame || stateGameInitial || stateGameDefault;
 
   useEffect(() => {
     if (isStateAppGame && event === 'updateGame') {
@@ -43,13 +45,29 @@ const PageGame = () => {
 
   return (
     <main className={styles.pageGame}>
-      <Game stateGame={stateGame || stateGameInitial} />
-      <TablePlayers stateGame={stateGame || stateGameInitial} />
+      <Game stateGame={stateGameValid} />
+      <TablePlayers stateGame={stateGameValid} />
       {isStateAppCountdown && (
         <Countdown handleCountownEnd={getHandlerCountdownEnd()} />
       )}
     </main>
   );
+};
+
+const stateGameDefault = {
+  joiner: {
+    name: '_____ ',
+    score: 0,
+  },
+  owner: {
+    name: '_____ ',
+    score: 0,
+  },
+  settings: {
+    scoreMax: '0',
+    widthMap: 600,
+    heightMap: 300,
+  },
 };
 
 export default PageGame;
