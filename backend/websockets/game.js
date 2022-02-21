@@ -35,10 +35,7 @@ const createStateGameInitial = (lobby) => ({
   },
   settings: {
     winPlayer: null,
-    idLobby: lobby.settings.idLobby,
-    scoreMax: lobby.settings.scoreMax,
-    widthMap: lobby.settings.widthMap,
-    heightMap: lobby.settings.heightMap,
+    ...lobby.settings,
   },
   countFrame: 0,
 });

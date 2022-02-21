@@ -167,7 +167,8 @@ const websockets = (expressServer) => {
 
         if (isOwnerLobby && isReady) {
           lobby.owner.typeJet = typeJet;
-          response.stateGame = createStateGameInitial(lobby);
+          lobby.stateGameInitial = createStateGameInitial(lobby);
+          response.stateGame = lobby.stateGameInitial;
 
           const responseString = JSON.stringify(response);
           lobby.owner.ws.send(responseString);
@@ -181,7 +182,8 @@ const websockets = (expressServer) => {
         }
 
         lobby.joiner.typeJet = typeJet;
-        response.stateGame = createStateGameInitial(lobby);
+        lobby.stateGameInitial = createStateGameInitial(lobby);
+        response.stateGame = lobby.stateGameInitial;
 
         const responseString = JSON.stringify(response);
         lobby.owner.ws.send(responseString);
@@ -190,14 +192,10 @@ const websockets = (expressServer) => {
       }
 
       if (event === 'countdownEnd') {
-        const { idLobby } = messageJson.stateGameInitial.settings;
+        const { idLobby } = messageJson;
         const lobby = getLobby(idLobby);
 
-        startLoopGame(
-          lobby.owner.ws,
-          lobby.joiner.ws,
-          messageJson.stateGameInitial
-        );
+        startLoopGame(lobby.owner.ws, lobby.joiner.ws, lobby.stateGameInitial);
       }
 
       // quitLobby event

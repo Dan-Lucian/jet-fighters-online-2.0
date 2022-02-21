@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../providers/ProviderGlobal';
+import { useContextLobby } from '../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../providers/ProviderWebsocket';
 
 // local hooks
@@ -20,9 +21,11 @@ const PageGame = () => {
   useGameWsEvents();
   const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
+  const [lobby] = useContextLobby();
   const { message, sendMessage } = useContextWebsocket();
 
   const { stateApp, isOwnerLobby } = global;
+  const { idLobby } = lobby;
   const { stateGame } = message;
 
   const isStateAppCountdown = stateApp === 'countdown';
@@ -31,7 +34,7 @@ const PageGame = () => {
   const getHandlerCountdownEnd = () => {
     if (isOwnerLobby)
       return () => {
-        sendMessage({ event: 'countdownEnd', stateGameInitial });
+        sendMessage({ event: 'countdownEnd', idLobby });
         setGlobal((prev) => ({ ...prev, stateApp: 'game' }));
       };
 
