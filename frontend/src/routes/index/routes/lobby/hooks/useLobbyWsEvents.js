@@ -64,7 +64,7 @@ const useLobbyWsEvents = () => {
     }
 
     // received by the owner when the joiner quit the lobby.
-    if (isStateAppLobby && event === 'quitLobby') {
+    if (isStateAppLobby && event === 'quitJoiner') {
       console.log('EVENT: quitLobby');
       setLobby((prev) => ({
         ...prev,
@@ -76,12 +76,11 @@ const useLobbyWsEvents = () => {
     }
 
     // received by the joiner when the owner quit the lobby
-    if (isStateAppLobby && event === 'destroyLobby') {
-      console.log('EVENT: destroyLobby');
+    if (isStateAppLobby && event === 'quitOwner') {
+      console.log('EVENT: quitOwner');
       setGlobal((prev) => ({ ...prev, stateApp: 'preLobby' }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
-      navigate('/');
     }
 
     // received when the server received a 'start' event

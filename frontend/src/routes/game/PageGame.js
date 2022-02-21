@@ -1,9 +1,13 @@
 /* eslint-disable no-use-before-define */
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../providers/ProviderGlobal';
+import {
+  useContextLobby,
+  valueDefaultProviderLobby,
+} from '../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../providers/ProviderWebsocket';
 
 // local components
@@ -17,7 +21,9 @@ import styles from './PageGame.module.scss';
 const PageGame = () => {
   const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
-  const { message, sendMessage } = useContextWebsocket();
+  const [, setLobby] = useContextLobby();
+  const { message, sendMessage, resetMessage } = useContextWebsocket();
+  const navigate = useNavigate();
 
   const { stateApp, isOwnerLobby } = global;
   const { event, stateGame } = message;
@@ -30,6 +36,29 @@ const PageGame = () => {
     if (isStateAppGame && event === 'updateGame') {
       console.log('EVENT: updateGame');
       // stateGameCurrent.current = stateGameReceived;
+    }
+
+    // received by the owner when the joiner quit the lobby.
+    if (isStateAppGame && event === 'quitJoiner') {
+      console.log('EVENT: quitLobby');
+      setGlobal((prev) => ({ ...prev, stateApp: 'lobby' }));
+      setLobby((prev) => ({
+        ...prev,
+        namePlayer2: 'Empty...',
+        isConnectedPlayer2: false,
+        isReadyPlayer2: false,
+      }));
+      resetMessage();
+      navigate('/lobby');
+    }
+
+    // received by the joiner when the owner quit the lobby
+    if (isStateAppGame && event === 'quitOwner') {
+      console.log('EVENT: quitOwner');
+      setGlobal((prev) => ({ ...prev, stateApp: 'preLobby' }));
+      setLobby({ ...valueDefaultProviderLobby });
+      resetMessage();
+      navigate('/lobby');
     }
   }, [message]);
 

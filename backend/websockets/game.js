@@ -47,7 +47,7 @@ let countFrame = 0;
 
 const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
   console.log('stateGame:', stateGame);
-  setInterval(() => {
+  const idInterval = setInterval(() => {
     const responseString = JSON.stringify({
       event: 'updateGame',
       stateGame: { ...stateGame, countFrame },
@@ -56,6 +56,9 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
     wsJoiner.send(responseString);
     countFrame += 1;
   }, delayInterval);
+
+  wsOwner.idInterval = idInterval;
+  wsJoiner.idInterval = idInterval;
 };
 
 export { createStateGameInitial, startLoopGame };

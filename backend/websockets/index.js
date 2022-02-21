@@ -19,7 +19,7 @@ const websockets = (expressServer) => {
   });
 
   expressServer.on('upgrade', (request, socket, head) => {
-    console.log('upgrading');
+    console.log('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
       websocketServer.emit('connection', websocket, request);
     });
@@ -205,7 +205,7 @@ const websockets = (expressServer) => {
         const { idLobby, isOwnerLobby } = messageJson;
         const lobby = getLobby(idLobby);
         const response = {
-          event: isOwnerLobby ? 'destroyLobby' : 'quitLobby',
+          event: isOwnerLobby ? 'quitOwner' : 'quitJoiner',
         };
 
         if (isOwnerLobby) {
@@ -228,29 +228,31 @@ const websockets = (expressServer) => {
 
     websocketConnection.on('close', () => {
       const { idLobby } = websocketConnection;
-      if (!idLobby) return;
-
       const lobby = getLobby(idLobby);
       if (!lobby) return;
+
       const isOwnerLobby = websocketConnection === lobby.owner.ws;
 
       const response = {
-        event: isOwnerLobby ? 'destroyLobby' : 'quitLobby',
+        event: isOwnerLobby ? 'quitOwner' : 'quitJoiner',
       };
 
       if (isOwnerLobby) {
-        // if lobby has a joiner then send msg to him as well
+        // if lobby has a joiner then send msg to him
         if (lobby.joiner) {
           lobby.joiner.ws.send(JSON.stringify(response));
-          lobby.joiner.idLobby = null;
+          lobby.joiner.ws.idLobby = null;
+          clearInterval(lobby.joiner.ws.idInterval);
+          lobby.joiner.ws.idInterval = null;
         }
         destroyLobby(idLobby);
         return;
       }
 
-      websocketConnection.idLobby = null;
       removeJoinerFromLobby(idLobby);
+      clearInterval(lobby.owner.ws.idInterval);
       lobby.owner.ws.send(JSON.stringify(response));
+      lobby.owner.ws.idInterval = null;
     });
   });
 
