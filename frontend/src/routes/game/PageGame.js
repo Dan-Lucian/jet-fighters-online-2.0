@@ -44,7 +44,7 @@ const PageGame = () => {
       setGlobal((prev) => ({
         ...prev,
         stateApp: 'lobby',
-        msgPopup: 'The joiner quit',
+        msgPopup: 'The lobby joiner has quit/disconnected.',
       }));
       setLobby((prev) => ({
         ...prev,
@@ -62,7 +62,7 @@ const PageGame = () => {
       setGlobal((prev) => ({
         ...prev,
         stateApp: 'preLobby',
-        msgPopup: 'The owner quit',
+        msgPopup: 'The lobby owner has quit/disconnected.',
       }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();

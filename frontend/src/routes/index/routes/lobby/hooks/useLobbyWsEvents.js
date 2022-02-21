@@ -72,7 +72,10 @@ const useLobbyWsEvents = () => {
         isConnectedPlayer2: false,
         isReadyPlayer2: false,
       }));
-      setGlobal((prev) => ({ ...prev, msgPopup: 'The joiner quit' }));
+      setGlobal((prev) => ({
+        ...prev,
+        msgPopup: 'The lobby joiner has quit/disconnected.',
+      }));
       resetMessage();
     }
 
@@ -82,7 +85,7 @@ const useLobbyWsEvents = () => {
       setGlobal((prev) => ({
         ...prev,
         stateApp: 'preLobby',
-        msgPopup: 'The owner quit',
+        msgPopup: 'The lobby owner has quit/disconnected.',
       }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();

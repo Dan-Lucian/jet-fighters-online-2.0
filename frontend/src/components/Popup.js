@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 // shared hooks
 import { useContextGlobal } from '../providers/ProviderGlobal';
@@ -8,25 +8,26 @@ import styles from './Popup.module.scss';
 
 const Popup = () => {
   const [global, setGlobal] = useContextGlobal();
+  const msgPrevious = useRef(null);
 
   const { msgPopup } = global;
 
   useEffect(() => {
-    let idTimeout;
     if (msgPopup) {
-      idTimeout = setTimeout(() => {
+      msgPrevious.current = msgPopup;
+      const idTimeout = setTimeout(() => {
         setGlobal((prev) => ({ ...prev, msgPopup: null }));
-      }, 2000);
-    }
+      }, 2500);
 
-    return () => clearTimeout(idTimeout);
+      return () => clearTimeout(idTimeout);
+    }
   }, [msgPopup, setGlobal]);
 
   const stylesPopup = msgPopup
     ? `${styles.wrapper} ${styles.visible}`
     : `${styles.wrapper}`;
 
-  return <div className={stylesPopup}>{msgPopup}</div>;
+  return <div className={stylesPopup}>{msgPopup || msgPrevious.current}</div>;
 };
 
 export default Popup;
