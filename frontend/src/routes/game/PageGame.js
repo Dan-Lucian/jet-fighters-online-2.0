@@ -1,14 +1,12 @@
 /* eslint-disable no-use-before-define */
-import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../providers/ProviderGlobal';
-import {
-  useContextLobby,
-  valueDefaultProviderLobby,
-} from '../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../providers/ProviderWebsocket';
+
+// local hooks
+import { useGameWsEvents } from './hooks/useGameWsEvents';
 
 // local components
 import Game from './components/Game';
@@ -19,56 +17,16 @@ import Countdown from './components/Countdown';
 import styles from './PageGame.module.scss';
 
 const PageGame = () => {
+  useGameWsEvents();
   const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
-  const [, setLobby] = useContextLobby();
-  const { message, sendMessage, resetMessage } = useContextWebsocket();
-  const navigate = useNavigate();
+  const { message, sendMessage } = useContextWebsocket();
 
   const { stateApp, isOwnerLobby } = global;
-  const { event, stateGame } = message;
+  const { stateGame } = message;
 
   const isStateAppCountdown = stateApp === 'countdown';
-  const isStateAppGame = stateApp === 'game';
   const stateGameValid = stateGame || stateGameInitial || stateGameDefault;
-
-  useEffect(() => {
-    if (isStateAppGame && event === 'updateGame') {
-      console.log('EVENT: updateGame');
-      // stateGameCurrent.current = stateGameReceived;
-    }
-
-    // received by the owner when the joiner quit the lobby.
-    if ((isStateAppGame || isStateAppCountdown) && event === 'quitJoiner') {
-      console.log('EVENT: quitLobby');
-      setGlobal((prev) => ({
-        ...prev,
-        stateApp: 'lobby',
-        msgPopup: 'The lobby joiner has quit/disconnected.',
-      }));
-      setLobby((prev) => ({
-        ...prev,
-        nameJoiner: 'Empty...',
-        isConnectedJoiner: false,
-        isReadyJoiner: false,
-      }));
-      resetMessage();
-      navigate('/lobby');
-    }
-
-    // received by the joiner when the owner quit the lobby
-    if ((isStateAppGame || isStateAppCountdown) && event === 'quitOwner') {
-      console.log('EVENT: quitOwner');
-      setGlobal((prev) => ({
-        ...prev,
-        stateApp: 'preLobby',
-        msgPopup: 'The lobby owner has quit/disconnected.',
-      }));
-      setLobby({ ...valueDefaultProviderLobby });
-      resetMessage();
-      navigate('/lobby');
-    }
-  }, [message]);
 
   const getHandlerCountdownEnd = () => {
     if (isOwnerLobby)
