@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../../providers/ProviderGlobal';
@@ -11,6 +11,7 @@ import {
 import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
 
 const useGameWsEvents = () => {
+  const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
   const [, setLobby] = useContextLobby();
   const { message, resetMessage } = useContextWebsocket();
@@ -18,7 +19,9 @@ const useGameWsEvents = () => {
 
   const { stateApp } = global;
   const { event } = message;
+  const { stateGame } = message;
 
+  const stateGameValid = stateGame || stateGameInitial || stateGameDefault;
   const isStateAppCountdown = stateApp === 'countdown';
   const isStateAppGame = stateApp === 'game';
 
@@ -59,6 +62,24 @@ const useGameWsEvents = () => {
       navigate('/lobby');
     }
   }, [message]);
+
+  return stateGameValid;
+};
+
+const stateGameDefault = {
+  joiner: {
+    name: '_____ ',
+    score: 0,
+  },
+  owner: {
+    name: '_____ ',
+    score: 0,
+  },
+  settings: {
+    scoreMax: '0',
+    widthMap: 600,
+    heightMap: 300,
+  },
 };
 
 export { useGameWsEvents };

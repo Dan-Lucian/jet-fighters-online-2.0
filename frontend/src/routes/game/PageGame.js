@@ -1,6 +1,3 @@
-/* eslint-disable no-use-before-define */
-import { useLocation } from 'react-router-dom';
-
 // shared hooks
 import { useContextGlobal } from '../../providers/ProviderGlobal';
 import { useContextLobby } from '../../providers/ProviderLobby';
@@ -18,18 +15,15 @@ import Countdown from './components/Countdown';
 import styles from './PageGame.module.scss';
 
 const PageGame = () => {
-  useGameWsEvents();
-  const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
   const [lobby] = useContextLobby();
-  const { message, sendMessage } = useContextWebsocket();
+  const { sendMessage } = useContextWebsocket();
+  const stateGame = useGameWsEvents();
 
   const { stateApp, isOwnerLobby } = global;
   const { idLobby } = lobby;
-  const { stateGame } = message;
 
   const isStateAppCountdown = stateApp === 'countdown';
-  const stateGameValid = stateGame || stateGameInitial || stateGameDefault;
 
   const getHandlerCountdownEnd = () => {
     if (isOwnerLobby)
@@ -43,29 +37,13 @@ const PageGame = () => {
 
   return (
     <main className={styles.pageGame}>
-      <Game stateGame={stateGameValid} />
-      <TablePlayers stateGame={stateGameValid} />
+      <Game stateGame={stateGame} />
+      <TablePlayers stateGame={stateGame} />
       {isStateAppCountdown && (
         <Countdown handleCountownEnd={getHandlerCountdownEnd()} />
       )}
     </main>
   );
-};
-
-const stateGameDefault = {
-  joiner: {
-    name: '_____ ',
-    score: 0,
-  },
-  owner: {
-    name: '_____ ',
-    score: 0,
-  },
-  settings: {
-    scoreMax: '0',
-    widthMap: 600,
-    heightMap: 300,
-  },
 };
 
 export default PageGame;
