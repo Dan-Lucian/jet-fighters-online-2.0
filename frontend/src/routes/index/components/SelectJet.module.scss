@@ -1,10 +1,10 @@
 .selectJet {
+  border: 2px solid var(--color-blue);
   display: flex;
-  justify-content: center;
   flex-direction: column;
   gap: 1.5em;
   position: fixed;
-  z-index: 2;
+  z-index: 200;
   width: 30em;
   padding: 2.5em;
   right: 0;
@@ -13,6 +13,7 @@
   background: var(--color-bg-secondary);
   transform: translateX(30em);
   transition: transform 0.5s cubic-bezier(0.15, 0.77, 0.57, 1);
+  overflow: auto;
 }
 
 .isOpen {
