@@ -22,6 +22,7 @@ const valueDefault = {
   isOwnerLobby: false,
   name: 'Anon',
   stateApp: 'preLobby',
+  msgPopup: null,
 };
 
 export { ProviderGlobal, useContextGlobal };

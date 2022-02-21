@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorRouteFallback from './components/ErrorRouteFallback';
 import Loader from './components/Loader';
+import Popup from './components/Popup';
 import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
 import { ProviderLobby } from './providers/ProviderLobby';
@@ -42,9 +43,9 @@ const App = () => {
 
   return (
     <WrapperApp theme={theme}>
-      <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-      <WrapperPage>
-        <ProviderGlobal>
+      <ProviderGlobal>
+        <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
+        <WrapperPage>
           <ProviderSettings>
             <ProviderLobby>
               <ProviderWebsocket>
@@ -56,8 +57,9 @@ const App = () => {
               </ProviderWebsocket>
             </ProviderLobby>
           </ProviderSettings>
-        </ProviderGlobal>
-      </WrapperPage>
+        </WrapperPage>
+        <Popup />
+      </ProviderGlobal>
     </WrapperApp>
   );
 };

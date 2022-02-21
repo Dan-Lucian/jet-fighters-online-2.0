@@ -39,9 +39,13 @@ const PageGame = () => {
     }
 
     // received by the owner when the joiner quit the lobby.
-    if (isStateAppGame && event === 'quitJoiner') {
+    if ((isStateAppGame || isStateAppCountdown) && event === 'quitJoiner') {
       console.log('EVENT: quitLobby');
-      setGlobal((prev) => ({ ...prev, stateApp: 'lobby' }));
+      setGlobal((prev) => ({
+        ...prev,
+        stateApp: 'lobby',
+        msgPopup: 'The joiner quit',
+      }));
       setLobby((prev) => ({
         ...prev,
         namePlayer2: 'Empty...',
@@ -53,9 +57,13 @@ const PageGame = () => {
     }
 
     // received by the joiner when the owner quit the lobby
-    if (isStateAppGame && event === 'quitOwner') {
+    if ((isStateAppGame || isStateAppCountdown) && event === 'quitOwner') {
       console.log('EVENT: quitOwner');
-      setGlobal((prev) => ({ ...prev, stateApp: 'preLobby' }));
+      setGlobal((prev) => ({
+        ...prev,
+        stateApp: 'preLobby',
+        msgPopup: 'The owner quit',
+      }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
       navigate('/lobby');

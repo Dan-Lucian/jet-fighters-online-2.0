@@ -72,13 +72,18 @@ const useLobbyWsEvents = () => {
         isConnectedPlayer2: false,
         isReadyPlayer2: false,
       }));
+      setGlobal((prev) => ({ ...prev, msgPopup: 'The joiner quit' }));
       resetMessage();
     }
 
     // received by the joiner when the owner quit the lobby
     if (isStateAppLobby && event === 'quitOwner') {
       console.log('EVENT: quitOwner');
-      setGlobal((prev) => ({ ...prev, stateApp: 'preLobby' }));
+      setGlobal((prev) => ({
+        ...prev,
+        stateApp: 'preLobby',
+        msgPopup: 'The owner quit',
+      }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
     }
