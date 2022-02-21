@@ -1,31 +1,31 @@
 const typesJet = {
   speedster: {
-    rotation: 3,
-    actualSpeed: 4,
+    sensitivityRotation: 3,
+    speed: 4,
     color: 'black',
   },
 
   tank: {
-    rotation: 4.5,
-    actualSpeed: 3,
+    sensitivityRotation: 4.5,
+    speed: 3,
     color: 'black',
   },
 
   trickster: {
-    rotation: 6,
-    actualSpeed: 2,
+    sensitivityRotation: 6,
+    speed: 2,
     color: 'black',
   },
 
   survivalist: {
-    rotation: 3,
-    actualSpeed: 4,
+    sensitivityRotation: 3,
+    speed: 4,
     color: 'black',
   },
 
   balanced: {
-    rotation: 3,
-    actualSpeed: 4,
+    sensitivityRotation: 3,
+    speed: 4,
     color: 'black',
   },
 };

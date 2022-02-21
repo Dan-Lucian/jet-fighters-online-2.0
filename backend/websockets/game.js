@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { typesJet, delayInterval, imgW, imgH } from './config.js';
 import { getRandomInt } from '../utils/getRandomInt.js';
 
@@ -14,13 +15,12 @@ const createStateGameInitial = (lobby) => {
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
       scale: 1,
-      leftArrowPressed: false,
-      rightArrowPressed: false,
+      isPressedArrowLeft: false,
+      isPressedArrowRight: false,
       spacePressed: false,
       bullets: [],
       score: 0,
       playerNumber: 'p1',
-      speed: 0,
       ...typesJet[lobby.owner.typeJet],
     },
     joiner: {
@@ -30,13 +30,12 @@ const createStateGameInitial = (lobby) => {
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
       scale: 1,
-      leftArrowPressed: false,
-      rightArrowPressed: false,
+      isPressedArrowLeft: false,
+      isPressedArrowRight: false,
       spacePressed: false,
       bullets: [],
       score: 0,
       playerNumber: 'p2',
-      speed: 0,
       ...typesJet[lobby.joiner.typeJet],
     },
     settings: {
@@ -46,8 +45,6 @@ const createStateGameInitial = (lobby) => {
     countFrame: 0,
   };
 };
-
-let y = 0;
 
 const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
   console.log('stateGame:', stateGame);
@@ -62,12 +59,27 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
     wsOwner.send(responseString);
     wsJoiner.send(responseString);
 
-    stateGame.owner.y = y;
-    y += 1;
+    const { owner, joiner } = stateGame;
+    const bulletLanded = false;
+
+    goTheWayIsFacing(owner);
+    goTheWayIsFacing(joiner);
   }, delayInterval);
 
   wsOwner.idInterval = idInterval;
   wsJoiner.idInterval = idInterval;
+};
+
+const goTheWayIsFacing = (statePlayer) => {
+  const { isPressedArrowRight, isPressedArrowLeft, sensitivityRotation } =
+    statePlayer;
+
+  if (isPressedArrowRight) statePlayer.angle -= sensitivityRotation;
+  if (isPressedArrowLeft) statePlayer.angle += sensitivityRotation;
+
+  const rad = (statePlayer.angle * Math.PI) / 180;
+  statePlayer.x += statePlayer.speed * Math.sin(rad);
+  statePlayer.y += statePlayer.speed * Math.cos(rad);
 };
 
 export { createStateGameInitial, startLoopGame };
