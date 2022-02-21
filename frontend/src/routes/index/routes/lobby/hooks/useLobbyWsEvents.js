@@ -104,13 +104,13 @@ const useLobbyWsEvents = () => {
     // received when the server is starting the real-time game.
     if (isStateAppLobby && event === 'start') {
       console.log('EVENT: start');
-      const { stateGame: receivedStateGame } = message;
+      const { stateGame } = message;
 
       setGlobal((prev) => ({ ...prev, stateApp: 'countdown' }));
       // create new game provider
       // setGame({ receivedStateGame });
       resetMessage();
-      navigate('/game');
+      navigate('/game', { state: stateGame });
     }
   }, [message]);
 };

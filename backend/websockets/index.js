@@ -190,10 +190,14 @@ const websockets = (expressServer) => {
       }
 
       if (event === 'countdownEnd') {
-        const { idLobby } = messageJson.game.settings;
+        const { idLobby } = messageJson.stateGameInitial.settings;
         const lobby = getLobby(idLobby);
 
-        startLoopGame(lobby.owner.ws, lobby.joiner.ws, messageJson.game);
+        startLoopGame(
+          lobby.owner.ws,
+          lobby.joiner.ws,
+          messageJson.stateGameInitial
+        );
       }
 
       // quitLobby event

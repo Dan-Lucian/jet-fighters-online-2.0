@@ -12,7 +12,7 @@ const draw = (ctx, stateGame) => {
   ctx.arc(
     50,
     100,
-    20 * Math.sin(stateGame.current.countFrame * 0.05) ** 2,
+    20 * Math.sin(stateGame.countFrame * 0.05) ** 2,
     0,
     2 * Math.PI
   );

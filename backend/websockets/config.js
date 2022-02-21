@@ -25,6 +25,6 @@ const typesJet = {
   },
 };
 
-const msInterval = 1000 / 60;
+const delayInterval = 1000 / 60;
 
-export { typesJet, msInterval };
+export { typesJet, delayInterval };

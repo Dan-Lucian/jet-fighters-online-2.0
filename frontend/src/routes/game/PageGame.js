@@ -1,4 +1,5 @@
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../providers/ProviderGlobal';
@@ -13,6 +14,7 @@ import Countdown from './components/Countdown';
 import styles from './PageGame.module.scss';
 
 const PageGame = () => {
+  const { state: stateGameInitial } = useLocation();
   const [global, setGlobal] = useContextGlobal();
   const { message, sendMessage } = useContextWebsocket();
 
@@ -32,7 +34,7 @@ const PageGame = () => {
   const getHandlerCountdownEnd = () => {
     if (isOwnerLobby)
       return () => {
-        sendMessage({ event: 'countdownEnd', stateGame });
+        sendMessage({ event: 'countdownEnd', stateGameInitial });
         setGlobal((prev) => ({ ...prev, stateApp: 'game' }));
       };
 
@@ -41,8 +43,8 @@ const PageGame = () => {
 
   return (
     <main className={styles.pageGame}>
-      <Game stateGame={stateGame} />
-      <TablePlayers />
+      <Game stateGame={stateGame || stateGameInitial} />
+      <TablePlayers stateGame={stateGame || stateGameInitial} />
       {isStateAppCountdown && (
         <Countdown handleCountownEnd={getHandlerCountdownEnd()} />
       )}

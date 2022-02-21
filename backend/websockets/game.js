@@ -1,4 +1,4 @@
-import { typesJet } from './config.js';
+import { typesJet, delayInterval } from './config.js';
 
 const createStateGameInitial = (lobby) => ({
   owner: {
@@ -40,15 +40,22 @@ const createStateGameInitial = (lobby) => ({
     widthMap: lobby.settings.widthMap,
     heightMap: lobby.settings.heightMap,
   },
+  countFrame: 0,
 });
+
+let countFrame = 0;
 
 const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
   console.log('stateGame:', stateGame);
   setInterval(() => {
-    const responseString = JSON.stringify({ event: 'updateGame', stateGame });
+    const responseString = JSON.stringify({
+      event: 'updateGame',
+      stateGame: { ...stateGame, countFrame },
+    });
     wsOwner.send(responseString);
     wsJoiner.send(responseString);
-  }, 1000);
+    countFrame += 1;
+  }, delayInterval);
 };
 
 export { createStateGameInitial, startLoopGame };
