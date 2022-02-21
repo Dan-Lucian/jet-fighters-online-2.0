@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // assets
-import ImgJet from '../../../assets/jet.png';
+import ImgJet from '../../../assets/jet-black.webp';
 
 // local components
 import TitleSmall from './TitleSmall';

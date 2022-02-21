@@ -2,34 +2,50 @@
 /* eslint-disable no-use-before-define */
 import { useRef, useEffect } from 'react';
 
+// assets
+import imgJet from '../../../assets/jet-black.webp';
+
+// utils
+import { clearCanvas, drawBullets, drawJets } from '../utils/canvas';
+
 // styles
 import styles from './Game.module.scss';
 
-const draw = (ctx, stateGame) => {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  ctx.fillStyle = '#000000';
-  ctx.beginPath();
-  ctx.arc(
-    50,
-    100,
-    20 * Math.sin(stateGame.countFrame * 0.05) ** 2,
-    0,
-    2 * Math.PI
-  );
-  ctx.fill();
+const draw = (ctx, stateGame, imagesJet) => {
+  clearCanvas(ctx);
+  drawBullets(ctx, stateGame);
+  drawJets(ctx, stateGame, imagesJet);
 };
 
 const Game = ({ stateGame }) => {
   console.log('Render: <Game />');
   const refCanvas = useRef();
+  const imagesJet = useRef(null);
 
   useEffect(() => {
+    if (!stateGame.settings.idLobby) return;
+
+    const imgJetOwner = new Image();
+    imgJetOwner.src = imgJet;
+
+    const imgJetJoiner = new Image();
+    imgJetJoiner.src = imgJet;
+
+    imagesJet.current = {
+      imgJetOwner,
+      imgJetJoiner,
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!stateGame.settings.idLobby) return;
+
     const canvas = refCanvas.current;
     const context = canvas.getContext('2d');
     let idRequestAnimationFrame;
 
     const render = () => {
-      draw(context, stateGame);
+      draw(context, stateGame, imagesJet.current);
       idRequestAnimationFrame = requestAnimationFrame(render);
     };
     render();

@@ -1,5 +1,3 @@
-@use '../styles/variables';
-
 .nav {
   height: 3.5em;
   background: var(--color-bg-secondary);
@@ -16,6 +14,7 @@
 .signin {
   text-decoration: none;
   color: var(--color-text);
+  flex-shrink: 0;
 
   &:hover,
   &:focus {

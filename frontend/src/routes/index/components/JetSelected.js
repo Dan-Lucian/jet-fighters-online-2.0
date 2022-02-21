@@ -1,7 +1,7 @@
 import { useEffect, lazy, Suspense } from 'react';
 
 // assets
-import ImgJet from '../../../assets/jet.png';
+import ImgJet from '../../../assets/jet-black.webp';
 
 // shared hooks
 import { useClickOutside } from '../../../hooks/useClickOutside';
