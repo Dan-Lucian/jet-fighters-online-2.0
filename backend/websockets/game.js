@@ -69,7 +69,14 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
       teleportToOppositeSide(owner, widthMap, heightMap);
     if (isOutOfBounds(joiner, widthMap, heightMap))
       teleportToOppositeSide(joiner, widthMap, heightMap);
+
+    if (didJetsCollide(stateGame)) {
+      resetPositionJets([owner, joiner], widthMap, heightMap);
+      incrementScores([owner, joiner], 1);
+    }
   }, delayInterval);
+
+  // createNewBulletsIfSpaceWasPressed(owner, joiner);
 
   wsOwner.idInterval = idInterval;
   wsJoiner.idInterval = idInterval;
@@ -117,6 +124,50 @@ const teleportToOppositeSide = (state, widthMap, heightMap) => {
 
   if (y > heightMap) {
     state.y = 1;
+  }
+};
+
+const didJetsCollide = (stateGame) => {
+  const { x: x1, y: y1, scale: scale1 } = stateGame.owner;
+  const { x: x2, y: y2, scale: scale2 } = stateGame.joiner;
+
+  // 4 borders of the jet
+  const left1 = x1 - (imgW * scale1) / 2;
+  const right1 = x1 + (imgW * scale1) / 2;
+  const top1 = y1 - (imgH * scale1) / 2;
+  const bottom1 = y1 + (imgH * scale1) / 2;
+
+  const left2 = x2 - (imgW * scale2) / 2;
+  const right2 = x2 + (imgW * scale2) / 2;
+  const top2 = y2 - (imgH * scale2) / 2;
+  const bottom2 = y2 + (imgH * scale2) / 2;
+
+  // check for any corner entering another jet square area
+  return (
+    (left1 > left2 && left1 < right2 && top1 > top2 && top1 < bottom2) ||
+    (right1 > left2 && right1 < right2 && top1 > top2 && top1 < bottom2) ||
+    (right1 > left2 &&
+      right1 < right2 &&
+      bottom1 > top2 &&
+      bottom1 < bottom2) ||
+    (left1 > left2 && left1 < right2 && bottom1 > top2 && bottom1 < bottom2)
+  );
+};
+
+const resetPositionJets = (arrayStates, widthMap, heightMap) => {
+  for (let i = 0; i < arrayStates.length; i += 1) {
+    const { scale } = arrayStates[i];
+
+    arrayStates[i].x = getRandomInt(imgW * scale, widthMap - imgW * scale);
+    arrayStates[i].y = getRandomInt(imgH * scale, heightMap - imgH * scale);
+
+    arrayStates[i].angle = getRandomInt(0, 360);
+  }
+};
+
+const incrementScores = (arrayStates, amount) => {
+  for (let i = 0; i < arrayStates.length; i += 1) {
+    arrayStates[i].score += amount;
   }
 };
 
