@@ -20,7 +20,7 @@ const createStateGameInitial = (lobby) => {
       spacePressed: false,
       bullets: [],
       score: 0,
-      playerNumber: 'p1',
+      isOwner: true,
       ...typesJet[lobby.owner.typeJet],
     },
     joiner: {
@@ -35,7 +35,7 @@ const createStateGameInitial = (lobby) => {
       spacePressed: false,
       bullets: [],
       score: 0,
-      playerNumber: 'p2',
+      isOwner: false,
       ...typesJet[lobby.joiner.typeJet],
     },
     settings: {
@@ -52,15 +52,10 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
   const { widthMap, heightMap, scoreMax } = stateGame.settings;
 
   const idInterval = setInterval(() => {
-    const responseString = JSON.stringify({
-      event: 'updateGame',
-      stateGame,
-    });
-    wsOwner.send(responseString);
-    wsJoiner.send(responseString);
-
     const { owner, joiner } = stateGame;
     const bulletLanded = false;
+
+    sendStateGame([wsOwner, wsJoiner], stateGame);
 
     goTheWayIsFacing(owner);
     goTheWayIsFacing(joiner);
@@ -74,12 +69,40 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
       resetPositionJets([owner, joiner], widthMap, heightMap);
       incrementScores([owner, joiner], 1);
     }
+
+    const winner = getWinner([owner, joiner], scoreMax);
+    if (winner) {
+      clearInterval(idInterval);
+      sendGameOver([wsOwner, wsJoiner], winner);
+    }
   }, delayInterval);
 
   // createNewBulletsIfSpaceWasPressed(owner, joiner);
 
   wsOwner.idInterval = idInterval;
   wsJoiner.idInterval = idInterval;
+};
+
+const sendStateGame = (arrayWs, stateGame) => {
+  const responseString = JSON.stringify({
+    event: 'updateGame',
+    stateGame,
+  });
+
+  for (let i = 0; i < arrayWs.length; i += 1) {
+    arrayWs[i].send(responseString);
+  }
+};
+
+const sendGameOver = (arrayWs, winner) => {
+  const responseString = JSON.stringify({
+    event: 'gameOver',
+    winner,
+  });
+
+  for (let i = 0; i < arrayWs.length; i += 1) {
+    arrayWs[i].send(responseString);
+  }
 };
 
 // Moves the jet/bullet one tick towards the direction it is facing
@@ -169,6 +192,20 @@ const incrementScores = (arrayStates, amount) => {
   for (let i = 0; i < arrayStates.length; i += 1) {
     arrayStates[i].score += amount;
   }
+};
+
+const getWinner = (arrayStates, scoreMax) => {
+  const winners = [];
+
+  for (let i = 0; i < arrayStates.length; i += 1) {
+    if (arrayStates[i].score >= scoreMax) winners.push(arrayStates[i]);
+  }
+
+  if (winners.length === 1) return winners[0].isOwner ? 'owner' : 'joiner';
+
+  if (winners.length > 1) return 'draw';
+
+  return null;
 };
 
 export { createStateGameInitial, startLoopGame };

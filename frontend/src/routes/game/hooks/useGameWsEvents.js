@@ -61,6 +61,14 @@ const useGameWsEvents = () => {
       resetMessage();
       navigate('/lobby');
     }
+
+    if (isStateAppGame && event === 'gameOver') {
+      console.log('EVENT: gameOver');
+
+      const { winner } = message;
+      console.log('Winner: ', winner);
+      // stateGameCurrent.current = stateGameReceived;
+    }
   }, [message]);
 
   return stateGameValid;
