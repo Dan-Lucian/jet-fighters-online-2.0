@@ -64,6 +64,11 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
 
     goTheWayIsFacing(owner);
     goTheWayIsFacing(joiner);
+
+    if (isOutOfBounds(owner, widthMap, heightMap))
+      teleportToOppositeSide(owner, widthMap, heightMap);
+    if (isOutOfBounds(joiner, widthMap, heightMap))
+      teleportToOppositeSide(joiner, widthMap, heightMap);
   }, delayInterval);
 
   wsOwner.idInterval = idInterval;
@@ -73,16 +78,46 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
 // Moves the jet/bullet one tick towards the direction it is facing
 // based on it's speed value.
 // Steers left/right according to jet's rotation sensitivity.
-const goTheWayIsFacing = (statePlayer) => {
+const goTheWayIsFacing = (state) => {
   const { isPressedArrowRight, isPressedArrowLeft, sensitivityRotation } =
-    statePlayer;
+    state;
 
-  if (isPressedArrowRight) statePlayer.angle -= sensitivityRotation;
-  if (isPressedArrowLeft) statePlayer.angle += sensitivityRotation;
+  if (isPressedArrowRight) state.angle -= sensitivityRotation;
+  if (isPressedArrowLeft) state.angle += sensitivityRotation;
 
-  const rad = (statePlayer.angle * Math.PI) / 180;
-  statePlayer.x += statePlayer.speed * Math.sin(rad);
-  statePlayer.y += statePlayer.speed * Math.cos(rad);
+  const rad = (state.angle * Math.PI) / 180;
+  state.x += state.speed * Math.sin(rad);
+  state.y += state.speed * Math.cos(rad);
+};
+
+// Returns true if the element is out of map's bounds.
+const isOutOfBounds = (state, widthMap, heightMap) => {
+  const { x, y } = state;
+
+  return x < 0 || x > widthMap || y < 0 || y > heightMap;
+};
+
+const teleportToOppositeSide = (state, widthMap, heightMap) => {
+  const { x, y } = state;
+
+  if (x < 0) {
+    state.x = widthMap - 1;
+    return;
+  }
+
+  if (x > widthMap) {
+    state.x = 1;
+    return;
+  }
+
+  if (y < 0) {
+    state.y = heightMap - 1;
+    return;
+  }
+
+  if (y > heightMap) {
+    state.y = 1;
+  }
 };
 
 export { createStateGameInitial, startLoopGame };
