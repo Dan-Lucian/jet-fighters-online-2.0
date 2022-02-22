@@ -5,6 +5,7 @@ import { useContextWebsocket } from '../../providers/ProviderWebsocket';
 
 // local hooks
 import { useGameWsEvents } from './hooks/useGameWsEvents';
+import { useKeyEvents } from './hooks/useKeyEvents';
 
 // local components
 import Game from './components/Game';
@@ -19,6 +20,7 @@ const PageGame = () => {
   const [lobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
   const stateGame = useGameWsEvents();
+  useKeyEvents();
 
   const { stateApp, isOwnerLobby } = global;
   const { idLobby } = lobby;
