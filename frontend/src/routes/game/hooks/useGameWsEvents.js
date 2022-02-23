@@ -65,8 +65,18 @@ const useGameWsEvents = () => {
     if (isStateAppGame && event === 'gameOver') {
       console.log('EVENT: gameOver');
 
-      const { winner } = message;
+      const { winner, winsOwner, winsJoiner } = message;
       console.log('Winner: ', winner);
+
+      setGlobal((prev) => ({ ...prev, stateApp: 'lobby' }));
+      setLobby((prev) => ({
+        ...prev,
+        winsOwner,
+        winsJoiner,
+        isReadyOwner: false,
+        isReadyJoiner: false,
+      }));
+      navigate('/lobby');
       // stateGameCurrent.current = stateGameReceived;
     }
   }, [message]);

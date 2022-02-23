@@ -71,6 +71,8 @@ const useLobbyWsEvents = () => {
         nameJoiner: 'Empty...',
         isConnectedJoiner: false,
         isReadyJoiner: false,
+        winsOwner: 0,
+        winsJoiner: 0,
       }));
       setGlobal((prev) => ({
         ...prev,
