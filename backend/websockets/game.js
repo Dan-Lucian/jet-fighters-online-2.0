@@ -14,7 +14,6 @@ const createStateGameInitial = (lobby) => {
       x: getRandomInt(imgW, widthMap - imgW),
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
-      scale: 1,
       isPressedLeft: false,
       isPressedRight: false,
       isPressedFire: false,
@@ -29,7 +28,6 @@ const createStateGameInitial = (lobby) => {
       x: getRandomInt(imgW, widthMap - imgW),
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
-      scale: 1,
       isPressedLeft: false,
       isPressedRight: false,
       isPressedFire: false,
@@ -70,6 +68,9 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
       incrementScores([owner, joiner], 1);
     }
 
+    updateLocationBullets([owner, joiner], widthMap, heightMap);
+    createNewBulletsIfFirePressed([owner, joiner]);
+
     const winner = getWinner([owner, joiner], scoreMax);
     if (winner) {
       clearInterval(idInterval);
@@ -108,44 +109,44 @@ const sendGameOver = (arrayWs, winner) => {
 // Moves the jet/bullet one tick towards the direction it is facing
 // based on it's speed value.
 // Steers left/right according to jet's rotation sensitivity.
-const goTheWayIsFacing = (state) => {
-  const { isPressedRight, isPressedLeft, sensitivityRotation } = state;
+const goTheWayIsFacing = (stateEntity) => {
+  const { isPressedRight, isPressedLeft, sensitivityRotation } = stateEntity;
 
-  if (isPressedRight) state.angle -= sensitivityRotation;
-  if (isPressedLeft) state.angle += sensitivityRotation;
+  if (isPressedRight) stateEntity.angle -= sensitivityRotation;
+  if (isPressedLeft) stateEntity.angle += sensitivityRotation;
 
-  const rad = (state.angle * Math.PI) / 180;
-  state.x += state.speed * Math.sin(rad);
-  state.y += state.speed * Math.cos(rad);
+  const rad = (stateEntity.angle * Math.PI) / 180;
+  stateEntity.x += stateEntity.speed * Math.sin(rad);
+  stateEntity.y += stateEntity.speed * Math.cos(rad);
 };
 
 // Returns true if the element is out of map's bounds.
-const isOutOfBounds = (state, widthMap, heightMap) => {
-  const { x, y } = state;
+const isOutOfBounds = (stateEntity, widthMap, heightMap) => {
+  const { x, y } = stateEntity;
 
   return x < 0 || x > widthMap || y < 0 || y > heightMap;
 };
 
-const teleportToOppositeSide = (state, widthMap, heightMap) => {
-  const { x, y } = state;
+const teleportToOppositeSide = (stateEntity, widthMap, heightMap) => {
+  const { x, y } = stateEntity;
 
   if (x < 0) {
-    state.x = widthMap - 1;
+    stateEntity.x = widthMap - 1;
     return;
   }
 
   if (x > widthMap) {
-    state.x = 1;
+    stateEntity.x = 1;
     return;
   }
 
   if (y < 0) {
-    state.y = heightMap - 1;
+    stateEntity.y = heightMap - 1;
     return;
   }
 
   if (y > heightMap) {
-    state.y = 1;
+    stateEntity.y = 1;
   }
 };
 
@@ -184,6 +185,55 @@ const resetPositionJets = (arrayStates, widthMap, heightMap) => {
     arrayStates[i].y = getRandomInt(imgH * scale, heightMap - imgH * scale);
 
     arrayStates[i].angle = getRandomInt(0, 360);
+  }
+};
+
+const createNewBulletsIfFirePressed = (arrayStates) => {
+  for (let i = 0; i < arrayStates.length; i += 1) {
+    if (arrayStates[i].isPressedFire) {
+      arrayStates[i].isPressedFire = false;
+
+      const [bullet1, bullet2] = createBulletsFor(arrayStates[i]);
+      arrayStates[i].bullets.push(bullet1);
+      arrayStates[i].bullets.push(bullet2);
+    }
+  }
+};
+
+const createBulletsFor = (statePlayer) => {
+  const rad1 = ((statePlayer.angle + 100) * Math.PI) / 180;
+  const bullet1 = {
+    x: statePlayer.x + (imgW / 2 - 1) * Math.sin(rad1) - 2,
+    y: statePlayer.y + (imgH / 2 - 1) * Math.cos(rad1) - 2,
+    angle: statePlayer.angle,
+    speed: statePlayer.speedBullet,
+    color: statePlayer.color,
+    timeAlive: 0,
+  };
+
+  const rad2 = ((statePlayer.angle - 100) * Math.PI) / 180;
+  const bullet2 = {
+    x: statePlayer.x + (imgW / 2 - 1) * Math.sin(rad2) - 2,
+    y: statePlayer.y + (imgH / 2 - 1) * Math.cos(rad2) - 2,
+    angle: statePlayer.angle,
+    speed: statePlayer.speedBullet,
+    color: statePlayer.color,
+    timeAlive: 0,
+  };
+
+  return [bullet1, bullet2];
+};
+
+const updateLocationBullets = (arrayStates, widthMap, heightMap) => {
+  for (let i = 0; i < arrayStates.length; i += 1) {
+    for (let j = 0; j < arrayStates[i].bullets.length; j += 1) {
+      arrayStates[i].bullets[j].timeAlive += 1;
+
+      goTheWayIsFacing(arrayStates[i].bullets[j]);
+
+      if (isOutOfBounds(arrayStates[i].bullets[j], widthMap, heightMap))
+        teleportToOppositeSide(arrayStates[i].bullets[j], widthMap, heightMap);
+    }
   }
 };
 
