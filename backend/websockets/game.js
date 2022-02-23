@@ -105,12 +105,14 @@ const sendGameOver = (arrayWs, lobby) => {
   const { winner } = lobby.stateGame.settings;
   const { wins: winsOwner } = lobby.owner;
   const { wins: winsJoiner } = lobby.joiner;
+  const { stateGame } = lobby;
 
   const responseString = JSON.stringify({
     event: 'gameOver',
     winner,
     winsOwner,
     winsJoiner,
+    stateGame,
   });
 
   for (let i = 0; i < arrayWs.length; i += 1) {

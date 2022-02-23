@@ -68,7 +68,7 @@ const useGameWsEvents = () => {
       const { winner, winsOwner, winsJoiner } = message;
       console.log('Winner: ', winner);
 
-      setGlobal((prev) => ({ ...prev, stateApp: 'lobby' }));
+      setGlobal((prev) => ({ ...prev, stateApp: 'gameOver', winner }));
       setLobby((prev) => ({
         ...prev,
         winsOwner,
@@ -76,7 +76,6 @@ const useGameWsEvents = () => {
         isReadyOwner: false,
         isReadyJoiner: false,
       }));
-      navigate('/lobby');
       // stateGameCurrent.current = stateGameReceived;
     }
   }, [message]);
