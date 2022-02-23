@@ -70,6 +70,7 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
 
     updateLocationBullets([owner, joiner], widthMap, heightMap);
     destroyOldBullets([owner, joiner]);
+    updateScoreIfBulletLand(owner, joiner, widthMap, heightMap);
     createNewBulletsIfFirePressed([owner, joiner]);
 
     const winner = getWinner([owner, joiner], scoreMax);
@@ -248,6 +249,53 @@ const destroyOldBullets = (arrayStates) => {
       }
     }
   }
+};
+
+const updateScoreIfBulletLand = (
+  statePlayer1,
+  statePlayer2,
+  widthMap,
+  heightMap
+) => {
+  for (let i = statePlayer1.bullets.length - 1; i > -1; i -= 1) {
+    const didBulletLand = checkBulletLand(
+      statePlayer1.bullets[i],
+      statePlayer2
+    );
+
+    if (didBulletLand) {
+      incrementScores([statePlayer1], 1);
+      resetPositionJets([statePlayer2], widthMap, heightMap);
+      statePlayer1.bullets.splice(i, 1);
+      return;
+    }
+  }
+
+  for (let i = statePlayer2.bullets.length - 1; i > -1; i -= 1) {
+    const didBulletLand = checkBulletLand(
+      statePlayer2.bullets[i],
+      statePlayer1
+    );
+
+    if (didBulletLand) {
+      incrementScores([statePlayer2], 1);
+      resetPositionJets([statePlayer1], widthMap, heightMap);
+      statePlayer2.bullets.splice(i, 1);
+      return;
+    }
+  }
+};
+
+const checkBulletLand = (stateBullet, stateEnemy) => {
+  const { x: xJet, y: yJet, scale } = stateEnemy;
+  const { x: xBullet, y: yBullet } = stateBullet;
+
+  const left = xJet - (imgW * scale) / 2;
+  const right = xJet + (imgW * scale) / 2;
+  const top = yJet - (imgH * scale) / 2;
+  const bottom = yJet + (imgH * scale) / 2;
+
+  return xBullet > left && xBullet < right && yBullet > top && yBullet < bottom;
 };
 
 const incrementScores = (arrayStates, amount) => {
