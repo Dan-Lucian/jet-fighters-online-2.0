@@ -203,23 +203,25 @@ const createNewBulletsIfFirePressed = (arrayStates) => {
 };
 
 const createBulletsFor = (statePlayer) => {
-  const rad1 = ((statePlayer.angle + 100) * Math.PI) / 180;
+  const { x, y, angle, speedBullet, color, scale } = statePlayer;
+
+  const rad1 = ((angle + 100) * Math.PI) / 180;
   const bullet1 = {
-    x: statePlayer.x + (imgW / 2 - 1) * Math.sin(rad1) - 2,
-    y: statePlayer.y + (imgH / 2 - 1) * Math.cos(rad1) - 2,
-    angle: statePlayer.angle,
-    speed: statePlayer.speedBullet,
-    color: statePlayer.color,
+    x: x + (imgW / 2 - 1) * scale * Math.sin(rad1) - 2,
+    y: y + (imgH / 2 - 1) * scale * Math.cos(rad1) - 2,
+    angle,
+    speed: speedBullet,
+    color,
     timeAlive: 0,
   };
 
-  const rad2 = ((statePlayer.angle - 100) * Math.PI) / 180;
+  const rad2 = ((angle - 100) * Math.PI) / 180;
   const bullet2 = {
-    x: statePlayer.x + (imgW / 2 - 1) * Math.sin(rad2) - 2,
-    y: statePlayer.y + (imgH / 2 - 1) * Math.cos(rad2) - 2,
-    angle: statePlayer.angle,
-    speed: statePlayer.speedBullet,
-    color: statePlayer.color,
+    x: x + (imgW / 2 - 1) * scale * Math.sin(rad2) - 2,
+    y: y + (imgH / 2 - 1) * scale * Math.cos(rad2) - 2,
+    angle,
+    speed: speedBullet,
+    color,
     timeAlive: 0,
   };
 
