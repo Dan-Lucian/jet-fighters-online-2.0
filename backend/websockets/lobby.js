@@ -5,10 +5,12 @@ import { createId } from '../utils/createId.js';
 //   owner: {
 //     name: namePlayer,
 //     ws: objectWebsocket,
+//     wins: 0,
 //   },
 //   joiner: {
 //     name: namePlayer,
 //     ws: objectWebsocket,
+//     wins: 0,
 //   },
 //   settings: {},
 // };
@@ -47,6 +49,7 @@ const joinLobby = (id, player) => {
       joiner: {
         name,
         ws,
+        wins: 0,
       },
       settings: null,
     });
@@ -58,6 +61,7 @@ const joinLobby = (id, player) => {
     owner: {
       name,
       ws,
+      wins: 0,
     },
     joiner: null,
     settings: null,

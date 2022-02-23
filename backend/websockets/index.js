@@ -208,7 +208,8 @@ const websockets = (expressServer) => {
         const { idLobby } = messageJson;
         const lobby = getLobby(idLobby);
 
-        startLoopGame(lobby.owner.ws, lobby.joiner.ws, lobby.stateGame);
+        // startLoopGame(lobby.owner.ws, lobby.joiner.ws, lobby.stateGame);
+        startLoopGame(lobby);
       }
 
       // quitLobby event

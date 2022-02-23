@@ -37,21 +37,24 @@ const createStateGameInitial = (lobby) => {
       ...typesJet[lobby.joiner.typeJet],
     },
     settings: {
-      winPlayer: null,
+      winner: null,
       ...lobby.settings,
     },
     countFrame: 0,
   };
 };
 
-const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
+const startLoopGame = (lobby) => {
+  const wsOwner = lobby.owner.ws;
+  const wsJoiner = lobby.joiner.ws;
+  const { stateGame } = lobby;
+
   console.log('stateGame:', stateGame);
   allStatesGame.set(wsOwner.idLobby, stateGame);
   const { widthMap, heightMap, scoreMax } = stateGame.settings;
 
   const idInterval = setInterval(() => {
     const { owner, joiner } = stateGame;
-    const bulletLanded = false;
 
     sendStateGame([wsOwner, wsJoiner], stateGame);
 
@@ -76,7 +79,8 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
     const winner = getWinner([owner, joiner], scoreMax);
     if (winner) {
       clearInterval(idInterval);
-      sendGameOver([wsOwner, wsJoiner], winner);
+      updateWins(lobby, winner);
+      sendGameOver([wsOwner, wsJoiner], lobby);
     }
   }, delayInterval);
 
@@ -97,10 +101,16 @@ const sendStateGame = (arrayWs, stateGame) => {
   }
 };
 
-const sendGameOver = (arrayWs, winner) => {
+const sendGameOver = (arrayWs, lobby) => {
+  const { winner } = lobby.stateGame.settings;
+  const { wins: winsOwner } = lobby.owner;
+  const { wins: winsJoiner } = lobby.joiner;
+
   const responseString = JSON.stringify({
     event: 'gameOver',
     winner,
+    winsOwner,
+    winsJoiner,
   });
 
   for (let i = 0; i < arrayWs.length; i += 1) {
@@ -318,6 +328,14 @@ const getWinner = (arrayStates, scoreMax) => {
   if (winners.length > 1) return 'draw';
 
   return null;
+};
+
+const updateWins = (lobby, winner) => {
+  lobby.stateGame.settings.winner = winner;
+
+  if (winner === 'draw') return;
+
+  lobby[winner].wins += 1;
 };
 
 const injectInputIntoGame = (message, stateGame) => {
