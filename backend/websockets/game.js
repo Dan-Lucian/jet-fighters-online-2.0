@@ -15,9 +15,9 @@ const createStateGameInitial = (lobby) => {
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
       scale: 1,
-      isPressedArrowLeft: false,
-      isPressedArrowRight: false,
-      spacePressed: false,
+      isPressedLeft: false,
+      isPressedRight: false,
+      isPressedFire: false,
       bullets: [],
       score: 0,
       isOwner: true,
@@ -30,9 +30,9 @@ const createStateGameInitial = (lobby) => {
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
       scale: 1,
-      isPressedArrowLeft: false,
-      isPressedArrowRight: false,
-      spacePressed: false,
+      isPressedLeft: false,
+      isPressedRight: false,
+      isPressedFire: false,
       bullets: [],
       score: 0,
       isOwner: false,
@@ -109,11 +109,10 @@ const sendGameOver = (arrayWs, winner) => {
 // based on it's speed value.
 // Steers left/right according to jet's rotation sensitivity.
 const goTheWayIsFacing = (state) => {
-  const { isPressedArrowRight, isPressedArrowLeft, sensitivityRotation } =
-    state;
+  const { isPressedRight, isPressedLeft, sensitivityRotation } = state;
 
-  if (isPressedArrowRight) state.angle -= sensitivityRotation;
-  if (isPressedArrowLeft) state.angle += sensitivityRotation;
+  if (isPressedRight) state.angle -= sensitivityRotation;
+  if (isPressedLeft) state.angle += sensitivityRotation;
 
   const rad = (state.angle * Math.PI) / 180;
   state.x += state.speed * Math.sin(rad);
@@ -208,4 +207,28 @@ const getWinner = (arrayStates, scoreMax) => {
   return null;
 };
 
-export { createStateGameInitial, startLoopGame };
+const injectInputIntoGame = (message, stateGame) => {
+  const {
+    isOwnerLobby,
+    isPressedRight,
+    isPressedLeft,
+    isPressedFire,
+    isReleasedRight,
+    isReleasedLeft,
+  } = message;
+
+  const whoIsPlayer = isOwnerLobby ? 'owner' : 'joiner';
+
+  stateGame[whoIsPlayer].isPressedFire = isPressedFire;
+
+  const isPressedRightSaved = stateGame[whoIsPlayer].isPressedRight;
+  stateGame[whoIsPlayer].isPressedRight =
+    isPressedRight ||
+    (!isPressedRight && !isReleasedRight && isPressedRightSaved);
+
+  const isPressedLeftSaved = stateGame[whoIsPlayer].isPressedLeft;
+  stateGame[whoIsPlayer].isPressedLeft =
+    isPressedLeft || (!isPressedLeft && !isReleasedLeft && isPressedLeftSaved);
+};
+
+export { createStateGameInitial, startLoopGame, injectInputIntoGame };

@@ -9,7 +9,11 @@ import {
   destroyLobby,
   getLobby,
 } from './lobby.js';
-import { createStateGameInitial, startLoopGame } from './game.js';
+import {
+  createStateGameInitial,
+  startLoopGame,
+  injectInputIntoGame,
+} from './game.js';
 import { areValidSettingsGame } from './validation.js';
 
 const websockets = (expressServer) => {
@@ -35,8 +39,17 @@ const websockets = (expressServer) => {
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
-      console.log('Received:', messageJson);
+      // console.log('Received:', messageJson);
       const { event } = messageJson;
+
+      if (event === 'input') {
+        const { idLobby } = websocketConnection;
+        const lobby = getLobby(idLobby);
+        if (!lobby) return;
+
+        console.log('Input event: ', messageJson);
+        injectInputIntoGame(messageJson, lobby.stateGame);
+      }
 
       // create request
       if (event === 'create') {
@@ -167,8 +180,8 @@ const websockets = (expressServer) => {
 
         if (isOwnerLobby && isReady) {
           lobby.owner.typeJet = typeJet;
-          lobby.stateGameInitial = createStateGameInitial(lobby);
-          response.stateGame = lobby.stateGameInitial;
+          lobby.stateGame = createStateGameInitial(lobby);
+          response.stateGame = lobby.stateGame;
 
           const responseString = JSON.stringify(response);
           lobby.owner.ws.send(responseString);
@@ -182,8 +195,8 @@ const websockets = (expressServer) => {
         }
 
         lobby.joiner.typeJet = typeJet;
-        lobby.stateGameInitial = createStateGameInitial(lobby);
-        response.stateGame = lobby.stateGameInitial;
+        lobby.stateGame = createStateGameInitial(lobby);
+        response.stateGame = lobby.stateGame;
 
         const responseString = JSON.stringify(response);
         lobby.owner.ws.send(responseString);
@@ -195,7 +208,7 @@ const websockets = (expressServer) => {
         const { idLobby } = messageJson;
         const lobby = getLobby(idLobby);
 
-        startLoopGame(lobby.owner.ws, lobby.joiner.ws, lobby.stateGameInitial);
+        startLoopGame(lobby.owner.ws, lobby.joiner.ws, lobby.stateGame);
       }
 
       // quitLobby event

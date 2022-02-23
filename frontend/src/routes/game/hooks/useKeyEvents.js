@@ -57,15 +57,11 @@ const useKeyEvents = () => {
 
         switch (e.key) {
           case 'ArrowRight':
-            sendMessage({ ...response, isPressedRight: true });
+            sendMessage({ ...response, isReleasedRight: true });
             return;
 
           case 'ArrowLeft':
-            sendMessage({ ...response, isPressedLeft: true });
-            return;
-
-          case ' ':
-            sendMessage({ ...response, isPressedFire: true });
+            sendMessage({ ...response, isReleasedLeft: true });
             break;
 
           default:
