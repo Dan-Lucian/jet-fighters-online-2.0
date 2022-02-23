@@ -69,6 +69,7 @@ const startLoopGame = (wsOwner, wsJoiner, stateGame) => {
     }
 
     updateLocationBullets([owner, joiner], widthMap, heightMap);
+    destroyOldBullets([owner, joiner]);
     createNewBulletsIfFirePressed([owner, joiner]);
 
     const winner = getWinner([owner, joiner], scoreMax);
@@ -233,6 +234,18 @@ const updateLocationBullets = (arrayStates, widthMap, heightMap) => {
 
       if (isOutOfBounds(arrayStates[i].bullets[j], widthMap, heightMap))
         teleportToOppositeSide(arrayStates[i].bullets[j], widthMap, heightMap);
+    }
+  }
+};
+
+const destroyOldBullets = (arrayStates) => {
+  for (let i = 0; i < arrayStates.length; i += 1) {
+    for (let j = arrayStates[i].bullets.length - 1; j > -1; j -= 1) {
+      if (
+        arrayStates[i].bullets[j].timeAlive > arrayStates[i].timeAliveMaxBullet
+      ) {
+        arrayStates[i].bullets.splice(j, 1);
+      }
     }
   }
 };

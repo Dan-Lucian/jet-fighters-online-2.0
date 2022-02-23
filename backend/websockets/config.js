@@ -4,7 +4,7 @@ const typesJet = {
     speed: 0,
     color: 'black',
     speedBullet: 6,
-    timeMaxLifeBullet: 200,
+    timeAliveMaxBullet: 200,
     scale: 1,
   },
 
@@ -13,7 +13,7 @@ const typesJet = {
     speed: 3,
     color: 'black',
     speedBullet: 6,
-    timeMaxLifeBullet: 200,
+    timeAliveMaxBullet: 200,
     scale: 1,
   },
 
@@ -22,7 +22,7 @@ const typesJet = {
     speed: 2,
     color: 'black',
     speedBullet: 6,
-    timeMaxLifeBullet: 200,
+    timeAliveMaxBullet: 200,
     scale: 1,
   },
 
@@ -31,7 +31,7 @@ const typesJet = {
     speed: 4,
     color: 'black',
     speedBullet: 6,
-    timeMaxLifeBullet: 200,
+    timeAliveMaxBullet: 200,
     scale: 1,
   },
 
@@ -40,7 +40,7 @@ const typesJet = {
     speed: 4,
     color: 'black',
     speedBullet: 6,
-    timeMaxLifeBullet: 200,
+    timeAliveMaxBullet: 200,
     scale: 1,
   },
 };
