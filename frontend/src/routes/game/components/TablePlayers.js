@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// shared hooks
 
 // local components
 import Header from './Header';

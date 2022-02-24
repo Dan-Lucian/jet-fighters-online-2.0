@@ -1,6 +1,9 @@
 /* eslint-disable no-use-before-define */
 import { createContext, useContext } from 'react';
 
+// config
+import { typesJet } from '../config/typesJet';
+
 // shared hooks
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
@@ -22,11 +25,11 @@ const useContextSettings = () => {
 };
 
 const settingsDefault = {
-  typeJet: 'balanced',
   scoreMax: '5',
   widthMap: '600',
   heightMap: '300',
   idJoin: '',
+  ...typesJet[0],
 };
 
 export { ProviderSettings, useContextSettings };

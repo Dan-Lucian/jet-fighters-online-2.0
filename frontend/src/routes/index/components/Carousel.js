@@ -1,6 +1,9 @@
 /* eslint-disable no-use-before-define */
 import { useRef } from 'react';
 
+// config
+import { typesJet } from '../../../config/typesJet';
+
 // local components
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
@@ -9,6 +12,7 @@ import Jet from './Jet';
 // local hooks
 import { useContextSettings } from '../../../providers/ProviderSettings';
 
+// styles
 import styles from './Carousel.module.scss';
 
 const Carousel = () => {
@@ -30,8 +34,9 @@ const Carousel = () => {
     <div className={styles.carousel}>
       <ArrowLeft onClick={handleArrowLeft} />
       <div ref={refWrapperInner} className={styles.wrapperJets}>
-        {jets.map((jet, idx) => (
+        {Object.values(typesJet).map((jet, idx) => (
           <Jet
+            imgJet={jet.imgJet}
             onClick={() => setSettings((prev) => ({ ...prev, ...jet }))}
             key={idx}
           />
@@ -41,17 +46,5 @@ const Carousel = () => {
     </div>
   );
 };
-
-const jets = [
-  { typeJet: 'speedster' },
-  { typeJet: 'trickster' },
-  { typeJet: 'tank' },
-  { typeJet: '4' },
-  { typeJet: '5' },
-  { typeJet: '6' },
-  { typeJet: '7' },
-  { typeJet: '8' },
-  { typeJet: '9' },
-];
 
 export default Carousel;

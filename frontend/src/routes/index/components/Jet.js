@@ -1,18 +1,16 @@
 import PropTypes from 'prop-types';
 
-// assets
-import ImgJet from '../../../assets/jet-black.webp';
-
 // styles
 import styles from './Jet.module.scss';
 
-const Jet = ({ onClick }) => (
+const Jet = ({ onClick, imgJet }) => (
   <button onClick={onClick} className={styles.jet} type="button">
-    <img src={ImgJet} alt="jet" />
+    <img src={imgJet} alt="jet" />
   </button>
 );
 Jet.propTypes = {
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
+  imgJet: PropTypes.string.isRequired,
 };
 
 export default Jet;

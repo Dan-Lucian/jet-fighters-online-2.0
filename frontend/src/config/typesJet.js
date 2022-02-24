@@ -1,3 +1,11 @@
+// assets
+import ImgJetBlack from '../assets/jet-000.webp';
+import ImgJetWhite from '../assets/jet-fff.webp';
+import ImgJetGreen from '../assets/jet-7bfe00.webp';
+import ImgJetPurple from '../assets/jet-492051.webp';
+import ImgJetOrange from '../assets/jet-fe8500.webp';
+import ImgJetRed from '../assets/jet-fe0400.webp';
+
 const typesJet = {
   balanced: {
     typeJet: 'balanced',
@@ -7,6 +15,7 @@ const typesJet = {
     speedBullet: 6,
     timeAliveMaxBullet: 200,
     scale: 1,
+    imgJet: ImgJetBlack,
   },
 
   speedster: {
@@ -17,6 +26,7 @@ const typesJet = {
     speedBullet: 6,
     timeAliveMaxBullet: 200,
     scale: 1,
+    imgJet: ImgJetWhite,
   },
 
   trickster: {
@@ -27,6 +37,7 @@ const typesJet = {
     speedBullet: 5,
     timeAliveMaxBullet: 200,
     scale: 1,
+    imgJet: ImgJetGreen,
   },
 
   tank: {
@@ -37,6 +48,7 @@ const typesJet = {
     speedBullet: 6,
     timeAliveMaxBullet: 250,
     scale: 1.5,
+    imgJet: ImgJetPurple,
   },
 
   'long-laster': {
@@ -47,6 +59,7 @@ const typesJet = {
     speedBullet: 5,
     timeAliveMaxBullet: 400,
     scale: 1,
+    imgJet: ImgJetOrange,
   },
 
   'fast-bullet': {
@@ -57,11 +70,8 @@ const typesJet = {
     speedBullet: 8,
     timeAliveMaxBullet: 150,
     scale: 1,
+    imgJet: ImgJetRed,
   },
 };
 
-const delayInterval = 1000 / 60;
-const imgW = 48;
-const imgH = 48;
-
-export { typesJet, delayInterval, imgW, imgH };
+export { typesJet };

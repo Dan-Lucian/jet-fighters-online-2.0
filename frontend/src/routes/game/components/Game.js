@@ -2,11 +2,11 @@
 /* eslint-disable no-use-before-define */
 import { useRef, useEffect } from 'react';
 
-// assets
-import imgJet from '../../../assets/jet-black.webp';
-
 // utils
 import { clearCanvas, drawBullets, drawJets } from '../utils/canvas';
+
+// config
+import { typesJet } from '../../../config/typesJet';
 
 // styles
 import styles from './Game.module.scss';
@@ -26,10 +26,10 @@ const Game = ({ stateGame }) => {
     if (!stateGame.settings.idLobby) return;
 
     const imgJetOwner = new Image();
-    imgJetOwner.src = imgJet;
+    imgJetOwner.src = typesJet[stateGame.owner.typeJet].imgJet;
 
     const imgJetJoiner = new Image();
-    imgJetJoiner.src = imgJet;
+    imgJetJoiner.src = typesJet[stateGame.joiner.typeJet].imgJet;
 
     imagesJet.current = {
       imgJetOwner,

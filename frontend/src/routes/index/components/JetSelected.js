@@ -1,11 +1,9 @@
 import { useEffect, lazy, Suspense } from 'react';
 
-// assets
-import ImgJet from '../../../assets/jet-black.webp';
-
 // shared hooks
 import { useClickOutside } from '../../../hooks/useClickOutside';
 import { useToggle } from '../../../hooks/useToggle';
+import { useContextSettings } from '../../../providers/ProviderSettings';
 
 // shared components
 import ErrorBoundary from '../../../components/ErrorBoundary';
@@ -20,6 +18,7 @@ const SelectJet = lazy(() => import('./SelectJet'));
 const JetSelected = () => {
   const [isOpen, toggleIsOpen] = useToggle(false);
   const [ref, isClickOutside] = useClickOutside();
+  const [settings] = useContextSettings();
 
   useEffect(() => {
     if (isClickOutside) {
@@ -35,7 +34,7 @@ const JetSelected = () => {
         className={styles.btn}
         type="button"
       >
-        <img src={ImgJet} alt="jet" />
+        <img src={settings.imgJet} alt="jet" />
       </button>
       <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
         <Suspense fallback={<span />}>

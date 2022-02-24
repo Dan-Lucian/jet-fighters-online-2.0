@@ -15,7 +15,10 @@ const Player = ({ player }) => {
       <p className={styles.jetType}>Jet type: {typeJet}</p>
       <div className={styles.wrapperColor}>
         <p className={styles.textColor}>Color:</p>
-        <div className={styles.squareColor} />
+        <div
+          style={{ backgroundColor: player.color }}
+          className={styles.squareColor}
+        />
       </div>
     </div>
   );
