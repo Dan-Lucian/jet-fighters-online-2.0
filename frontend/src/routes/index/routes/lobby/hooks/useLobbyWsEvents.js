@@ -91,6 +91,7 @@ const useLobbyWsEvents = () => {
       }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
+      navigate('/');
     }
 
     // received when the server received a 'start' event

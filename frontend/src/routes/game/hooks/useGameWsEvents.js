@@ -59,7 +59,7 @@ const useGameWsEvents = () => {
       }));
       setLobby({ ...valueDefaultProviderLobby });
       resetMessage();
-      navigate('/lobby');
+      navigate('/');
     }
 
     if (isStateAppGame && event === 'gameOver') {
