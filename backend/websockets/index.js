@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 import { WebSocketServer } from 'ws';
 // import queryString from 'query-string';
@@ -26,6 +27,7 @@ const websockets = (expressServer) => {
     console.log('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
       websocketServer.emit('connection', websocket, request);
+      startPingPong(websocketServer);
     });
   });
 
@@ -36,6 +38,9 @@ const websockets = (expressServer) => {
     // ];
     // const connectionParams = queryString.parse(params);
     // console.log('params: ', connectionParams);
+
+    websocketConnection.isAlive = true;
+    websocketConnection.on('pong', heartbeat);
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
@@ -269,6 +274,26 @@ const websockets = (expressServer) => {
   });
 
   return websocketServer;
+};
+
+// used for ping-pong connection check
+function heartbeat() {
+  this.isAlive = true;
+}
+
+const startPingPong = (serverWs) => {
+  setInterval(() => {
+    serverWs.clients.forEach((ws) => {
+      if (ws.isAlive === false) {
+        console.log('ws connection closed, reason: idle.');
+        ws.terminate();
+        return;
+      }
+
+      ws.isAlive = false;
+      ws.ping();
+    });
+  }, 25000);
 };
 
 export default websockets;
