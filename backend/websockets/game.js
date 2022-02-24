@@ -49,7 +49,6 @@ const startLoopGame = (lobby) => {
   const wsJoiner = lobby.joiner.ws;
   const { stateGame } = lobby;
 
-  console.log('stateGame:', stateGame);
   allStatesGame.set(wsOwner.idLobby, stateGame);
   const { widthMap, heightMap, scoreMax } = stateGame.settings;
 

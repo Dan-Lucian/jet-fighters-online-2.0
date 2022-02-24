@@ -1,4 +1,4 @@
-import { useCallback } from 'react/cjs/react.development';
+import { useCallback } from 'react';
 
 // shared hooks
 import { useContextGlobal } from '../../../providers/ProviderGlobal';

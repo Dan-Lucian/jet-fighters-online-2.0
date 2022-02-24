@@ -16,6 +16,13 @@ const PageNonexistent = lazy(() =>
   import('./routes/nonexistent/PageNonexistent')
 );
 
+// replace console.* for disable log on production
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+}
+
 // <Suspense> is put around outlets inside components and not here because
 // Error if attempt to put <Suspense> around nested routes here
 // and nested routes are needed in order to save the same nav throught the app

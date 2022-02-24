@@ -10,6 +10,10 @@ app.use(express.static('build'));
 app.use(express.json());
 app.use(morgan('tiny'));
 
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'unknown endpoint' });
 };

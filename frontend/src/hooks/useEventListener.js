@@ -32,12 +32,12 @@ const useEventListener = (eventName, handler, element = window) => {
     // probably to not refference the same function but to call it
     const eventListener = (event) => savedHandler.current(event);
 
-    console.log('event added');
+    console.log(`${eventName} event added`);
     element.addEventListener(eventName, eventListener);
 
     return () => {
       element.removeEventListener(eventName, eventListener);
-      console.log('event removed');
+      console.log(`${eventName} event removed`);
     };
   }, [eventName, element]);
 };

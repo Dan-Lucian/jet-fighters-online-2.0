@@ -52,7 +52,6 @@ const websockets = (expressServer) => {
         const lobby = getLobby(idLobby);
         if (!lobby) return;
 
-        console.log('Input event: ', messageJson);
         injectInputIntoGame(messageJson, lobby.stateGame);
       }
 

@@ -25,11 +25,11 @@ const useContextSettings = () => {
 };
 
 const settingsDefault = {
-  scoreMax: '5',
+  scoreMax: '10',
   widthMap: '600',
-  heightMap: '300',
+  heightMap: '400',
   idJoin: '',
-  ...typesJet[0],
+  ...Object.values(typesJet)[0],
 };
 
 export { ProviderSettings, useContextSettings };
