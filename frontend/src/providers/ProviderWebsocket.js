@@ -11,7 +11,7 @@ const ContextWebsocket = createContext(null);
 ContextWebsocket.displayName = 'ContextWebsocket';
 
 const ProviderWebsocket = (props) => {
-  const urlSocket = `wss://${config.hostname}${config.port}${config.routeWs}`;
+  const urlSocket = `${config.protocol}://${config.hostname}${config.port}${config.routeWs}`;
   const websocket = useWebsocket(urlSocket);
 
   return <ContextWebsocket.Provider value={websocket} {...props} />;
