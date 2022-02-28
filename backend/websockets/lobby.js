@@ -75,7 +75,7 @@ const removeJoinerFromLobby = (id) => {
   const lobby = allLobbies.get(id);
   if (!lobby) {
     logger.info(`No lobby found when quiting, lobby ID: ${id}`);
-    return;
+    return 'notFound';
   }
 
   lobby.joiner = null;
@@ -93,6 +93,7 @@ const getLobby = (id) => {
 };
 
 export {
+  allLobbies,
   createLobby,
   joinLobby,
   removeJoinerFromLobby,
