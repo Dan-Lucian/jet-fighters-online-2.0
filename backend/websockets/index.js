@@ -238,7 +238,9 @@ const websockets = (expressServer) => {
         }
 
         websocketConnection.idLobby = null;
-        removeJoinerFromLobby(idLobby);
+
+        const result = removeJoinerFromLobby(idLobby);
+        if (result === 'notFound') return;
         lobby.owner.ws.send(JSON.stringify(response));
       }
     });
@@ -266,7 +268,9 @@ const websockets = (expressServer) => {
         return;
       }
 
-      removeJoinerFromLobby(idLobby);
+      const result = removeJoinerFromLobby(idLobby);
+      if (result === 'notFound') return;
+
       clearInterval(lobby.owner.ws.idInterval);
       lobby.owner.ws.send(JSON.stringify(response));
       lobby.owner.ws.idInterval = null;
