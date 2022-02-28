@@ -1,4 +1,5 @@
 import { createId } from '../utils/createId.js';
+import logger from '../utils/logger.js';
 
 // how the lobby states are stored in the map
 // const structureLobbyInMap = {
@@ -73,7 +74,7 @@ const joinLobby = (id, player) => {
 const removeJoinerFromLobby = (id) => {
   const lobby = allLobbies.get(id);
   if (!lobby) {
-    console.log(`No lobby found when quiting, lobby ID: ${id}`);
+    logger.info(`No lobby found when quiting, lobby ID: ${id}`);
     return;
   }
 

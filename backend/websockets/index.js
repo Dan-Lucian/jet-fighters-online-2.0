@@ -16,6 +16,7 @@ import {
   injectInputIntoGame,
 } from './game.js';
 import { areValidSettingsGame } from './validation.js';
+import logger from '../utils/logger.js';
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -24,7 +25,7 @@ const websockets = (expressServer) => {
   });
 
   expressServer.on('upgrade', (request, socket, head) => {
-    console.log('upgrading to websocket');
+    logger.info('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
       websocketServer.emit('connection', websocket, request);
       startPingPong(websocketServer);
@@ -37,14 +38,14 @@ const websockets = (expressServer) => {
     //   null,
     // ];
     // const connectionParams = queryString.parse(params);
-    // console.log('params: ', connectionParams);
+    // logger.info('params: ', connectionParams);
 
     websocketConnection.isAlive = true;
     websocketConnection.on('pong', heartbeat);
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
-      // console.log('Received:', messageJson);
+      // logger.info('Received:', messageJson);
       const { event } = messageJson;
 
       if (event === 'input') {
@@ -118,7 +119,7 @@ const websockets = (expressServer) => {
         const { lobby: lobbyReceived } = messageJson;
         const lobby = getLobby(lobbyReceived.idLobby);
         if (!lobby) {
-          console.log('no loby at EVENT: update');
+          logger.info('no loby at EVENT: update');
           return;
         }
 
@@ -140,7 +141,7 @@ const websockets = (expressServer) => {
       if (event === 'start') {
         const { idLobby, isOwnerLobby, settings } = messageJson;
         if (!areValidSettingsGame(settings)) {
-          console.log('Received game settings are invalid');
+          logger.info('Received game settings are invalid');
           return;
         }
 
@@ -148,7 +149,7 @@ const websockets = (expressServer) => {
 
         const lobby = getLobby(idLobby);
         if (!lobby) {
-          console.error('No lobby found at EVENT: start');
+          logger.error('No lobby found at EVENT: start');
           return;
         }
         const response = { event: 'requestReady' };
@@ -161,7 +162,7 @@ const websockets = (expressServer) => {
         }
 
         if (isOwnerLobby) {
-          console.error('No joiner');
+          logger.error('No joiner');
           return;
         }
 
@@ -177,7 +178,7 @@ const websockets = (expressServer) => {
         const { typeJet } = settings;
         const lobby = getLobby(idLobby);
         if (!lobby) {
-          console.error('No lobby found at EVENT: responseReady');
+          logger.error('No lobby found at EVENT: responseReady');
           return;
         }
         const response = { event: 'start' };
@@ -194,7 +195,7 @@ const websockets = (expressServer) => {
         }
 
         if (!isReady) {
-          console.error('Other player not ready');
+          logger.error('Other player not ready');
           return;
         }
 
@@ -284,7 +285,7 @@ const startPingPong = (serverWs) => {
   setInterval(() => {
     serverWs.clients.forEach((ws) => {
       if (ws.isAlive === false) {
-        console.log('ws connection closed, reason: idle.');
+        logger.info('ws connection closed, reason: idle.');
         ws.terminate();
         return;
       }
