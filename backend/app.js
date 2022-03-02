@@ -1,8 +1,7 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import middleware from './utils/middleware.js';
-import routerBlogs from './controllers/index.js';
+import routerWild from './controllers/wild.js';
 
 const app = express();
 
@@ -11,7 +10,7 @@ app.use(express.static('build'));
 app.use(express.json());
 app.use(middleware.loggerRequest);
 
-app.use('/', routerBlogs);
+app.use('*', routerWild);
 
 app.use(middleware.endpointUknown);
 app.use(middleware.handlerError);
