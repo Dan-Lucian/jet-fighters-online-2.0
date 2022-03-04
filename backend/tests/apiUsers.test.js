@@ -66,7 +66,7 @@ describe('Creating a new user', () => {
     const userNew = {
       username: 'admin',
       name: 'Dan',
-      password: 'admin',
+      password: 'password',
     };
 
     const response = await api
@@ -134,7 +134,9 @@ describe('Creating a new user', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error).toBeDefined();
+    expect(response.body.error).toBe(
+      'password too short, it has to be at least 6 characters'
+    );
 
     const usersAtEnd = await usersInDb();
     expect(usersAtEnd).toHaveLength(usersAtStart.length);
@@ -153,7 +155,9 @@ describe('Creating a new user', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error).toBeDefined();
+    expect(response.body.error).toBe(
+      'password too short, it has to be at least 6 characters'
+    );
 
     const usersAtEnd = await usersInDb();
     expect(usersAtEnd).toHaveLength(usersAtStart.length);

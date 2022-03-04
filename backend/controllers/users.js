@@ -15,7 +15,7 @@ routerUsers.post('/', async (request, response) => {
 
   if (!password || password.length < 6) {
     return response.status(400).json({
-      error: 'password too short, it has to be at least 3 characters',
+      error: 'password too short, it has to be at least 6 characters',
     });
   }
 
