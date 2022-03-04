@@ -1,22 +1,20 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
-import { WebSocketServer } from 'ws';
-// import queryString from 'query-string';
-
-import {
+const { WebSocketServer } = require('ws');
+const {
   createLobby,
   joinLobby,
   removeJoinerFromLobby,
   destroyLobby,
   getLobby,
-} from './lobby.js';
-import {
+} = require('./lobby');
+const {
   createStateGameInitial,
   startLoopGame,
   injectInputIntoGame,
-} from './game.js';
-import { areValidSettingsGame } from './validation.js';
-import logger from '../utils/logger.js';
+} = require('./game');
+const { areValidSettingsGame } = require('./validation');
+const logger = require('../utils/logger');
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -300,4 +298,4 @@ const startPingPong = (serverWs) => {
   }, 25000);
 };
 
-export default websockets;
+module.exports = websockets;

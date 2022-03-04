@@ -1,4 +1,4 @@
-import logger from './logger.js';
+const logger = require('./logger');
 
 const loggerRequest = (request, response, next) => {
   logger.info('Method:', request.method);
@@ -25,10 +25,8 @@ const handlerError = (error, request, response, next) => {
   next(error);
 };
 
-const middleware = {
+module.exports = {
   loggerRequest,
   endpointUknown,
   handlerError,
 };
-
-export default middleware;

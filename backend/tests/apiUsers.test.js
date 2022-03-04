@@ -1,9 +1,9 @@
-import supertest from 'supertest';
-import bcrypt from 'bcrypt';
-import mongoose from 'mongoose';
-import User from '../models/user.js';
-import app from '../app.js';
-import { usersInDb } from './helperTests.js';
+const supertest = require('supertest');
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const User = require('../models/user');
+const app = require('../app');
+const { usersInDb } = require('./helperTests');
 
 const api = supertest(app);
 

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const schemaUser = mongoose.Schema({
   username: {
@@ -24,4 +24,4 @@ schemaUser.set('toJSON', {
 
 const User = mongoose.model('User', schemaUser);
 
-export default User;
+module.exports = User;

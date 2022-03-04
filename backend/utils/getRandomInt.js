@@ -4,4 +4,4 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
 };
 
-export { getRandomInt };
+module.exports = { getRandomInt };

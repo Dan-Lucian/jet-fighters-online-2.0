@@ -1,8 +1,8 @@
-import http from 'http';
-import app from './app.js';
-import { PORT } from './utils/config.js';
-import websockets from './websockets/index.js';
-import logger from './utils/logger.js';
+const http = require('http');
+const app = require('./app');
+const { PORT } = require('./utils/config');
+const websockets = require('./websockets/index');
+const logger = require('./utils/logger');
 
 const server = http.createServer(app);
 

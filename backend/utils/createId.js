@@ -1,4 +1,4 @@
-import { getRandomInt } from './getRandomInt.js';
+const { getRandomInt } = require('./getRandomInt');
 
 const createId = (length) => {
   const characters =
@@ -13,4 +13,4 @@ const createId = (length) => {
   return result;
 };
 
-export { createId };
+module.exports = { createId };
