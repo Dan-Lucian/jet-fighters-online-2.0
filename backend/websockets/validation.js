@@ -1,4 +1,4 @@
-import { typesJet } from './config.js';
+const { typesJet } = require('./config');
 
 const regexp = {
   scoreMax: '^[1-9]|[1-4][0-9]|50$',
@@ -21,4 +21,4 @@ const areValidSettingsGame = (settings) => {
   return true;
 };
 
-export { areValidSettingsGame };
+module.exports = { areValidSettingsGame };

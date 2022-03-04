@@ -64,4 +64,4 @@ const delayInterval = 1000 / 60;
 const imgW = 48;
 const imgH = 48;
 
-export { typesJet, delayInterval, imgW, imgH };
+module.exports = { typesJet, delayInterval, imgW, imgH };

@@ -1,5 +1,5 @@
-import { createId } from '../utils/createId.js';
-import logger from '../utils/logger.js';
+const { createId } = require('../utils/createId');
+const logger = require('../utils/logger');
 
 // how the lobby states are stored in the map
 // const structureLobbyInMap = {
@@ -92,7 +92,7 @@ const getLobby = (id) => {
   return lobby;
 };
 
-export {
+module.exports = {
   allLobbies,
   createLobby,
   joinLobby,

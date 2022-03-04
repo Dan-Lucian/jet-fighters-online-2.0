@@ -1,5 +1,5 @@
-import { getRandomInt } from './getRandomInt.js';
-import logger from './logger.js';
+const { getRandomInt } = require('./getRandomInt');
+const logger = require('./logger');
 
 const getRandomInts = (amount, min, max) => {
   if (amount > max + 1 - min) {
@@ -17,4 +17,4 @@ const getRandomInts = (amount, min, max) => {
   return randomNumbers;
 };
 
-export { getRandomInts };
+module.exports = { getRandomInts };

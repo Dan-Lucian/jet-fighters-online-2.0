@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
-import { typesJet, delayInterval, imgW, imgH } from './config.js';
-import { getRandomInt } from '../utils/getRandomInt.js';
+const { typesJet, delayInterval, imgW, imgH } = require('./config');
+const { getRandomInt } = require('../utils/getRandomInt');
 
 const allStatesGame = new Map();
 
@@ -363,4 +363,4 @@ const injectInputIntoGame = (message, stateGame) => {
     isPressedLeft || (!isPressedLeft && !isReleasedLeft && isPressedLeftSaved);
 };
 
-export { createStateGameInitial, startLoopGame, injectInputIntoGame };
+module.exports = { createStateGameInitial, startLoopGame, injectInputIntoGame };

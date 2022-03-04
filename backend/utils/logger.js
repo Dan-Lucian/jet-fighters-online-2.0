@@ -6,9 +6,7 @@ const error = (...params) => {
   console.error(...params);
 };
 
-const logger = {
+module.exports = {
   info,
   error,
 };
-
-export default logger;

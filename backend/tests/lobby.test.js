@@ -1,9 +1,9 @@
-import {
+const {
   allLobbies,
   createLobby,
   joinLobby,
   removeJoinerFromLobby,
-} from '../websockets/lobby.js';
+} = require('../websockets/lobby');
 
 const idLobby = 'test';
 
