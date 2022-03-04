@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import middleware from './utils/middleware.js';
 import routerWild from './controllers/wild.js';
+import routerUsers from './controllers/users.js';
 import { MONGODB_URI } from './utils/config.js';
 import logger from './utils/logger.js';
 
@@ -23,6 +24,7 @@ app.use(express.static('build'));
 app.use(express.json());
 app.use(middleware.loggerRequest);
 
+app.use('/api/users', routerUsers);
 app.use('*', routerWild);
 
 app.use(middleware.endpointUknown);
