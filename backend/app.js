@@ -8,6 +8,7 @@ const { MONGODB_URI } = require('./utils/config');
 const middleware = require('./utils/middleware');
 const routerWild = require('./controllers/wild');
 const routerUsers = require('./controllers/users');
+const routerLogin = require('./controllers/login');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.static('build'));
 app.use(express.json());
 app.use(middleware.loggerRequest);
 
+app.use('/api/login', routerLogin);
 app.use('/api/users', routerUsers);
 app.use('*', routerWild);
 
