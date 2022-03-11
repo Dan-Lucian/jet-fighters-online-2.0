@@ -1,36 +1,22 @@
 const express = require('express');
 require('express-async-errors');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
-const logger = require('./utils/logger');
-const { MONGODB_URI } = require('./utils/config');
-const middleware = require('./utils/middleware');
-const routerWild = require('./controllers/wild');
-const routerUsers = require('./controllers/users');
-const routerLogin = require('./controllers/login');
+const loggerRequest = require('./middleware/logger-request');
+const handlerError = require('./middleware/handler-error');
 
 const app = express();
-
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    logger.info('connected to MongoDB');
-  })
-  .catch((error) => {
-    logger.error('error connecting to MongoDB:', error.message);
-  });
 
 app.use(cors());
 app.use(express.static('build'));
 app.use(express.json());
-app.use(middleware.loggerRequest);
+app.use(loggerRequest);
 
-app.use('/api/login', routerLogin);
-app.use('/api/users', routerUsers);
-app.use('*', routerWild);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-app.use(middleware.endpointUknown);
-app.use(middleware.handlerError);
+app.use(handlerError);
 
 module.exports = app;

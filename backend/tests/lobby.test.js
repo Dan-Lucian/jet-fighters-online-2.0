@@ -3,7 +3,7 @@ const {
   createLobby,
   joinLobby,
   removeJoinerFromLobby,
-} = require('../websockets/lobby');
+} = require('../features/game/lobby');
 
 const idLobby = 'test';
 

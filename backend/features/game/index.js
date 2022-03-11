@@ -14,7 +14,7 @@ const {
   injectInputIntoGame,
 } = require('./game');
 const { areValidSettingsGame } = require('./validation');
-const logger = require('../utils/logger');
+const logger = require('../../utils/logger');
 
 const websockets = (expressServer) => {
   const websocketServer = new WebSocketServer({

@@ -1,5 +1,5 @@
-const { createId } = require('../utils/createId');
-const logger = require('../utils/logger');
+const { createId } = require('../../utils/createId');
+const logger = require('../../utils/logger');
 
 // how the lobby states are stored in the map
 // const structureLobbyInMap = {

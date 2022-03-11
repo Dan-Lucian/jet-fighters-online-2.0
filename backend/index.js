@@ -1,7 +1,7 @@
 const http = require('http');
 const app = require('./app');
-const { PORT } = require('./utils/config');
-const websockets = require('./websockets/index');
+const { PORT } = require('./config/env');
+const websockets = require('./features/game/index');
 const logger = require('./utils/logger');
 
 const server = http.createServer(app);
