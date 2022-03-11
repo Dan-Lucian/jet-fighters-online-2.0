@@ -3,7 +3,7 @@ const {
   createLobby,
   joinLobby,
   removeJoinerFromLobby,
-} = require('../features/game/lobby');
+} = require('../../features/game/lobby');
 
 const idLobby = 'test';
 
