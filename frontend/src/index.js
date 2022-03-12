@@ -12,6 +12,12 @@ const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
 const PageAbout = lazy(() => import('./routes/about/PageAbout'));
 const PageLogin = lazy(() => import('./routes/login/PageLogin'));
 const PageRegister = lazy(() => import('./routes/register/PageRegister'));
+const PageForgotPassword = lazy(() =>
+  import('./routes/forgot-password/PageForgotPassword')
+);
+const PageResetPassword = lazy(() =>
+  import('./routes/reset-password/PageResetPassword')
+);
 const PageVerifyEmail = lazy(() =>
   import('./routes/verify-email/PageVerifyEmail')
 );
@@ -44,6 +50,8 @@ ReactDOM.render(
           <Route path="login" element={<PageLogin />} />
           <Route path="register" element={<PageRegister />} />
           <Route path="verify-email" element={<PageVerifyEmail />} />
+          <Route path="forgot-password" element={<PageForgotPassword />} />
+          <Route path="reset-password" element={<PageResetPassword />} />
           <Route path="game" element={<PageGame />} />
           <Route path="*" element={<PageNonexistent />} />
         </Route>

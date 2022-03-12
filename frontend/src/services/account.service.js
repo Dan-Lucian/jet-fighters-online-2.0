@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const urlApi = '/accounts';
+const urlBase = '/accounts';
 let tokenJwt;
 
 export default {
@@ -8,23 +8,25 @@ export default {
   login,
   logout,
   verifyEmail,
+  forgotPassword,
+  resetPassword,
 };
 
 function register(params) {
   return axios
-    .post(`${urlApi}/register`, params)
+    .post(`${urlBase}/register`, params)
     .then((response) => response.data);
 }
 
 function verifyEmail(token) {
   return axios
-    .post(`${urlApi}/verify-email`, { token })
+    .post(`${urlBase}/verify-email`, { token })
     .then((response) => response.data);
 }
 
 function login({ email, password }) {
   return axios
-    .post(`${urlApi}/authenticate`, { email, password })
+    .post(`${urlBase}/authenticate`, { email, password })
     .then((response) => {
       tokenJwt = response.data.tokenJwt;
       startRefreshTokenTimer();
@@ -35,7 +37,7 @@ function login({ email, password }) {
 function logout() {
   return axios
     .post(
-      `${urlApi}/revoke-token`,
+      `${urlBase}/revoke-token`,
       {},
       {
         headers: {
@@ -51,11 +53,23 @@ function logout() {
 }
 
 function refreshToken() {
-  return axios.post(`${urlApi}/refresh-token`, {}).then((response) => {
+  return axios.post(`${urlBase}/refresh-token`, {}).then((response) => {
     tokenJwt = response.data.tokenJwt;
     startRefreshTokenTimer();
     return response.data;
   });
+}
+
+function forgotPassword(email) {
+  return axios
+    .post(`${urlBase}/forgot-password`, { email })
+    .then((response) => response.data);
+}
+
+function resetPassword({ token, password, passwordConfirm }) {
+  return axios
+    .post(`${urlBase}/reset-password`, { token, password, passwordConfirm })
+    .then((response) => response.data);
 }
 
 // helpers functions

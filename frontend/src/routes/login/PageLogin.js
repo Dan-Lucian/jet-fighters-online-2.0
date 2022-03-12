@@ -24,6 +24,12 @@ const PageLogin = () => {
       <div>
         <Link to="/register">Register</Link>
       </div>
+      <div>
+        <Link to="/forgot-password">Forgot password</Link>
+      </div>
+      <div>
+        <Link to="/reset-password">Reset password</Link>
+      </div>
       {account && (
         <div>
           <h2>Hello {account.userName}</h2>
