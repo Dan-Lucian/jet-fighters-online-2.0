@@ -26,7 +26,6 @@ const websocket = (expressServer) => {
     logger.info('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
       websocketServer.emit('connection', websocket, request);
-      startPingPong(websocketServer);
     });
   });
 
@@ -40,6 +39,7 @@ const websocket = (expressServer) => {
 
     websocketConnection.isAlive = true;
     websocketConnection.on('pong', heartbeat);
+    startPingPong(websocketServer);
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
