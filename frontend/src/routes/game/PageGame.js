@@ -3,6 +3,9 @@ import { useContextGlobal } from '../../providers/ProviderGlobal';
 import { useContextLobby } from '../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../providers/ProviderWebsocket';
 
+// shared components
+import PageNonexistent from '../nonexistent/PageNonexistent';
+
 // local hooks
 import { useGameWsEvents } from './hooks/useGameWsEvents';
 import { useKeyEvents } from './hooks/useKeyEvents';
@@ -16,8 +19,11 @@ import Overlay from './components/Overlay';
 import styles from './PageGame.module.scss';
 
 const PageGame = () => {
+  const { stateApp } = useContextGlobal();
   const stateGame = useGameWsEvents();
   useKeyEvents();
+
+  if (stateApp !== 'game') return <PageNonexistent />;
 
   return (
     <main className={styles.pageGame}>
