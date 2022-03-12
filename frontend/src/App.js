@@ -13,6 +13,7 @@ import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
 import { ProviderLobby } from './providers/ProviderLobby';
 import { ProviderGlobal } from './providers/ProviderGlobal';
+import { ProviderAuth } from './providers/ProviderAuth';
 
 // shared hooks
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -44,21 +45,23 @@ const App = () => {
   return (
     <WrapperApp theme={theme}>
       <ProviderGlobal>
-        <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
-        <WrapperPage>
-          <ProviderSettings>
-            <ProviderLobby>
-              <ProviderWebsocket>
-                <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
-                  <Suspense fallback={<Loader />}>
-                    <Outlet />
-                  </Suspense>
-                </ErrorBoundary>
-              </ProviderWebsocket>
-            </ProviderLobby>
-          </ProviderSettings>
-        </WrapperPage>
-        <Popup />
+        <ProviderAuth>
+          <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
+          <WrapperPage>
+            <ProviderSettings>
+              <ProviderLobby>
+                <ProviderWebsocket>
+                  <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
+                    <Suspense fallback={<Loader />}>
+                      <Outlet />
+                    </Suspense>
+                  </ErrorBoundary>
+                </ProviderWebsocket>
+              </ProviderLobby>
+            </ProviderSettings>
+          </WrapperPage>
+          <Popup />
+        </ProviderAuth>
       </ProviderGlobal>
     </WrapperApp>
   );
