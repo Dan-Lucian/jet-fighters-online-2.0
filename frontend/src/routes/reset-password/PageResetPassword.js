@@ -13,7 +13,7 @@ const PageResetPassword = () => {
   const query = useQuery();
   const navigate = useNavigate();
   const {
-    data: receivedData,
+    data: dataReceived,
     error,
     status,
     run,
@@ -74,7 +74,7 @@ const PageResetPassword = () => {
       </form>
       <div>
         <p>Status: {status}</p>
-        <p>Reponse: {JSON.stringify(receivedData)}</p>
+        <p>Reponse: {JSON.stringify(dataReceived)}</p>
         <p>Error: {JSON.stringify(error?.response.data.message)}</p>
       </div>
     </div>

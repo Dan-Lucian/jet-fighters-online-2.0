@@ -1,10 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
 
 const PageLogin = () => {
-  const { account, login, logout } = useContextAuth();
+  const navigate = useNavigate();
+  const { account, login } = useContextAuth();
+
+  useEffect(() => {
+    if (account) navigate('/profile');
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,28 +36,18 @@ const PageLogin = () => {
       <div>
         <Link to="/reset-password">Reset password</Link>
       </div>
-      {account && (
+      <form onSubmit={handleSubmit}>
+        <h2>Login</h2>
         <div>
-          <h2>Hello {account.userName}</h2>
-          <button type="button" onClick={logout}>
-            Logout
-          </button>
+          <label htmlFor="email">email:</label>
+          <input name="email" id="email" type="text" />
         </div>
-      )}
-      {!account && (
-        <form onSubmit={handleSubmit}>
-          <h2>Login</h2>
-          <div>
-            <label htmlFor="email">email:</label>
-            <input name="email" id="email" type="text" />
-          </div>
-          <div>
-            <label htmlFor="password">password:</label>
-            <input name="password" id="password" type="text" />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
-      )}
+        <div>
+          <label htmlFor="password">password:</label>
+          <input name="password" id="password" type="text" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </main>
   );
 };

@@ -10,6 +10,7 @@ import PreLobby from './routes/index/routes/index/PreLobby';
 // lazy loaded components
 const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
 const PageAbout = lazy(() => import('./routes/about/PageAbout'));
+const PageProfile = lazy(() => import('./routes/profile/PageProfile'));
 const PageLogin = lazy(() => import('./routes/login/PageLogin'));
 const PageRegister = lazy(() => import('./routes/register/PageRegister'));
 const PageForgotPassword = lazy(() =>
@@ -47,6 +48,7 @@ ReactDOM.render(
             <Route path="lobby" element={<Lobby />} />
           </Route>
           <Route path="about" element={<PageAbout />} />
+          <Route path="profile" element={<PageProfile />} />
           <Route path="login" element={<PageLogin />} />
           <Route path="register" element={<PageRegister />} />
           <Route path="verify-email" element={<PageVerifyEmail />} />

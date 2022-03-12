@@ -11,6 +11,7 @@ export default {
   forgotPassword,
   resetPassword,
   update,
+  refreshToken,
 };
 
 function register(params) {
