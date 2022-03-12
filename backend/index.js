@@ -1,7 +1,7 @@
 const http = require('http');
 const app = require('./app');
 const { PORT } = require('./config/env');
-const websockets = require('./features/game/index');
+const websocket = require('./features/game/websocket');
 const logger = require('./utils/logger');
 
 const server = http.createServer(app);
@@ -11,4 +11,4 @@ server.listen(PORT, () => {
 });
 
 // put on all the websocket related stuff on the server
-websockets(server);
+websocket(server);

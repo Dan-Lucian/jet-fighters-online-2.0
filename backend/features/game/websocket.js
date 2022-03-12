@@ -16,7 +16,7 @@ const {
 const { areValidSettingsGame } = require('./validation');
 const logger = require('../../utils/logger');
 
-const websockets = (expressServer) => {
+const websocket = (expressServer) => {
   const websocketServer = new WebSocketServer({
     noServer: true,
     path: '/websocket',
@@ -298,4 +298,4 @@ const startPingPong = (serverWs) => {
   }, 25000);
 };
 
-module.exports = websockets;
+module.exports = websocket;
