@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useAsync } from '../hooks/useAsync';
@@ -11,13 +12,37 @@ const ContextAuth = createContext(null);
 ContextAuth.displayName = 'ContextAuth';
 
 const ProviderAuth = (props) => {
+  const navigate = useNavigate();
   const [account, setAccount] = useState(null);
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+
+  // If we change page, reset the error state.
+  useEffect(() => {
+    if (error) setError(null);
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    accountService
+      .refreshToken()
+      .then((response) => {
+        setAccount(response);
+      })
+      .catch((_error) => {
+        console.error('ERROR CAUGHT: ', error);
+      });
+  }, []);
 
   const login = ({ email, password }) => {
+    setLoading(true);
+
     accountService
       .login({ email, password })
-      .then((response) => setAccount(response))
-      .catch((error) => console.error('ERROR CAUGHT: ', error));
+      .then((response) => {
+        setAccount(response);
+        navigate('/profile');
+      })
+      .catch((error) => setError(error));
   };
 
   const logout = () => {
@@ -25,9 +50,18 @@ const ProviderAuth = (props) => {
     accountService.logout();
   };
 
-  const value = { account, login, logout };
+  const valueMemoed = useMemo(
+    () => ({
+      account,
+      loading,
+      error,
+      login,
+      logout,
+    }),
+    [account, loading, error]
+  );
 
-  return <ContextAuth.Provider value={value} {...props} />;
+  return <ContextAuth.Provider value={valueMemoed} {...props} />;
 };
 
 const useContextAuth = () => {
