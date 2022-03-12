@@ -10,6 +10,7 @@ export default {
   verifyEmail,
   forgotPassword,
   resetPassword,
+  update,
 };
 
 function register(params) {
@@ -36,15 +37,7 @@ function login({ email, password }) {
 
 function logout() {
   return axios
-    .post(
-      `${urlBase}/revoke-token`,
-      {},
-      {
-        headers: {
-          authorization: `bearer ${tokenJwt}`,
-        },
-      }
-    )
+    .post(`${urlBase}/revoke-token`, {}, authorize())
     .then((response) => {
       tokenJwt = null;
       stopRefreshTokenTimer();
@@ -72,7 +65,29 @@ function resetPassword({ token, password, passwordConfirm }) {
     .then((response) => response.data);
 }
 
-// helpers functions
+function update(id, params) {
+  return axios.put(`${urlBase}/accounts/${id}`, params, authorize());
+}
+
+// function getAll() {
+//   return axios.get(urlBase, authorize()).then((response) => response.data);
+// }
+
+// function getById(id) {
+//   return axios
+//     .get(`${urlBase}/${id}`, authorize())
+//     .then((response) => response.data);
+// }
+
+// function create() {}
+
+function authorize() {
+  return {
+    headers: {
+      authorization: `bearer ${tokenJwt}`,
+    },
+  };
+}
 
 let idTimeoutTokenRefresh;
 
