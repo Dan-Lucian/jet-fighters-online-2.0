@@ -7,6 +7,7 @@ export default {
   register,
   login,
   logout,
+  verifyEmail,
 };
 
 function register(params) {
