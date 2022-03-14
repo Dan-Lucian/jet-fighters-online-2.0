@@ -119,10 +119,14 @@ describe('Registration', () => {
       expect(accountsFromDb).toHaveLength(0);
     });
 
-    test('should return 400 if any essential data invalid', async () => {
+    test.only('should return 400 if any essential data invalid', async () => {
       const passwordTooShort = copyObj(accountRegistration);
       passwordTooShort.password = '1234567';
       await api.post('/accounts/register').send(passwordTooShort).expect(400);
+
+      const passwordTooLong = copyObj(accountRegistration);
+      passwordTooLong.password = '12345678901234567890123456';
+      await api.post('/accounts/register').send(passwordTooLong).expect(400);
 
       const passwordsMismatch = copyObj(accountRegistration);
       passwordsMismatch.password = '12345678';
@@ -132,6 +136,10 @@ describe('Registration', () => {
       const userNameTooShort = copyObj(accountRegistration);
       userNameTooShort.userName = '12';
       await api.post('/accounts/register').send(userNameTooShort).expect(400);
+
+      const userNameTooLong = copyObj(accountRegistration);
+      userNameTooLong.userName = '1234567890123456';
+      await api.post('/accounts/register').send(userNameTooLong).expect(400);
 
       const emailWithoutAt = copyObj(accountRegistration);
       emailWithoutAt.email = 'email.com';

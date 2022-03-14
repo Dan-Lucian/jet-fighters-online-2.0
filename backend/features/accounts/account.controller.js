@@ -31,9 +31,9 @@ module.exports = router;
 
 function schemaRegister(request, response, next) {
   const schema = Joi.object({
-    userName: Joi.string().min(3).required(),
+    userName: Joi.string().min(3).max(15).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().min(8).max(25).required(),
     passwordConfirm: Joi.string().valid(Joi.ref('password')).required(),
   });
   validateRequest(request, next, schema);
@@ -153,7 +153,7 @@ async function validateResetToken(request, response, next) {
 function schemaResetPassword(request, response, next) {
   const schema = Joi.object({
     token: Joi.string().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().min(8).max(25).required(),
     passwordConfirm: Joi.string().valid(Joi.ref('password')).required(),
   });
   validateRequest(request, next, schema);
@@ -187,9 +187,9 @@ async function getById(request, response, next) {
 
 function schemaCreate(request, response, next) {
   const schema = Joi.object({
-    userName: Joi.string().min(3).required(),
+    userName: Joi.string().min(3).max(15).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().min(8).max(25).required(),
     passwordConfirm: Joi.string().valid(Joi.ref('password')).required(),
     role: Joi.string().valid(Role.Admin, Role.User).required(),
   });

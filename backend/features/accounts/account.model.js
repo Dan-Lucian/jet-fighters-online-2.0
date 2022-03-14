@@ -5,6 +5,7 @@ const schemaAccount = mongoose.Schema({
   userName: {
     type: String,
     minLength: 3,
+    maxLength: 15,
     unique: true,
     required: true,
   },
