@@ -16,9 +16,11 @@ import accountService from '../../services/account.service';
 import FormAuth from '../../components/FormAuth';
 import InputAuth from '../../components/InputAuth';
 import BtnSubmit from '../../components/BtnSubmit';
+import PageProfile from '../profile/PageProfile';
+import Loader from '../../components/Loader';
 
 const PageRegister = () => {
-  const { account } = useContextAuth();
+  const { account, loading } = useContextAuth();
   const [, setGlobal] = useContextGlobal();
   const {
     data: receivedData,
@@ -50,6 +52,9 @@ const PageRegister = () => {
 
     run(accountService.register(credentials));
   };
+
+  if (loading) return <Loader />;
+  if (account) return <PageProfile />;
 
   return (
     <main className={styles.wrapper}>

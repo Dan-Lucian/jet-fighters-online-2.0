@@ -1,5 +1,12 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
@@ -22,14 +29,18 @@ const ProviderAuth = (props) => {
     if (error) setError(null);
   }, [window.location.pathname]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    setLoading(true);
+
     accountService
       .refreshToken()
       .then((response) => {
+        setLoading(false);
         setAccount(response);
       })
       .catch((_error) => {
         console.error('ERROR CAUGHT: ', error);
+        setLoading(false);
       });
   }, []);
 

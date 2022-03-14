@@ -46,7 +46,7 @@ const Nav = ({ theme, getTogglerTheme }) => {
         </Link>
       ) : (
         <Link to="/login" className={styles.signin}>
-          Sign in
+          Login
         </Link>
       )}
       <TogglerTheme theme={theme} getTogglerTheme={getTogglerTheme} />

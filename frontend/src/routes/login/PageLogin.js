@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
@@ -8,17 +7,14 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 import FormAuth from '../../components/FormAuth';
 import InputAuth from '../../components/InputAuth';
 import BtnSubmit from '../../components/BtnSubmit';
+import Loader from '../../components/Loader';
 
 // styles
 import styles from './PageLogin.module.scss';
+import PageProfile from '../profile/PageProfile';
 
 const PageLogin = () => {
-  const navigate = useNavigate();
-  const { account, login } = useContextAuth();
-
-  useEffect(() => {
-    if (account) navigate('/profile');
-  }, []);
+  const { account, login, loading } = useContextAuth();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,9 +28,12 @@ const PageLogin = () => {
     login(credentials);
   };
 
+  if (loading) return <Loader />;
+  if (account) return <PageProfile />;
+
   return (
     <main className={styles.wrapper}>
-      <h1 className={styles.heading}>Sign in</h1>
+      <h1 className={styles.heading}>Login</h1>
 
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" />
