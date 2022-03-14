@@ -60,7 +60,6 @@ const PageResetPassword = () => {
       <h1 className={styles.heading}>Reset</h1>
 
       <FormAuth onSubmit={handleSubmit}>
-        <InputAuth id="email" label="Email" type="email" name="email" />
         <InputAuth
           id="password"
           label="Password"
@@ -68,6 +67,13 @@ const PageResetPassword = () => {
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
           name="password"
+        />
+        <InputAuth
+          id="password-confirm"
+          label="Confirm the password"
+          type="password"
+          pattern="^.{8,25}$"
+          name="passwordConfirm"
         />
         <BtnSubmit>Reset password</BtnSubmit>
       </FormAuth>
