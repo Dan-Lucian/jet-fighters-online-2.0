@@ -1,13 +1,24 @@
-import { useContextAuth } from '../../providers/ProviderAuth';
+import { useEffect } from 'react';
+
+// styles
+import styles from './PageRegister.module.scss';
 
 // shared hooks
 import { useAsync } from '../../hooks/useAsync';
+import { useContextAuth } from '../../providers/ProviderAuth';
+import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 // services
 import accountService from '../../services/account.service';
 
+// shared components
+import FormAuth from '../../components/FormAuth';
+import InputAuth from '../../components/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit';
+
 const PageRegister = () => {
   const { account } = useContextAuth();
+  const [, setGlobal] = useContextGlobal();
   const {
     data: receivedData,
     error,
@@ -17,8 +28,13 @@ const PageRegister = () => {
     status: 'idle',
   });
 
-  console.log('ACCOUNT: ', account);
-  console.log('ERROR: ', error);
+  useEffect(() => {
+    if (error)
+      setGlobal((prev) => ({
+        ...prev,
+        msgPopup: error?.response.data.message,
+      }));
+  }, [error]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,29 +51,36 @@ const PageRegister = () => {
   };
 
   return (
-    <main>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="userName">username:</label>
-          <input name="userName" id="userName" type="text" />
-        </div>
-        <div>
-          <label htmlFor="email">email:</label>
-          <input name="email" id="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">password:</label>
-          <input name="password" id="password" type="text" />
-        </div>
-        <div>
-          <label htmlFor="passwordConfirm">passwordConfirm:</label>
-          <input name="passwordConfirm" id="passwordConfirm" type="text" />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <p>Status: {status}</p>
-      <p>Reponse: {JSON.stringify(receivedData)}</p>
-      <p>Error: {JSON.stringify(error?.response.data.message)}</p>
+    <main className={styles.wrapper}>
+      <h1 className={styles.heading}>Registration</h1>
+
+      <FormAuth onSubmit={handleSubmit}>
+        <InputAuth id="email" label="Email" type="email" name="email" />
+        <InputAuth
+          id="username"
+          label="Username"
+          type="text"
+          undertext="* 3-15 characters"
+          pattern="^.{3,15}$"
+          name="userName"
+        />
+        <InputAuth
+          id="password"
+          label="Password"
+          type="password"
+          undertext="* 8-25 characters"
+          pattern="^.{8,25}$"
+          name="password"
+        />
+        <InputAuth
+          id="password-confirm"
+          label="Confirm the password"
+          type="password"
+          pattern="^.{8,25}$"
+          name="passwordConfirm"
+        />
+        <BtnSubmit disabled={status === 'pending'}>Register</BtnSubmit>
+      </FormAuth>
     </main>
   );
 };

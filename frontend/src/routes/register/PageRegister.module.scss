@@ -1,0 +1,16 @@
+.wrapper {
+  width: 24.5em;
+  padding: 2.5em;
+  border-radius: 5px;
+  background: var(--color-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.heading {
+  background: var(--color-bg-primary);
+  font-size: 2em;
+  align-self: flex-start;
+  padding: 0.25em 0.75em;
+}
