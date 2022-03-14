@@ -1,0 +1,23 @@
+.wrapper {
+  padding: 1.5em 3em;
+  border-radius: 5px;
+  background: var(--color-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.wrapperInner {
+  background: var(--color-bg-primary);
+  padding: 1em 3em;
+  border-radius: 5px;
+}
+
+.link {
+  color: var(--color-blue);
+
+  &:hover,
+  &:focus {
+    color: var(--color-text);
+  }
+}

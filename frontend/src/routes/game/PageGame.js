@@ -4,7 +4,7 @@ import { useContextLobby } from '../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../providers/ProviderWebsocket';
 
 // shared components
-import PageNonexistent from '../nonexistent/PageNonexistent';
+import PageNonexistent from '../../components/PageNonexistent';
 
 // local hooks
 import { useGameWsEvents } from './hooks/useGameWsEvents';

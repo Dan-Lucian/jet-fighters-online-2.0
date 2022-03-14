@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContextAuth } from '../../providers/ProviderAuth';
 
 // shared components
-import PageNonexistent from '../nonexistent/PageNonexistent';
+import PageNonexistent from '../../components/PageNonexistent';
 
 const PageProfile = () => {
   const navigate = useNavigate();
