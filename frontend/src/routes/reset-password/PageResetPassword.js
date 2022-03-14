@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 // shared hooks
 import useQuery from '../../hooks/useQuery';
@@ -7,6 +7,14 @@ import { useAsync } from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';
+
+// shared components
+import FormAuth from '../../components/FormAuth';
+import InputAuth from '../../components/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit';
+
+// styles
+import styles from './PageResetPassword.module.scss';
 
 const PageResetPassword = () => {
   const tokenSaved = useRef(null);
@@ -48,36 +56,22 @@ const PageResetPassword = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="new-password"
-            pattern="^.{8,25}$"
-          />
-          <label htmlFor="password">New password</label>
-        </div>
-        <div>
-          <input
-            id="password-confirm"
-            name="passwordConfirm"
-            type="password"
-            autoComplete="new-password"
-            pattern="^.{8,25}$"
-          />
-          <label htmlFor="password-confirm">Confirm new password</label>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <div>
-        <p>Status: {status}</p>
-        <p>Reponse: {JSON.stringify(dataReceived)}</p>
-        <p>Error: {JSON.stringify(error?.response.data.message)}</p>
-      </div>
-    </div>
+    <main className={styles.wrapper}>
+      <h1 className={styles.heading}>Reset</h1>
+
+      <FormAuth onSubmit={handleSubmit}>
+        <InputAuth id="email" label="Email" type="email" name="email" />
+        <InputAuth
+          id="password"
+          label="Password"
+          type="password"
+          undertext="* 8-25 characters"
+          pattern="^.{8,25}$"
+          name="password"
+        />
+        <BtnSubmit>Reset password</BtnSubmit>
+      </FormAuth>
+    </main>
   );
 };
 export default PageResetPassword;
