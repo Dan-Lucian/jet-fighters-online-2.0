@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // styles
 import styles from './PageRegister.module.scss';
@@ -79,6 +80,14 @@ const PageRegister = () => {
           pattern="^.{8,25}$"
           name="passwordConfirm"
         />
+        <div className={styles.wrapperLinks}>
+          <Link to="/login" className={styles.link}>
+            Login
+          </Link>
+          <Link to="/forgot-password" className={styles.link}>
+            Forgot password
+          </Link>
+        </div>
         <BtnSubmit disabled={status === 'pending'}>Register</BtnSubmit>
       </FormAuth>
     </main>

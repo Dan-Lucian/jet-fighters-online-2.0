@@ -14,3 +14,20 @@
   align-self: flex-start;
   padding: 0.25em 0.75em;
 }
+
+.wrapperLinks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 0.9em;
+
+  &:hover,
+  &:focus {
+    color: var(--color-blue);
+    outline: none;
+  }
+}
