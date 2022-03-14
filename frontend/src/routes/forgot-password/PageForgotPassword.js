@@ -1,8 +1,18 @@
+import { Link } from 'react-router-dom';
+
 // shared hooks
 import { useAsync } from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';
+
+// shared components
+import FormAuth from '../../components/FormAuth';
+import InputAuth from '../../components/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit';
+
+// styles
+import styles from './PageForgotPassword.module.scss';
 
 const PageForgotPassword = () => {
   const {
@@ -23,20 +33,21 @@ const PageForgotPassword = () => {
   };
 
   return (
-    <main>
-      <h1>Forgot password</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input id="email" name="email" type="text" />
+    <main className={styles.wrapper}>
+      <h1 className={styles.heading}>Recovery</h1>
+
+      <FormAuth onSubmit={handleSubmit}>
+        <InputAuth id="email" label="Email" type="email" name="email" />
+        <div className={styles.wrapperLinks}>
+          <Link to="/login" className={styles.link}>
+            Login
+          </Link>
+          <Link to="/register" className={styles.link}>
+            Register
+          </Link>
         </div>
-        <button type="submit">Submit</button>
-      </form>
-      <div>
-        <p>Status: {status}</p>
-        <p>Reponse: {JSON.stringify(receivedData)}</p>
-        <p>Error: {JSON.stringify(error?.response.data.message)}</p>
-      </div>
+        <BtnSubmit disabled={status === 'pending'}>Recover</BtnSubmit>
+      </FormAuth>
     </main>
   );
 };

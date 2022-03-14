@@ -54,7 +54,7 @@ const PageLogin = () => {
             Forgot password
           </Link>
         </div>
-        <BtnSubmit>Sign in</BtnSubmit>
+        <BtnSubmit>Login</BtnSubmit>
       </FormAuth>
     </main>
   );
