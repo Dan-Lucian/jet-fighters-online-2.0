@@ -22,6 +22,8 @@ const websocket = (expressServer) => {
     path: '/websocket',
   });
 
+  startPingPong(websocketServer);
+
   expressServer.on('upgrade', (request, socket, head) => {
     logger.info('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
@@ -39,7 +41,6 @@ const websocket = (expressServer) => {
 
     websocketConnection.isAlive = true;
     websocketConnection.on('pong', heartbeat);
-    startPingPong(websocketServer);
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
