@@ -32,6 +32,14 @@ const PageForgotPassword = () => {
     run(accountService.forgotPassword(dataFromForm.get('email')));
   };
 
+  if (receivedData)
+    return (
+      <main className={styles.wrapperMsg}>
+        An email with instructions has been sent.
+        <br /> <br /> In case there's no email, check your spam section as well.
+      </main>
+    );
+
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Recovery</h1>

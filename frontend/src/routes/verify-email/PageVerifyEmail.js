@@ -45,14 +45,14 @@ const PageVerifyEmail = () => {
   if (status === 'pending') return <Loader />;
 
   return (
-    <div className={styles.wrapper}>
+    <main className={styles.wrapper}>
       <div className={styles.wrapperInner}>
         Email verified, you can now{' '}
         <Link to="/login" className={styles.link}>
           login
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 export default PageVerifyEmail;

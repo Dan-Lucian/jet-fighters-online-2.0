@@ -39,7 +39,7 @@ const ProviderAuth = (props) => {
         setAccount(response);
       })
       .catch((_error) => {
-        console.error('ERROR CAUGHT: ', error);
+        console.error('ERROR CAUGHT: ', _error);
         setLoading(false);
       });
   }, []);
