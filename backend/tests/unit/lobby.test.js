@@ -57,7 +57,7 @@ describe('Joining a lobby', () => {
     expect(allLobbies.get(idLobby).joiner).toEqual(joiner);
   });
 
-  test.only('succeeds with "success" if 2 names are "Anon"', () => {
+  test('succeeds with "success" if 2 names are "Anon"', () => {
     allLobbies.set(idLobby, { owner: anon, joiner: null });
 
     const result = joinLobby(idLobby, anon);
