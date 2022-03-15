@@ -42,7 +42,10 @@ const joinLobby = (id, player) => {
 
   if (!lobby) return 'notFound';
   if (lobby.joiner) return 'full';
+
   if (lobby.owner) {
+    if (lobby.owner.name === name) return 'same name';
+
     allLobbies.set(id, {
       owner: {
         ...lobby.owner,

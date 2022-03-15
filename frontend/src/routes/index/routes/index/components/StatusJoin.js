@@ -17,10 +17,15 @@ const StatusJoin = () => {
         break;
 
       case 'full':
-        text = `Lobby full`;
+        text = 'Lobby full';
+        break;
+
+      case 'same name':
+        text = `You can't join your own lobby`;
         break;
 
       default:
+        console.error('Join fail, ', reason);
         text = 'Uknown failure';
     }
   }
