@@ -1,6 +1,9 @@
 .wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1em;
   border: 2px solid var(--color-red);
-  padding: 1em 3em;
+  padding: 1.5em 0.5em 1.5em 3em;
   position: absolute;
   z-index: 50;
   top: 0;
@@ -8,13 +11,43 @@
   transform: translate(-50%, -4.5em);
   transition: transform 250ms ease-in-out;
   pointer-events: none;
-  background: var(--color-bg-secondary);
   background: var(--color-red);
-  color: var(--color-red);
   color: var(--color-text);
 }
 
 .visible {
   pointer-events: initial;
   transform: translate(-50%, 4.5em);
+}
+
+.btn {
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.cross {
+  width: 2em;
+  height: 3px;
+  background-color: var(--color-text);
+  position: relative;
+  transform: rotate(45deg);
+
+  &::after {
+    content: '';
+    display: block;
+    width: 2em;
+    height: 3px;
+    background-color: var(--color-text);
+    position: absolute;
+    transform: rotate(90deg);
+  }
 }

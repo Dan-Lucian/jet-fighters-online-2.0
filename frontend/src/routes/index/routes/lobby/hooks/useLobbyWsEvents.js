@@ -117,8 +117,6 @@ const useLobbyWsEvents = () => {
       const { stateGame } = message;
 
       setGlobal((prev) => ({ ...prev, stateApp: 'countdown' }));
-      // create new game provider
-      // setGame({ receivedStateGame });
       resetMessage();
       navigate('/game', { state: stateGame });
     }

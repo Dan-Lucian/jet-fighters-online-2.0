@@ -1,4 +1,5 @@
 // shared hooks
+import { useContextAuth } from '../../../../../providers/ProviderAuth';
 import { useContextGlobal } from '../../../../../providers/ProviderGlobal';
 import { useContextSettings } from '../../../../../providers/ProviderSettings';
 import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket';
@@ -10,8 +11,9 @@ const FormId = () => {
   const [global] = useContextGlobal();
   const [settings, setSettings] = useContextSettings();
   const { sendMessage } = useContextWebsocket();
+  const { account } = useContextAuth();
 
-  const { stateApp, name } = global;
+  const { stateApp } = global;
   const { idJoin } = settings;
 
   const isstateAppPreLobby = stateApp === 'preLobby';
@@ -22,7 +24,7 @@ const FormId = () => {
         e.preventDefault();
         setSettings((prev) => ({ ...prev, idJoin: '' }));
         sendMessage({
-          name,
+          name: account?.userName || 'Anon',
           idLobby: idJoin,
           event: 'join',
         });

@@ -14,19 +14,20 @@ const {
   injectInputIntoGame,
 } = require('./game');
 const { areValidSettingsGame } = require('./validation');
-const logger = require('../utils/logger');
+const logger = require('../../utils/logger');
 
-const websockets = (expressServer) => {
+const websocket = (expressServer) => {
   const websocketServer = new WebSocketServer({
     noServer: true,
     path: '/websocket',
   });
 
+  startPingPong(websocketServer);
+
   expressServer.on('upgrade', (request, socket, head) => {
     logger.info('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
       websocketServer.emit('connection', websocket, request);
-      startPingPong(websocketServer);
     });
   });
 
@@ -298,4 +299,4 @@ const startPingPong = (serverWs) => {
   }, 25000);
 };
 
-module.exports = websockets;
+module.exports = websocket;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../providers/ProviderGlobal';
+import { useContextAuth } from '../providers/ProviderAuth';
 
 // shared components
 import TogglerTheme from './TogglerTheme';
@@ -12,6 +13,8 @@ import styles from './Nav.module.scss';
 
 const Nav = ({ theme, getTogglerTheme }) => {
   const [global] = useContextGlobal();
+  const { account } = useContextAuth();
+
   const { stateApp } = global;
 
   const isStateAppLobby = stateApp === 'lobby';
@@ -37,9 +40,15 @@ const Nav = ({ theme, getTogglerTheme }) => {
       <Link to="/about" className={styles.about}>
         About
       </Link>
-      <Link to="/login" className={styles.signin}>
-        Sign in
-      </Link>
+      {account ? (
+        <Link to="/profile" className={styles.signin}>
+          {account.userName}
+        </Link>
+      ) : (
+        <Link to="/login" className={styles.signin}>
+          Login
+        </Link>
+      )}
       <TogglerTheme theme={theme} getTogglerTheme={getTogglerTheme} />
     </nav>
   );

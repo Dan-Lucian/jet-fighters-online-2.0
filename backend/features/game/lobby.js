@@ -1,5 +1,5 @@
-const { createId } = require('../utils/createId');
-const logger = require('../utils/logger');
+const { createId } = require('../../utils/createId');
+const logger = require('../../utils/logger');
 
 // how the lobby states are stored in the map
 // const structureLobbyInMap = {
@@ -42,7 +42,11 @@ const joinLobby = (id, player) => {
 
   if (!lobby) return 'notFound';
   if (lobby.joiner) return 'full';
+
   if (lobby.owner) {
+    if (lobby.owner.name === name && lobby.owner.name !== 'Anon')
+      return 'same name';
+
     allLobbies.set(id, {
       owner: {
         ...lobby.owner,

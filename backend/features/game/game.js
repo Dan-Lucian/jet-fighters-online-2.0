@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 const { typesJet, delayInterval, imgW, imgH } = require('./config');
-const { getRandomInt } = require('../utils/getRandomInt');
+const { getRandomInt } = require('../../utils/getRandomInt');
 
 const allStatesGame = new Map();
 

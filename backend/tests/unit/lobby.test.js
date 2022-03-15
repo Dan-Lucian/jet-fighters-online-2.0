@@ -3,7 +3,7 @@ const {
   createLobby,
   joinLobby,
   removeJoinerFromLobby,
-} = require('../websockets/lobby');
+} = require('../../features/game/lobby');
 
 const idLobby = 'test';
 
@@ -15,6 +15,12 @@ const owner = {
 
 const joiner = {
   name: 'joiner',
+  ws: null,
+  wins: 0,
+};
+
+const anon = {
+  name: 'Anon',
   ws: null,
   wins: 0,
 };
@@ -51,6 +57,16 @@ describe('Joining a lobby', () => {
     expect(allLobbies.get(idLobby).joiner).toEqual(joiner);
   });
 
+  test('succeeds with "success" if 2 names are "Anon"', () => {
+    allLobbies.set(idLobby, { owner: anon, joiner: null });
+
+    const result = joinLobby(idLobby, anon);
+
+    expect(result).toBe('success');
+    expect(allLobbies.get(idLobby).owner).toEqual(anon);
+    expect(allLobbies.get(idLobby).joiner).toEqual(anon);
+  });
+
   test('fails with "full" if room full', () => {
     allLobbies.set(idLobby, { owner, joiner });
 
@@ -70,6 +86,16 @@ describe('Joining a lobby', () => {
 
     expect(result).toBe('notFound');
     expect(allLobbies.size).toBe(0);
+  });
+
+  test('should fail with "same name" name already in lobby', () => {
+    allLobbies.set(idLobby, { owner, joiner: null });
+
+    const result = joinLobby(idLobby, owner);
+
+    expect(result).toBe('same name');
+    expect(allLobbies.get(idLobby).owner).toEqual(owner);
+    expect(allLobbies.get(idLobby).joiner).toBeNull();
   });
 });
 

@@ -5,17 +5,17 @@ const ContextGlobal = createContext(null);
 ContextGlobal.displayName = 'ContextGlobal';
 
 const ProviderGlobal = (props) => {
-  const user = useState(valueDefault);
+  const dataGlobal = useState(valueDefault);
 
-  return <ContextGlobal.Provider value={user} {...props} />;
+  return <ContextGlobal.Provider value={dataGlobal} {...props} />;
 };
 
 const useContextGlobal = () => {
-  const user = useContext(ContextGlobal);
-  if (user === null)
+  const dataGlobal = useContext(ContextGlobal);
+  if (dataGlobal === null)
     throw new Error('useContextGlobal must be used within ProviderGlobal');
 
-  return user;
+  return dataGlobal;
 };
 
 const valueDefault = {
@@ -24,5 +24,7 @@ const valueDefault = {
   stateApp: 'preLobby',
   msgPopup: null,
 };
+// stateApp has the following possible values
+// preLobby, lobby, countdown, game, gameOver
 
 export { ProviderGlobal, useContextGlobal };
