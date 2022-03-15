@@ -276,7 +276,8 @@ function getStringRandomForToken() {
 }
 
 function getDetailsBasic(account) {
-  const { id, userName, email, role, created, updated, isVerified } = account;
+  const { id, userName, email, role, created, updated, isVerified, stats } =
+    account;
 
   return {
     id,
@@ -286,6 +287,7 @@ function getDetailsBasic(account) {
     created,
     updated,
     isVerified,
+    stats,
   };
 }
 
