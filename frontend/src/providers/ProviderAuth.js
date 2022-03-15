@@ -9,9 +9,6 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// shared hooks
-import { useAsync } from '../hooks/useAsync';
-
 // services
 import accountService from '../services/account.service';
 
@@ -53,7 +50,10 @@ const ProviderAuth = (props) => {
         setAccount(response);
         navigate('/profile');
       })
-      .catch((error) => setError(error));
+      .catch((error) => {
+        setLoading(false);
+        setError(error);
+      });
   };
 
   const logout = () => {
@@ -76,11 +76,11 @@ const ProviderAuth = (props) => {
 };
 
 const useContextAuth = () => {
-  const user = useContext(ContextAuth);
-  if (user === null)
+  const auth = useContext(ContextAuth);
+  if (auth === null)
     throw new Error('useContextAuth must be used within ProviderAuth');
 
-  return user;
+  return auth;
 };
 
 export { ProviderAuth, useContextAuth };

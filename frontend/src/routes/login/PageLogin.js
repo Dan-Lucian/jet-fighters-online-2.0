@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // shared hooks
@@ -12,9 +13,19 @@ import Loader from '../../components/Loader';
 // styles
 import styles from './PageLogin.module.scss';
 import PageProfile from '../profile/PageProfile';
+import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 const PageLogin = () => {
-  const { account, login, loading } = useContextAuth();
+  const { account, login, loading, error } = useContextAuth();
+  const [, setGlobal] = useContextGlobal();
+
+  useEffect(() => {
+    if (error)
+      setGlobal((prev) => ({
+        ...prev,
+        msgPopup: error?.response.data.message,
+      }));
+  }, [error]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
