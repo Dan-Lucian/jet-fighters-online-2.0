@@ -1,0 +1,129 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.card {
+  background: var(--color-bg-secondary);
+  padding: 2em;
+  padding-left: 6.5em;
+  width: 32em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.jet {
+  background: var(--color-blue);
+  width: 9em;
+  height: 9em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+  box-shadow: 0 0 0 1em var(--color-bg-secondary);
+  transform: translateX(4.5em);
+
+  &::before,
+  &::after {
+    content: '';
+    width: 9em;
+    height: 9em;
+    background: var(--color-bg-primary);
+    border-radius: 50%;
+    position: absolute;
+  }
+
+  &::before {
+    top: calc(100% + 1em);
+  }
+
+  &::after {
+    bottom: calc(100% + 1em);
+  }
+}
+
+.img {
+  width: 6em;
+  animation-name: rotate;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.wrapperName {
+  background: var(--color-bg-primary);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  border-radius: 5px;
+  position: relative;
+}
+
+.name {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.email {
+  color: var(--color-blue);
+}
+
+.btnLogout {
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  padding: 0.2em 1em;
+  border: none;
+  border-radius: 5px;
+  background: var(--color-blue);
+  color: var(--color-white);
+  box-shadow: 0 4px 0 var(--color-shadow-box);
+  cursor: pointer;
+  transition: none;
+
+  &:hover {
+    background: var(--color-blue-dark);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+  }
+
+  &:disabled {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+    background: var(--color-blue-dark);
+  }
+}
+
+.stats {
+  padding: 1em 0;
+  display: flex;
+  justify-content: space-evenly;
+  background: var(--color-bg-primary);
+  font-size: 1.2em;
+  border-radius: 5px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
