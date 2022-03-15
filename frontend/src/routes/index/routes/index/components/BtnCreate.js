@@ -17,7 +17,8 @@ const BtnCreate = () => {
 
   const getHandlerClick = () => {
     if (isStateAppPreLobby)
-      return () => sendMessage({ name: account?.userName, event: 'create' });
+      return () =>
+        sendMessage({ name: account?.userName || 'Anon', event: 'create' });
 
     return () =>
       console.log(
