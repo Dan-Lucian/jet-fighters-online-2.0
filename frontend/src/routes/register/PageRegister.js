@@ -20,14 +20,9 @@ import PageProfile from '../profile/PageProfile';
 import Loader from '../../components/Loader';
 
 const PageRegister = () => {
-  const { account, loading } = useContextAuth();
+  const { account } = useContextAuth();
   const [, setGlobal] = useContextGlobal();
-  const {
-    data: receivedData,
-    error,
-    status,
-    run,
-  } = useAsync({
+  const { error, status, run } = useAsync({
     status: 'idle',
   });
 
@@ -53,8 +48,14 @@ const PageRegister = () => {
     run(accountService.register(credentials));
   };
 
-  if (loading) return <Loader />;
   if (account) return <PageProfile />;
+  if (status === 'pending') return <Loader />;
+  if (status === 'resolved')
+    return (
+      <main className={styles.wrapper}>
+        Account created. We've sent an activation link to the specified email.
+      </main>
+    );
 
   return (
     <main className={styles.wrapper}>
