@@ -24,5 +24,7 @@ const valueDefault = {
   stateApp: 'preLobby',
   msgPopup: null,
 };
+// stateApp has the following possible values
+// preLobby, lobby, countdown, game, gameOver
 
 export { ProviderGlobal, useContextGlobal };
