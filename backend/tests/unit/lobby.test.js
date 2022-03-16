@@ -114,14 +114,14 @@ describe('Removing the joiner from the room', () => {
   });
 });
 
-// describe('Removing the joiner from the room', () => {
-//   test.only('removeStateGame(id) should remove state game', () => {
-//     lobby.getAll.set(idLobby, { owner, joiner, stateGame: true });
+describe('Removing the joiner from the room', () => {
+  test.only('removeStateGame(id) should remove state game', () => {
+    lobby.getAll.set(idLobby, { owner, joiner, stateGame: true });
 
-//     expect(lobby.getAll.get(idLobby).stateGame).toBe(true);
+    expect(lobby.getAll.get(idLobby).stateGame).toBe(true);
 
-//     lobby.removeStateGame(idLobby);
+    lobby.removeStateGame(idLobby);
 
-//     expect(lobby.getAll.get(idLobby).stateGame).toBeNull();
-//   });
-// });
+    expect(lobby.getAll.get(idLobby).stateGame).toBeNull();
+  });
+});

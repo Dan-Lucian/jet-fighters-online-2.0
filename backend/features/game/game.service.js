@@ -77,6 +77,8 @@ async function incrementStat(account, stat) {
 }
 
 async function updateGamesWithJet(account, typeJet) {
+  if (!account) return;
+
   switch (typeJet) {
     case typesJet.balanced.typeJet:
       account.stats.gamesWithBalanced += 1;

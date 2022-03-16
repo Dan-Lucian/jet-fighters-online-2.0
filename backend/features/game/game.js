@@ -1,5 +1,6 @@
 const { typesJet, delayInterval, imgW, imgH } = require('./config');
 const { getRandomInt } = require('../../utils/getRandomInt');
+const helperLobby = require('./lobby');
 const logger = require('../../utils/logger');
 
 // services
@@ -83,6 +84,7 @@ const startLoopGame = (lobby) => {
       clearInterval(idInterval);
       updateWins(lobby, winner);
       sendGameOver([wsOwner, wsJoiner], lobby);
+      helperLobby.removeStateGame(lobby.settings.idLobby);
       gameService
         .updateStatsInDb(lobby.owner.name, lobby.joiner.name, winner)
         .then((error) => logger.error('Error caught: ', error));

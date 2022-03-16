@@ -25,6 +25,7 @@ module.exports = {
   removeJoiner,
   destroy,
   getById,
+  removeStateGame,
 };
 
 function create() {
@@ -105,7 +106,7 @@ function getById(id) {
   return lobby;
 }
 
-// function removeStateGame(id) {
-//   const lobby = getById(id);
-//   lobby.stateGame = null;
-// }
+function removeStateGame(id) {
+  const lobby = getById(id);
+  lobby.stateGame = null;
+}
