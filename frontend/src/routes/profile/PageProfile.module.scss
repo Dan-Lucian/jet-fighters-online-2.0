@@ -87,17 +87,17 @@
   position: absolute;
   right: 1em;
   bottom: 1em;
-  padding: 0.2em 1em;
+  padding: 0.5em 1em;
   border: none;
   border-radius: 5px;
-  background: var(--color-blue);
+  background: var(--color-red);
   color: var(--color-white);
   box-shadow: 0 4px 0 var(--color-shadow-box);
   cursor: pointer;
   transition: none;
 
   &:hover {
-    background: var(--color-blue-dark);
+    background: var(--color-red-dark);
   }
 
   &:active {
@@ -108,7 +108,7 @@
   &:disabled {
     transform: translateY(2px);
     box-shadow: 0 2px 0 var(--color-shadow-box);
-    background: var(--color-blue-dark);
+    background: var(--color-red-dark);
   }
 }
 

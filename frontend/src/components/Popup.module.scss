@@ -3,7 +3,7 @@
   align-items: center;
   gap: 1em;
   border: 2px solid var(--color-red);
-  padding: 1.5em 0.5em 1.5em 3em;
+  padding: 0.5em 1em 0.5em 2em;
   position: absolute;
   z-index: 50;
   top: 0;
@@ -28,6 +28,7 @@
   border: none;
   cursor: pointer;
   opacity: 0.8;
+  padding: 1em 0;
 
   &:hover {
     opacity: 1;
@@ -35,7 +36,7 @@
 }
 
 .cross {
-  width: 2em;
+  width: 1.5em;
   height: 3px;
   background-color: var(--color-text);
   position: relative;
@@ -44,7 +45,7 @@
   &::after {
     content: '';
     display: block;
-    width: 2em;
+    width: 1.5em;
     height: 3px;
     background-color: var(--color-text);
     position: absolute;
