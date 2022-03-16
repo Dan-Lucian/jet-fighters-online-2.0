@@ -16,28 +16,37 @@ const logger = require('../../utils/logger');
 //   settings: {},
 // };
 
-const allLobbies = new Map();
+const getAll = new Map();
 
-const createLobby = () => {
+module.exports = {
+  getAll,
+  create,
+  join,
+  removeJoiner,
+  destroy,
+  getById,
+};
+
+function create() {
   let id;
   let lobby;
 
   do {
     id = `r${createId(6)}`;
-    lobby = allLobbies.get(id);
+    lobby = getAll.get(id);
   } while (lobby);
 
-  allLobbies.set(id, {
+  getAll.set(id, {
     owner: null,
     joiner: null,
     settings: null,
   });
 
   return id;
-};
+}
 
-const joinLobby = (id, player) => {
-  const lobby = allLobbies.get(id);
+function join(id, player) {
+  const lobby = getAll.get(id);
   const { name, ws } = player;
 
   if (!lobby) return 'notFound';
@@ -47,7 +56,7 @@ const joinLobby = (id, player) => {
     if (lobby.owner.name === name && lobby.owner.name !== 'Anon')
       return 'same name';
 
-    allLobbies.set(id, {
+    getAll.set(id, {
       owner: {
         ...lobby.owner,
       },
@@ -62,7 +71,7 @@ const joinLobby = (id, player) => {
     return 'success';
   }
 
-  allLobbies.set(id, {
+  getAll.set(id, {
     owner: {
       name,
       ws,
@@ -73,10 +82,10 @@ const joinLobby = (id, player) => {
   });
 
   return 'success';
-};
+}
 
-const removeJoinerFromLobby = (id) => {
-  const lobby = allLobbies.get(id);
+function removeJoiner(id) {
+  const lobby = getAll.get(id);
   if (!lobby) {
     logger.info(`No lobby found when quiting, lobby ID: ${id}`);
     return 'notFound';
@@ -84,23 +93,19 @@ const removeJoinerFromLobby = (id) => {
 
   lobby.joiner = null;
   lobby.settings = null;
-};
+}
 
-const destroyLobby = (id) => {
-  allLobbies.delete(id);
-};
+function destroy(id) {
+  getAll.delete(id);
+}
 
-const getLobby = (id) => {
-  const lobby = allLobbies.get(id);
+function getById(id) {
+  const lobby = getAll.get(id);
 
   return lobby;
-};
+}
 
-module.exports = {
-  allLobbies,
-  createLobby,
-  joinLobby,
-  removeJoinerFromLobby,
-  destroyLobby,
-  getLobby,
-};
+// function removeStateGame(id) {
+//   const lobby = getById(id);
+//   lobby.stateGame = null;
+// }

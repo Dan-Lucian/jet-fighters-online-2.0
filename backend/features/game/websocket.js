@@ -1,12 +1,6 @@
 /* eslint-disable no-shadow */
 const { WebSocketServer } = require('ws');
-const {
-  createLobby,
-  joinLobby,
-  removeJoinerFromLobby,
-  destroyLobby,
-  getLobby,
-} = require('./lobby');
+const lobby = require('./lobby');
 const {
   createStateGameInitial,
   startLoopGame,
@@ -49,7 +43,7 @@ const websocket = (expressServer) => {
 
       if (event === 'input') {
         const { idLobby } = websocketConnection;
-        const lobby = getLobby(idLobby);
+        const lobby = lobby.getById(idLobby);
         if (!lobby) return;
 
         injectInputIntoGame(messageJson, lobby.stateGame);
@@ -60,9 +54,9 @@ const websocket = (expressServer) => {
         const { name } = messageJson;
 
         // returns created lobby's ID
-        const idLobby = createLobby();
+        const idLobby = lobby.create();
 
-        joinLobby(idLobby, {
+        lobby.join(idLobby, {
           name,
           ws: websocketConnection,
         });
@@ -84,7 +78,7 @@ const websocket = (expressServer) => {
         const { idLobby, name } = messageJson;
 
         // returns join attempt's result
-        const statusJoin = joinLobby(idLobby, {
+        const statusJoin = lobby.join(idLobby, {
           name,
           ws: websocketConnection,
         });
@@ -97,7 +91,7 @@ const websocket = (expressServer) => {
         };
 
         if (statusJoin === 'success') {
-          const lobby = getLobby(idLobby);
+          const lobby = lobby.getById(idLobby);
           response.success = true;
           response.nameOwner = lobby.owner.name;
           response.nameJoiner = lobby.joiner.name;
@@ -116,7 +110,7 @@ const websocket = (expressServer) => {
       // updateLobby request
       if (event === 'updateLobby') {
         const { lobby: lobbyReceived } = messageJson;
-        const lobby = getLobby(lobbyReceived.idLobby);
+        const lobby = lobby.getById(lobbyReceived.idLobby);
         if (!lobby) {
           logger.info('no loby at EVENT: update');
           return;
@@ -146,7 +140,7 @@ const websocket = (expressServer) => {
 
         const { typeJet, scoreMax, widthMap, heightMap } = settings;
 
-        const lobby = getLobby(idLobby);
+        const lobby = lobby.getById(idLobby);
         if (!lobby) {
           logger.error('No lobby found at EVENT: start');
           return;
@@ -175,7 +169,7 @@ const websocket = (expressServer) => {
       if (event === 'responseReady') {
         const { idLobby, isReady, isOwnerLobby, settings } = messageJson;
         const { typeJet } = settings;
-        const lobby = getLobby(idLobby);
+        const lobby = lobby.getById(idLobby);
         if (!lobby) {
           logger.error('No lobby found at EVENT: responseReady');
           return;
@@ -228,7 +222,7 @@ const websocket = (expressServer) => {
 
       if (event === 'countdownEnd') {
         const { idLobby } = messageJson;
-        const lobby = getLobby(idLobby);
+        const lobby = lobby.getById(idLobby);
 
         // startLoopGame(lobby.owner.ws, lobby.joiner.ws, lobby.stateGame);
         startLoopGame(lobby);
@@ -237,7 +231,7 @@ const websocket = (expressServer) => {
       // quitLobby event
       if (event === 'quitLobby') {
         const { idLobby, isOwnerLobby } = messageJson;
-        const lobby = getLobby(idLobby);
+        const lobby = lobby.getById(idLobby);
         const response = {
           event: isOwnerLobby ? 'quitOwner' : 'quitJoiner',
         };
@@ -250,13 +244,13 @@ const websocket = (expressServer) => {
           }
 
           websocketConnection.idLobby = null;
-          destroyLobby(idLobby);
+          lobby.destroy(idLobby);
           return;
         }
 
         websocketConnection.idLobby = null;
 
-        const result = removeJoinerFromLobby(idLobby);
+        const result = lobby.removeJoiner(idLobby);
         if (result === 'notFound') return;
         lobby.owner.ws.send(JSON.stringify(response));
       }
@@ -264,7 +258,7 @@ const websocket = (expressServer) => {
 
     websocketConnection.on('close', () => {
       const { idLobby } = websocketConnection;
-      const lobby = getLobby(idLobby);
+      const lobby = lobby.getById(idLobby);
       if (!lobby) return;
 
       const isOwnerLobby = websocketConnection === lobby.owner.ws;
@@ -287,11 +281,11 @@ const websocket = (expressServer) => {
           clearInterval(lobby.joiner.ws.idInterval);
           lobby.joiner.ws.idInterval = null;
         }
-        destroyLobby(idLobby);
+        lobby.destroy(idLobby);
         return;
       }
 
-      const result = removeJoinerFromLobby(idLobby);
+      const result = lobby.removeJoiner(idLobby);
       if (result === 'notFound') return;
 
       clearInterval(lobby.owner.ws.idInterval);

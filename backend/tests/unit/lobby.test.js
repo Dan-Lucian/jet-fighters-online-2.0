@@ -1,9 +1,4 @@
-const {
-  allLobbies,
-  createLobby,
-  joinLobby,
-  removeJoinerFromLobby,
-} = require('../../features/game/lobby');
+const lobby = require('../../features/game/lobby');
 
 const idLobby = 'test';
 
@@ -26,95 +21,107 @@ const anon = {
 };
 
 beforeEach(() => {
-  allLobbies.clear();
+  lobby.getAll.clear();
 });
 
 describe('Creating a lobby', () => {
   test('succeeds and creates an object', () => {
-    createLobby();
+    lobby.create();
 
-    expect(allLobbies.size).toBe(1);
+    expect(lobby.getAll.size).toBe(1);
   });
 });
 
 describe('Joining a lobby', () => {
   test('succeeds with "success" if lobby empty', () => {
-    allLobbies.set(idLobby, { owner: null, joiner: null });
+    lobby.getAll.set(idLobby, { owner: null, joiner: null });
 
-    const result = joinLobby(idLobby, owner);
+    const result = lobby.join(idLobby, owner);
 
     expect(result).toBe('success');
-    expect(allLobbies.get(idLobby).owner).toEqual(owner);
+    expect(lobby.getAll.get(idLobby).owner).toEqual(owner);
   });
 
   test('succeeds with "success" if lobby half-empty', () => {
-    allLobbies.set(idLobby, { owner, joiner: null });
+    lobby.getAll.set(idLobby, { owner, joiner: null });
 
-    const result = joinLobby(idLobby, joiner);
+    const result = lobby.join(idLobby, joiner);
 
     expect(result).toBe('success');
-    expect(allLobbies.get(idLobby).owner).toEqual(owner);
-    expect(allLobbies.get(idLobby).joiner).toEqual(joiner);
+    expect(lobby.getAll.get(idLobby).owner).toEqual(owner);
+    expect(lobby.getAll.get(idLobby).joiner).toEqual(joiner);
   });
 
   test('succeeds with "success" if 2 names are "Anon"', () => {
-    allLobbies.set(idLobby, { owner: anon, joiner: null });
+    lobby.getAll.set(idLobby, { owner: anon, joiner: null });
 
-    const result = joinLobby(idLobby, anon);
+    const result = lobby.join(idLobby, anon);
 
     expect(result).toBe('success');
-    expect(allLobbies.get(idLobby).owner).toEqual(anon);
-    expect(allLobbies.get(idLobby).joiner).toEqual(anon);
+    expect(lobby.getAll.get(idLobby).owner).toEqual(anon);
+    expect(lobby.getAll.get(idLobby).joiner).toEqual(anon);
   });
 
   test('fails with "full" if room full', () => {
-    allLobbies.set(idLobby, { owner, joiner });
+    lobby.getAll.set(idLobby, { owner, joiner });
 
     const player = { name: 'player', ws: null, wins: 0 };
 
-    const result = joinLobby(idLobby, player);
+    const result = lobby.join(idLobby, player);
 
     expect(result).toBe('full');
-    expect(allLobbies.get(idLobby).owner).toEqual(owner);
-    expect(allLobbies.get(idLobby).joiner).toEqual(joiner);
+    expect(lobby.getAll.get(idLobby).owner).toEqual(owner);
+    expect(lobby.getAll.get(idLobby).joiner).toEqual(joiner);
   });
 
   test('fails with "notFound" if room not found', () => {
     const player = { name: 'player', ws: null, wins: 0 };
 
-    const result = joinLobby(idLobby, player);
+    const result = lobby.join(idLobby, player);
 
     expect(result).toBe('notFound');
-    expect(allLobbies.size).toBe(0);
+    expect(lobby.getAll.size).toBe(0);
   });
 
   test('should fail with "same name" name already in lobby', () => {
-    allLobbies.set(idLobby, { owner, joiner: null });
+    lobby.getAll.set(idLobby, { owner, joiner: null });
 
-    const result = joinLobby(idLobby, owner);
+    const result = lobby.join(idLobby, owner);
 
     expect(result).toBe('same name');
-    expect(allLobbies.get(idLobby).owner).toEqual(owner);
-    expect(allLobbies.get(idLobby).joiner).toBeNull();
+    expect(lobby.getAll.get(idLobby).owner).toEqual(owner);
+    expect(lobby.getAll.get(idLobby).joiner).toBeNull();
   });
 });
 
 describe('Removing the joiner from the room', () => {
   test('succeeds leaving only the owner inside', () => {
-    allLobbies.set(idLobby, { owner, joiner });
+    lobby.getAll.set(idLobby, { owner, joiner });
 
-    removeJoinerFromLobby(idLobby);
+    lobby.removeJoiner(idLobby);
 
-    expect(allLobbies.get(idLobby).owner).toEqual(owner);
-    expect(allLobbies.get(idLobby).joiner).toBeNull();
+    expect(lobby.getAll.get(idLobby).owner).toEqual(owner);
+    expect(lobby.getAll.get(idLobby).joiner).toBeNull();
   });
 
   test('fails width "notFound" if lobby not found', () => {
     const idNonExistent = 'nonExistent';
-    allLobbies.set(idLobby, { owner, joiner });
+    lobby.getAll.set(idLobby, { owner, joiner });
 
-    const result = removeJoinerFromLobby(idNonExistent);
-    expect(allLobbies.size).toBe(1);
+    const result = lobby.removeJoiner(idNonExistent);
+    expect(lobby.getAll.size).toBe(1);
     expect(result).toBe('notFound');
   });
 });
+
+// describe('Removing the joiner from the room', () => {
+//   test.only('removeStateGame(id) should remove state game', () => {
+//     lobby.getAll.set(idLobby, { owner, joiner, stateGame: true });
+
+//     expect(lobby.getAll.get(idLobby).stateGame).toBe(true);
+
+//     lobby.removeStateGame(idLobby);
+
+//     expect(lobby.getAll.get(idLobby).stateGame).toBeNull();
+//   });
+// });
