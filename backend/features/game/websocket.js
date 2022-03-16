@@ -181,15 +181,6 @@ const websocket = (expressServer) => {
           lobby.stateGame = createStateGameInitial(lobby);
           response.stateGame = lobby.stateGame;
 
-          gameService
-            .updateStatsJetsInDb({
-              nameOwner: lobby.owner.name,
-              typeJetOwner: lobby.owner.typeJet,
-              nameJoiner: lobby.joiner.name,
-              typeJetJoiner: lobby.joiner.typeJet,
-            })
-            .catch((error) => logger.error('Error caught: ', error));
-
           const responseString = JSON.stringify(response);
           lobby.owner.ws.send(responseString);
           lobby.joiner.ws.send(responseString);
@@ -204,15 +195,6 @@ const websocket = (expressServer) => {
         lobby.joiner.typeJet = typeJet;
         lobby.stateGame = createStateGameInitial(lobby);
         response.stateGame = lobby.stateGame;
-
-        gameService
-          .updateStatsJetsInDb({
-            nameOwner: lobby.owner.name,
-            typeJetOwner: lobby.owner.typeJet,
-            nameJoiner: lobby.joiner.name,
-            typeJetJoiner: lobby.joiner.typeJet,
-          })
-          .catch((error) => logger.error('Error caught: ', error));
 
         const responseString = JSON.stringify(response);
         lobby.owner.ws.send(responseString);
@@ -263,15 +245,20 @@ const websocket = (expressServer) => {
 
       const isOwnerLobby = websocketConnection === lobby.owner.ws;
 
+      const winner = isOwnerLobby ? 'quitOwner' : 'quitJoiner';
       const response = {
-        event: isOwnerLobby ? 'quitOwner' : 'quitJoiner',
+        event: winner,
       };
 
       // if disconnect during game
-      if (lobby.stateGame)
+      if (lobby.stateGame) {
+        // "winner" used by gameService.updateStats() below
+        lobby.stateGame.settings.winner = winner;
         gameService
-          .updateStatsInDb(lobby.owner.name, lobby.joiner.name, response.event)
+          .updateStats(lobby.stateGame)
           .catch((error) => logger.error('Error caught: ', error));
+        helperLobby.removeStateGame(idLobby);
+      }
 
       if (isOwnerLobby) {
         // if lobby has a joiner then send msg to him

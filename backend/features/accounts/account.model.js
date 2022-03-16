@@ -24,15 +24,41 @@ const schemaAccount = mongoose.Schema({
   created: { type: Date, default: Date.now },
   updated: Date,
   stats: {
-    wins: { type: Number, default: 0 },
-    loses: { type: Number, default: 0 },
-    draws: { type: Number, default: 0 },
-    gamesWithBalanced: { type: Number, default: 0 },
-    gamesWithSpeedster: { type: Number, default: 0 },
-    gamesWithTrickster: { type: Number, default: 0 },
-    gamesWithTank: { type: Number, default: 0 },
-    gamesWithLongLaster: { type: Number, default: 0 },
-    gamesWithFastBullet: { type: Number, default: 0 },
+    total: {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
+    balanced: {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
+    speedster: {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
+    trickster: {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
+    tank: {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
+    'long-laster': {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
+    'fast-bullet': {
+      wins: { type: Number, default: 0 },
+      loses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
+    },
   },
 });
 

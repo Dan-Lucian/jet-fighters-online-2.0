@@ -84,10 +84,10 @@ const startLoopGame = (lobby) => {
       clearInterval(idInterval);
       updateWins(lobby, winner);
       sendGameOver([wsOwner, wsJoiner], lobby);
-      helperLobby.removeStateGame(lobby.settings.idLobby);
       gameService
-        .updateStatsInDb(lobby.owner.name, lobby.joiner.name, winner)
+        .updateStats(stateGame)
         .then((error) => logger.error('Error caught: ', error));
+      helperLobby.removeStateGame(lobby.settings.idLobby);
     }
   }, delayInterval);
 
