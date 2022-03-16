@@ -187,6 +187,15 @@ const websocket = (expressServer) => {
           lobby.stateGame = createStateGameInitial(lobby);
           response.stateGame = lobby.stateGame;
 
+          gameService
+            .updateStatsJetsInDb({
+              nameOwner: lobby.owner.name,
+              typeJetOwner: lobby.owner.typeJet,
+              nameJoiner: lobby.joiner.name,
+              typeJetJoiner: lobby.joiner.typeJet,
+            })
+            .catch((error) => logger.error('Error caught: ', error));
+
           const responseString = JSON.stringify(response);
           lobby.owner.ws.send(responseString);
           lobby.joiner.ws.send(responseString);
@@ -201,6 +210,15 @@ const websocket = (expressServer) => {
         lobby.joiner.typeJet = typeJet;
         lobby.stateGame = createStateGameInitial(lobby);
         response.stateGame = lobby.stateGame;
+
+        gameService
+          .updateStatsJetsInDb({
+            nameOwner: lobby.owner.name,
+            typeJetOwner: lobby.owner.typeJet,
+            nameJoiner: lobby.joiner.name,
+            typeJetJoiner: lobby.joiner.typeJet,
+          })
+          .catch((error) => logger.error('Error caught: ', error));
 
         const responseString = JSON.stringify(response);
         lobby.owner.ws.send(responseString);
