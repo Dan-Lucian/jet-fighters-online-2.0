@@ -48,6 +48,7 @@ const ProviderAuth = (props) => {
       .login({ email, password })
       .then((response) => {
         setAccount(response);
+        setLoading(false);
         navigate('/profile');
       })
       .catch((error) => {
