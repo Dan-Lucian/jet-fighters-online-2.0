@@ -1,10 +1,16 @@
+import { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
+import { useAsync } from '../../hooks/useAsync';
+
+// services
+import accountService from '../../services/account.service';
 
 // shared components
 import PageNonexistent from '../../components/PageNonexistent';
+import Loader from '../../components/Loader';
 
 // styles
 import styles from './PageProfile.module.scss';
@@ -13,31 +19,42 @@ import styles from './PageProfile.module.scss';
 import { typesJet } from '../../config/typesJet';
 
 const PageProfile = () => {
+  console.log('I RENDERED');
   const navigate = useNavigate();
-  const { account, logout } = useContextAuth();
+  const { status, data: dataReceived, run } = useAsync();
+  const { account, logout, loading } = useContextAuth();
+  debugger;
 
-  if (!account) return <PageNonexistent />;
+  useLayoutEffect(() => {
+    // don't make request if no account
+    if (!account) return;
+    run(accountService.getById(account.id));
+  }, [account]);
 
   const handleClick = () => {
     navigate('/');
     logout();
   };
 
+  if (loading) return <Loader />;
+  if (status === 'pending' || status === 'idle') return <Loader />;
+  if (!account) return <PageNonexistent />;
+
   return (
     <main className={styles.wrapper}>
       <div className={styles.jet}>
         <img
           className={styles.img}
-          src={typesJet[getJetMostPlayed(account.stats)].imgJet}
+          src={typesJet[getJetMostPlayed(dataReceived.stats)].imgJet}
           alt="jet"
         />
       </div>
 
       <div className={styles.card}>
         <div className={styles.wrapperName}>
-          <h1 className={styles.name}>{account.userName}</h1>
-          <p className={styles.email}>{account.email}</p>
-          <p>{getFormattedTime(account.created)}</p>
+          <h1 className={styles.name}>{dataReceived.userName}</h1>
+          <p className={styles.email}>{dataReceived.email}</p>
+          <p>{getFormattedTime(dataReceived.created)}</p>
           <button
             className={styles.btnLogout}
             onClick={handleClick}
@@ -49,15 +66,15 @@ const PageProfile = () => {
         <div className={styles.stats}>
           <div className={styles.stat}>
             <p>Wins</p>
-            <p>{account.stats.wins}</p>
+            <p>{dataReceived.stats.wins}</p>
           </div>
           <div className={styles.stat}>
             <p>Loses</p>
-            <p>{account.stats.loses}</p>
+            <p>{dataReceived.stats.loses}</p>
           </div>
           <div className={styles.stat}>
             <p>Draws</p>
-            <p>{account.stats.draws}</p>
+            <p>{dataReceived.stats.draws}</p>
           </div>
         </div>
       </div>

@@ -19,12 +19,7 @@ const ProviderAuth = (props) => {
   const navigate = useNavigate();
   const [account, setAccount] = useState(null);
   const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-
-  // If we change page, reset the error state.
-  useEffect(() => {
-    if (error) setError(null);
-  }, [window.location.pathname]);
+  const [loading, setLoading] = useState();
 
   useLayoutEffect(() => {
     setLoading(true);
@@ -32,14 +27,19 @@ const ProviderAuth = (props) => {
     accountService
       .refreshToken()
       .then((response) => {
-        setLoading(false);
         setAccount(response);
+        setLoading(false);
       })
       .catch((_error) => {
         console.error('ERROR CAUGHT: ', _error);
         setLoading(false);
       });
   }, []);
+
+  // If we change page, reset the error state.
+  useEffect(() => {
+    if (error) setError(null);
+  }, [window.location.pathname]);
 
   const login = ({ email, password }) => {
     setLoading(true);

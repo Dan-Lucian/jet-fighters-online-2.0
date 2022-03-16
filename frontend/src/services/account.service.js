@@ -12,6 +12,7 @@ export default {
   resetPassword,
   update,
   refreshToken,
+  getById,
 };
 
 function register(params) {
@@ -74,11 +75,11 @@ function update(id, params) {
 //   return axios.get(urlBase, authorize()).then((response) => response.data);
 // }
 
-// function getById(id) {
-//   return axios
-//     .get(`${urlBase}/${id}`, authorize())
-//     .then((response) => response.data);
-// }
+function getById(id) {
+  return axios
+    .get(`${urlBase}/${id}`, authorize())
+    .then((response) => response.data);
+}
 
 // function create() {}
 

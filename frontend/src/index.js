@@ -23,9 +23,7 @@ const PageVerifyEmail = lazy(() =>
   import('./routes/verify-email/PageVerifyEmail')
 );
 const PageGame = lazy(() => import('./routes/game/PageGame'));
-const PageNonexistent = lazy(() =>
-  import('./components/PageNonexistent')
-);
+const PageNonexistent = lazy(() => import('./components/PageNonexistent'));
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {

@@ -1,6 +1,9 @@
-/* eslint-disable no-use-before-define */
 const { typesJet, delayInterval, imgW, imgH } = require('./config');
 const { getRandomInt } = require('../../utils/getRandomInt');
+const logger = require('../../utils/logger');
+
+// services
+const gameService = require('./game.service');
 
 const allStatesGame = new Map();
 
@@ -80,6 +83,9 @@ const startLoopGame = (lobby) => {
       clearInterval(idInterval);
       updateWins(lobby, winner);
       sendGameOver([wsOwner, wsJoiner], lobby);
+      gameService
+        .updateStatsInDb(lobby.owner.name, lobby.joiner.name, winner)
+        .then((error) => logger.error('Error caught: ', error));
     }
   }, delayInterval);
 

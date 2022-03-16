@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 const { WebSocketServer } = require('ws');
 const {
@@ -15,6 +14,7 @@ const {
 } = require('./game');
 const { areValidSettingsGame } = require('./validation');
 const logger = require('../../utils/logger');
+const gameService = require('./game.service');
 
 const websocket = (expressServer) => {
   const websocketServer = new WebSocketServer({
@@ -254,6 +254,12 @@ const websocket = (expressServer) => {
       const response = {
         event: isOwnerLobby ? 'quitOwner' : 'quitJoiner',
       };
+
+      // if disconnect during game
+      if (lobby.stateGame)
+        gameService
+          .updateStatsInDb(lobby.owner.name, lobby.joiner.name, response.event)
+          .catch((error) => logger.error('Error caught: ', error));
 
       if (isOwnerLobby) {
         // if lobby has a joiner then send msg to him
