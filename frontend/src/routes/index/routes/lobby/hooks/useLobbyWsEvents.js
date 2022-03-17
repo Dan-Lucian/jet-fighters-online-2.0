@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
@@ -28,11 +28,10 @@ const useLobbyWsEvents = () => {
 
   const isStateAppLobby = stateApp === 'lobby';
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // receveied by both players when any of them makes a
     // lobby change (isReadyPlayer).
     if (isStateAppLobby && event === 'updateLobby') {
-      console.log('EVENT: updateLobby');
       // this lobby object is relayed from the player who requested a change
       setLobby(message.lobby);
       resetMessage();

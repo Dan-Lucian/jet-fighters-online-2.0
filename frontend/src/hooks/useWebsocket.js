@@ -23,7 +23,6 @@ const useWebsocket = (link) => {
     // message received
     ws.current.onmessage = (messageReceived) => {
       const messageJson = JSON.parse(messageReceived.data);
-      // console.log('message received', messageJson);
       setMessage(messageJson);
     };
 
@@ -36,7 +35,9 @@ const useWebsocket = (link) => {
     ws.current.send(JSON.stringify(obj));
   }, []);
 
-  const resetMessage = useCallback(() => setMessage({}));
+  const resetMessage = useCallback(() => {
+    setMessage({});
+  }, []);
 
   return { readyState, message, sendMessage, resetMessage };
 };

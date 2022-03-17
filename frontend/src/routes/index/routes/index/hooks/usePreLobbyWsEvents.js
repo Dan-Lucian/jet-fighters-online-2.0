@@ -56,7 +56,11 @@ const usePreLobbyWsEvents = () => {
         isConnectedOwner: true,
         isConnectedJoiner: true,
       }));
-      resetMessage();
+
+      // here is no resetMessage(); because when joiner receives 'joinResponse'
+      // the second follow up 'updateLobby' ws event from server is too fast and
+      // the reset from here would reset that event as well, but that event is
+      // needed for lobby syncing later
       navigate('/lobby');
     }
   }, [message]);
