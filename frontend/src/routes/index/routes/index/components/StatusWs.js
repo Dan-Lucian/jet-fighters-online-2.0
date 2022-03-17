@@ -5,7 +5,7 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
 import styles from './StatusWs.module.scss';
 
 const StatusWs = () => {
-  const { readyState } = useContextWebsocket();
+  const { readyState, reconnect } = useContextWebsocket();
 
   switch (readyState) {
     case 'CONNECTING':
@@ -22,6 +22,9 @@ const StatusWs = () => {
       return (
         <div className={`${styles.status} ${styles.closed}`}>
           Connection closed
+          <button className={styles.btn} onClick={reconnect} type="button">
+            Reconnect
+          </button>
         </div>
       );
 
@@ -29,6 +32,9 @@ const StatusWs = () => {
       return (
         <div className={`${styles.status} ${styles.error}`}>
           Connection error
+          <button className={styles.btn} onClick={reconnect} type="button">
+            Reconnect
+          </button>
         </div>
       );
   }

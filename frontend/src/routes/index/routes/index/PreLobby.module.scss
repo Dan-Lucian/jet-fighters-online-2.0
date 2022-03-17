@@ -2,7 +2,7 @@
   width: 39em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto 1.5em auto;
+  grid-template-rows: auto auto 1.5em 2.5em;
   grid-template-areas:
     'statusCreate statusJoin'
     'btnCreate btnJoin'

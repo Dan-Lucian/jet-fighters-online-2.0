@@ -1,8 +1,10 @@
 .status {
   background: var(--color-bg-primary);
-  padding: 0.8em 0;
   border-radius: 5px;
   text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   grid-area: statusWs;
 }
 
@@ -20,4 +22,21 @@
 
 .error {
   color: var(--color-red);
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  background: var(--color-green);
+  padding: 0.5 0.5em;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  grid-area: btnStart;
+  transition: none;
+
+  &:hover,
+  &:disabled {
+    background: var(--color-green-dark);
+  }
 }

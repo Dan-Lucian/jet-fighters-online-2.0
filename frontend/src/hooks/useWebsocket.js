@@ -4,6 +4,7 @@ const useWebsocket = (link) => {
   const ws = useRef();
   const [readyState, setReadyState] = useState('CONNECTING');
   const [message, setMessage] = useState({});
+  const [stateForReconnect, setStateForReconnect] = useState(false);
 
   useEffect(() => {
     ws.current = new WebSocket(link);
@@ -29,7 +30,11 @@ const useWebsocket = (link) => {
     return () => {
       ws.current.close();
     };
-  }, [link]);
+  }, [link, stateForReconnect]);
+
+  const reconnect = useCallback((obj) => {
+    setStateForReconnect((prev) => !prev);
+  }, []);
 
   const sendMessage = useCallback((obj) => {
     ws.current.send(JSON.stringify(obj));
@@ -39,7 +44,7 @@ const useWebsocket = (link) => {
     setMessage({});
   }, []);
 
-  return { readyState, message, sendMessage, resetMessage };
+  return { readyState, message, sendMessage, resetMessage, reconnect };
 };
 
 export { useWebsocket };
