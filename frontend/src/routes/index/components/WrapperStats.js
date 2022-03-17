@@ -1,6 +1,9 @@
+// config
+import { typesJetStandartized } from '../../../config/typesJet';
+
 // local components
 import TitleSmall from './TitleSmall';
-import Polygon from './Polygon';
+import ChartRadar from './ChartRadar';
 
 // local hooks
 import { useContextSettings } from '../../../providers/ProviderSettings';
@@ -14,7 +17,7 @@ const WrapperStats = () => {
   return (
     <div className={styles.wrapperStats}>
       <TitleSmall>Type: {settings.typeJet}</TitleSmall>
-      <Polygon />
+      <ChartRadar statsJet={typesJetStandartized[settings.typeJet]} />
     </div>
   );
 };
