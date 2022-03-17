@@ -80,7 +80,7 @@ const ChartRadar = ({ statsJet }) => {
           padding: 0,
           color: colorText,
           font: {
-            size: 16,
+            size: 18,
           },
         },
       },

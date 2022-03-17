@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  background: var(--color-bg-primary);
+  padding: 2em 0.5em;
+}
+
+.wrapperChart {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

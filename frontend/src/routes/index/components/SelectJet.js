@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // local compoenents
 import Carousel from './Carousel';
-import Preview from './Preview';
+import StatsJet from './StatsJet';
 
 // styles
 import styles from './SelectJet.module.scss';
@@ -10,7 +10,7 @@ import styles from './SelectJet.module.scss';
 const SelectJet = ({ isOpen, toggleIsOpen }) => (
   <aside className={`${styles.selectJet} ${isOpen && styles.isOpen}`}>
     <Carousel />
-    <Preview toggleIsOpen={toggleIsOpen} />
+    <StatsJet toggleIsOpen={toggleIsOpen} />
   </aside>
 );
 SelectJet.propTypes = {
