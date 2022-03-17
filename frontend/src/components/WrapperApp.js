@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
+// shared hooks
+import { useContextTheme } from '../providers/ProviderTheme';
 
+// styles
 import styles from './WrapperApp.module.scss';
 
-const WrapperApp = ({ theme, ...props }) => (
-  <div data-theme={theme} className={styles.wrapperApp} {...props} />
-);
-WrapperApp.propTypes = {
-  theme: PropTypes.string,
+const WrapperApp = (props) => {
+  const { theme } = useContextTheme();
+
+  return <div data-theme={theme} className={styles.wrapperApp} {...props} />;
 };
 
 export default WrapperApp;

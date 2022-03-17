@@ -14,39 +14,17 @@ import { ProviderWebsocket } from './providers/ProviderWebsocket';
 import { ProviderLobby } from './providers/ProviderLobby';
 import { ProviderGlobal } from './providers/ProviderGlobal';
 import { ProviderAuth } from './providers/ProviderAuth';
-
-// shared hooks
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { ProviderTheme } from './providers/ProviderTheme';
 
 // scss styles
 import './styles/index.scss';
 
-const App = () => {
-  const [theme, setTheme] = useLocalStorage('theme', 'dark');
-
-  useLayoutEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.setAttribute('data-color-scheme', theme);
-  });
-
-  const getTogglerTheme = () => {
-    switch (theme) {
-      case 'dark':
-        return () => setTheme('light');
-
-      case 'light':
-        return () => setTheme('dark');
-
-      default:
-        return () => console.log('no such theme');
-    }
-  };
-
-  return (
-    <WrapperApp theme={theme}>
-      <ProviderGlobal>
+const App = () => (
+  <ProviderGlobal>
+    <ProviderTheme>
+      <WrapperApp>
         <ProviderAuth>
-          <Nav theme={theme} getTogglerTheme={getTogglerTheme} />
+          <Nav />
           <WrapperPage>
             <ProviderSettings>
               <ProviderLobby>
@@ -62,9 +40,9 @@ const App = () => {
           </WrapperPage>
           <Popup />
         </ProviderAuth>
-      </ProviderGlobal>
-    </WrapperApp>
-  );
-};
+      </WrapperApp>
+    </ProviderTheme>
+  </ProviderGlobal>
+);
 
 export default App;

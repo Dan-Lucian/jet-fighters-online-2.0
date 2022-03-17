@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types';
+// shared hooks
+import { useContextTheme } from '../providers/ProviderTheme';
 
+// styles
 import styles from './TogglerTheme.module.scss';
 
-const TogglerTheme = ({ theme, getTogglerTheme }) => {
+const TogglerTheme = () => {
+  const { theme, getTogglerTheme } = useContextTheme();
+
   const on = theme === 'dark';
 
   return (
@@ -19,10 +23,6 @@ const TogglerTheme = ({ theme, getTogglerTheme }) => {
       />
     </label>
   );
-};
-TogglerTheme.propTypes = {
-  theme: PropTypes.string,
-  getTogglerTheme: PropTypes.func,
 };
 
 export default TogglerTheme;

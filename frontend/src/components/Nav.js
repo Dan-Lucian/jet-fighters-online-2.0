@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // shared hooks
@@ -11,7 +10,7 @@ import TogglerTheme from './TogglerTheme';
 // styles
 import styles from './Nav.module.scss';
 
-const Nav = ({ theme, getTogglerTheme }) => {
+const Nav = () => {
   const [global] = useContextGlobal();
   const { account } = useContextAuth();
 
@@ -49,13 +48,9 @@ const Nav = ({ theme, getTogglerTheme }) => {
           Login
         </Link>
       )}
-      <TogglerTheme theme={theme} getTogglerTheme={getTogglerTheme} />
+      <TogglerTheme />
     </nav>
   );
-};
-Nav.propTypes = {
-  theme: PropTypes.string,
-  getTogglerTheme: PropTypes.func,
 };
 
 export default Nav;
