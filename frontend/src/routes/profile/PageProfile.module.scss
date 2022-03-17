@@ -1,6 +1,5 @@
 .wrapper {
   display: flex;
-  align-items: center;
 }
 
 .card {
@@ -21,10 +20,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;
   user-select: none;
   box-shadow: 0 0 0 1em var(--color-bg-secondary);
-  transform: translateX(4.5em);
+  transform: translate(4.5em, 5.5em);
 
   &::before,
   &::after {
@@ -38,6 +36,9 @@
 
   &::before {
     top: calc(100% + 1em);
+    height: 31em;
+    background: var(--color-bg-primary);
+    border-radius: 10em 10em 0 0;
   }
 
   &::after {
@@ -121,9 +122,42 @@
   border-radius: 5px;
 }
 
-.stat {
+.wrapperWins,
+.wrapperLoses,
+.wrapperDraws {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5em;
+
+  & p:last-child {
+    font-weight: 700;
+    font-size: 1.2em;
+  }
+}
+
+.wrapperWins {
+  color: var(--color-green);
+}
+
+.wrapperLoses {
+  color: var(--color-red);
+}
+
+.wrapperMostPlayed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 1.5em 1.5em 1.5em;
+  background: var(--color-bg-primary);
+  border-radius: 5px;
+}
+
+.heading {
+  padding: 0.5em 1.5em;
+  border-radius: 5px;
+  font-size: 1.5em;
+  background: var(--color-bg-secondary);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

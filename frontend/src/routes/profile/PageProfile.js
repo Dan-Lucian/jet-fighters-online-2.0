@@ -12,6 +12,9 @@ import accountService from '../../services/account.service';
 import PageNonexistent from '../../components/PageNonexistent';
 import Loader from '../../components/Loader';
 
+// local components
+import JetFav from './components/JetFav';
+
 // styles
 import styles from './PageProfile.module.scss';
 
@@ -23,7 +26,6 @@ const PageProfile = () => {
   const navigate = useNavigate();
   const { status, data: dataReceived, run } = useAsync();
   const { account, logout, loading } = useContextAuth();
-  debugger;
 
   useLayoutEffect(() => {
     // don't make request if no account
@@ -40,18 +42,20 @@ const PageProfile = () => {
   if (status === 'pending' || status === 'idle') return <Loader />;
   if (!account) return <PageNonexistent />;
 
+  const jetsSorted = sortJetsByGames(dataReceived.stats).slice(1, 4);
+
   return (
     <main className={styles.wrapper}>
       <div className={styles.jet}>
         <img
           className={styles.img}
-          src={typesJet[getJetMostPlayed(dataReceived.stats)].imgJet}
+          src={typesJet[jetsSorted[0][0]].imgJet}
           alt="jet"
         />
       </div>
 
       <div className={styles.card}>
-        <div className={styles.wrapperName}>
+        <section className={styles.wrapperName}>
           <h1 className={styles.name}>{dataReceived.userName}</h1>
           <p className={styles.email}>{dataReceived.email}</p>
           <p>{getFormattedTime(dataReceived.created)}</p>
@@ -62,63 +66,48 @@ const PageProfile = () => {
           >
             Log out
           </button>
-        </div>
-        <div className={styles.stats}>
-          <div className={styles.stat}>
+        </section>
+
+        <section className={styles.stats}>
+          <div className={styles.wrapperWins}>
             <p>Wins</p>
-            <p>{dataReceived.stats.wins}</p>
+            <p>{dataReceived.stats.total.wins}</p>
           </div>
-          <div className={styles.stat}>
+          <div className={styles.wrapperLoses}>
             <p>Loses</p>
-            <p>{dataReceived.stats.loses}</p>
+            <p>{dataReceived.stats.total.loses}</p>
           </div>
-          <div className={styles.stat}>
+          <div className={styles.wrapperDraws}>
             <p>Draws</p>
-            <p>{dataReceived.stats.draws}</p>
+            <p>{dataReceived.stats.total.draws}</p>
           </div>
-        </div>
+        </section>
+
+        <section className={styles.wrapperMostPlayed}>
+          <h2 className={styles.heading}>Most played jets</h2>
+          {jetsSorted.map((jet, idx) => (
+            <JetFav
+              key={idx}
+              typeJet={jet[0]}
+              wins={jet[1].wins}
+              loses={jet[1].loses}
+              draws={jet[1].draws}
+            />
+          ))}
+        </section>
       </div>
     </main>
   );
 };
 
-const getJetMostPlayed = (stats) => {
-  let max = -1;
-  let typeJet = '';
-
-  for (const [prop, value] of Object.entries(stats)) {
-    if (prop.startsWith('gamesWith')) {
-      if (value > max) {
-        max = value;
-        typeJet = prop;
-      }
-    }
-  }
-
-  switch (typeJet) {
-    case 'gamesWithBalanced':
-      return 'balanced';
-
-    case 'gamesWithSpeedster':
-      return 'speedster';
-
-    case 'gamesWithTrickster':
-      return 'trickster';
-
-    case 'gamesWithTank':
-      return 'tank';
-
-    case 'gamesWithLongLaster':
-      return 'long-laster';
-
-    case 'gamesWithFastBullet':
-      return 'fast-bullet';
-
-    default:
-      console.error('No such jet');
-      return 'balanced';
-  }
-};
+const sortJetsByGames = (jets) =>
+  Object.entries(jets).sort(
+    (x, y) =>
+      y[1].wins +
+      y[1].loses +
+      y[1].draws -
+      (x[1].wins + x[1].loses + x[1].draws)
+  );
 
 const monthNames = [
   'Jan',

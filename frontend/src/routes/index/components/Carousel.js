@@ -4,10 +4,12 @@ import { useRef } from 'react';
 // config
 import { typesJet } from '../../../config/typesJet';
 
+// shared components
+import Jet from '../../../components/Jet';
+
 // local components
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
-import Jet from './Jet';
 
 // local hooks
 import { useContextSettings } from '../../../providers/ProviderSettings';
