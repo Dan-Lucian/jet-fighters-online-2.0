@@ -45,6 +45,7 @@ const websocket = (expressServer) => {
         const { idLobby } = websocketConnection;
         const lobby = helperLobby.getById(idLobby);
         if (!lobby) return;
+        if (!lobby.stateGame) return;
 
         injectInputIntoGame(messageJson, lobby.stateGame);
       }
