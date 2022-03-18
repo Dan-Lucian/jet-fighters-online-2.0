@@ -48,6 +48,13 @@ const createStateGameInitial = (lobby) => {
   };
 };
 
+const hasOneSecondPassed = (time) => {
+  if (Date.now() - time > 1000) return true;
+};
+
+let fps = 0;
+let timeStart = Date.now();
+
 const startLoopGame = (lobby) => {
   const wsOwner = lobby.owner.ws;
   const wsJoiner = lobby.joiner.ws;
@@ -58,6 +65,14 @@ const startLoopGame = (lobby) => {
 
   const idInterval = setInterval(() => {
     const { owner, joiner } = stateGame;
+
+    if (hasOneSecondPassed(timeStart)) {
+      logger.info('FPS: ', fps);
+      fps = 0;
+      timeStart = Date.now();
+    } else {
+      fps += 1;
+    }
 
     sendStateGame([wsOwner, wsJoiner], stateGame);
 
