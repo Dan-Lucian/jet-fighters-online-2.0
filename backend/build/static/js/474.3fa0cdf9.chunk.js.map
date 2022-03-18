@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/474.3fa0cdf9.chunk.js","mappings":"0JACA,UADkB,kBAAM","sources":["routes/login/PageLogin.js"],"sourcesContent":["const PageLogin = () => <div>PageLogin</div>;\r\nexport default PageLogin;\r\n"],"names":[],"sourceRoot":""}

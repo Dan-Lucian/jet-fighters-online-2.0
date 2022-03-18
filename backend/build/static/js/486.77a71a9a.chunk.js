@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkjet_fighters_online_2_0=self.webpackChunkjet_fighters_online_2_0||[]).push([[486],{9486:function(e,n,t){t.r(n),t.d(n,{default:function(){return r}});var i="PageNonexistent_pageNonexistent__d63Rr",s=t(184),r=function(){return(0,s.jsx)("div",{className:i,children:"PageNonexistent"})}}}]);
+//# sourceMappingURL=486.77a71a9a.chunk.js.map
