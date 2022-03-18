@@ -3,13 +3,21 @@ require('dotenv').config();
 
 const PORT = process.env.PORT;
 
+const SENDINBLUE_PASSWORD = process.env.SENDINBLUE_PASSWORD;
+const SENDINBLUE_LOGIN = process.env.SENDINBLUE_LOGIN;
 const MONGODB_URI = getUriMongo(process.env.NODE_ENV);
 const SECRET =
   process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
     ? process.env.TEST_SECRET
     : process.env.SECRET;
 
-module.exports = { PORT, MONGODB_URI, SECRET };
+module.exports = {
+  PORT,
+  MONGODB_URI,
+  SECRET,
+  SENDINBLUE_PASSWORD,
+  SENDINBLUE_LOGIN,
+};
 
 function getUriMongo(nodeEnv) {
   switch (nodeEnv) {

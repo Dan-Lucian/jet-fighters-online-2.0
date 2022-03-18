@@ -1,17 +1,20 @@
 const nodemailer = require('nodemailer');
-const { NODE_ENV } = require('../config/env');
+const {
+  NODE_ENV,
+  SENDINBLUE_PASSWORD,
+  SENDINBLUE_LOGIN,
+} = require('../config/env');
 
 module.exports = sendEmail;
 
 const configMail = {
-  emailFrom: 'ulfep7oge7day5co@ethereal.email',
+  emailFrom: SENDINBLUE_LOGIN,
   optionsSmtp: {
-    secure: false,
-    host: 'smtp.ethereal.email',
+    host: 'smtp-relay.sendinblue.com',
     port: 587,
     auth: {
-      user: 'steve.lynch47@ethereal.email',
-      pass: 'UNtfmkvPRMB98RJVG2',
+      user: SENDINBLUE_LOGIN,
+      pass: SENDINBLUE_PASSWORD,
     },
   },
 };
