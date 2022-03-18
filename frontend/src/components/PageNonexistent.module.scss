@@ -1,3 +1,33 @@
-.pageNonexistent {
-  color: gray;
+.wrapper {
+  background: var(--color-bg-secondary);
+  padding: 1em 2em;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-text);
+  padding: 0.5em 2em;
+  border: none;
+  border-radius: 5px;
+  background: var(--color-green);
+  font-size: 1.2em;
+  color: var(--color-white);
+  box-shadow: 0 4px 0 var(--color-shadow-box);
+  cursor: pointer;
+  transition: none;
+
+  &:hover {
+    background: var(--color-green-dark);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+  }
 }
