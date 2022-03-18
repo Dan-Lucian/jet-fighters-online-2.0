@@ -5,14 +5,30 @@
 .card {
   background: var(--color-bg-secondary);
   padding: 2em;
-  padding-left: 6.5em;
-  width: 32em;
+  // padding-left: 6.5em;
+  width: 27em;
   display: flex;
   flex-direction: column;
   gap: 1em;
+  position: relative;
+}
+
+.wrapperJet {
+  position: absolute;
+  right: 100%;
+  top: 0;
+}
+
+.backgroundHalf {
+  width: 4.5em;
+  height: 45em;
+  background: var(--color-bg-secondary);
 }
 
 .jet {
+  position: absolute;
+  right: 0;
+  top: 4.5em;
   background: var(--color-blue);
   width: 9em;
   height: 9em;
@@ -22,7 +38,6 @@
   align-items: center;
   user-select: none;
   box-shadow: 0 0 0 1em var(--color-bg-secondary);
-  transform: translate(4.5em, 5.5em);
 
   &::before,
   &::after {

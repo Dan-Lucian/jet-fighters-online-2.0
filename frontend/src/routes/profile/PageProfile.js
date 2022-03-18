@@ -46,15 +46,18 @@ const PageProfile = () => {
 
   return (
     <main className={styles.wrapper}>
-      <div className={styles.jet}>
-        <img
-          className={styles.img}
-          src={typesJet[jetsSorted[0][0]].imgJet}
-          alt="jet"
-        />
-      </div>
-
       <div className={styles.card}>
+        <div className={styles.wrapperJet}>
+          <div className={styles.backgroundHalf} />
+          <div className={styles.jet}>
+            <img
+              className={styles.img}
+              src={typesJet[jetsSorted[0][0]].imgJet}
+              alt="jet"
+            />
+          </div>
+        </div>
+
         <section className={styles.wrapperName}>
           <h1 className={styles.name}>{dataReceived.userName}</h1>
           <p className={styles.email}>{dataReceived.email}</p>
