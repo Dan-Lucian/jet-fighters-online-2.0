@@ -99,4 +99,4 @@ const stateGameDefault = {
   },
 };
 
-export { useGameWsEvents };
+export default useGameWsEvents;

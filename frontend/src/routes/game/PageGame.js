@@ -2,8 +2,8 @@
 import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 // local hooks
-import { useGameWsEvents } from './hooks/useGameWsEvents';
-import { useKeyEvents } from './hooks/useKeyEvents';
+import useGameWsEvents from './hooks/useGameWsEvents';
+import useKeyEvents from './hooks/useKeyEvents';
 
 // shared components
 import PageNonexistent from '../../components/PageNonexistent';

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 // shared hooks
 import useQuery from '../../hooks/useQuery';
-import { useAsync } from '../../hooks/useAsync';
+import useAsync from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';

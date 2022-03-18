@@ -1,5 +1,5 @@
 // local hooks
-import { usePreLobbyWsEvents } from './hooks/usePreLobbyWsEvents';
+import usePreLobbyWsEvents from './hooks/usePreLobbyWsEvents';
 
 // local components
 import StatusCreate from './components/StatusCreate';

@@ -86,7 +86,7 @@ const startLoopGame = (lobby) => {
       sendGameOver([wsOwner, wsJoiner], lobby);
       gameService
         .updateStats(stateGame)
-        .then((error) => logger.error('Error caught: ', error));
+        .catch((error) => logger.error('Error caught: ', error));
       helperLobby.removeStateGame(lobby.settings.idLobby);
     }
   }, delayInterval);

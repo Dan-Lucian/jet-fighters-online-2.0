@@ -122,4 +122,4 @@ const useLobbyWsEvents = () => {
   }, [message]);
 };
 
-export { useLobbyWsEvents };
+export default useLobbyWsEvents;

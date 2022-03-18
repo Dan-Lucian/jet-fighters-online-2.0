@@ -1,8 +1,8 @@
 import { useEffect, lazy, Suspense } from 'react';
 
 // shared hooks
-import { useClickOutside } from '../../../hooks/useClickOutside';
-import { useToggle } from '../../../hooks/useToggle';
+import useClickOutside from '../../../hooks/useClickOutside';
+import useToggle from '../../../hooks/useToggle';
 import { useContextSettings } from '../../../providers/ProviderSettings';
 
 // shared components

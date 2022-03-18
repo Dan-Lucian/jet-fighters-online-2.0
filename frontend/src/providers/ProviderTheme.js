@@ -2,7 +2,7 @@
 import { createContext, useContext, useLayoutEffect } from 'react';
 
 // shared hooks
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const ContextTheme = createContext(null);
 ContextTheme.displayName = 'ContextTheme';

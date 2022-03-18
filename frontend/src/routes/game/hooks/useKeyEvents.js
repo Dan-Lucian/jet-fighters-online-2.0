@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 // shared hooks
 import { useContextGlobal } from '../../../providers/ProviderGlobal';
 import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
-import { useEventListener } from '../../../hooks/useEventListener';
+import useEventListener from '../../../hooks/useEventListener';
 
 const useKeyEvents = () => {
   const [global] = useContextGlobal();
@@ -75,4 +75,4 @@ const useKeyEvents = () => {
   useEventListener('keyup', handleKeyUp);
 };
 
-export { useKeyEvents };
+export default useKeyEvents;

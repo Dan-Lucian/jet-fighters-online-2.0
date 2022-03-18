@@ -2,8 +2,8 @@
 import { useContextLobby } from '../../../../providers/ProviderLobby';
 
 // local hooks
-import { useLobbyWsEvents } from './hooks/useLobbyWsEvents';
-import { useUnmountWsMessage } from './hooks/useUnmountWsMessage';
+import useLobbyWsEvents from './hooks/useLobbyWsEvents';
+import useUnmountWsMessage from './hooks/useUnmountWsMessage';
 
 // local components
 import IdLobby from './components/IdLobby';

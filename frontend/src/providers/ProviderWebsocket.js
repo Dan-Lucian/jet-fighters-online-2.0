@@ -2,7 +2,7 @@
 import { createContext, useContext } from 'react';
 
 // shared hook
-import { useWebsocket } from '../hooks/useWebsocket';
+import useWebsocket from '../hooks/useWebsocket';
 
 // config
 import { config } from '../config/config';

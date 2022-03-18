@@ -47,4 +47,4 @@ const useWebsocket = (link) => {
   return { readyState, message, sendMessage, resetMessage, reconnect };
 };
 
-export { useWebsocket };
+export default useWebsocket;

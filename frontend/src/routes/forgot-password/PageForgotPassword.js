@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // shared hooks
-import { useAsync } from '../../hooks/useAsync';
+import useAsync from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';

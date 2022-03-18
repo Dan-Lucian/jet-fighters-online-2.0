@@ -29,4 +29,4 @@ function useHover() {
   return [ref, isHovered];
 }
 
-export { useHover };
+export default useHover;

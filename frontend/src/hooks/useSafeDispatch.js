@@ -25,4 +25,4 @@ const useSafeDispatch = (dispatch) => {
   );
 };
 
-export { useSafeDispatch };
+export default useSafeDispatch;

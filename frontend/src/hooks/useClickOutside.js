@@ -32,4 +32,4 @@ const useClickOutside = () => {
   return [ref, isClickOutside];
 };
 
-export { useClickOutside };
+export default useClickOutside;

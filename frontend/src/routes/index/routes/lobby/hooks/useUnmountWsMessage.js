@@ -61,4 +61,4 @@ const useUnmountWsMessage = () => {
   }, [isOwnerLobby, isStateAppLobby, sendMessage, setLobby, stateApp]);
 };
 
-export { useUnmountWsMessage };
+export default useUnmountWsMessage;

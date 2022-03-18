@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { useCallback, useReducer } from 'react';
-import { useSafeDispatch } from './useSafeDispatch';
+import useSafeDispatch from './useSafeDispatch';
 
 const asyncReducer = (state, action) => {
   switch (action.type) {
@@ -74,4 +74,4 @@ const useAsync = (initialState) => {
   };
 };
 
-export { useAsync };
+export default useAsync;

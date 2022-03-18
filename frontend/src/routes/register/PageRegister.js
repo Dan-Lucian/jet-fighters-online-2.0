@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './PageRegister.module.scss';
 
 // shared hooks
-import { useAsync } from '../../hooks/useAsync';
+import useAsync from '../../hooks/useAsync';
 import { useContextAuth } from '../../providers/ProviderAuth';
 import { useContextGlobal } from '../../providers/ProviderGlobal';
 

@@ -66,4 +66,4 @@ const usePreLobbyWsEvents = () => {
   }, [message]);
 };
 
-export { usePreLobbyWsEvents };
+export default usePreLobbyWsEvents;

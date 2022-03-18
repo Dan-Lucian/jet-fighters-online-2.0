@@ -36,4 +36,4 @@ function useLocalStorage(
   return [state, setState];
 }
 
-export { useLocalStorage };
+export default useLocalStorage;

@@ -5,7 +5,7 @@ import { createContext, useContext } from 'react';
 import { typesJet } from '../config/typesJet';
 
 // shared hooks
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const ContextSettings = createContext(null);
 ContextSettings.displayName = 'ContextSettings';

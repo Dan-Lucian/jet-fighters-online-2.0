@@ -21,4 +21,4 @@ const useToggle = (initialState = false) => {
   return [state, toggle];
 };
 
-export { useToggle };
+export default useToggle;

@@ -42,4 +42,4 @@ const useEventListener = (eventName, handler, element = window) => {
   }, [eventName, element]);
 };
 
-export { useEventListener };
+export default useEventListener;
