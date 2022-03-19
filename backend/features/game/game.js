@@ -63,16 +63,23 @@ const startLoopGame = (lobby) => {
   allStatesGame.set(wsOwner.idLobby, stateGame);
   const { widthMap, heightMap, scoreMax } = stateGame.settings;
 
+  let timeEndInterval = Date.now();
+  let timeStartInterval = Date.now();
+
   const idInterval = setInterval(() => {
-    const { owner, joiner } = stateGame;
+    timeStartInterval = Date.now();
+    const timeBetweenIntervals = timeStartInterval - timeEndInterval;
+    console.log('Time betwen intervals: ', timeBetweenIntervals);
 
     if (hasOneSecondPassed(timeStart)) {
-      logger.info('FPS: ', fps);
+      console.log('FPS: ', fps);
       fps = 0;
       timeStart = Date.now();
     } else {
       fps += 1;
     }
+
+    const { owner, joiner } = stateGame;
 
     sendStateGame([wsOwner, wsJoiner], stateGame);
 
@@ -104,6 +111,10 @@ const startLoopGame = (lobby) => {
         .catch((error) => logger.error('Error caught: ', error));
       helperLobby.removeStateGame(lobby.settings.idLobby);
     }
+
+    timeEndInterval = Date.now();
+    const timeExecutionInterval = timeEndInterval - timeStartInterval;
+    console.log('Execution time', timeExecutionInterval);
   }, delayInterval);
 
   // createNewBulletsIfSpaceWasPressed(owner, joiner);

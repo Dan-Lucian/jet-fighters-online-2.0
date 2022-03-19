@@ -60,7 +60,9 @@ const typesJet = {
   },
 };
 
-const delayInterval = 1000 / 60;
+const fps = 30;
+const delayInterval = 1000 / fps;
+console.log('delay: ', delayInterval);
 const imgW = 48;
 const imgH = 48;
 
