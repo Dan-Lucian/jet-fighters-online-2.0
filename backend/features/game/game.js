@@ -70,11 +70,14 @@ const startLoopGame = (lobby) => {
   const idInterval = setInterval(() => {
     timeStartInterval = Date.now();
     const timeBetweenIntervals = timeStartInterval - timeEndInterval;
-    console.log('time between intervals: ', timeBetweenIntervals);
 
+    // sizeTick tells how much the setInterval is off the perfect interval for
+    // the desired fps (actual interval ms/desired interval ms)
+    // then this "% of correctness" gets factored in when calculcation next game
+    // state, thus the game will run the same on different server OS',
+    // on windows setIntervals would add ~14ms more than desired, idk the reason
     const sizeTick =
       Math.round((timeBetweenIntervals / delayInterval) * 100) / 100;
-    console.log('SIZE TICK: ', sizeTick);
 
     if (hasOneSecondPassed(timeStart)) {
       console.log('FPS: ', fps);
@@ -88,8 +91,8 @@ const startLoopGame = (lobby) => {
 
     sendStateGame([wsOwner, wsJoiner], stateGame);
 
-    goTheWayIsFacing(owner);
-    goTheWayIsFacing(joiner);
+    goTheWayIsFacing(owner, sizeTick);
+    goTheWayIsFacing(joiner, sizeTick);
 
     if (isOutOfBounds(owner, widthMap, heightMap))
       teleportToOppositeSide(owner, widthMap, heightMap);
@@ -101,7 +104,7 @@ const startLoopGame = (lobby) => {
       incrementScores([owner, joiner], 1);
     }
 
-    updateLocationBullets([owner, joiner], widthMap, heightMap);
+    updateLocationBullets([owner, joiner], widthMap, heightMap, sizeTick);
     destroyOldBullets([owner, joiner]);
     updateScoreIfBulletLand(owner, joiner, widthMap, heightMap);
     createNewBulletsIfFirePressed([owner, joiner]);
@@ -118,11 +121,9 @@ const startLoopGame = (lobby) => {
     }
 
     timeEndInterval = Date.now();
-    const timeExecutionInterval = timeEndInterval - timeStartInterval;
+    // const timeExecutionInterval = timeEndInterval - timeStartInterval;
     // console.log('Execution time', timeExecutionInterval);
   }, delayInterval);
-
-  // createNewBulletsIfSpaceWasPressed(owner, joiner);
 
   wsOwner.idInterval = idInterval;
   wsJoiner.idInterval = idInterval;
@@ -161,15 +162,15 @@ const sendGameOver = (arrayWs, lobby) => {
 // Moves the jet/bullet one tick towards the direction it is facing
 // based on it's speed value.
 // Steers left/right according to jet's rotation sensitivity.
-const goTheWayIsFacing = (stateEntity) => {
+const goTheWayIsFacing = (stateEntity, sizeTick) => {
   const { isPressedRight, isPressedLeft, sensitivityRotation } = stateEntity;
 
-  if (isPressedRight) stateEntity.angle -= sensitivityRotation;
-  if (isPressedLeft) stateEntity.angle += sensitivityRotation;
+  if (isPressedRight) stateEntity.angle -= sensitivityRotation * sizeTick;
+  if (isPressedLeft) stateEntity.angle += sensitivityRotation * sizeTick;
 
   const rad = (stateEntity.angle * Math.PI) / 180;
-  stateEntity.x += stateEntity.speed * Math.sin(rad);
-  stateEntity.y += stateEntity.speed * Math.cos(rad);
+  stateEntity.x += stateEntity.speed * Math.sin(rad) * sizeTick;
+  stateEntity.y += stateEntity.speed * Math.cos(rad) * sizeTick;
 };
 
 // Returns true if the element is out of map's bounds.
@@ -278,12 +279,12 @@ const createBulletsFor = (statePlayer) => {
   return [bullet1, bullet2];
 };
 
-const updateLocationBullets = (arrayStates, widthMap, heightMap) => {
+const updateLocationBullets = (arrayStates, widthMap, heightMap, sizeTick) => {
   for (let i = 0; i < arrayStates.length; i += 1) {
     for (let j = 0; j < arrayStates[i].bullets.length; j += 1) {
       arrayStates[i].bullets[j].timeAlive += 1;
 
-      goTheWayIsFacing(arrayStates[i].bullets[j]);
+      goTheWayIsFacing(arrayStates[i].bullets[j], sizeTick);
 
       if (isOutOfBounds(arrayStates[i].bullets[j], widthMap, heightMap))
         teleportToOppositeSide(arrayStates[i].bullets[j], widthMap, heightMap);
