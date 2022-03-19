@@ -60,8 +60,8 @@ const typesJet = {
   },
 };
 
-const fps = 30;
-const delayInterval = 1000 / fps;
+const fpsDesired = 61;
+const delayInterval = 1000 / fpsDesired;
 console.log('delay: ', delayInterval);
 const imgW = 48;
 const imgH = 48;

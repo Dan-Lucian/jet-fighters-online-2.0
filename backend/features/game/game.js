@@ -1,7 +1,8 @@
-const { typesJet, delayInterval, imgW, imgH } = require('./config');
+// helpers
 const { getRandomInt } = require('../../utils/getRandomInt');
-const helperLobby = require('./lobby');
+const { typesJet, delayInterval, imgW, imgH } = require('./config');
 const logger = require('../../utils/logger');
+const helperLobby = require('./lobby');
 
 // services
 const gameService = require('./game.service');
@@ -63,13 +64,17 @@ const startLoopGame = (lobby) => {
   allStatesGame.set(wsOwner.idLobby, stateGame);
   const { widthMap, heightMap, scoreMax } = stateGame.settings;
 
-  let timeEndInterval = Date.now();
   let timeStartInterval = Date.now();
+  let timeEndInterval = Date.now();
 
   const idInterval = setInterval(() => {
     timeStartInterval = Date.now();
     const timeBetweenIntervals = timeStartInterval - timeEndInterval;
-    console.log('Time betwen intervals: ', timeBetweenIntervals);
+    console.log('time between intervals: ', timeBetweenIntervals);
+
+    const sizeTick =
+      Math.round((timeBetweenIntervals / delayInterval) * 100) / 100;
+    console.log('SIZE TICK: ', sizeTick);
 
     if (hasOneSecondPassed(timeStart)) {
       console.log('FPS: ', fps);
@@ -114,7 +119,7 @@ const startLoopGame = (lobby) => {
 
     timeEndInterval = Date.now();
     const timeExecutionInterval = timeEndInterval - timeStartInterval;
-    console.log('Execution time', timeExecutionInterval);
+    // console.log('Execution time', timeExecutionInterval);
   }, delayInterval);
 
   // createNewBulletsIfSpaceWasPressed(owner, joiner);
