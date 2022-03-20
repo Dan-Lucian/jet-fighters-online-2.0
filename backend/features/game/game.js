@@ -282,7 +282,7 @@ const createBulletsFor = (statePlayer) => {
 const updateLocationBullets = (arrayStates, widthMap, heightMap, sizeTick) => {
   for (let i = 0; i < arrayStates.length; i += 1) {
     for (let j = 0; j < arrayStates[i].bullets.length; j += 1) {
-      arrayStates[i].bullets[j].timeAlive += 1;
+      arrayStates[i].bullets[j].timeAlive += sizeTick;
 
       goTheWayIsFacing(arrayStates[i].bullets[j], sizeTick);
 
