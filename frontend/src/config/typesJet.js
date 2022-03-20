@@ -22,7 +22,7 @@ const typesJet = {
     speed: 4,
     color: '#000', // black
     speedBullet: 7,
-    timeAliveMaxBullet: 40,
+    timeAliveMaxBullet: 60,
     scale: 1,
   },
 
@@ -32,8 +32,8 @@ const typesJet = {
     speed: 5,
     color: '#fff', // white
     speedBullet: 8,
-    timeAliveMaxBullet: 30,
-    scale: 0.8,
+    timeAliveMaxBullet: 55,
+    scale: 0.9,
   },
 
   trickster: {
@@ -42,7 +42,7 @@ const typesJet = {
     speed: 3.5,
     color: '#66ff66', // green
     speedBullet: 7,
-    timeAliveMaxBullet: 30,
+    timeAliveMaxBullet: 65,
     scale: 1.2,
   },
 
@@ -52,18 +52,18 @@ const typesJet = {
     speed: 2,
     color: '#ff91ff', // purple
     speedBullet: 9,
-    timeAliveMaxBullet: 35,
+    timeAliveMaxBullet: 50,
     scale: 1.5,
   },
 
-  'long-laster': {
-    typeJet: 'long-laster',
-    sensitivityRotation: 2.5,
-    speed: 3.5,
+  micro: {
+    typeJet: 'micro',
+    sensitivityRotation: 3,
+    speed: 3,
     color: '#f4f445', // yellow
     speedBullet: 6,
-    timeAliveMaxBullet: 70,
-    scale: 1.1,
+    timeAliveMaxBullet: 65,
+    scale: 0.6,
   },
 
   'fast-bullet': {
@@ -72,15 +72,18 @@ const typesJet = {
     speed: 4,
     color: '#4ae9f7', // azure
     speedBullet: 9,
-    timeAliveMaxBullet: 35,
+    timeAliveMaxBullet: 50,
     scale: 0.8,
   },
 };
 
+// insert imgs into types jet
 Object.values(typesJet).forEach((jet, idx) => {
   jet.imgJet = arrayImgsJets[idx];
 });
 
+// simillar to typesJet but the raw stat numbers are transformed into
+// numbers relative to the stats of other jets
 const typesJetStandartized = standartizeStatsJets(typesJet);
 
 function standartizeStatsJets(jets) {

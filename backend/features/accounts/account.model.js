@@ -49,7 +49,7 @@ const schemaAccount = mongoose.Schema({
       loses: { type: Number, default: 0 },
       draws: { type: Number, default: 0 },
     },
-    'long-laster': {
+    micro: {
       wins: { type: Number, default: 0 },
       loses: { type: Number, default: 0 },
       draws: { type: Number, default: 0 },

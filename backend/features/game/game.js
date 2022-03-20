@@ -281,13 +281,14 @@ const createBulletsFor = (statePlayer) => {
 
 const updateLocationBullets = (arrayStates, widthMap, heightMap, sizeTick) => {
   for (let i = 0; i < arrayStates.length; i += 1) {
-    for (let j = 0; j < arrayStates[i].bullets.length; j += 1) {
+    for (let j = arrayStates[i].bullets.length - 1; j > -1; j -= 1) {
       arrayStates[i].bullets[j].timeAlive += sizeTick;
 
       goTheWayIsFacing(arrayStates[i].bullets[j], sizeTick);
 
       if (isOutOfBounds(arrayStates[i].bullets[j], widthMap, heightMap))
-        teleportToOppositeSide(arrayStates[i].bullets[j], widthMap, heightMap);
+        // teleportToOppositeSide(arrayStates[i].bullets[j], widthMap, heightMap);
+        arrayStates[i].bullets.splice(j, 1);
     }
   }
 };
