@@ -8,6 +8,7 @@
   border: none;
   background: var(--color-bg-secondary);
   padding: 0.7em;
+  box-shadow: 0 0 5px var(--color-shadow);
 
   &:invalid {
     outline: 1px solid var(--color-red);

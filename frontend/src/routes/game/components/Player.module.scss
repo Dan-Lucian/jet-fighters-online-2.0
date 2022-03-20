@@ -13,6 +13,7 @@
 
 .name {
   grid-area: name;
+  font-weight: 700;
 }
 
 .ball {
@@ -25,7 +26,7 @@
 
 .jetType {
   grid-area: jetType;
-  opacity: 0.5;
+  opacity: 0.7;
   font-size: 0.8em;
 }
 
@@ -38,7 +39,7 @@
 
 .textColor {
   grid-area: color;
-  opacity: 0.5;
+  opacity: 0.7;
   font-size: 0.8em;
 }
 

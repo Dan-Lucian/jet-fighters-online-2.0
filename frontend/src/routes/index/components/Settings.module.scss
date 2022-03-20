@@ -13,6 +13,7 @@
   background: var(--color-bg-secondary);
   border: none;
   text-align: center;
+  box-shadow: 0 0 5px var(--color-shadow);
 
   &:focus {
     outline: 2px solid var(--color-blue);

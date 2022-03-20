@@ -5,7 +5,7 @@
   font-weight: 700;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
-  padding: 0 1em;
-  height: 1.666em; // had to be 2.5em but since font size here bigger, maths
+  padding: 0.25em 1em;
   line-height: 1.666em;
+  box-shadow: 2px 0 4px var(--color-shadow);
 }

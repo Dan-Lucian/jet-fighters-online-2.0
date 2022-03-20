@@ -7,6 +7,19 @@
   display: inline-block;
   cursor: pointer;
   transition: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 0 var(--color-shadow-box);
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+  }
+
+  &:disabled {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+    background: var(--color-blue-dark);
+  }
 
   &:hover {
     background: var(--color-green-dark);

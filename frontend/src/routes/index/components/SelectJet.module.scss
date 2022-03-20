@@ -9,7 +9,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-reverse-primary-secondary);
   transform: translateX(30em);
   transition: transform 0.5s cubic-bezier(0.15, 0.77, 0.57, 1);
   overflow: auto;

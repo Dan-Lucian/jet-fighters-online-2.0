@@ -20,6 +20,7 @@ const propTypes = {
 
 const StatsJet = ({ toggleIsOpen }) => {
   const [settings] = useContextSettings();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapperChart}>

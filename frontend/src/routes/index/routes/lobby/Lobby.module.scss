@@ -3,6 +3,7 @@
   padding: 1.5em 3em;
   border-radius: 5px;
   background: var(--color-bg-primary);
+  box-shadow: inset 0 0 5px var(--color-shadow);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, auto);

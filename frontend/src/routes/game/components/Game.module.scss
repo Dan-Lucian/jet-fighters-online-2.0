@@ -1,4 +1,5 @@
 .game {
   background: var(--color-blue);
   grid-area: game;
+  box-shadow: inset 0 0 5px 2px var(--color-shadow);
 }

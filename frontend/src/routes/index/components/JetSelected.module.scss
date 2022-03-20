@@ -12,6 +12,7 @@
   transition: none;
   cursor: pointer;
   user-select: none;
+  box-shadow: 0 0 4px 1px var(--color-shadow);
 
   &:hover {
     outline: 2px solid var(--color-blue);

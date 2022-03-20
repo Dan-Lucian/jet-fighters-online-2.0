@@ -4,23 +4,33 @@ body {
   --color-green-dark: #186c50;
   --color-red: #dc143c;
   --color-red-dark: #840c24;
-  --color-blue: #0079fe;
-  --color-blue-dark: #004998;
   --color-yellow: #ffd23f;
 }
 
 [data-theme='light'] {
-  --color-bg-primary: #f5f8ff;
-  --color-bg-secondary: #e5e5e5;
-  --color-text: #6a7180;
+  --color-bg-primary: #edebe9;
+  --color-bg-secondary: #ffffff;
+  --color-bg-reverse-primary-secondary: #edebe9;
+  --color-bg-reverse-secondary-primary: #ffffff;
+  --color-bg-ternary: #1f2a48;
+  --color-text: #6c6c6c;
   --color-shadow-box: rgba(0, 0, 0, 0.2);
+  --color-blue: #3394fe;
+  --color-blue-dark: #0061cb;
+  --color-shadow: rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='dark'] {
   --color-bg-primary: #141c2f;
   --color-bg-secondary: #1f2a48;
+  --color-bg-reverse-primary-secondary: #1f2a48;
+  --color-bg-reverse-secondary-primary: #141c2f;
+  --color-bg-ternary: #1f2a48;
   --color-text: #ffffff;
   --color-shadow-box: rgba(255, 255, 255, 0.2);
+  --color-blue: #0079fe;
+  --color-blue-dark: #004998;
+  --color-shadow: rgba(0, 0, 0, 0.2);
 }
 
 // scrollbar color

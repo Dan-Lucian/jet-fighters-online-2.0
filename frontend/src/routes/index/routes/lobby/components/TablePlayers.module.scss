@@ -3,14 +3,15 @@
   background: var(--color-bg-secondary);
   overflow: hidden;
   grid-area: tablePlayers;
+  box-shadow: 0 0 5px var(--color-shadow);
 
   tr {
     &:first-child {
-      border-bottom: 2px solid var(--color-white);
+      border-bottom: 2px solid var(--color-bg-primary);
     }
 
     &:last-child {
-      border-top: 2px solid var(--color-white);
+      border-top: 2px solid var(--color-bg-primary);
     }
   }
 

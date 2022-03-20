@@ -12,7 +12,7 @@
   transition: transform 250ms ease-in-out;
   pointer-events: none;
   background: var(--color-red);
-  color: var(--color-text);
+  color: var(--color-white);
 }
 
 .visible {
@@ -38,7 +38,7 @@
 .cross {
   width: 1.5em;
   height: 3px;
-  background-color: var(--color-text);
+  background-color: var(--color-white);
   position: relative;
   transform: rotate(45deg);
 
@@ -47,7 +47,7 @@
     display: block;
     width: 1.5em;
     height: 3px;
-    background-color: var(--color-text);
+    background-color: var(--color-white);
     position: absolute;
     transform: rotate(90deg);
   }

@@ -1,12 +1,13 @@
 .wrapper {
   background: var(--color-bg-secondary);
-  padding: 1em 2em;
+  padding: 2em 4em;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2em;
   align-items: center;
+  box-shadow: 0 0 5px var(--color-shadow);
 }
 
 .link {
@@ -30,4 +31,12 @@
     transform: translateY(2px);
     box-shadow: 0 2px 0 var(--color-shadow-box);
   }
+}
+
+.text {
+  box-shadow: inset 0 0 5px var(--color-shadow);
+  padding: 1em;
+  border-radius: 5px;
+  background: var(--color-bg-primary);
+  font-size: 2em;
 }

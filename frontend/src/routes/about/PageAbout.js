@@ -48,7 +48,8 @@ const text = {
   ],
   whyRegistration: [
     'You will be provided with a name which will be displayed while playing.',
-    'Your last jet preferences as well as your last game settings will be saved and loaded once you log in.',
+    'Your game results will be saved and you will be provided with information on amount of overall wins/loses/draws.',
+    'Your profile will display your most played jets.',
   ],
 };
 

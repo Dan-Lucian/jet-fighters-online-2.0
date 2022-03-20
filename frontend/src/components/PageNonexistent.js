@@ -5,7 +5,7 @@ import styles from './PageNonexistent.module.scss';
 
 const PageNonexistent = () => (
   <main className={styles.wrapper}>
-    <div>404 no page here</div>
+    <div className={styles.text}>404 no page here</div>
 
     <Link className={styles.link} to="/">
       home
