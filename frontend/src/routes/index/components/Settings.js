@@ -57,10 +57,10 @@ const Settings = () => {
       id="form-settings-game"
     >
       <label htmlFor="max-score">Max score:</label>
-      <span className={styles.tooltip} data-tooltip="Allowed 1-50">
+      <span className={styles.tooltip} data-tooltip="Allowed 1-1000">
         <input
           className={styles.input}
-          pattern="^[1-9]|[1-4][0-9]|50$"
+          pattern="^[1-9]|[1-9][0-9]|[1-9][0-9][0-9]|1000$"
           type="text"
           id="max-score"
           value={scoreMax}

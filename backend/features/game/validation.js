@@ -1,7 +1,7 @@
 const { typesJet } = require('./config');
 
 const regexp = {
-  scoreMax: '^[1-9]|[1-4][0-9]|50$',
+  scoreMax: '^[1-9]|[1-9][0-9]|[1-9][0-9][0-9]|1000$',
   widthMap: '^[2-9][0-9][0-9]|1000$',
   heightMap: '^[2-9][0-9][0-9]|1000$',
 };
