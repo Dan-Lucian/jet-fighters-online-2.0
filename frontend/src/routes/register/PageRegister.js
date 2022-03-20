@@ -53,7 +53,14 @@ const PageRegister = () => {
   if (status === 'resolved')
     return (
       <main className={styles.wrapper}>
-        Account created. We've sent an activation link to the specified email.
+        <div className={styles.wrapperInner}>
+          <p>Account created.</p>
+          <p>We've sent an activation link to the specified email.</p>
+          <p>
+            If the email does not appear even after 5 minutes then check the
+            spam section as well.
+          </p>
+        </div>
       </main>
     );
 
