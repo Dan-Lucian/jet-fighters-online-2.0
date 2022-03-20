@@ -10,7 +10,7 @@ const propTypes = {
 
 const Jet = ({ onClick, imgJet }) => (
   <button onClick={onClick} className={styles.jet} type="button">
-    <img src={imgJet} alt="jet" />
+    <img width="48px" height="48px" src={imgJet} alt="jet" />
   </button>
 );
 

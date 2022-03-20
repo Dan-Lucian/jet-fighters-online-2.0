@@ -34,7 +34,7 @@ const JetSelected = () => {
         className={styles.btn}
         type="button"
       >
-        <img src={settings.imgJet} alt="jet" />
+        <img width="48px" height="48px" src={settings.imgJet} alt="jet" />
       </button>
       <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
         <Suspense fallback={<span />}>
