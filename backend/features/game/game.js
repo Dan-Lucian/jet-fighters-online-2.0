@@ -218,16 +218,31 @@ const didJetsCollide = (stateGame) => {
   const top2 = y2 - (imgH * scale2) / 2;
   const bottom2 = y2 + (imgH * scale2) / 2;
 
-  // check for any corner entering another jet square area
-  return (
-    (left1 > left2 && left1 < right2 && top1 > top2 && top1 < bottom2) ||
-    (right1 > left2 && right1 < right2 && top1 > top2 && top1 < bottom2) ||
-    (right1 > left2 &&
-      right1 < right2 &&
-      bottom1 > top2 &&
-      bottom1 < bottom2) ||
-    (left1 > left2 && left1 < right2 && bottom1 > top2 && bottom1 < bottom2)
-  );
+  // check corners of jet 1 entering area of jet 2
+  if (left1 > left2 && left1 < right2 && top1 > top2 && top1 < bottom2)
+    return true;
+
+  if (right1 > left2 && right1 < right2 && top1 > top2 && top1 < bottom2)
+    return true;
+
+  if (right1 > left2 && right1 < right2 && bottom1 > top2 && bottom1 < bottom2)
+    return true;
+
+  if (left1 > left2 && left1 < right2 && bottom1 > top2 && bottom1 < bottom2)
+    return true;
+
+  // check corners of jet 2 entering area of jet 1
+  if (left2 > left1 && left2 < right1 && top2 > top1 && top2 < bottom1)
+    return true;
+
+  if (right2 > left1 && right2 < right1 && top2 > top1 && top2 < bottom1)
+    return true;
+
+  if (right2 > left1 && right2 < right1 && bottom2 > top1 && bottom2 < bottom1)
+    return true;
+
+  if (left2 > left1 && left2 < right1 && bottom2 > top1 && bottom2 < bottom1)
+    return true;
 };
 
 const resetPositionJets = (arrayStates, widthMap, heightMap) => {
