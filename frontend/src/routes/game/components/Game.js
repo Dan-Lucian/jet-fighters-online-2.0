@@ -58,14 +58,24 @@ const Game = ({ stateGame }) => {
   const { widthMap, heightMap } = stateGame.settings;
 
   return (
-    <canvas
-      ref={refCanvas}
-      width={widthMap}
-      height={heightMap}
-      className={styles.game}
-    >
-      Game screen
-    </canvas>
+    <div className={styles.wrapper}>
+      <canvas
+        ref={refCanvas}
+        width={widthMap}
+        height={heightMap}
+        className={styles.game}
+      >
+        Game screen
+      </canvas>
+      <div className={styles.wrapperScores}>
+        <div style={{ color: stateGame.owner.color }}>
+          {stateGame.owner.score}
+        </div>
+        <div style={{ color: stateGame.joiner.color }}>
+          {stateGame.joiner.score}
+        </div>
+      </div>
+    </div>
   );
 };
 
