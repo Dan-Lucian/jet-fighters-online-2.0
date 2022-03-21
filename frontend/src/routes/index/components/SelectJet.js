@@ -9,8 +9,10 @@ import styles from './SelectJet.module.scss';
 
 const SelectJet = ({ isOpen, toggleIsOpen }) => (
   <aside className={`${styles.selectJet} ${isOpen && styles.isOpen}`}>
-    <Carousel />
-    <StatsJet toggleIsOpen={toggleIsOpen} />
+    <div className={styles.wrapperContent}>
+      <Carousel />
+      <StatsJet toggleIsOpen={toggleIsOpen} />
+    </div>
   </aside>
 );
 SelectJet.propTypes = {
