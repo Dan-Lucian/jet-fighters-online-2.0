@@ -53,8 +53,8 @@ const hasOneSecondPassed = (time) => {
   if (Date.now() - time > 1000) return true;
 };
 
-// let fps = 0;
-// let timeStart = Date.now();
+let fps = 0;
+let timeStart = Date.now();
 
 const startLoopGame = (lobby) => {
   const wsOwner = lobby.owner.ws;
@@ -79,13 +79,13 @@ const startLoopGame = (lobby) => {
     const sizeTick =
       Math.round((timeBetweenIntervals / delayInterval) * 100) / 100;
 
-    // if (hasOneSecondPassed(timeStart)) {
-    //   console.log('FPS: ', fps);
-    //   fps = 0;
-    //   timeStart = Date.now();
-    // } else {
-    //   fps += 1;
-    // }
+    if (hasOneSecondPassed(timeStart)) {
+      console.log('FPS: ', fps);
+      fps = 0;
+      timeStart = Date.now();
+    } else {
+      fps += 1;
+    }
 
     const { owner, joiner } = stateGame;
 
