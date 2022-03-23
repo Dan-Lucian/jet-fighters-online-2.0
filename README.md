@@ -63,9 +63,10 @@ On the backend, the bulk of authorization logic is done by the `/middleware/auth
 - How to implement websockets within [React](https://reactjs.org/).
 - How to implement websockets within [Express](https://expressjs.com/).
 - How to work with canvas within [React](https://reactjs.org/).
-- How to make charts using [chart.js](https://www.chartjs.org/)
-- How to implement an authorization/authentication system based on json web tokens + refresh tokens
+- How to make charts using [chart.js](https://www.chartjs.org/).
+- How to implement an authorization/authentication system based on json web tokens + refresh tokens.
 
 ## Upcoming features
 
-- Add different unique powers to each jet (ex: multi shot, speed boost, invisiblity, short time immunity)
+- Add different unique powers to each jet (ex: multi shot, speed boost, invisiblity, short time immunity).
+- Add the possibility to add and challenge friends.
