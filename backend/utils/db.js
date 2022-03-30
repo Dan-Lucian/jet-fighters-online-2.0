@@ -7,7 +7,7 @@ const logger = require('./logger');
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
-    logger.info('connected to MongoDB');
+    logger.prod('connected to MongoDB');
   })
   .catch((error) => {
     logger.error('error connecting to MongoDB:', error.message);

@@ -88,7 +88,7 @@ function join(id, player) {
 function removeJoiner(id) {
   const lobby = getAll.get(id);
   if (!lobby) {
-    logger.info(`No lobby found when quiting, lobby ID: ${id}`);
+    logger.error(`No lobby found when quiting, lobby ID: ${id}`);
     return 'notFound';
   }
 

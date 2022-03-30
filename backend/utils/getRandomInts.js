@@ -3,7 +3,7 @@ const logger = require('./logger');
 
 const getRandomInts = (amount, min, max) => {
   if (amount > max + 1 - min) {
-    logger.info('amount bigger than max - min');
+    logger.error('amount bigger than max - min');
     return;
   }
 

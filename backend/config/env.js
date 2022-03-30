@@ -5,14 +5,16 @@ const PORT = process.env.PORT;
 
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 const SMTP_LOGIN = process.env.SMTP_LOGIN;
+const NODE_ENV = process.env.NODE_ENV;
 const MONGODB_URI = getUriMongo(process.env.NODE_ENV);
 const SECRET =
-  process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'
+  NODE_ENV === 'test' || NODE_ENV === 'development'
     ? process.env.TEST_SECRET
     : process.env.SECRET;
 
 module.exports = {
   PORT,
+  NODE_ENV,
   MONGODB_URI,
   SECRET,
   SMTP_PASSWORD,

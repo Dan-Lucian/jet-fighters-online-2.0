@@ -19,7 +19,7 @@ const websocket = (expressServer) => {
   startPingPong(websocketServer);
 
   expressServer.on('upgrade', (request, socket, head) => {
-    logger.info('upgrading to websocket');
+    logger.dev('upgrading to websocket');
     websocketServer.handleUpgrade(request, socket, head, (websocket) => {
       websocketServer.emit('connection', websocket, request);
     });
@@ -31,14 +31,14 @@ const websocket = (expressServer) => {
     //   null,
     // ];
     // const connectionParams = queryString.parse(params);
-    // logger.info('params: ', connectionParams);
+    // logger.dev('params: ', connectionParams);
 
     websocketConnection.isAlive = true;
     websocketConnection.on('pong', heartbeat);
 
     websocketConnection.on('message', (message) => {
       const messageJson = JSON.parse(message);
-      // logger.info('Received:', messageJson);
+      // logger.dev('Received:', messageJson);
       const { event } = messageJson;
 
       if (event === 'input') {
@@ -113,7 +113,7 @@ const websocket = (expressServer) => {
         const { lobby: lobbyReceived } = messageJson;
         const lobby = helperLobby.getById(lobbyReceived.idLobby);
         if (!lobby) {
-          logger.info('no loby at EVENT: update');
+          logger.error('no loby at EVENT: update');
           return;
         }
 
@@ -135,7 +135,7 @@ const websocket = (expressServer) => {
       if (event === 'start') {
         const { idLobby, isOwnerLobby, settings } = messageJson;
         if (!areValidSettingsGame(settings)) {
-          logger.info('Received game settings are invalid');
+          logger.error('Received game settings are invalid');
           return;
         }
 
@@ -294,7 +294,7 @@ const startPingPong = (serverWs) => {
   setInterval(() => {
     serverWs.clients.forEach((ws) => {
       if (ws.isAlive === false) {
-        logger.info('ws connection closed, reason: idle.');
+        logger.prod('ws connection closed, reason: idle.');
         ws.terminate();
         return;
       }
