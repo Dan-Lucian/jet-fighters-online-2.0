@@ -14,10 +14,10 @@ const routerAccounts = require('./features/accounts/account.controller');
 const app = express();
 
 app.use(cors());
+app.use(loggerRequest);
 app.use(express.static('build'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(loggerRequest);
 
 app.use('/accounts', routerAccounts);
 
