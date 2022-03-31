@@ -1,4 +1,4 @@
-# [Jet Fighters Online](https://fierce-harbor-11463.herokuapp.com/)
+# [Jet Fighters Online](https://www.jetfightersonline.org/)
 
 ## Table of contents
 
@@ -11,7 +11,7 @@
 
 ## Demo
 
-- [See the app](https://fierce-harbor-11463.herokuapp.com/)
+- [See the app](https://www.jetfightersonline.org/)
 
 ## Description
 
