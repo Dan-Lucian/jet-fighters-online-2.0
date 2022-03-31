@@ -6,6 +6,11 @@
   color: var(--color-text);
   overflow-y: scroll;
 
+  @media screen and (max-width: variables.$size-screen-small) {
+    // for the mobile overlay to not scroll
+    overflow: hidden;
+  }
+
   @media (min-width: variables.$size-screen-med) {
     font-size: 16px;
   }

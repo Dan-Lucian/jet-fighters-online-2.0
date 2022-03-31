@@ -18,6 +18,7 @@ import { ProviderTheme } from './providers/ProviderTheme';
 
 // scss styles
 import './styles/index.scss';
+import OverlayPhone from './components/OverlayPhone';
 
 const App = () => (
   <ProviderGlobal>
@@ -25,6 +26,7 @@ const App = () => (
       <WrapperApp>
         <ProviderAuth>
           <Nav />
+          <OverlayPhone />
           <WrapperPage>
             <ProviderSettings>
               <ProviderLobby>
