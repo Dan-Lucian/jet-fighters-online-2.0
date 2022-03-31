@@ -2,7 +2,7 @@ export const config =
   process.env.NODE_ENV === 'production'
     ? {
         protocol: 'wss',
-        hostname: 'fierce-harbor-11463.herokuapp.com',
+        hostname: 'jetfightersonline.org',
         port: '',
         routeWs: '/websocket',
       }
