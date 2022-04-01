@@ -12,7 +12,14 @@ const skipLog = (req, res) => {
   return false;
 };
 
-morgan.token('time', () => new Date().toLocaleString('ro-RO'));
+morgan.token('time', () => {
+  const time = new Date();
+
+  // server - Romania time diff
+  time.setHours(time.getHours() + 3);
+
+  return time.toLocaleString('ro-RO');
+});
 
 morgan.token('ip', (req) => {
   // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
