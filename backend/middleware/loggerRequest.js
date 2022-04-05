@@ -4,7 +4,9 @@ const skipLog = (req, res) => {
   const { url } = req;
 
   if (
-    url.match(/(js|jpg|png|ico|css|woff|woff2|eot|webp|svg|refresh-token)$/gi)
+    url.match(
+      /(js|jpg|png|ico|css|woff|woff2|eot|webp|svg|refresh-token|map)$/gi
+    )
   ) {
     return true;
   }
