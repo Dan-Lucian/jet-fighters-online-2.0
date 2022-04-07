@@ -53,7 +53,7 @@ const accountTokenResetExpired = {
   ...accountTwo,
   _id: mongoose.Types.ObjectId(),
   email: 'test-expired@mail.com',
-  userName: 'userName expired',
+  userName: 'userName expir',
   resetToken: {
     resetToken: {
       token: 'reset-token-expired',
