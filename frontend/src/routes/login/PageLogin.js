@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useLayoutEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
@@ -12,12 +12,16 @@ import Loader from '../../components/Loader';
 
 // styles
 import styles from './PageLogin.module.scss';
-import PageProfile from '../profile/PageProfile';
 import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 const PageLogin = () => {
+  const navigate = useNavigate();
   const { account, login, loading, error } = useContextAuth();
   const [, setGlobal] = useContextGlobal();
+
+  useLayoutEffect(() => {
+    if (account) navigate(`/profile/${account.userName}`);
+  }, [account, navigate]);
 
   useEffect(() => {
     if (error)
@@ -25,7 +29,7 @@ const PageLogin = () => {
         ...prev,
         msgPopup: error?.response.data.message,
       }));
-  }, [error]);
+  }, [error, setGlobal]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,7 +44,6 @@ const PageLogin = () => {
   };
 
   if (loading) return <Loader />;
-  if (account) return <PageProfile />;
 
   return (
     <main className={styles.wrapper}>

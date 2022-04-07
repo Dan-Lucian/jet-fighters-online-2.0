@@ -16,7 +16,7 @@ const accountRegistration = {
 
 const accountUnverified = {
   _id: mongoose.Types.ObjectId(),
-  userName: 'userName unverified',
+  userName: 'userName unv',
   email: 'testunverified@mail.com',
   verificationToken: '1234567890',
   passwordHash,

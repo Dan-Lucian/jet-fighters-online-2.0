@@ -45,7 +45,7 @@ ReactDOM.render(
             <Route path="lobby" element={<Lobby />} />
           </Route>
           <Route path="about" element={<PageAbout />} />
-          <Route path="profile" element={<PageProfile />} />
+          <Route path="profile/:userName" element={<PageProfile />} />
           <Route path="login" element={<PageLogin />} />
           <Route path="register" element={<PageRegister />} />
           <Route path="verify-email" element={<PageVerifyEmail />} />

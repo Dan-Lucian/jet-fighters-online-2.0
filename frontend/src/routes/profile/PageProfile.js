@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
@@ -22,27 +22,33 @@ import styles from './PageProfile.module.scss';
 import { typesJet } from '../../config/typesJet';
 
 const PageProfile = () => {
-  console.log('I RENDERED');
+  console.log('RENDER: PageProfile');
+
   const navigate = useNavigate();
+  const { userName } = useParams();
   const { status, data: dataReceived, run } = useAsync();
   const { account, logout, loading } = useContextAuth();
+  // debugger;
 
   useLayoutEffect(() => {
-    // don't make request if no account
-    if (!account) return;
-    run(accountService.getById(account.id));
-  }, [account]);
+    if (!loading) run(accountService.getByUserName(userName));
+  }, [loading, run, userName]);
 
-  const handleClick = () => {
+  if (loading) return <Loader />;
+  if (status === 'pending' || status === 'idle') return <Loader />;
+  if (!dataReceived) return <PageNonexistent />;
+
+  const isHisAccount = userName === account?.userName;
+  const jetsSorted = sortJetsByGames(dataReceived.stats).slice(1, 4);
+
+  const handleLogout = () => {
     navigate('/');
     logout();
   };
 
-  if (loading) return <Loader />;
-  if (status === 'pending' || status === 'idle') return <Loader />;
-  if (!account) return <PageNonexistent />;
-
-  const jetsSorted = sortJetsByGames(dataReceived.stats).slice(1, 4);
+  const handleFriendRequest = () => {
+    accountService.sendFriendRequest(dataReceived.userName);
+  };
 
   return (
     <main className={styles.wrapper}>
@@ -60,15 +66,28 @@ const PageProfile = () => {
 
         <section className={styles.wrapperName}>
           <h1 className={styles.name}>{dataReceived.userName}</h1>
-          <p className={styles.email}>{dataReceived.email}</p>
-          <p>{getFormattedTime(dataReceived.created)}</p>
-          <button
-            className={styles.btnLogout}
-            onClick={handleClick}
-            type="button"
-          >
-            Log out
-          </button>
+          {isHisAccount && (
+            <>
+              <p className={styles.email}>{dataReceived.email}</p>
+              <p>{getFormattedTime(dataReceived.created)}</p>
+              <button
+                className={styles.btnLogout}
+                onClick={handleLogout}
+                type="button"
+              >
+                Log out
+              </button>
+            </>
+          )}
+          {!isHisAccount && (
+            <button
+              className={styles.btnAddFriend}
+              onClick={handleFriendRequest}
+              type="button"
+            >
+              Add friend
+            </button>
+          )}
         </section>
 
         <section className={styles.stats}>

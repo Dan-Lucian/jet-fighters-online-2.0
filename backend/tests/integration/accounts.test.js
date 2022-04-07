@@ -119,7 +119,7 @@ describe('Registration', () => {
       expect(accountsFromDb).toHaveLength(0);
     });
 
-    test.only('should return 400 if any essential data invalid', async () => {
+    test('should return 400 if any essential data invalid', async () => {
       const passwordTooShort = copyObj(accountRegistration);
       passwordTooShort.password = '1234567';
       await api.post('/accounts/register').send(passwordTooShort).expect(400);

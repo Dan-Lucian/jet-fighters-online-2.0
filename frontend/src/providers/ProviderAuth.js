@@ -7,7 +7,6 @@ import {
   useLayoutEffect,
   useMemo,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // services
 import accountService from '../services/account.service';
@@ -16,7 +15,6 @@ const ContextAuth = createContext(null);
 ContextAuth.displayName = 'ContextAuth';
 
 const ProviderAuth = (props) => {
-  const navigate = useNavigate();
   const [account, setAccount] = useState(null);
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
@@ -27,6 +25,7 @@ const ProviderAuth = (props) => {
     accountService
       .refreshToken()
       .then((response) => {
+        // order is important since it doesn't batch
         setAccount(response);
         setLoading(false);
       })
@@ -49,7 +48,6 @@ const ProviderAuth = (props) => {
       .then((response) => {
         setAccount(response);
         setLoading(false);
-        navigate('/profile');
       })
       .catch((error) => {
         setLoading(false);

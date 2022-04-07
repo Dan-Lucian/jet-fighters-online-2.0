@@ -103,7 +103,8 @@
   color: var(--color-blue);
 }
 
-.btnLogout {
+.btnLogout,
+.btnAddFriend {
   position: absolute;
   right: 1em;
   bottom: 1em;
@@ -129,6 +130,15 @@
     transform: translateY(2px);
     box-shadow: 0 2px 0 var(--color-shadow-box);
     background: var(--color-red-dark);
+  }
+}
+
+.btnAddFriend {
+  background: var(--color-green);
+
+  &:hover,
+  &:disabled {
+    background: var(--color-green-dark);
   }
 }
 

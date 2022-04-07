@@ -40,7 +40,7 @@ const Nav = () => {
         About
       </Link>
       {account ? (
-        <Link to="/profile" className={styles.signin}>
+        <Link to={`/profile/${account.userName}`} className={styles.signin}>
           {account.userName}
         </Link>
       ) : (

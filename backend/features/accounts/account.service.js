@@ -17,7 +17,8 @@ module.exports = {
   validateResetToken,
   resetPassword,
   getAll,
-  getById,
+  getByUserName,
+  getByUserNameForStranger,
   create,
   update,
   delete: _delete,
@@ -165,9 +166,14 @@ async function getAll() {
   return accounts.map((x) => getDetailsBasic(x));
 }
 
-async function getById(id) {
-  const account = await getAccount(id);
+async function getByUserName(userName) {
+  const account = await getAccountByUserName(userName);
   return getDetailsBasic(account);
+}
+
+async function getByUserNameForStranger(userName) {
+  const account = await getAccountByUserName(userName);
+  return getDetailsBasicForStranger(account);
 }
 
 async function create(params) {
@@ -192,8 +198,8 @@ async function create(params) {
   return getDetailsBasic(account);
 }
 
-async function update(id, params) {
-  const account = await getAccount(id);
+async function update(userName, params) {
+  const account = await getAccountByUserName(userName);
 
   // validate (if email was changed)
   if (
@@ -226,16 +232,16 @@ async function update(id, params) {
   return getDetailsBasic(account);
 }
 
-async function _delete(id) {
-  const account = await getAccount(id);
+async function _delete(userName) {
+  const account = await getAccountByUserName(userName);
   await account.remove();
 }
 
 // helper functions
 
-async function getAccount(id) {
-  if (!db.isValidId(id)) throw 'account not found';
-  const account = await db.Account.findById(id);
+async function getAccountByUserName(userName) {
+  if (!userName) throw 'account not found';
+  const account = await db.Account.findOne({ userName });
   if (!account) throw 'account not found';
   return account;
 }
@@ -287,6 +293,17 @@ function getDetailsBasic(account) {
     created,
     updated,
     isVerified,
+    stats,
+  };
+}
+
+// details that are sent to a stranger
+function getDetailsBasicForStranger(account) {
+  const { id, userName, stats } = account;
+
+  return {
+    id,
+    userName,
     stats,
   };
 }
