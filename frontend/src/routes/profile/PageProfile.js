@@ -15,6 +15,10 @@ import Loader from '../../components/Loader';
 // local components
 import JetFav from './components/JetFav';
 
+// utils
+import getFormattedTime from './utils/getFormatedTime';
+import sortJetsByGames from './utils/sortJetsByGames';
+
 // styles
 import styles from './PageProfile.module.scss';
 
@@ -22,13 +26,10 @@ import styles from './PageProfile.module.scss';
 import { typesJet } from '../../config/typesJet';
 
 const PageProfile = () => {
-  console.log('RENDER: PageProfile');
-
-  const navigate = useNavigate();
-  const { userName } = useParams();
-  const { status, data: dataReceived, run } = useAsync();
   const { account, logout, loading } = useContextAuth();
-  // debugger;
+  const { status, data: dataReceived, run } = useAsync();
+  const { userName } = useParams();
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     if (!loading) run(accountService.getByUserName(userName));
@@ -120,39 +121,6 @@ const PageProfile = () => {
       </div>
     </main>
   );
-};
-
-const sortJetsByGames = (jets) =>
-  Object.entries(jets).sort(
-    (x, y) =>
-      y[1].wins +
-      y[1].loses +
-      y[1].draws -
-      (x[1].wins + x[1].loses + x[1].draws)
-  );
-
-const monthNames = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
-
-const getFormattedTime = (time) => {
-  const date = new Date(time);
-  const text =
-    `Joined ${date.getUTCDate()} ` +
-    `${monthNames[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
-
-  return text;
 };
 
 export default PageProfile;
