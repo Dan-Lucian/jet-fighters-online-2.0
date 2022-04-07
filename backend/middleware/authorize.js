@@ -25,7 +25,13 @@ function authorize(roles = []) {
           throw 'invalid token';
 
         // if token invalid it will throw an error by itself
-        const tokenDecoded = jwt.verify(authorization.substring(7), SECRET);
+        let tokenDecoded;
+        try {
+          tokenDecoded = jwt.verify(authorization.substring(7), SECRET);
+        } catch (err) {
+          if (!isAllowedAnon) throw err;
+        }
+
         request.user = tokenDecoded;
       }
 
