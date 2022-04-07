@@ -13,7 +13,12 @@ router.post('/register', schemaRegister, register);
 router.post('/verify-email', schemaVerifyEmail, verifyEmail);
 router.post('/authenticate', schemaAuthenticate, authenticate);
 router.post('/refresh-token', refreshToken);
-router.post('/revoke-token', authorize(), schemaRevokeToken, revokeToken);
+router.post(
+  '/revoke-token',
+  authorize([Role.Admin, Role.User]),
+  schemaRevokeToken,
+  revokeToken
+);
 router.post('/forgot-password', schemaForgotPassword, forgotPassword);
 router.post(
   '/validate-reset-token',
@@ -24,8 +29,13 @@ router.post('/reset-password', schemaResetPassword, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:userName', authorize(), getByUserName);
 router.post('/', authorize(Role.Admin), schemaCreate, create);
-router.put('/:userName', authorize(), schemaUpdate, update);
-router.delete('/:userName', authorize(), _delete);
+router.put(
+  '/:userName',
+  authorize([Role.Admin, Role.User]),
+  schemaUpdate,
+  update
+);
+router.delete('/:userName', authorize([Role.Admin, Role.User]), _delete);
 
 module.exports = router;
 
@@ -227,8 +237,8 @@ function schemaUpdate(request, response, next) {
 async function update(request, response, next) {
   // users can update their own account and admins can update any account
   if (
-    request.params.userName !== request.user.userName &&
-    request.user.role !== Role.Admin
+    request.params.userName !== request.user?.userName &&
+    request.user?.role !== Role.Admin
   ) {
     throw 'unauthorized';
   }
@@ -243,8 +253,8 @@ async function update(request, response, next) {
 async function _delete(request, response, next) {
   // users can delete their own account and admins can delete any account
   if (
-    request.params.userName !== request.user.userName &&
-    request.user.role !== Role.Admin
+    request.params.userName !== request.user?.userName &&
+    request.user?.role !== Role.Admin
   ) {
     throw 'unauthorized';
   }
