@@ -3,6 +3,7 @@ import Title from '../Title/Title';
 import Settings from '../Settings/Settings';
 import JetSelected from '../JetSelected/JetSelected';
 
+// styles
 import styles from './Customization.module.scss';
 
 const Customization = () => (

@@ -41,7 +41,7 @@ const BtnReady = () => {
 
     return () =>
       console.log(
-        `updateLobby denial because needed stateApp=lobby but currently stateApp=${stateApp}`
+        `updateLobby denial because needed stateApp=lobby but stateApp=${stateApp}`
       );
   };
 

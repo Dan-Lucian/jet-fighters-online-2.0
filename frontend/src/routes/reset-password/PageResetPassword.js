@@ -20,9 +20,7 @@ const PageResetPassword = () => {
   const tokenSaved = useRef(null);
   const query = useQuery();
   const navigate = useNavigate();
-  const { run } = useAsync({
-    status: 'idle',
-  });
+  const { run } = useAsync();
 
   useEffect(() => {
     const token = query.get('token');
@@ -53,7 +51,6 @@ const PageResetPassword = () => {
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Reset</h1>
-
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth
           id="password"
@@ -75,4 +72,5 @@ const PageResetPassword = () => {
     </main>
   );
 };
+
 export default PageResetPassword;

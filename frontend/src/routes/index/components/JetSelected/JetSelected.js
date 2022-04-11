@@ -29,11 +29,7 @@ const JetSelected = () => {
   return (
     <div ref={ref} className={styles.wrapper}>
       <h3>Selected Jet</h3>
-      <button
-        onClick={() => toggleIsOpen()}
-        className={styles.btn}
-        type="button"
-      >
+      <button onClick={toggleIsOpen} className={styles.btn} type="button">
         <img width="48px" height="48px" src={settings.imgJet} alt="jet" />
       </button>
       <ErrorBoundary FallbackComponent={ErrorRouteFallback}>

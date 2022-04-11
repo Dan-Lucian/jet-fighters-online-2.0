@@ -17,14 +17,13 @@ import Overlay from './components/Overlay/Overlay';
 import styles from './PageGame.module.scss';
 
 const PageGame = () => {
-  const [dataGlobal] = useContextGlobal();
+  const [{ stateApp }] = useContextGlobal();
   const stateGame = useGameWsEvents();
   useKeyEvents();
 
-  const { stateApp } = dataGlobal;
-
-  if (!stateApp || stateApp === 'lobby' || stateApp === 'preLobby')
-    return <PageNonexistent />;
+  const isStateAppNotGame =
+    !stateApp || stateApp === 'lobby' || stateApp === 'preLobby';
+  if (isStateAppNotGame) return <PageNonexistent />;
 
   return (
     <main className={styles.pageGame}>

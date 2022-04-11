@@ -39,11 +39,12 @@ const Nav = () => {
       <Link to="/about" className={styles.about}>
         About
       </Link>
-      {account ? (
+      {account && (
         <Link to={`/profile/${account.userName}`} className={styles.signin}>
           {account.userName}
         </Link>
-      ) : (
+      )}
+      {!account && (
         <Link to="/login" className={styles.signin}>
           Login
         </Link>

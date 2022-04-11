@@ -17,7 +17,7 @@ import Loader from '../../components/Loader/Loader';
 import JetFav from './components/JetFav/JetFav';
 
 // utils
-import getFormattedTime from './utils/getFormatedTime';
+import formatTime from '../../utils/formatTime';
 import sortJetsByGames from './utils/sortJetsByGames';
 
 // styles
@@ -27,13 +27,13 @@ import styles from './PageProfile.module.scss';
 import { typesJet } from '../../config/typesJet';
 
 const PageProfile = () => {
+  const [global, setGlobal] = useContextGlobal();
   const { account, logout, loading } = useContextAuth();
   const { status, data: dataReceived, run } = useAsync();
   const jetsSorted = useRef(null);
   const { userName } = useParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [dataGlobal, setDataGlobal] = useContextGlobal();
 
   useLayoutEffect(() => {
     if (!loading) run(accountService.getByUserName(userName));
@@ -56,7 +56,7 @@ const PageProfile = () => {
   const handleFriendRequest = () => {
     if (!account) {
       navigate('/login');
-      setDataGlobal({ ...dataGlobal, pathBeforeLogin: pathname });
+      setGlobal({ ...global, pathBeforeLogin: pathname });
       return;
     }
     // if acc not logged prompt to register or login
@@ -83,7 +83,7 @@ const PageProfile = () => {
           {isHisAccount && (
             <>
               <p className={styles.email}>{dataReceived.email}</p>
-              <p>{getFormattedTime(dataReceived.created)}</p>
+              <p>{formatTime(dataReceived.created)}</p>
               <button
                 className={styles.btnLogout}
                 onClick={handleLogout}

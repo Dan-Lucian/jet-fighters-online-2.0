@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { createContext, useContext, useState } from 'react';
 
 const ContextGlobal = createContext(null);

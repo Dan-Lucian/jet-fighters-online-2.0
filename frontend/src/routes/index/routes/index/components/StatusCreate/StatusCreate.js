@@ -5,9 +5,7 @@ import { useContextGlobal } from '../../../../../../providers/ProviderGlobal';
 import styles from './StatusCreate.module.scss';
 
 const StatusCreate = () => {
-  const [game] = useContextGlobal();
-
-  const { stateApp } = game;
+  const [{ stateApp }] = useContextGlobal();
 
   const isStateAppLobby = stateApp === 'lobby';
 

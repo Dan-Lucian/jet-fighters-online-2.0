@@ -1,3 +1,4 @@
+// styles
 import styles from './WrapperPage.module.scss';
 
 const WrapperPage = (props) => (

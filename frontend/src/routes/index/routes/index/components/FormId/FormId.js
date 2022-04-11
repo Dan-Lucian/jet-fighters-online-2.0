@@ -8,20 +8,17 @@ import { useContextWebsocket } from '../../../../../../providers/ProviderWebsock
 import styles from './FormId.module.scss';
 
 const FormId = () => {
-  const [global] = useContextGlobal();
-  const [settings, setSettings] = useContextSettings();
+  const [{ stateApp }] = useContextGlobal();
+  const [{ idJoin }, setSettings] = useContextSettings();
   const { sendMessage } = useContextWebsocket();
   const { account } = useContextAuth();
-
-  const { stateApp } = global;
-  const { idJoin } = settings;
 
   const isstateAppPreLobby = stateApp === 'preLobby';
 
   const getHandlerSubmit = () => {
     if (isstateAppPreLobby)
-      return (e) => {
-        e.preventDefault();
+      return (event) => {
+        event.preventDefault();
         setSettings((prev) => ({ ...prev, idJoin: '' }));
         sendMessage({
           name: account?.userName || 'Anon',
@@ -30,16 +27,16 @@ const FormId = () => {
         });
       };
 
-    return (e) => {
-      e.preventDefault();
+    return (event) => {
+      event.preventDefault();
       console.log(
-        `join denial because needed stateApp: preLobby but currently stateApp: ${stateApp}`
+        `join denial because needed stateApp=preLobby but stateApp=${stateApp}`
       );
     };
   };
 
-  const handleChange = (e) => {
-    setSettings((prev) => ({ ...prev, idJoin: e.target.value }));
+  const handleChange = (event) => {
+    setSettings((prev) => ({ ...prev, idJoin: event.target.value }));
   };
 
   return (

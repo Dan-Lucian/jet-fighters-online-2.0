@@ -8,26 +8,22 @@ import { useContextWebsocket } from '../../../../providers/ProviderWebsocket';
 import styles from './Settings.module.scss';
 
 const Settings = () => {
-  const [global] = useContextGlobal();
+  const [{ stateApp, isOwnerLobby }] = useContextGlobal();
   const [settings, setSettings] = useContextSettings();
-  const [lobby] = useContextLobby();
+  const [{ idLobby, isReadyOwner, isReadyJoiner }] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
 
-  const { stateApp, isOwnerLobby } = global;
   const { scoreMax, widthMap, heightMap } = settings;
-  const { idLobby, isReadyOwner, isReadyJoiner } = lobby;
 
   const isStateAppLobby = stateApp === 'lobby';
   const arePlayersReady = isReadyOwner && isReadyJoiner;
 
-  const getHandlerInput = (prop) => (e) => {
-    const valueInput = {};
-    valueInput[prop] = e.target.value;
-    setSettings((prev) => ({ ...prev, ...valueInput }));
+  const getHandlerInput = (prop) => (event) => {
+    setSettings({ ...settings, [prop]: event.target.value });
   };
 
   const getHandlerSubmit = () => {
-    // the sform will work only if both players are shown to be ready
+    // the form will work only if both players are shown to be ready
     if (isStateAppLobby && arePlayersReady) {
       return (e) => {
         e.preventDefault();
@@ -44,8 +40,8 @@ const Settings = () => {
 
     return (e) => {
       e.preventDefault();
-      console.log(
-        `start denial because needed stateApp=lobby but currently stateApp=${stateApp}`
+      console.error(
+        `start denial because needed stateApp=lobby but stateApp=${stateApp}`
       );
     };
   };

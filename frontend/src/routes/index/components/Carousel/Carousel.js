@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { useRef } from 'react';
 
 // config
@@ -21,20 +20,17 @@ const Carousel = () => {
   const [, setSettings] = useContextSettings();
   const refWrapperInner = useRef();
 
-  const handleArrowLeft = () => {
-    refWrapperInner.current.scrollBy({
-      left: -150,
-      behavior: 'smooth',
-    });
+  const handleClickArrowLeft = () => {
+    refWrapperInner.current.scrollBy({ left: -150, behavior: 'smooth' });
   };
 
-  const handleArrowRight = () => {
+  const handleClickArrowRight = () => {
     refWrapperInner.current.scrollBy({ left: 150, behavior: 'smooth' });
   };
 
   return (
     <div className={styles.carousel}>
-      <ArrowLeft onClick={handleArrowLeft} />
+      <ArrowLeft onClick={handleClickArrowLeft} />
       <div ref={refWrapperInner} className={styles.wrapperJets}>
         {Object.values(typesJet).map((jet, idx) => (
           <Jet
@@ -44,7 +40,7 @@ const Carousel = () => {
           />
         ))}
       </div>
-      <ArrowRight onClick={handleArrowRight} />
+      <ArrowRight onClick={handleClickArrowRight} />
     </div>
   );
 };

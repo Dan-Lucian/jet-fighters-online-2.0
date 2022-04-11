@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
@@ -12,17 +12,15 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
 
 /**
  * Listens and reacts to all the server-sent websocket messages intended for
- * the application in the 'lobby' game state.
+ * the application in the 'lobby' application state.
  */
 const useLobbyWsEvents = () => {
-  const [global, setGlobal] = useContextGlobal();
+  const [{ stateApp, isOwnerLobby }, setGlobal] = useContextGlobal();
   const [settings] = useContextSettings();
   const [lobby, setLobby] = useContextLobby();
   const { message, sendMessage, resetMessage } = useContextWebsocket();
   const navigate = useNavigate();
 
-  const { stateApp } = global;
-  const { isOwnerLobby } = global;
   const { idLobby, isReadyOwner, isReadyJoiner } = lobby;
   const { event, success } = message;
 
@@ -32,6 +30,7 @@ const useLobbyWsEvents = () => {
     // receveied by both players when any of them makes a
     // lobby change (isReadyPlayer).
     if (isStateAppLobby && event === 'updateLobby') {
+      console.log('EVENT: updateLobby');
       // this lobby object is relayed from the player who requested a change
       setLobby(message.lobby);
       resetMessage();

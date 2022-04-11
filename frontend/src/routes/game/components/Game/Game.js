@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-use-before-define */
 import { useRef, useEffect } from 'react';
 
 // utils
-import { clearCanvas, drawBullets, drawJets } from '../../utils/canvas';
+import { draw } from '../../utils/canvas';
 
 // config
 import { typesJet } from '../../../../config/typesJet';
@@ -11,14 +10,7 @@ import { typesJet } from '../../../../config/typesJet';
 // styles
 import styles from './Game.module.scss';
 
-const draw = (ctx, stateGame, imagesJet) => {
-  clearCanvas(ctx);
-  drawBullets(ctx, stateGame);
-  drawJets(ctx, stateGame, imagesJet);
-};
-
 const Game = ({ stateGame }) => {
-  console.log('Render: <Game />');
   const refCanvas = useRef();
   const imagesJet = useRef(null);
 

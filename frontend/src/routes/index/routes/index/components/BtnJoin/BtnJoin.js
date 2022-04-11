@@ -5,9 +5,7 @@ import { useContextGlobal } from '../../../../../../providers/ProviderGlobal';
 import styles from './BtnJoin.module.scss';
 
 const BtnJoin = () => {
-  const [global] = useContextGlobal();
-
-  const { stateApp } = global;
+  const [{ stateApp }] = useContextGlobal();
 
   const isStateAppPreLobby = stateApp === 'preLobby';
 

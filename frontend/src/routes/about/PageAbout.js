@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 // local components
 import Heading from './components/Heading/Heading';
 
@@ -10,7 +9,7 @@ const PageAbout = () => (
     <div className={styles.wrapperInner}>
       <section className={styles.wrapperSection}>
         <Heading>What is this?</Heading>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{text.whatIsThis}</p>
+        <p className={styles.indent}>{text.whatIsThis}</p>
       </section>
       <section className={styles.wrapperSection}>
         <Heading>How do you play this?</Heading>

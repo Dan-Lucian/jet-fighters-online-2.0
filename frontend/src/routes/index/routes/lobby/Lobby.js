@@ -18,9 +18,7 @@ import styles from './Lobby.module.scss';
 const Lobby = () => {
   useLobbyWsEvents();
   useUnmountWsMessage();
-  const [lobby] = useContextLobby();
-
-  const { idLobby } = lobby;
+  const [{ idLobby }] = useContextLobby();
 
   return (
     <div className={styles.wrapper}>

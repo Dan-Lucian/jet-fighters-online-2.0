@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 // styles
 import styles from './Countdown.module.scss';
 
+const propTypes = {
+  handleCountownEnd: PropTypes.func.isRequired,
+};
+
 const Countdown = ({ handleCountownEnd }) => {
   const [count, setCount] = useState(3);
 
@@ -27,8 +31,7 @@ const Countdown = ({ handleCountownEnd }) => {
     </div>
   );
 };
-Countdown.propTypes = {
-  handleCountownEnd: PropTypes.func,
-};
+
+Countdown.propTypes = propTypes;
 
 export default Countdown;

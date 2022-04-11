@@ -9,7 +9,7 @@ import BtnJoin from './components/BtnJoin/BtnJoin';
 import StatusWs from './components/StatusWs/StatusWs';
 import FormId from './components/FormId/FormId';
 
-// stylesw
+// styles
 import styles from './PreLobby.module.scss';
 
 const PreLobby = () => {

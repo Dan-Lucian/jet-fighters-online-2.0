@@ -15,17 +15,17 @@ import { useContextSettings } from '../../../../providers/ProviderSettings';
 import styles from './StatsJet.module.scss';
 
 const propTypes = {
-  toggleIsOpen: PropTypes.func,
+  toggleIsOpen: PropTypes.func.isRequired,
 };
 
 const StatsJet = ({ toggleIsOpen }) => {
-  const [settings] = useContextSettings();
+  const [{ typeJet }] = useContextSettings();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapperChart}>
-        <TitleSmall>Type: {settings.typeJet}</TitleSmall>
-        <ChartRadar statsJet={typesJetStandartized[settings.typeJet]} />
+        <TitleSmall>Type: {typeJet}</TitleSmall>
+        <ChartRadar statsJet={typesJetStandartized[typeJet]} />
       </div>
       <BtnDone onClick={() => toggleIsOpen(false)} />
     </div>

@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 // styles
 import styles from './IdLobby.module.scss';
 
+const propTypes = {
+  idLobby: PropTypes.string.isRequired,
+};
+
 const IdLobby = ({ idLobby }) => {
   const [isCopied, setIsCopied] = useState();
 
@@ -35,8 +39,7 @@ const IdLobby = ({ idLobby }) => {
     </div>
   );
 };
-IdLobby.propTypes = {
-  idLobby: PropTypes.string,
-};
+
+IdLobby.propTypes = propTypes;
 
 export default IdLobby;

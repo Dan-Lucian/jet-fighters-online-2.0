@@ -7,6 +7,11 @@ import StatsJet from '../StatsJet/StatsJet';
 // styles
 import styles from './SelectJet.module.scss';
 
+const propTypes = {
+  isOpen: PropTypes.bool,
+  toggleIsOpen: PropTypes.func,
+};
+
 const SelectJet = ({ isOpen, toggleIsOpen }) => (
   <aside className={`${styles.selectJet} ${isOpen && styles.isOpen}`}>
     <div className={styles.wrapperContent}>
@@ -15,9 +20,7 @@ const SelectJet = ({ isOpen, toggleIsOpen }) => (
     </div>
   </aside>
 );
-SelectJet.propTypes = {
-  isOpen: PropTypes.bool,
-  toggleIsOpen: PropTypes.func,
-};
+
+SelectJet.propTypes = propTypes;
 
 export default SelectJet;

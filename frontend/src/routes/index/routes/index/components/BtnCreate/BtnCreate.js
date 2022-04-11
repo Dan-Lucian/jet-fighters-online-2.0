@@ -8,10 +8,8 @@ import styles from './BtnCreate.module.scss';
 
 const BtnCreate = () => {
   const { sendMessage } = useContextWebsocket();
-  const [global] = useContextGlobal();
+  const [{ stateApp }] = useContextGlobal();
   const { account } = useContextAuth();
-
-  const { stateApp } = global;
 
   const isStateAppPreLobby = stateApp === 'preLobby';
 
@@ -21,8 +19,8 @@ const BtnCreate = () => {
         sendMessage({ name: account?.userName || 'Anon', event: 'create' });
 
     return () =>
-      console.log(
-        `create denial because needed stateApp: preLobby but currently stateApp: ${stateApp}`
+      console.error(
+        `create denial because needed stateApp=preLobby but stateApp=${stateApp}`
       );
   };
 

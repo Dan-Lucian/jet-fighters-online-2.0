@@ -13,12 +13,9 @@ import styles from './BtnQuit.module.scss';
 
 const BtnQuit = () => {
   const navigate = useNavigate();
-  const [global, setGlobal] = useContextGlobal();
-  const [lobby, setLobby] = useContextLobby();
+  const [{ stateApp, isOwnerLobby }, setGlobal] = useContextGlobal();
+  const [{ idLobby }, setLobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
-
-  const { stateApp, isOwnerLobby } = global;
-  const { idLobby } = lobby;
 
   const isStateAppLobby = stateApp === 'lobby';
 
@@ -37,7 +34,7 @@ const BtnQuit = () => {
 
     return () =>
       console.log(
-        `quit denial because needed stateApp=lobby but currently stateApp=${stateApp}`
+        `quit denial because needed stateApp=lobby but stateApp=${stateApp}`
       );
   };
 

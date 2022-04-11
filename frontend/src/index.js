@@ -24,7 +24,9 @@ const PageVerifyEmail = lazy(() =>
   import('./routes/verify-email/PageVerifyEmail')
 );
 const PageGame = lazy(() => import('./routes/game/PageGame'));
-const PageNonexistent = lazy(() => import('./components/PageNonexistent/PageNonexistent'));
+const PageNonexistent = lazy(() =>
+  import('./components/PageNonexistent/PageNonexistent')
+);
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -32,9 +34,7 @@ if (process.env.NODE_ENV === 'production') {
   console.debug = () => {};
 }
 
-// <Suspense> is put around outlets inside components and not here because
-// Error if attempt to put <Suspense> around nested routes here
-// and nested routes are needed in order to save the same nav throught the app
+// <Suspense> is put around <Outlet> in App
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

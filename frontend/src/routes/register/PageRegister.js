@@ -22,9 +22,7 @@ import Loader from '../../components/Loader/Loader';
 const PageRegister = () => {
   const { account } = useContextAuth();
   const [, setGlobal] = useContextGlobal();
-  const { error, status, run } = useAsync({
-    status: 'idle',
-  });
+  const { error, status, run } = useAsync();
 
   useEffect(() => {
     if (error)
@@ -67,7 +65,6 @@ const PageRegister = () => {
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Registration</h1>
-
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" />
         <InputAuth
@@ -106,4 +103,5 @@ const PageRegister = () => {
     </main>
   );
 };
+
 export default PageRegister;

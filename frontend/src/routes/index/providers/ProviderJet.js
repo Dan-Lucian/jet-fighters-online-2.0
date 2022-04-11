@@ -1,8 +1,11 @@
-/* eslint-disable no-use-before-define */
 import { createContext, useContext, useState } from 'react';
 
 const ContextJet = createContext(null);
 ContextJet.displayName = 'ContextJet';
+
+const jetDefault = {
+  type: 'balanced',
+};
 
 const ProviderJet = (props) => {
   const jet = useState(jetDefault);
@@ -15,10 +18,6 @@ const useJet = () => {
   if (jet === null) throw new Error('useJet must be used within ProvideJet');
 
   return jet;
-};
-
-const jetDefault = {
-  type: 'balanced',
 };
 
 export { ProviderJet, useJet };

@@ -15,14 +15,7 @@ import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 import styles from './PageForgotPassword.module.scss';
 
 const PageForgotPassword = () => {
-  const {
-    data: receivedData,
-    error,
-    status,
-    run,
-  } = useAsync({
-    status: 'idle',
-  });
+  const { data: receivedData, status, run } = useAsync();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,15 +28,14 @@ const PageForgotPassword = () => {
   if (receivedData)
     return (
       <main className={styles.wrapperMsg}>
-        An email with instructions has been sent.
-        <br /> <br /> In case there's no email, check your spam section as well.
+        <p>An email with instructions has been sent.</p>
+        <p>In case there's no email, check your spam section as well.</p>
       </main>
     );
 
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Recovery</h1>
-
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" />
         <div className={styles.wrapperLinks}>

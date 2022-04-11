@@ -13,13 +13,10 @@ import GameOver from '../GameOver/GameOver';
 import styles from './Overlay.module.scss';
 
 const Overlay = () => {
-  const [global, setGlobal] = useContextGlobal();
-  const [lobby] = useContextLobby();
+  const [{ stateApp, isOwnerLobby, winner }, setGlobal] = useContextGlobal();
+  const [{ idLobby }] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
   const navigate = useNavigate();
-
-  const { stateApp, isOwnerLobby, winner } = global;
-  const { idLobby } = lobby;
 
   const isStateAppCountdown = stateApp === 'countdown';
   const isStateAppGameOver = stateApp === 'gameOver';

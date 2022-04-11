@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
+import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 // shared components
 import FormAuth from '../../components/FormAuth/FormAuth';
@@ -12,7 +13,6 @@ import Loader from '../../components/Loader/Loader';
 
 // styles
 import styles from './PageLogin.module.scss';
-import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 const PageLogin = () => {
   const navigate = useNavigate();
@@ -48,7 +48,6 @@ const PageLogin = () => {
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Login</h1>
-
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" />
         <InputAuth
@@ -72,4 +71,5 @@ const PageLogin = () => {
     </main>
   );
 };
+
 export default PageLogin;

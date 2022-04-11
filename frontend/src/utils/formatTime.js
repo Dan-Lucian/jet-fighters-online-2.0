@@ -13,7 +13,7 @@ const monthNames = [
   'Dec',
 ];
 
-const getFormattedTime = (time) => {
+const formatTime = (time) => {
   const date = new Date(time);
   const text =
     `Joined ${date.getUTCDate()} ` +
@@ -22,4 +22,4 @@ const getFormattedTime = (time) => {
   return text;
 };
 
-export default getFormattedTime;
+export default formatTime;

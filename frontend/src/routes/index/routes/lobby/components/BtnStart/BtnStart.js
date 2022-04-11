@@ -1,4 +1,4 @@
-// // shared hooks
+// shared hooks
 import { useContextGlobal } from '../../../../../../providers/ProviderGlobal';
 import { useContextLobby } from '../../../../../../providers/ProviderLobby';
 
@@ -6,11 +6,8 @@ import { useContextLobby } from '../../../../../../providers/ProviderLobby';
 import styles from './BtnStart.module.scss';
 
 const BtnStart = () => {
-  const [global] = useContextGlobal();
-  const [lobby] = useContextLobby();
-
-  const { stateApp } = global;
-  const { isReadyOwner, isReadyJoiner } = lobby;
+  const [{ stateApp }] = useContextGlobal();
+  const [{ isReadyOwner, isReadyJoiner }] = useContextLobby();
 
   const isStateAppLobby = stateApp === 'lobby';
   const arePlayersReady = isReadyOwner && isReadyJoiner;
@@ -25,4 +22,5 @@ const BtnStart = () => {
     />
   );
 };
+
 export default BtnStart;

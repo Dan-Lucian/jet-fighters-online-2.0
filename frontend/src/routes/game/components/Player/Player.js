@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 // styles
 import styles from './Player.module.scss';
 
+const propTypes = {
+  player: PropTypes.object.isRequired,
+};
+
 const Player = ({ player }) => {
   const { name, score, typeJet } = player;
 
@@ -23,8 +27,7 @@ const Player = ({ player }) => {
     </div>
   );
 };
-Player.propTypes = {
-  player: PropTypes.object,
-};
+
+Player.propTypes = propTypes;
 
 export default Player;

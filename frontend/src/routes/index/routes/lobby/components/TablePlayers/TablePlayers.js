@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 // shared hooks
 import { useContextLobby } from '../../../../../../providers/ProviderLobby';
 
@@ -6,48 +5,48 @@ import { useContextLobby } from '../../../../../../providers/ProviderLobby';
 import styles from './TablePlayers.module.scss';
 
 const TablePlayers = () => {
-  const [lobby] = useContextLobby();
-
-  const {
-    isConnectedOwner,
-    nameOwner,
-    winsOwner,
-    isReadyOwner,
-    isConnectedJoiner,
-    nameJoiner,
-    isReadyJoiner,
-    winsJoiner,
-  } = lobby;
+  const [
+    {
+      isConnectedOwner,
+      nameOwner,
+      winsOwner,
+      isReadyOwner,
+      isConnectedJoiner,
+      nameJoiner,
+      isReadyJoiner,
+      winsJoiner,
+    },
+  ] = useContextLobby();
 
   return (
     <table className={styles.table}>
       <tbody>
         <tr>
-          <td className={getStylesName(isConnectedOwner)}>
+          <td className={getStylesForName(isConnectedOwner)}>
             {nameOwner}
             <span className={styles.textLight}> (owner)</span>
           </td>
           <td className={styles.score}>{winsOwner}</td>
-          <td className={getStylesReady(isReadyOwner)}>ready</td>
+          <td className={getStylesForReady(isReadyOwner)}>ready</td>
         </tr>
         <tr>
-          <td className={getStylesName(isConnectedJoiner)}>{nameJoiner}</td>
+          <td className={getStylesForName(isConnectedJoiner)}>{nameJoiner}</td>
           <td className={styles.score}>{winsJoiner}</td>
-          <td className={getStylesReady(isReadyJoiner)}>ready</td>
+          <td className={getStylesForReady(isReadyJoiner)}>ready</td>
         </tr>
       </tbody>
     </table>
   );
 };
 
-// helper function to compose css module classes for name
-const getStylesName = (isConnectedPlayer) => {
+// compose css module classes for name
+const getStylesForName = (isConnectedPlayer) => {
   if (isConnectedPlayer) return `${styles.name} ${styles.textGreen}`;
   return `${styles.name} ${styles.textRed}`;
 };
 
-// helper function to compose css module classes for ready
-const getStylesReady = (isReadyPlayer) => {
+// compose css module classes for ready
+const getStylesForReady = (isReadyPlayer) => {
   if (isReadyPlayer) return `${styles.ready} ${styles.bgGreen}`;
   return `${styles.ready} ${styles.bgRed}`;
 };

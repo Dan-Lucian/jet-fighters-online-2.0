@@ -6,6 +6,9 @@ import { typesJet } from '../../../../config/typesJet';
 // shared components
 import Jet from '../../../../components/Jet/Jet';
 
+// utils
+import capitalize from '../../../../utils/capitalize';
+
 // styles
 import styles from './JetFav.module.scss';
 
@@ -36,8 +39,6 @@ const JetFav = ({ typeJet, wins, loses, draws }) => {
     </div>
   );
 };
-
-const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 JetFav.propTypes = propTypes;
 

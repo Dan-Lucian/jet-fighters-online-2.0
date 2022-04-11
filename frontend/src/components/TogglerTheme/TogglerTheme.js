@@ -11,17 +11,17 @@ import iconSun from '../../assets/sun.svg';
 const TogglerTheme = () => {
   const { theme, getTogglerTheme } = useContextTheme();
 
-  const on = theme === 'dark';
+  const isThemeDark = theme === 'dark';
 
   return (
     <label
-      className={`${styles.btnToggle} ${on && styles.btnToggleOn}`}
+      className={`${styles.btnToggle} ${isThemeDark && styles.btnToggleOn}`}
       aria-label="Toggle"
     >
       <input
         className={styles.inputToggle}
         type="checkbox"
-        checked={on}
+        checked={isThemeDark}
         onClick={getTogglerTheme()}
         onChange={() => {}}
       />
