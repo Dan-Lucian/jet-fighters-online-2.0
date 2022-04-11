@@ -23,6 +23,7 @@ const valueDefault = {
   name: 'Anon',
   stateApp: 'preLobby',
   msgPopup: null,
+  pathBeforeLogin: null,
 };
 // stateApp has the following possible values
 // preLobby, lobby, countdown, game, gameOver

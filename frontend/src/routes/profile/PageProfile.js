@@ -1,8 +1,9 @@
-import { useLayoutEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLayoutEffect, useRef } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
+import { useContextGlobal } from '../../providers/ProviderGlobal';
 import useAsync from '../../hooks/useAsync';
 
 // services
@@ -28,19 +29,24 @@ import { typesJet } from '../../config/typesJet';
 const PageProfile = () => {
   const { account, logout, loading } = useContextAuth();
   const { status, data: dataReceived, run } = useAsync();
+  const jetsSorted = useRef(null);
   const { userName } = useParams();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [dataGlobal, setDataGlobal] = useContextGlobal();
 
   useLayoutEffect(() => {
     if (!loading) run(accountService.getByUserName(userName));
   }, [loading, run, userName]);
 
-  if (loading) return <Loader />;
-  if (status === 'pending' || status === 'idle') return <Loader />;
+  const isWaiting = loading || status === 'pending' || status === 'idle';
+  if (isWaiting) return <Loader />;
   if (!dataReceived) return <PageNonexistent />;
 
   const isHisAccount = userName === account?.userName;
-  const jetsSorted = sortJetsByGames(dataReceived.stats).slice(1, 4);
+  if (!jetsSorted.current) {
+    jetsSorted.current = sortJetsByGames(dataReceived.stats).slice(1, 4);
+  }
 
   const handleLogout = () => {
     navigate('/');
@@ -48,6 +54,13 @@ const PageProfile = () => {
   };
 
   const handleFriendRequest = () => {
+    if (!account) {
+      navigate('/login');
+      setDataGlobal({ ...dataGlobal, pathBeforeLogin: pathname });
+      return;
+    }
+    // if acc not logged prompt to register or login
+    // make lobby entry error to show error popup
     accountService.sendFriendRequest(dataReceived.userName);
   };
 
@@ -59,7 +72,7 @@ const PageProfile = () => {
           <div className={styles.jet}>
             <img
               className={styles.img}
-              src={typesJet[jetsSorted[0][0]].imgJet}
+              src={typesJet[jetsSorted.current[0][0]].imgJet}
               alt="jet"
             />
           </div>
@@ -108,7 +121,7 @@ const PageProfile = () => {
 
         <section className={styles.wrapperMostPlayed}>
           <h2 className={styles.heading}>Most played jets</h2>
-          {jetsSorted.map((jet, idx) => (
+          {jetsSorted.current.map((jet, idx) => (
             <JetFav
               key={idx}
               typeJet={jet[0]}

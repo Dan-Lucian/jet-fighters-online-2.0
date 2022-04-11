@@ -17,10 +17,10 @@ import { useContextGlobal } from '../../providers/ProviderGlobal';
 const PageLogin = () => {
   const navigate = useNavigate();
   const { account, login, loading, error } = useContextAuth();
-  const [, setGlobal] = useContextGlobal();
+  const [{ pathBeforeLogin }, setGlobal] = useContextGlobal();
 
   useLayoutEffect(() => {
-    if (account) navigate(`/profile/${account.userName}`);
+    if (account) navigate(pathBeforeLogin || `/profile/${account.userName}`);
   }, [account, navigate]);
 
   useEffect(() => {
