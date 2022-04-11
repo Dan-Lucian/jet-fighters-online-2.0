@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -76,7 +75,6 @@ const useGameWsEvents = () => {
         isReadyOwner: false,
         isReadyJoiner: false,
       }));
-      // stateGameCurrent.current = stateGameReceived;
     }
   }, [message]);
 

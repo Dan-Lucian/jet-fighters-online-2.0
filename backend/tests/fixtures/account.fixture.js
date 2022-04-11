@@ -16,7 +16,7 @@ const accountRegistration = {
 
 const accountUnverified = {
   _id: mongoose.Types.ObjectId(),
-  userName: 'userName unverified',
+  userName: 'userName unv',
   email: 'testunverified@mail.com',
   verificationToken: '1234567890',
   passwordHash,
@@ -53,7 +53,7 @@ const accountTokenResetExpired = {
   ...accountTwo,
   _id: mongoose.Types.ObjectId(),
   email: 'test-expired@mail.com',
-  userName: 'userName expired',
+  userName: 'userName expir',
   resetToken: {
     resetToken: {
       token: 'reset-token-expired',

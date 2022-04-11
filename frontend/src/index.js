@@ -2,7 +2,8 @@ import React, { lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import ScrollToTop from './components/ScrollToTop';
+// components
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import App from './App';
 import PageIndex from './routes/index/PageIndex';
 import PreLobby from './routes/index/routes/index/PreLobby';
@@ -23,7 +24,9 @@ const PageVerifyEmail = lazy(() =>
   import('./routes/verify-email/PageVerifyEmail')
 );
 const PageGame = lazy(() => import('./routes/game/PageGame'));
-const PageNonexistent = lazy(() => import('./components/PageNonexistent'));
+const PageNonexistent = lazy(() =>
+  import('./components/PageNonexistent/PageNonexistent')
+);
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -31,9 +34,7 @@ if (process.env.NODE_ENV === 'production') {
   console.debug = () => {};
 }
 
-// <Suspense> is put around outlets inside components and not here because
-// Error if attempt to put <Suspense> around nested routes here
-// and nested routes are needed in order to save the same nav throught the app
+// <Suspense> is put around <Outlet> in App
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -45,7 +46,7 @@ ReactDOM.render(
             <Route path="lobby" element={<Lobby />} />
           </Route>
           <Route path="about" element={<PageAbout />} />
-          <Route path="profile" element={<PageProfile />} />
+          <Route path="profile/:userName" element={<PageProfile />} />
           <Route path="login" element={<PageLogin />} />
           <Route path="register" element={<PageRegister />} />
           <Route path="verify-email" element={<PageVerifyEmail />} />

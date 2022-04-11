@@ -12,11 +12,9 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
  * sync both player's lobby.
  */
 const useUnmountWsMessage = () => {
-  const [global] = useContextGlobal();
+  const [{ stateApp, isOwnerLobby }] = useContextGlobal();
   const [, setLobby] = useContextLobby();
   const { sendMessage } = useContextWebsocket();
-
-  const { stateApp, isOwnerLobby } = global;
 
   const isStateAppLobby = stateApp === 'lobby';
 

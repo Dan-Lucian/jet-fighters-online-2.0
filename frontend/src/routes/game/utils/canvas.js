@@ -1,4 +1,9 @@
-/* eslint-disable no-use-before-define */
+const draw = (ctx, stateGame, imagesJet) => {
+  clearCanvas(ctx);
+  drawBullets(ctx, stateGame);
+  drawJets(ctx, stateGame, imagesJet);
+};
+
 const clearCanvas = (ctx) => {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -38,4 +43,4 @@ const drawJet = (ctx, stateGamePlayer, imgJet) => {
   ctx.drawImage(imgJet, -imgJet.width / 2, -imgJet.height / 2);
 };
 
-export { clearCanvas, drawBullets, drawJets };
+export { draw };

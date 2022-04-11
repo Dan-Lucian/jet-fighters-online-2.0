@@ -9,8 +9,8 @@ import useAsync from '../../hooks/useAsync';
 import accountService from '../../services/account.service';
 
 // shared components
-import PageNonexistent from '../../components/PageNonexistent';
-import Loader from '../../components/Loader';
+import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
+import Loader from '../../components/Loader/Loader';
 
 // styles
 import styles from './PageVerifyEmail.module.scss';
@@ -18,9 +18,7 @@ import styles from './PageVerifyEmail.module.scss';
 const PageVerifyEmail = () => {
   const tokenSaved = useRef();
   const navigate = useNavigate();
-  const { status, run } = useAsync({
-    status: 'idle',
-  });
+  const { status, run } = useAsync();
   const query = useQuery();
 
   const token = query.get('token');
@@ -55,4 +53,5 @@ const PageVerifyEmail = () => {
     </main>
   );
 };
+
 export default PageVerifyEmail;

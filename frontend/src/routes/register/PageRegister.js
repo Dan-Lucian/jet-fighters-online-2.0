@@ -13,18 +13,16 @@ import { useContextGlobal } from '../../providers/ProviderGlobal';
 import accountService from '../../services/account.service';
 
 // shared components
-import FormAuth from '../../components/FormAuth';
-import InputAuth from '../../components/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit';
+import FormAuth from '../../components/FormAuth/FormAuth';
+import InputAuth from '../../components/InputAuth/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 import PageProfile from '../profile/PageProfile';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/Loader';
 
 const PageRegister = () => {
   const { account } = useContextAuth();
   const [, setGlobal] = useContextGlobal();
-  const { error, status, run } = useAsync({
-    status: 'idle',
-  });
+  const { error, status, run } = useAsync();
 
   useEffect(() => {
     if (error)
@@ -67,7 +65,6 @@ const PageRegister = () => {
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Registration</h1>
-
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" />
         <InputAuth
@@ -106,4 +103,5 @@ const PageRegister = () => {
     </main>
   );
 };
+
 export default PageRegister;

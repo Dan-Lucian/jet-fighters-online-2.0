@@ -12,7 +12,8 @@ export default {
   resetPassword,
   update,
   refreshToken,
-  getById,
+  getByUserName,
+  sendFriendRequest,
 };
 
 function register(params) {
@@ -75,20 +76,26 @@ function update(id, params) {
 //   return axios.get(urlBase, authorize()).then((response) => response.data);
 // }
 
-function getById(id) {
+function getByUserName(userName) {
   return axios
-    .get(`${urlBase}/${id}`, authorize())
+    .get(`${urlBase}/${userName}`, authorize())
     .then((response) => response.data);
+}
+
+function sendFriendRequest(userName) {
+  console.log(`FRIEND REQUEST SENT TO ${userName}`);
 }
 
 // function create() {}
 
 function authorize() {
-  return {
-    headers: {
-      authorization: `bearer ${tokenJwt}`,
-    },
-  };
+  return tokenJwt
+    ? {
+        headers: {
+          authorization: `bearer ${tokenJwt}`,
+        },
+      }
+    : null;
 }
 
 let idTimeoutTokenRefresh;

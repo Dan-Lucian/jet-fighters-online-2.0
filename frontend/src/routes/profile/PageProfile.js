@@ -1,19 +1,24 @@
-import { useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLayoutEffect, useRef } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
+import { useContextGlobal } from '../../providers/ProviderGlobal';
 import useAsync from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';
 
 // shared components
-import PageNonexistent from '../../components/PageNonexistent';
-import Loader from '../../components/Loader';
+import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
+import Loader from '../../components/Loader/Loader';
 
 // local components
-import JetFav from './components/JetFav';
+import JetFav from './components/JetFav/JetFav';
+
+// utils
+import formatTime from '../../utils/formatTime';
+import sortJetsByGames from './utils/sortJetsByGames';
 
 // styles
 import styles from './PageProfile.module.scss';
@@ -22,27 +27,42 @@ import styles from './PageProfile.module.scss';
 import { typesJet } from '../../config/typesJet';
 
 const PageProfile = () => {
-  console.log('I RENDERED');
-  const navigate = useNavigate();
-  const { status, data: dataReceived, run } = useAsync();
+  const [global, setGlobal] = useContextGlobal();
   const { account, logout, loading } = useContextAuth();
+  const { status, data: dataReceived, run } = useAsync();
+  const jetsSorted = useRef(null);
+  const { userName } = useParams();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    // don't make request if no account
-    if (!account) return;
-    run(accountService.getById(account.id));
-  }, [account]);
+    if (!loading) run(accountService.getByUserName(userName));
+  }, [loading, run, userName]);
 
-  const handleClick = () => {
+  const isWaiting = loading || status === 'pending' || status === 'idle';
+  if (isWaiting) return <Loader />;
+  if (!dataReceived) return <PageNonexistent />;
+
+  const isHisAccount = userName === account?.userName;
+  if (!jetsSorted.current) {
+    jetsSorted.current = sortJetsByGames(dataReceived.stats).slice(1, 4);
+  }
+
+  const handleLogout = () => {
     navigate('/');
     logout();
   };
 
-  if (loading) return <Loader />;
-  if (status === 'pending' || status === 'idle') return <Loader />;
-  if (!account) return <PageNonexistent />;
-
-  const jetsSorted = sortJetsByGames(dataReceived.stats).slice(1, 4);
+  const handleFriendRequest = () => {
+    if (!account) {
+      navigate('/login');
+      setGlobal({ ...global, pathBeforeLogin: pathname });
+      return;
+    }
+    // if acc not logged prompt to register or login
+    // make lobby entry error to show error popup
+    accountService.sendFriendRequest(dataReceived.userName);
+  };
 
   return (
     <main className={styles.wrapper}>
@@ -52,7 +72,7 @@ const PageProfile = () => {
           <div className={styles.jet}>
             <img
               className={styles.img}
-              src={typesJet[jetsSorted[0][0]].imgJet}
+              src={typesJet[jetsSorted.current[0][0]].imgJet}
               alt="jet"
             />
           </div>
@@ -60,15 +80,28 @@ const PageProfile = () => {
 
         <section className={styles.wrapperName}>
           <h1 className={styles.name}>{dataReceived.userName}</h1>
-          <p className={styles.email}>{dataReceived.email}</p>
-          <p>{getFormattedTime(dataReceived.created)}</p>
-          <button
-            className={styles.btnLogout}
-            onClick={handleClick}
-            type="button"
-          >
-            Log out
-          </button>
+          {isHisAccount && (
+            <>
+              <p className={styles.email}>{dataReceived.email}</p>
+              <p>{formatTime(dataReceived.created)}</p>
+              <button
+                className={styles.btnLogout}
+                onClick={handleLogout}
+                type="button"
+              >
+                Log out
+              </button>
+            </>
+          )}
+          {!isHisAccount && (
+            <button
+              className={styles.btnAddFriend}
+              onClick={handleFriendRequest}
+              type="button"
+            >
+              Add friend
+            </button>
+          )}
         </section>
 
         <section className={styles.stats}>
@@ -88,7 +121,7 @@ const PageProfile = () => {
 
         <section className={styles.wrapperMostPlayed}>
           <h2 className={styles.heading}>Most played jets</h2>
-          {jetsSorted.map((jet, idx) => (
+          {jetsSorted.current.map((jet, idx) => (
             <JetFav
               key={idx}
               typeJet={jet[0]}
@@ -101,39 +134,6 @@ const PageProfile = () => {
       </div>
     </main>
   );
-};
-
-const sortJetsByGames = (jets) =>
-  Object.entries(jets).sort(
-    (x, y) =>
-      y[1].wins +
-      y[1].loses +
-      y[1].draws -
-      (x[1].wins + x[1].loses + x[1].draws)
-  );
-
-const monthNames = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
-
-const getFormattedTime = (time) => {
-  const date = new Date(time);
-  const text =
-    `Joined ${date.getUTCDate()} ` +
-    `${monthNames[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
-
-  return text;
 };
 
 export default PageProfile;

@@ -1,23 +1,27 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useLayoutEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
+import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 // shared components
-import FormAuth from '../../components/FormAuth';
-import InputAuth from '../../components/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit';
-import Loader from '../../components/Loader';
+import FormAuth from '../../components/FormAuth/FormAuth';
+import InputAuth from '../../components/InputAuth/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
+import Loader from '../../components/Loader/Loader';
 
 // styles
 import styles from './PageLogin.module.scss';
-import PageProfile from '../profile/PageProfile';
-import { useContextGlobal } from '../../providers/ProviderGlobal';
 
 const PageLogin = () => {
+  const navigate = useNavigate();
   const { account, login, loading, error } = useContextAuth();
-  const [, setGlobal] = useContextGlobal();
+  const [{ pathBeforeLogin }, setGlobal] = useContextGlobal();
+
+  useLayoutEffect(() => {
+    if (account) navigate(pathBeforeLogin || `/profile/${account.userName}`);
+  }, [account, navigate]);
 
   useEffect(() => {
     if (error)
@@ -25,7 +29,7 @@ const PageLogin = () => {
         ...prev,
         msgPopup: error?.response.data.message,
       }));
-  }, [error]);
+  }, [error, setGlobal]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,12 +44,10 @@ const PageLogin = () => {
   };
 
   if (loading) return <Loader />;
-  if (account) return <PageProfile />;
 
   return (
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Login</h1>
-
       <FormAuth onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" />
         <InputAuth
@@ -69,4 +71,5 @@ const PageLogin = () => {
     </main>
   );
 };
+
 export default PageLogin;

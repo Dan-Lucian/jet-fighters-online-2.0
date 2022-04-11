@@ -32,7 +32,7 @@ const tokenRefreshAccountAdmin = {
 };
 
 const tokenJwtAccountOne = jwt.sign(
-  { sub: accountOne._id, id: accountOne._id },
+  { sub: accountOne._id, id: accountOne._id, userName: accountOne.userName },
   SECRET,
   {
     expiresIn: '15m',
@@ -40,7 +40,7 @@ const tokenJwtAccountOne = jwt.sign(
 );
 
 const tokenJwtAccountTwo = jwt.sign(
-  { sub: accountTwo._id, id: accountTwo._id },
+  { sub: accountTwo._id, id: accountTwo._id, userName: accountTwo.userName },
   SECRET,
   {
     expiresIn: '15m',
@@ -48,7 +48,7 @@ const tokenJwtAccountTwo = jwt.sign(
 );
 
 const tokenJwtAccountTwoExpired = jwt.sign(
-  { sub: accountTwo._id, id: accountTwo._id },
+  { sub: accountTwo._id, id: accountTwo._id, userName: accountTwo.userName },
   SECRET,
   {
     expiresIn: '1ms',
@@ -56,7 +56,11 @@ const tokenJwtAccountTwoExpired = jwt.sign(
 );
 
 const tokenJwtAccountAdmin = jwt.sign(
-  { sub: accountAdmin._id, id: accountAdmin._id },
+  {
+    sub: accountAdmin._id,
+    id: accountAdmin._id,
+    userName: accountAdmin.userName,
+  },
   SECRET,
   {
     expiresIn: '15m',
@@ -64,7 +68,11 @@ const tokenJwtAccountAdmin = jwt.sign(
 );
 
 const tokenJwtAccountAdminExpired = jwt.sign(
-  { sub: accountAdmin._id, id: accountAdmin._id },
+  {
+    sub: accountAdmin._id,
+    id: accountAdmin._id,
+    userName: accountAdmin.userName,
+  },
   SECRET,
   {
     expiresIn: '1ms',

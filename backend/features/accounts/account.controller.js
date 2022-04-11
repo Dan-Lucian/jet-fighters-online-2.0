@@ -13,7 +13,12 @@ router.post('/register', schemaRegister, register);
 router.post('/verify-email', schemaVerifyEmail, verifyEmail);
 router.post('/authenticate', schemaAuthenticate, authenticate);
 router.post('/refresh-token', refreshToken);
-router.post('/revoke-token', authorize(), schemaRevokeToken, revokeToken);
+router.post(
+  '/revoke-token',
+  authorize([Role.Admin, Role.User]),
+  schemaRevokeToken,
+  revokeToken
+);
 router.post('/forgot-password', schemaForgotPassword, forgotPassword);
 router.post(
   '/validate-reset-token',
@@ -22,10 +27,15 @@ router.post(
 );
 router.post('/reset-password', schemaResetPassword, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
-router.get('/:id', authorize(), getById);
+router.get('/:userName', authorize(), getByUserName);
 router.post('/', authorize(Role.Admin), schemaCreate, create);
-router.put('/:id', authorize(), schemaUpdate, update);
-router.delete('/:id', authorize(), _delete);
+router.put(
+  '/:userName',
+  authorize([Role.Admin, Role.User]),
+  schemaUpdate,
+  update
+);
+router.delete('/:userName', authorize([Role.Admin, Role.User]), _delete);
 
 module.exports = router;
 
@@ -169,16 +179,22 @@ async function getAll(request, response, next) {
   response.json(accounts);
 }
 
-async function getById(request, response, next) {
+async function getByUserName(request, response, next) {
   // users can get their own account and admins can get any account
   if (
-    request.params.id !== request.user.id &&
-    request.user.role !== Role.Admin
+    request.params.userName !== request.user?.userName &&
+    request.user?.role !== Role.Admin
   ) {
-    throw 'unauthorized';
+    const account = await accountService.getByUserNameForStranger(
+      request.params.userName
+    );
+    if (account) {
+      return response.json(account);
+    }
+    return response.sendStatus(404);
   }
 
-  const account = await accountService.getById(request.params.id);
+  const account = await accountService.getByUserName(request.params.userName);
   if (account) {
     return response.json(account);
   }
@@ -221,26 +237,29 @@ function schemaUpdate(request, response, next) {
 async function update(request, response, next) {
   // users can update their own account and admins can update any account
   if (
-    request.params.id !== request.user.id &&
-    request.user.role !== Role.Admin
+    request.params.userName !== request.user?.userName &&
+    request.user?.role !== Role.Admin
   ) {
     throw 'unauthorized';
   }
 
-  const account = await accountService.update(request.params.id, request.body);
+  const account = await accountService.update(
+    request.params.userName,
+    request.body
+  );
   response.json(account);
 }
 
 async function _delete(request, response, next) {
   // users can delete their own account and admins can delete any account
   if (
-    request.params.id !== request.user.id &&
-    request.user.role !== Role.Admin
+    request.params.userName !== request.user?.userName &&
+    request.user?.role !== Role.Admin
   ) {
     throw 'unauthorized';
   }
 
-  await accountService.delete(request.params.id);
+  await accountService.delete(request.params.userName);
   response.json({ message: 'account deleted successfully' });
 }
 

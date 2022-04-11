@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { createContext, useContext, useState } from 'react';
 
 const ContextGlobal = createContext(null);
@@ -23,6 +22,7 @@ const valueDefault = {
   name: 'Anon',
   stateApp: 'preLobby',
   msgPopup: null,
+  pathBeforeLogin: null,
 };
 // stateApp has the following possible values
 // preLobby, lobby, countdown, game, gameOver

@@ -1,14 +1,14 @@
-import { Suspense, useLayoutEffect } from 'react';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // shared components
-import WrapperApp from './components/WrapperApp';
-import WrapperPage from './components/WrapperPage';
-import Nav from './components/Nav';
-import ErrorBoundary from './components/ErrorBoundary';
-import ErrorRouteFallback from './components/ErrorRouteFallback';
-import Loader from './components/Loader';
-import Popup from './components/Popup';
+import WrapperApp from './components/WrapperApp/WrapperApp';
+import WrapperPage from './components/WrapperPage/WrapperPage';
+import Nav from './components/Nav/Nav';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import ErrorRouteFallback from './components/ErrorRouteFallback/ErrorRouteFallback';
+import Loader from './components/Loader/Loader';
+import Popup from './components/Popup/Popup';
 import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
 import { ProviderLobby } from './providers/ProviderLobby';
@@ -16,9 +16,9 @@ import { ProviderGlobal } from './providers/ProviderGlobal';
 import { ProviderAuth } from './providers/ProviderAuth';
 import { ProviderTheme } from './providers/ProviderTheme';
 
-// scss styles
+// styles
 import './styles/index.scss';
-import OverlayPhone from './components/OverlayPhone';
+import OverlayPhone from './components/OverlayPhone/OverlayPhone';
 
 const App = () => (
   <ProviderGlobal>

@@ -8,22 +8,19 @@ import { useContextWebsocket } from '../../../../../providers/ProviderWebsocket'
 
 /**
  * Listens and reacts to all the server-sent websocket messages intended for
- * the application in the 'preLobby' game state.
+ * the application in the 'preLobby' application state.
  */
 const usePreLobbyWsEvents = () => {
   const navigate = useNavigate();
-  const [global, setGlobal] = useContextGlobal();
+  const [{ stateApp }, setGlobal] = useContextGlobal();
   const [, setLobby] = useContextLobby();
   const { message, resetMessage } = useContextWebsocket();
 
-  const { stateApp } = global;
-  const { event, success, idLobby } = message;
+  const { event, success, idLobby, name } = message;
 
   const isStateAppPreLobby = stateApp === 'preLobby';
 
   useEffect(() => {
-    const { name } = message;
-
     // receveied by the player who attempted to create a lobby
     if (isStateAppPreLobby && success && event === 'create') {
       console.log('EVENT: create');

@@ -2,12 +2,12 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // shared components
-import ErrorBoundary from '../../components/ErrorBoundary';
-import ErrorRouteFallback from '../../components/ErrorRouteFallback';
-import Loader from '../../components/Loader';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
+import ErrorRouteFallback from '../../components/ErrorRouteFallback/ErrorRouteFallback';
+import Loader from '../../components/Loader/Loader';
 
 // local components
-import Customization from './components/Customization';
+import Customization from './components/Customization/Customization';
 
 // styles
 import styles from './PageIndex.module.scss';

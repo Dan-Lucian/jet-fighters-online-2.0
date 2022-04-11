@@ -119,7 +119,7 @@ describe('Registration', () => {
       expect(accountsFromDb).toHaveLength(0);
     });
 
-    test.only('should return 400 if any essential data invalid', async () => {
+    test('should return 400 if any essential data invalid', async () => {
       const passwordTooShort = copyObj(accountRegistration);
       passwordTooShort.password = '1234567';
       await api.post('/accounts/register').send(passwordTooShort).expect(400);
@@ -679,10 +679,10 @@ describe('Viewing the accounts', () => {
     });
   });
 
-  describe('GET /accounts/:id', () => {
-    test('should return account if user requests his own account', async () => {
+  describe('GET /accounts/:userName', () => {
+    test('should return full info if user requests his own account', async () => {
       const response = await api
-        .get(`/accounts/${accountTwo._id}`)
+        .get(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .expect(200);
 
@@ -693,9 +693,9 @@ describe('Viewing the accounts', () => {
       });
     });
 
-    test('should return account if admin requests any account', async () => {
+    test('should return full info if request by admin', async () => {
       const response = await api
-        .get(`/accounts/${accountTwo._id}`)
+        .get(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .expect(200);
 
@@ -706,41 +706,58 @@ describe('Viewing the accounts', () => {
       });
     });
 
-    test('should return 400 if invalid or missing jwt is sent in Auth header', async () => {
+    test('should return partial info if invalid or missing jwt in Auth header', async () => {
       const responseToInvalidJwt = await api
-        .get(`/accounts/${accountOne._id}`)
+        .get(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer invalid_jwt_token`)
-        .expect(400);
+        .expect(200);
 
       const responseToMissingJwt = await api
-        .get(`/accounts/${accountOne._id}`)
-        .expect(400);
+        .get(`/accounts/${accountTwo.userName}`)
+        .expect(200);
 
-      expect(responseToInvalidJwt.body).toEqual({ message: 'invalid token' });
-      expect(responseToMissingJwt.body).toEqual({ message: 'invalid token' });
+      expect(responseToInvalidJwt.body).toMatchObject({
+        id: accountTwo._id,
+        userName: accountTwo.userName,
+      });
+      expect(responseToInvalidJwt.body.email).toBeUndefined();
+
+      expect(responseToMissingJwt.body).toMatchObject({
+        id: accountTwo._id,
+        userName: accountTwo.userName,
+      });
+      expect(responseToMissingJwt.body.email).toBeUndefined();
     });
 
-    test('should return 401 if jwt token is expired', async () => {
+    test('should return partial info if jwt token is expired', async () => {
       const response = await api
-        .get(`/accounts/${accountOne._id}`)
+        .get(`/accounts/${accountOne.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
-        .expect(401);
+        .expect(200);
 
-      expect(response.body).toEqual({ message: 'expired token' });
+      expect(response.body).toMatchObject({
+        id: accountOne._id,
+        userName: accountOne.userName,
+      });
+      expect(response.body.email).toBeUndefined();
     });
 
-    test('should return 401 if user requests not his account', async () => {
+    test('should return partial info if user requests not his account', async () => {
       const response = await api
-        .get(`/accounts/${accountOne._id}`)
+        .get(`/accounts/${accountOne.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
-        .expect(401);
+        .expect(200);
 
-      expect(response.body).toEqual({ message: 'unauthorized' });
+      expect(response.body).toMatchObject({
+        id: accountOne._id,
+        userName: accountOne.userName,
+      });
+      expect(response.body.email).toBeUndefined();
     });
 
     test('should return 404 if no such account in db', async () => {
       const response = await api
-        .get(`/accounts/${await getANonExistingId()}`)
+        .get('/accounts/noSuchUser')
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .expect(404);
 
@@ -757,7 +774,7 @@ describe('Manipulating accounts', () => {
   describe('PUT /accounts/:id', () => {
     test('should update account if user changes his own account', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({ userName: 'new_userName' })
         .expect(200);
@@ -777,16 +794,16 @@ describe('Manipulating accounts', () => {
       });
     });
 
-    test('should update account if admin requests any account', async () => {
+    test('should update account if request by admin', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
-        .send({ userName: 'new_userName_changed_by_admin' })
+        .send({ userName: 'changed by mod' })
         .expect(200);
 
       expect(response.body).toMatchObject({
         id: accountTwo._id,
-        userName: 'new_userName_changed_by_admin',
+        userName: 'changed by mod',
         email: accountTwo.email,
       });
 
@@ -794,14 +811,14 @@ describe('Manipulating accounts', () => {
         email: accountTwo.email,
       });
       expect(accountFromDb).toMatchObject({
-        userName: 'new_userName_changed_by_admin',
+        userName: 'changed by mod',
         email: accountTwo.email,
       });
     });
 
     test('should hash the password if password changed', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({ password: '87654321', passwordConfirm: '87654321' })
         .expect(200);
@@ -830,7 +847,7 @@ describe('Manipulating accounts', () => {
 
     test('should apply role change if admin', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .send({ role: role.Admin })
         .expect(200);
@@ -854,7 +871,7 @@ describe('Manipulating accounts', () => {
 
     test('should ignore if user attempts to change role', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({ role: role.Admin })
         .expect(200);
@@ -878,13 +895,13 @@ describe('Manipulating accounts', () => {
 
     test('should return 400 if invalid or missing jwt is sent in Auth header', async () => {
       const responseToInvalidJwt = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer invalid_jwt_token`)
         .send({ userName: 'new_userName' })
         .expect(400);
 
       const responseToMissingJwt = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .send({ userName: 'new_userName' })
         .expect(400);
 
@@ -894,7 +911,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 401 if jwt token is expired', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
         .send({ userName: 'new_userName' })
         .expect(401);
@@ -904,7 +921,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 401 if user changes not his own account', async () => {
       const response = await api
-        .put(`/accounts/${accountOne._id}`)
+        .put(`/accounts/${accountOne.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({ userName: 'new_userName' });
 
@@ -913,9 +930,9 @@ describe('Manipulating accounts', () => {
 
     test('should return 404 if no account in db', async () => {
       const response = await api
-        .put(`/accounts/${await getANonExistingId()}`)
+        .put('/accounts/noSuchUserName')
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
-        .send({ userName: 'new_userName_changed_by_admin' })
+        .send({ userName: 'new_userName' })
         .expect(404);
 
       expect(response.body).toMatchObject({ message: 'account not found' });
@@ -923,7 +940,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 400 if userName already taken', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .send({ userName: accountOne.userName })
         .expect(400);
@@ -935,7 +952,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 400 if email already taken', async () => {
       const response = await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .send({ email: accountOne.email })
         .expect(400);
@@ -947,7 +964,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 400 if password too short', async () => {
       await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({ password: '7654321', passwordConfirm: '7654321' })
         .expect(400);
@@ -960,7 +977,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 400 if passwords mismatch', async () => {
       await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({
           password: '97654321',
@@ -969,7 +986,7 @@ describe('Manipulating accounts', () => {
         .expect(400);
 
       await api
-        .put(`/accounts/${accountTwo._id}`)
+        .put(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send({
           password: '87654321',
@@ -984,10 +1001,10 @@ describe('Manipulating accounts', () => {
     });
   });
 
-  describe('DELETE /accounts/:id', () => {
+  describe('DELETE /accounts/:userName', () => {
     test('should delete account if user deletes his own account', async () => {
       const response = await api
-        .delete(`/accounts/${accountTwo._id}`)
+        .delete(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .expect(200);
 
@@ -1001,9 +1018,9 @@ describe('Manipulating accounts', () => {
       expect(accountFromDb).toBeNull();
     });
 
-    test('should update account if admin requests any account', async () => {
+    test('should update account if request by admin', async () => {
       const response = await api
-        .delete(`/accounts/${accountTwo._id}`)
+        .delete(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .expect(200);
 
@@ -1017,14 +1034,14 @@ describe('Manipulating accounts', () => {
       expect(accountFromDb).toBeNull();
     });
 
-    test('should return 400 if invalid or missing jwt is sent in Auth header', async () => {
+    test('should return 400 if invalid or missing jwt in Auth header', async () => {
       const responseToInvalidJwt = await api
-        .delete(`/accounts/${accountTwo._id}`)
+        .delete(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer invalid_jwt_token`)
         .expect(400);
 
       const responseToMissingJwt = await api
-        .delete(`/accounts/${accountTwo._id}`)
+        .delete(`/accounts/${accountTwo.userName}`)
         .expect(400);
 
       expect(responseToInvalidJwt.body).toEqual({ message: 'invalid token' });
@@ -1033,7 +1050,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 401 if jwt token is expired', async () => {
       const response = await api
-        .delete(`/accounts/${accountTwo._id}`)
+        .delete(`/accounts/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
         .expect(401);
 
@@ -1042,7 +1059,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 401 if user deletes not his own account', async () => {
       const response = await api
-        .delete(`/accounts/${accountOne._id}`)
+        .delete(`/accounts/${accountOne.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`);
 
       expect(response.body).toEqual({ message: 'unauthorized' });
@@ -1050,7 +1067,7 @@ describe('Manipulating accounts', () => {
 
     test('should return 404 if no account in db', async () => {
       const response = await api
-        .delete(`/accounts/${await getANonExistingId()}`)
+        .delete(`/accounts/noSuchUserName`)
         .set('Authorization', `bearer ${tokenJwtAccountAdmin}`)
         .expect(404);
 
