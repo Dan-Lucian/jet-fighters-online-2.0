@@ -5,10 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContextAuth } from '../../providers/ProviderAuth';
 
 // shared components
-import FormAuth from '../../components/FormAuth';
-import InputAuth from '../../components/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit';
-import Loader from '../../components/Loader';
+import FormAuth from '../../components/FormAuth/FormAuth';
+import InputAuth from '../../components/InputAuth/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
+import Loader from '../../components/Loader/Loader';
 
 // styles
 import styles from './PageLogin.module.scss';

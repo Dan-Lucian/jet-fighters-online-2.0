@@ -2,14 +2,14 @@
 import usePreLobbyWsEvents from './hooks/usePreLobbyWsEvents';
 
 // local components
-import StatusCreate from './components/StatusCreate';
-import StatusJoin from './components/StatusJoin';
-import BtnCreate from './components/BtnCreate';
-import BtnJoin from './components/BtnJoin';
-import StatusWs from './components/StatusWs';
-import FormId from './components/FormId';
+import StatusCreate from './components/StatusCreate/StatusCreate';
+import StatusJoin from './components/StatusJoin/StatusJoin';
+import BtnCreate from './components/BtnCreate/BtnCreate';
+import BtnJoin from './components/BtnJoin/BtnJoin';
+import StatusWs from './components/StatusWs/StatusWs';
+import FormId from './components/FormId/FormId';
 
-// styles
+// stylesw
 import styles from './PreLobby.module.scss';
 
 const PreLobby = () => {

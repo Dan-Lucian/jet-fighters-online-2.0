@@ -10,11 +10,11 @@ import useAsync from '../../hooks/useAsync';
 import accountService from '../../services/account.service';
 
 // shared components
-import PageNonexistent from '../../components/PageNonexistent';
-import Loader from '../../components/Loader';
+import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
+import Loader from '../../components/Loader/Loader';
 
 // local components
-import JetFav from './components/JetFav';
+import JetFav from './components/JetFav/JetFav';
 
 // utils
 import getFormattedTime from './utils/getFormatedTime';

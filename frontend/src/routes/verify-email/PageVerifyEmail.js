@@ -9,8 +9,8 @@ import useAsync from '../../hooks/useAsync';
 import accountService from '../../services/account.service';
 
 // shared components
-import PageNonexistent from '../../components/PageNonexistent';
-import Loader from '../../components/Loader';
+import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
+import Loader from '../../components/Loader/Loader';
 
 // styles
 import styles from './PageVerifyEmail.module.scss';

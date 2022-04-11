@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 // local components
-import Heading from './components/Heading';
+import Heading from './components/Heading/Heading';
 
 // styles
 import styles from './PageAbout.module.scss';

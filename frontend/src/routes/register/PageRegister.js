@@ -13,11 +13,11 @@ import { useContextGlobal } from '../../providers/ProviderGlobal';
 import accountService from '../../services/account.service';
 
 // shared components
-import FormAuth from '../../components/FormAuth';
-import InputAuth from '../../components/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit';
+import FormAuth from '../../components/FormAuth/FormAuth';
+import InputAuth from '../../components/InputAuth/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 import PageProfile from '../profile/PageProfile';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/Loader';
 
 const PageRegister = () => {
   const { account } = useContextAuth();

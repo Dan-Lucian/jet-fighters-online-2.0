@@ -2,7 +2,8 @@ import React, { lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import ScrollToTop from './components/ScrollToTop';
+// components
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import App from './App';
 import PageIndex from './routes/index/PageIndex';
 import PreLobby from './routes/index/routes/index/PreLobby';
@@ -23,7 +24,7 @@ const PageVerifyEmail = lazy(() =>
   import('./routes/verify-email/PageVerifyEmail')
 );
 const PageGame = lazy(() => import('./routes/game/PageGame'));
-const PageNonexistent = lazy(() => import('./components/PageNonexistent'));
+const PageNonexistent = lazy(() => import('./components/PageNonexistent/PageNonexistent'));
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {

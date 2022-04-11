@@ -7,9 +7,9 @@ import useAsync from '../../hooks/useAsync';
 import accountService from '../../services/account.service';
 
 // shared components
-import FormAuth from '../../components/FormAuth';
-import InputAuth from '../../components/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit';
+import FormAuth from '../../components/FormAuth/FormAuth';
+import InputAuth from '../../components/InputAuth/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 
 // styles
 import styles from './PageForgotPassword.module.scss';

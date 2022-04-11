@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import useQuery from '../../hooks/useQuery';
@@ -9,9 +9,9 @@ import useAsync from '../../hooks/useAsync';
 import accountService from '../../services/account.service';
 
 // shared components
-import FormAuth from '../../components/FormAuth';
-import InputAuth from '../../components/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit';
+import FormAuth from '../../components/FormAuth/FormAuth';
+import InputAuth from '../../components/InputAuth/InputAuth';
+import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 
 // styles
 import styles from './PageResetPassword.module.scss';
@@ -20,12 +20,7 @@ const PageResetPassword = () => {
   const tokenSaved = useRef(null);
   const query = useQuery();
   const navigate = useNavigate();
-  const {
-    data: dataReceived,
-    error,
-    status,
-    run,
-  } = useAsync({
+  const { run } = useAsync({
     status: 'idle',
   });
 
