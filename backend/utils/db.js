@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Account = require('../features/accounts/account.model');
+const Notification = require('../features/notifications/notification.model');
 const TokenRefresh = require('../features/accounts/token-refresh.model');
 const { MONGODB_URI } = require('../config/env');
 const logger = require('./logger');
@@ -15,6 +16,7 @@ mongoose
 
 module.exports = {
   Account,
+  Notification,
   TokenRefresh,
   isValidId,
 };
