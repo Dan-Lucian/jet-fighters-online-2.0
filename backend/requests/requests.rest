@@ -1,22 +1,25 @@
-GET http://localhost:3001
+GET http://localhost:3001/api/notifications/62322b7eccec63263eb134eb
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjRiMGRjZjFlZWY0Y2Y5MDQwY2ExMzgiLCJpZCI6IjYyNGIwZGNmMWVlZjRjZjkwNDBjYTEzOCIsInVzZXJOYW1lIjoiZGFuIiwiaWF0IjoxNjUwMTg2NTc5LCJleHAiOjE2NTAxODc0Nzl9.hdJ615lYs52dIVcS3c71TS9IBpU-KexX6Pd9rrg4xBQ
 ###
 
-POST http://localhost:3001/api/users
+POST http://localhost:3001/api/notifications
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjRiMGRjZjFlZWY0Y2Y5MDQwY2ExMzgiLCJpZCI6IjYyNGIwZGNmMWVlZjRjZjkwNDBjYTEzOCIsInVzZXJOYW1lIjoiZGFuIiwiaWF0IjoxNjUwMTg2NTc5LCJleHAiOjE2NTAxODc0Nzl9.hdJ615lYs52dIVcS3c71TS9IBpU-KexX6Pd9rrg4xBQ
 
 {
-  "username": "admin2",
-  "name": "Dan",
-  "password": "password"
+    "actor": "624b0dcf1eef4cf9040ca138",
+    "notifier": "62322b7eccec63263eb134eb",
+    "type": "friendRequest"
 }
 ###
 
-POST http://localhost:3001/api/login
+POST http://localhost:3001/accounts/authenticate
 Content-Type: application/json
 
 {
-  "username": "admin2",
-  "password": "password"
+  "email": "danugaina1403@gmail.com",
+  "password": "11111111"
 }
 ###
 

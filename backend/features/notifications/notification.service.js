@@ -1,4 +1,5 @@
 const db = require('../../utils/db');
+const TypeNotification = require('./type-notification');
 
 module.exports = {
   getByNotifierId,
@@ -14,10 +15,15 @@ async function getByNotifierId(id) {
 async function create(notification) {
   let notificationNew;
 
-  if (notification.type === 'friendRequest') {
+  if (notification.type === TypeNotification.friendRequest) {
     notificationNew = new db.Notification(notification);
     notificationNew.isRead = false;
   }
+
+  // TODO: handle event
+  // if (notification.type === TypeNotification.friendRequestResponse) {
+  // ...
+  // }
 
   await notificationNew.save();
 

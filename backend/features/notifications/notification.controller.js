@@ -13,6 +13,10 @@ router.get('/:id', authorize(Role.User), getByNotifierId);
 router.post('/', authorize(Role.User), schemaCreate, create);
 
 async function getByNotifierId(request, response, next) {
+  if (request.params.id !== request.user.id) {
+    throw 'unauthorized';
+  }
+
   const notifications = await notificationService.getByNotifierId(
     request.params.id
   );
@@ -36,7 +40,7 @@ function schemaCreate(request, response, next) {
     actor: Joi.string().required(),
     notifier: Joi.string().required(),
     type: Joi.string().required(),
-    content: Joi.string().required(),
+    content: Joi.string(),
     // role: Joi.string().valid(Role.Admin, Role.User).required(),
   });
   validateRequest(request, next, schema);
