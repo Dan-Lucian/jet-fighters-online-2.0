@@ -6,6 +6,7 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 
 // shared components
 import TogglerTheme from '../TogglerTheme/TogglerTheme';
+import Search from '../Search/Search';
 
 // styles
 import styles from './Nav.module.scss';
@@ -25,7 +26,6 @@ const Nav = () => {
       <Link to="/" className={styles.index}>
         Jet Fighters Online
       </Link>
-      <span className={styles.spacer} />
       {isStateAppGame && (
         <Link to="/game" className={styles.about}>
           Game
@@ -39,6 +39,8 @@ const Nav = () => {
       <Link to="/about" className={styles.about}>
         About
       </Link>
+      <span className={styles.spacer} />
+      <Search />
       {account && (
         <Link to={`/profile/${account.userName}`} className={styles.signin}>
           {account.userName}
