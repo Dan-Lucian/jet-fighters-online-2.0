@@ -764,6 +764,35 @@ describe('Viewing the accounts', () => {
       expect(response.body).toMatchObject({ message: 'account not found' });
     });
   });
+
+  describe('GET /accounts/many/:userName', () => {
+    test('should return many accounts without auth', async () => {
+      const partialUserName = accountTwo.userName.slice(0, 6);
+      const response = await api
+        .get(`/accounts/many/${partialUserName}`)
+        .expect(200);
+
+      expect(response.body).toHaveLength(4);
+    });
+
+    test('should return partial info', async () => {
+      const partialUserName = accountTwo.userName.slice(0, 6);
+      const response = await api
+        .get(`/accounts/many/${partialUserName}`)
+        .expect(200);
+
+      response.body.forEach((account) => {
+        expect(account.userName).toBeDefined();
+        expect(account.email).toBeUndefined();
+      });
+    });
+
+    test('should return 404 if no such account in db', async () => {
+      const response = await api.get('/accounts/many/noSuchUser').expect(404);
+
+      expect(response.body).toMatchObject({ message: 'account not found' });
+    });
+  });
 });
 
 describe('Manipulating accounts', () => {
