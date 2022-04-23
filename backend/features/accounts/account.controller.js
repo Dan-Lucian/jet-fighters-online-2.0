@@ -28,6 +28,7 @@ router.post(
 router.post('/reset-password', schemaResetPassword, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:userName', authorize(), getByUserName);
+router.get('/many/:userName', getManyByUserName);
 router.post('/', authorize(Role.Admin), schemaCreate, create);
 router.put(
   '/:userName',
@@ -197,6 +198,16 @@ async function getByUserName(request, response, next) {
   const account = await accountService.getByUserName(request.params.userName);
   if (account) {
     return response.json(account);
+  }
+  response.sendStatus(404);
+}
+
+async function getManyByUserName(request, response, next) {
+  const accounts = await accountService.getManyByUserName(
+    request.params.userName
+  );
+  if (accounts.length !== 0) {
+    return response.json(accounts);
   }
   response.sendStatus(404);
 }

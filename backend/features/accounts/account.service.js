@@ -18,6 +18,7 @@ module.exports = {
   resetPassword,
   getAll,
   getByUserName,
+  getManyByUserName,
   getByUserNameForStranger,
   create,
   update,
@@ -171,6 +172,11 @@ async function getByUserName(userName) {
   return getDetailsBasic(account);
 }
 
+async function getManyByUserName(userName) {
+  const accounts = await getManyAccountsByUsername(userName);
+  return getDetailsBasicFromMany(accounts);
+}
+
 async function getByUserNameForStranger(userName) {
   const account = await getAccountByUserName(userName);
   return getDetailsBasicForStranger(account);
@@ -246,6 +252,17 @@ async function getAccountByUserName(userName) {
   return account;
 }
 
+async function getManyAccountsByUsername(userName) {
+  if (!userName) throw 'account not found';
+
+  const regexp = new RegExp(userName, 'i');
+  const accounts = await db.Account.find({ userName: regexp });
+
+  if (accounts.length === 0) throw 'account not found';
+
+  return accounts;
+}
+
 async function getTokenRefreshFromDb(token) {
   const tokenRefresh = await db.TokenRefresh.findOne({ token }).populate(
     'account'
@@ -310,6 +327,17 @@ function getDetailsBasicForStranger(account) {
     userName,
     stats,
   };
+}
+
+// details that are sent to search bar
+function getDetailsBasicFromMany(accounts) {
+  const accountsFiltered = accounts.map((acc) => ({
+    id: acc.id,
+    userName: acc.userName,
+    stats: acc.stats,
+  }));
+
+  return accountsFiltered;
 }
 
 async function sendEmailVerification(account, origin) {
