@@ -10,9 +10,18 @@ const propTypes = {
   pattern: PropTypes.string,
   undertext: PropTypes.string,
   name: PropTypes.string.isRequired,
+  autocomplete: PropTypes.string,
 };
 
-const InputAuth = ({ id, type, label, undertext, pattern, name }) => (
+const InputAuth = ({
+  id,
+  type,
+  label,
+  undertext,
+  pattern,
+  name,
+  autocomplete,
+}) => (
   <div className={styles.wrapper}>
     <label className={styles.label} htmlFor={id}>
       {label}
@@ -25,6 +34,7 @@ const InputAuth = ({ id, type, label, undertext, pattern, name }) => (
         id={id}
         type={type}
         name={name}
+        autoComplete={autocomplete}
       />
       <p className={styles.undertext}>{undertext}</p>
     </div>

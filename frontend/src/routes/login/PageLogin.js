@@ -49,7 +49,13 @@ const PageLogin = () => {
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Login</h1>
       <FormAuth onSubmit={handleSubmit}>
-        <InputAuth id="email" label="Email" type="email" name="email" />
+        <InputAuth
+          id="email"
+          label="Email"
+          type="email"
+          name="email"
+          autocomplete="email"
+        />
         <InputAuth
           id="password"
           label="Password"
@@ -57,6 +63,7 @@ const PageLogin = () => {
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
           name="password"
+          autocomplete="current-password"
         />
         <div className={styles.wrapperLinks}>
           <Link to="/register" className={styles.link}>

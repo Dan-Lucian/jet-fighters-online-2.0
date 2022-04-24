@@ -66,7 +66,13 @@ const PageRegister = () => {
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Registration</h1>
       <FormAuth onSubmit={handleSubmit}>
-        <InputAuth id="email" label="Email" type="email" name="email" />
+        <InputAuth
+          id="email"
+          label="Email"
+          type="email"
+          name="email"
+          autocomplete="email"
+        />
         <InputAuth
           id="username"
           label="Username"
@@ -74,6 +80,7 @@ const PageRegister = () => {
           undertext="* 3-15 characters"
           pattern="^.{3,15}$"
           name="userName"
+          autocomplete="username"
         />
         <InputAuth
           id="password"
@@ -82,6 +89,7 @@ const PageRegister = () => {
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
           name="password"
+          autocomplete="new-password"
         />
         <InputAuth
           id="password-confirm"
@@ -89,6 +97,7 @@ const PageRegister = () => {
           type="password"
           pattern="^.{8,25}$"
           name="passwordConfirm"
+          autocomplete="new-password"
         />
         <div className={styles.wrapperLinks}>
           <Link to="/login" className={styles.link}>

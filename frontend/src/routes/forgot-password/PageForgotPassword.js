@@ -37,7 +37,13 @@ const PageForgotPassword = () => {
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Recovery</h1>
       <FormAuth onSubmit={handleSubmit}>
-        <InputAuth id="email" label="Email" type="email" name="email" />
+        <InputAuth
+          id="email"
+          label="Email"
+          type="email"
+          name="email"
+          autocomplete="email"
+        />
         <div className={styles.wrapperLinks}>
           <Link to="/login" className={styles.link}>
             Login
