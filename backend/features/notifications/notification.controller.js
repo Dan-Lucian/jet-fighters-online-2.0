@@ -9,23 +9,23 @@ const validateRequest = require('../../middleware/validate-request');
 const notificationService = require('./notification.service');
 
 // routes
-router.get('/:id', authorize(Role.User), getByNotifierId);
+router.get(
+  '/:userName',
+  authorize([Role.User, Role.Admin]),
+  getByNotifierUserName
+);
 router.post('/', authorize(Role.User), schemaCreate, create);
 
-async function getByNotifierId(request, response, next) {
-  if (request.params.id !== request.user.id) {
+async function getByNotifierUserName(request, response, next) {
+  if (request.params.userName !== request.user.userName) {
     throw 'unauthorized';
   }
 
-  const notifications = await notificationService.getByNotifierId(
-    request.params.id
+  const notifications = await notificationService.getByNotifierUserName(
+    request.params.userName
   );
 
-  if (notifications.length > 0) {
-    return response.json(notifications);
-  }
-
-  response.sendStatus(404);
+  return response.json(notifications);
 }
 
 async function create(request, response, next) {
@@ -41,7 +41,6 @@ function schemaCreate(request, response, next) {
     notifier: Joi.string().required(),
     type: Joi.string().required(),
     content: Joi.string(),
-    // role: Joi.string().valid(Role.Admin, Role.User).required(),
   });
   validateRequest(request, next, schema);
 }

@@ -1,4 +1,4 @@
 module.exports = {
-  friendRequest: 'friendRequest',
-  friendRequestResponse: 'friendRequestResponse',
+  friendRequest: 'friendshipRequest',
+  friendRequestResponse: 'friendshipRequestResponse',
 };

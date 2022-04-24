@@ -6,7 +6,7 @@ const { accountOne, accountTwo } = require('./account.fixture');
 class NotificationInDb {
   constructor({ notifier, type }) {
     this._id = mongoose.Types.ObjectId();
-    this.actor = mongoose.Types.ObjectId();
+    this.actor = 'some actor';
     this.notifier = notifier;
     this.type = type;
     this.isRead = false;
@@ -16,30 +16,30 @@ class NotificationInDb {
 
 const notificationsAccountOne = [
   new NotificationInDb({
-    notifier: accountOne._id,
+    notifier: accountOne.userName,
     type: TypeNotification.friendRequest,
   }),
   new NotificationInDb({
-    notifier: accountOne._id,
+    notifier: accountOne.userName,
     type: TypeNotification.friendRequestResponse,
   }),
 ];
 
 const notificationsAccountTwo = [
   new NotificationInDb({
-    notifier: accountTwo._id,
+    notifier: accountTwo.userName,
     type: TypeNotification.friendRequest,
   }),
 
   new NotificationInDb({
-    notifier: accountTwo._id,
+    notifier: accountTwo.userName,
     type: TypeNotification.friendRequestResponse,
   }),
 ];
 
 const notificationNew = {
-  actor: accountOne._id,
-  notifier: accountTwo._id,
+  actor: accountOne.userName,
+  notifier: accountTwo.userName,
   type: TypeNotification.friendRequest,
 };
 

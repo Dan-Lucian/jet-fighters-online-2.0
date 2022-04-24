@@ -1,18 +1,16 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
-
 // look up a notification db model
 // https://tannguyenit95.medium.com/designing-a-notification-system-1da83ca971bc
 
 const schemaNotification = mongoose.Schema({
   actor: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Account',
     required: true,
   },
   notifier: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Account',
     required: true,
   },

@@ -2,12 +2,12 @@ const db = require('../../utils/db');
 const TypeNotification = require('./type-notification');
 
 module.exports = {
-  getByNotifierId,
+  getByNotifierUserName,
   create,
 };
 
-async function getByNotifierId(id) {
-  const notifications = await getNotificationsByNotifierId(id);
+async function getByNotifierUserName(userName) {
+  const notifications = await getNotificationsByNotifierUserName(userName);
 
   return notifications;
 }
@@ -32,10 +32,10 @@ async function create(notification) {
 
 // helper functions
 
-async function getNotificationsByNotifierId(id) {
-  if (!id) throw 'notifications not found';
-  const notifications = await db.Notification.find({ notifier: id });
-  if (!notifications) throw 'notifications not found';
+async function getNotificationsByNotifierUserName(userName) {
+  if (!userName) throw 'notifications not found';
+  const notifications = await db.Notification.find({ notifier: userName });
+  if (notifications.length === 0) throw 'notifications not found';
 
   return notifications;
 }
