@@ -116,7 +116,7 @@ describe('Notifications', () => {
       const notificationsFromDb = await db.Notification.find({});
 
       expect(notificationsFromDb).toHaveLength(notificationsAll.length + 1);
-    }, 10000000);
+    });
 
     test('should return 400 if any essential data missing', async () => {
       const missingActor = copyObj(notificationNew);
@@ -180,6 +180,65 @@ describe('Notifications', () => {
       const lengthTotal =
         notificationsAccountOne.length + notificationsAccountTwo.length;
       expect(notificationsFromDb).toHaveLength(lengthTotal);
+    });
+  });
+
+  describe('POST /api/notifications/read/:id', () => {
+    const notification = notificationsAccountTwo[0];
+
+    test('should mark the notification as read', async () => {
+      const notificationFromDbBefore = await db.Notification.findById(
+        notification._id
+      );
+      expect(notificationFromDbBefore.isRead).toBe(false);
+
+      const response = await api
+        .post(`/api/notifications/read/${notification._id}`)
+        .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
+        .expect(200);
+
+      expect(response.body.isRead).toBe(true);
+
+      const notificationFromDbAfter = await db.Notification.findById(
+        notification._id
+      );
+
+      expect(notificationFromDbAfter.isRead).toBe(true);
+    });
+
+    test('should return 400 if invalid or missing jwt in Auth header', async () => {
+      const responseToInvalidJwt = await api
+        .post(`/api/notifications/read/${notification._id}`)
+        .set('Authorization', `bearer invalid_jwt_token`)
+        .expect(400);
+
+      const responseToMissingJwt = await api
+        .post(`/api/notifications/read/${notification._id}`)
+        .expect(400);
+
+      expect(responseToInvalidJwt.body).toEqual({ message: 'invalid token' });
+      expect(responseToMissingJwt.body).toEqual({ message: 'invalid token' });
+
+      const notificationFromDb = await db.Notification.findById(
+        notification._id
+      );
+
+      expect(notificationFromDb.isRead).toBe(false);
+    });
+
+    test('should return 401 if jwt token is expired', async () => {
+      const response = await api
+        .post(`/api/notifications/read/${notification._id}`)
+        .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
+        .expect(401);
+
+      expect(response.body).toEqual({ message: 'expired token' });
+
+      const notificationFromDb = await db.Notification.findById(
+        notification._id
+      );
+
+      expect(notificationFromDb.isRead).toBe(false);
     });
   });
 });
