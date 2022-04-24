@@ -11,6 +11,7 @@ const {
 const {
   tokenJwtAccountAdminExpired,
   tokenJwtAccountTwo,
+  tokenJwtAccountOne,
 } = require('../fixtures/token.fixture');
 const {
   notificationNew,
@@ -204,6 +205,21 @@ describe('Notifications', () => {
       );
 
       expect(notificationFromDbAfter.isRead).toBe(true);
+    });
+
+    test.only('should return 401 if not his notification', async () => {
+      const response = await api
+        .post(`/api/notifications/read/${notification._id}`)
+        .set('Authorization', `bearer ${tokenJwtAccountOne}`)
+        .expect(401);
+
+      expect(response.body).toEqual({ message: 'unauthorized' });
+
+      const notificationFromDb = await db.Notification.findById(
+        notification._id
+      );
+
+      expect(notificationFromDb.isRead).toBe(false);
     });
 
     test('should return 400 if invalid or missing jwt in Auth header', async () => {
