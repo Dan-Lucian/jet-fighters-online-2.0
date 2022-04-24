@@ -13,6 +13,7 @@ export default {
   update,
   refreshToken,
   getByUserName,
+  getManyByUserName,
   sendFriendRequest,
 };
 
@@ -79,6 +80,12 @@ function update(id, params) {
 function getByUserName(userName) {
   return axios
     .get(`${urlBase}/${userName}`, authorize())
+    .then((response) => response.data);
+}
+
+function getManyByUserName(userName) {
+  return axios
+    .get(`${urlBase}/many/${userName}`)
     .then((response) => response.data);
 }
 
