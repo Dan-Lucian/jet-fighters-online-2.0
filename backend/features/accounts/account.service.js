@@ -256,7 +256,9 @@ async function getManyAccountsByUsername(userName) {
   if (!userName) throw 'account not found';
 
   const regexp = new RegExp(userName, 'i');
-  const accounts = await db.Account.find({ userName: regexp });
+  const accounts = await db.Account.find({ userName: regexp })
+    .sort({ userName: 1 })
+    .limit(10);
 
   if (accounts.length === 0) throw 'account not found';
 
