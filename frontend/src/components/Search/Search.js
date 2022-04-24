@@ -72,6 +72,7 @@ const Search = () => {
           height="22px"
           src={srcMagnifyingGlass}
           alt="magnifying glass"
+          className={styles.icon}
         />
       </button>
       <form onSubmit={handleSubmit}>

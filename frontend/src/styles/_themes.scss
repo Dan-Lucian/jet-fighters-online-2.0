@@ -19,6 +19,12 @@ body {
   --color-blue: #3394fe;
   --color-blue-dark: #0061cb;
   --color-shadow: rgba(0, 0, 0, 0.2);
+
+  // generated from --color-text on https://codepen.io/sosuke/pen/Pjoqqp
+  // accuracy < 0.0
+  // brightness(0) saturate(100%) prepended to convert icon to black
+  --color-icon: brightness(0) saturate(100%) invert(45%) sepia(0%) saturate(0%)
+    hue-rotate(227deg) brightness(93%) contrast(95%);
 }
 
 [data-theme='dark'] {
@@ -32,6 +38,7 @@ body {
   --color-blue: #0079fe;
   --color-blue-dark: #004998;
   --color-shadow: rgba(0, 0, 0, 0.2);
+  --color-icon: initial;
 }
 
 // scrollbar color

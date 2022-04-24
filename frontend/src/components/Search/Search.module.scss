@@ -26,6 +26,10 @@
   }
 }
 
+.icon {
+  filter: var(--color-icon);
+}
+
 .search {
   background: none;
   border: none;
