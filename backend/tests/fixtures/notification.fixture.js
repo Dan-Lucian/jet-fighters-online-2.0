@@ -17,30 +17,30 @@ class NotificationInDb {
 const notificationsAccountOne = [
   new NotificationInDb({
     notifier: accountOne.userName,
-    type: TypeNotification.friendRequest,
+    type: TypeNotification.friendshipRequest,
   }),
   new NotificationInDb({
     notifier: accountOne.userName,
-    type: TypeNotification.friendRequestResponse,
+    type: TypeNotification.friendshipResponse,
   }),
 ];
 
 const notificationsAccountTwo = [
   new NotificationInDb({
     notifier: accountTwo.userName,
-    type: TypeNotification.friendRequest,
+    type: TypeNotification.friendshipRequest,
   }),
 
   new NotificationInDb({
     notifier: accountTwo.userName,
-    type: TypeNotification.friendRequestResponse,
+    type: TypeNotification.friendshipResponse,
   }),
 ];
 
 const notificationNew = {
   actor: accountOne.userName,
   notifier: accountTwo.userName,
-  type: TypeNotification.friendRequest,
+  type: TypeNotification.friendshipRequest,
 };
 
 const insertNotifications = async (notifications) => {
