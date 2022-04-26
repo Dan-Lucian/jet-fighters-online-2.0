@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 // utils
 import timeAgo from '../../utils/timeAgo';
 
+import styles from './TimeAgo.module.scss';
+
 const propTypes = {
   timestamp: PropTypes.string.isRequired,
 };
 
 const TimeAgo = ({ timestamp }) => (
-  <span title={timestamp}>
-    <i>{timeAgo(timestamp)}</i>
+  <span className={styles.wrapper} title={timestamp}>
+    {timeAgo(timestamp)}
   </span>
 );
 

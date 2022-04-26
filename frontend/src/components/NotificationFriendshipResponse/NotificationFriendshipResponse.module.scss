@@ -1,0 +1,17 @@
+.wrapper {
+  background: var(--color-bg-primary);
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 0.5em;
+}
+
+.link {
+  color: var(--color-blue);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-blue-dark);
+  }
+}

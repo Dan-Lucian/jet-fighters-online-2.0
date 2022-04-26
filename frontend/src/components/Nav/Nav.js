@@ -7,6 +7,7 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 // shared components
 import TogglerTheme from '../TogglerTheme/TogglerTheme';
 import Search from '../Search/Search';
+import Notifications from '../Notifications/Notifications';
 
 // styles
 import styles from './Nav.module.scss';
@@ -41,6 +42,7 @@ const Nav = () => {
       </Link>
       <span className={styles.spacer} />
       <Search />
+      <Notifications />
       {account && (
         <Link to={`/profile/${account.userName}`} className={styles.signin}>
           {account.userName}

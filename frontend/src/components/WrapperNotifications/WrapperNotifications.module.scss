@@ -1,0 +1,29 @@
+.wrapperNotifications {
+  padding: 1em 0.5em;
+  background: var(--color-bg-secondary);
+  position: absolute;
+  top: 110%;
+  left: -8em;
+  right: -8em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 5px var(--color-shadow);
+  font-size: 0.9em;
+}
+
+.noNotifications {
+  font-style: italic;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.wrapperHeading {
+  padding-left: 0.5em;
+}
+
+.textHeading {
+  font-size: 1.5em;
+}
