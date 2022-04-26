@@ -15,16 +15,18 @@ const {
 } = require('../fixtures/token.fixture');
 const {
   notificationNew,
-  notificationsAccountOne,
-  notificationsAccountTwo,
+  notificationsUnreadAccountOne,
+  notificationsUnreadAccountTwo,
+  notificationsRead,
   insertNotifications,
 } = require('../fixtures/notification.fixture');
 const { copyObj } = require('../helpers');
 
 const api = supertest(app);
 
-const notificationsAll = notificationsAccountOne.concat(
-  notificationsAccountTwo
+const notificationsAll = notificationsUnreadAccountOne.concat(
+  notificationsUnreadAccountTwo,
+  notificationsRead
 );
 
 beforeEach(async () => {
@@ -41,22 +43,22 @@ afterAll(() => {
 
 describe('Notifications', () => {
   describe('GET /api/notifications/:userName', () => {
-    test('should return all notifications if user requests his notifications', async () => {
+    test('should return max 10 unread notifications if user requests his notifications', async () => {
       const response = await api
         .get(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .expect(200);
 
-      expect(response.body).toHaveLength(2);
-      expect(response.body[0]).toMatchObject({
-        actor: notificationsAccountTwo[0].actor,
-        notifier: notificationsAccountTwo[0].notifier,
-        type: notificationsAccountTwo[0].type,
-      });
-      expect(response.body[1]).toMatchObject({
-        actor: notificationsAccountTwo[1].actor,
-        notifier: notificationsAccountTwo[1].notifier,
-        type: notificationsAccountTwo[1].type,
+      expect(response.body).toHaveLength(notificationsUnreadAccountTwo.length);
+      expect(response.body.length).toBeLessThan(11);
+
+      response.body.forEach((notification, idx) => {
+        expect(notification).toMatchObject({
+          actor: notificationsUnreadAccountTwo[idx].actor,
+          notifier: notificationsUnreadAccountTwo[idx].notifier,
+          type: notificationsUnreadAccountTwo[idx].type,
+          isRead: false,
+        });
       });
     });
 
@@ -146,7 +148,9 @@ describe('Notifications', () => {
 
       const notificationsFromDb = await db.Notification.find({});
       const lengthTotal =
-        notificationsAccountOne.length + notificationsAccountTwo.length;
+        notificationsUnreadAccountOne.length +
+        notificationsUnreadAccountTwo.length +
+        notificationsRead.length;
       expect(notificationsFromDb).toHaveLength(lengthTotal);
     });
 
@@ -165,7 +169,9 @@ describe('Notifications', () => {
 
       const notificationsFromDb = await db.Notification.find({});
       const lengthTotal =
-        notificationsAccountOne.length + notificationsAccountTwo.length;
+        notificationsUnreadAccountOne.length +
+        notificationsUnreadAccountTwo.length +
+        notificationsRead.length;
       expect(notificationsFromDb).toHaveLength(lengthTotal);
     });
 
@@ -179,13 +185,15 @@ describe('Notifications', () => {
 
       const notificationsFromDb = await db.Notification.find({});
       const lengthTotal =
-        notificationsAccountOne.length + notificationsAccountTwo.length;
+        notificationsUnreadAccountOne.length +
+        notificationsUnreadAccountTwo.length +
+        notificationsRead.length;
       expect(notificationsFromDb).toHaveLength(lengthTotal);
     });
   });
 
   describe('POST /api/notifications/read/:id', () => {
-    const notification = notificationsAccountTwo[0];
+    const notification = notificationsUnreadAccountTwo[0];
 
     test('should mark the notification as read', async () => {
       const notificationFromDbBefore = await db.Notification.findById(
@@ -207,7 +215,7 @@ describe('Notifications', () => {
       expect(notificationFromDbAfter.isRead).toBe(true);
     });
 
-    test.only('should return 401 if not his notification', async () => {
+    test('should return 401 if not his notification', async () => {
       const response = await api
         .post(`/api/notifications/read/${notification._id}`)
         .set('Authorization', `bearer ${tokenJwtAccountOne}`)
