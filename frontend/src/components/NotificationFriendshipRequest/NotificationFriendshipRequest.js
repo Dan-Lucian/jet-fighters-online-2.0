@@ -10,13 +10,13 @@ import TimeAgo from '../TimeAgo/TimeAgo';
 const propTypes = {
   notification: PropTypes.object.isRequired,
   tokenJwt: PropTypes.string.isRequired,
-  removeNotification: PropTypes.func.isRequired,
+  deleteNotification: PropTypes.func.isRequired,
 };
 
 const NotificationFriendshipRequest = ({
   notification,
   tokenJwt,
-  removeNotification,
+  deleteNotification,
 }) => {
   const { actor, created } = notification;
 

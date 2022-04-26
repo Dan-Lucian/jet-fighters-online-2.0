@@ -14,18 +14,18 @@ import ButtonCloseNotification from '../ButtonCloseNotification/ButtonCloseNotif
 const propTypes = {
   notification: PropTypes.object.isRequired,
   tokenJwt: PropTypes.string.isRequired,
-  removeNotification: PropTypes.func.isRequired,
+  deleteNotification: PropTypes.func.isRequired,
 };
 const NotificationFriendshipResponse = ({
   notification,
   tokenJwt,
-  removeNotification,
+  deleteNotification,
 }) => {
   const { actor, created, id } = notification;
 
   const handleClick = () => {
     notificationService.markNotificationAsRead(tokenJwt, id);
-    removeNotification(id);
+    deleteNotification(id);
   };
 
   return (

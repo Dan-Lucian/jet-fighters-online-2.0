@@ -21,7 +21,7 @@ const propTypes = {
 
 const NotificationController = ({ notification }) => {
   const { account } = useContextAuth();
-  const { removeNotification } = useContextNotifications();
+  const { deleteNotification } = useContextNotifications();
 
   const { type } = notification;
   const { tokenJwt } = account;
@@ -31,7 +31,7 @@ const NotificationController = ({ notification }) => {
       <NotificationFriendshipRequest
         notification={notification}
         tokenJwt={tokenJwt}
-        removeNotification={removeNotification}
+        deleteNotification={deleteNotification}
       />
     );
 
@@ -40,7 +40,7 @@ const NotificationController = ({ notification }) => {
       <NotificationFriendshipResponse
         notification={notification}
         tokenJwt={tokenJwt}
-        removeNotification={removeNotification}
+        deleteNotification={deleteNotification}
       />
     );
 
@@ -49,7 +49,7 @@ const NotificationController = ({ notification }) => {
       <NotificationText
         notification={notification}
         tokenJwt={tokenJwt}
-        removeNotification={removeNotification}
+        deleteNotification={deleteNotification}
       />
     );
 
@@ -58,7 +58,7 @@ const NotificationController = ({ notification }) => {
       <NotificationText
         notification={notification}
         tokenJwt={tokenJwt}
-        removeNotification={removeNotification}
+        deleteNotification={deleteNotification}
       />
     );
 
