@@ -8,6 +8,7 @@ import useAsync from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';
+import notificationService from '../../services/notification.service';
 
 // shared components
 import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
@@ -25,6 +26,7 @@ import styles from './PageProfile.module.scss';
 
 // assets
 import { typesJet } from '../../config/typesJet';
+import typesNotifications from '../../utils/type-notification';
 
 const PageProfile = () => {
   const [global, setGlobal] = useContextGlobal();
@@ -59,9 +61,19 @@ const PageProfile = () => {
       setGlobal({ ...global, pathBeforeLogin: pathname });
       return;
     }
+    // TODO:
     // if acc not logged prompt to register or login
     // make lobby entry error to show error popup
+    // after login/register redirect to this page
     accountService.sendFriendRequest(dataReceived.userName);
+    notificationService.createNotification(
+      account.tokenJwt,
+      typesNotifications.featureNotReady
+    );
+    setGlobal({
+      ...global,
+      msgPopup: `We're still working on the friendship feature, thanks for your patience.`,
+    });
   };
 
   return (
