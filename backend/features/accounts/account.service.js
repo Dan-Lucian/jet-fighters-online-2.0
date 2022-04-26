@@ -62,6 +62,8 @@ async function verifyEmail({ token }) {
   account.verified = Date.now();
   account.verificationToken = undefined;
   await account.save();
+
+  return account;
 }
 
 async function authenticate({ email, password, ipAddress }) {
