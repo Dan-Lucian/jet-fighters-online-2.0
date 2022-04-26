@@ -15,6 +15,7 @@ router.get(
   getByNotifierUserName
 );
 router.post('/', authorize(Role.User), schemaCreate, create);
+router.post('/read', authorize(Role.User), markManyAsRead);
 router.post('/read/:id', authorize(Role.User), markAsRead);
 
 async function getByNotifierUserName(request, response, next) {
@@ -50,6 +51,16 @@ async function markAsRead(request, response, next) {
   // userName passed for the ownership check
   const notification = await notificationService.markAsRead(
     request.params.id,
+    request.user.userName
+  );
+
+  return response.json(notification);
+}
+
+async function markManyAsRead(request, response, next) {
+  // userName passed for the ownership check
+  const notification = await notificationService.markManyAsRead(
+    request.body,
     request.user.userName
   );
 

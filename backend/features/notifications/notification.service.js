@@ -5,14 +5,18 @@ module.exports = {
   getByNotifierUserName,
   create,
   markAsRead,
+  markManyAsRead,
 };
 
 async function getByNotifierUserName(userName) {
   if (!userName) throw 'notifications not found';
 
-  const notifications = await db.Notification.find({ notifier: userName }).sort(
-    { created: 1 }
-  );
+  const notifications = await db.Notification.find({
+    notifier: userName,
+    isRead: false,
+  })
+    .sort({ created: 1 })
+    .limit(10);
   if (notifications.length === 0) throw 'notifications not found';
 
   return notifications;
@@ -47,4 +51,30 @@ async function markAsRead(id, userName) {
   await notification.save();
 
   return notification;
+}
+
+async function markManyAsRead(ids, userName) {
+  if (!ids) throw 'notifications not found';
+
+  const notifications = await db.Notification.findManyByIds(ids);
+
+  notifications.forEach((notification) => {
+    if (!notification) throw 'notifications not found';
+    if (notification.notifier !== userName) throw 'unauthorized';
+  });
+
+  const notificationsModified = await Promise.all(
+    notifications.map((notification) => {
+      const makePromise = async () => {
+        notification.isRead = true;
+        await notification.save();
+
+        return notification;
+      };
+
+      return makePromise();
+    })
+  );
+
+  return notificationsModified;
 }
