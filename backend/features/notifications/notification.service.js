@@ -23,18 +23,12 @@ async function getByNotifierUserName(userName) {
 }
 
 async function create(notification) {
-  let notificationNew;
+  if (!Object.values(TypeNotification).includes(notification.type))
+    throw 'notification type not found';
 
-  if (notification.type === TypeNotification.friendshipRequest) {
-    notificationNew = new db.Notification(notification);
-    notificationNew.isRead = false;
-  }
+  const notificationNew = new db.Notification(notification);
 
-  // TODO: handle event
-  // if (notification.type === TypeNotification.friendshipResponse) {
-  // ...
-  // }
-
+  notificationNew.isRead = false;
   await notificationNew.save();
 
   return notificationNew;
