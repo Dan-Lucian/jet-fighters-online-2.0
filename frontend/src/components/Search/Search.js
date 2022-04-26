@@ -35,7 +35,7 @@ const Search = () => {
     [textSearch]
   );
 
-  const handleClickGlass = () => {
+  const handleClickIcon = () => {
     toggleIsVisibleSearch();
     if (!isVisibleSearch) refSearch.current.focus();
   };
@@ -64,7 +64,7 @@ const Search = () => {
       <button
         ref={refButton}
         className={styles.button}
-        onClick={handleClickGlass}
+        onClick={handleClickIcon}
         type="button"
       >
         <img
