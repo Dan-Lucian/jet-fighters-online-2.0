@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 
 // shared hooks
 import useToggle from '../../hooks/useToggle';
@@ -19,57 +19,76 @@ import styles from './Notifications.module.scss';
 import WrapperNotifications from '../WrapperNotifications/WrapperNotifications';
 import { ProviderNotifications } from '../../providers/ProviderNotifications';
 
+const MS_DELAY = 30000;
+
 const Notifications = () => {
+  // keeps track of deleted notifications
+  const idNotificationsRemoved = useRef([]);
+  // keeps track of the last valid array of notifications because
+  // during pending data is null
+  const notificationsPrevious = useRef([]);
+  const [isActive, toggleIsActive] = useToggle(false);
+  const { account } = useContextAuth();
+  const [ref, isClickOutside] = useOutsideClick();
   const {
     data: notificationsReceived,
     setData: setNotificationsReceived,
     run,
-  } = useAsync();
-  const [isActive, toggleIsActive] = useToggle(false);
-  const { account } = useContextAuth();
-  const [ref, isClickOutside] = useOutsideClick();
+  } = useAsync({ status: 'idle', data: [] });
 
-  // TODO:
-  // periodic requests
+  // sets up the periodic notification fetching
+  useEffect(() => {
+    if (!account) {
+      setNotificationsReceived([]);
+      notificationsPrevious.current = [];
+      return;
+    }
+
+    run(notificationService.getNotifications(account.tokenJwt));
+
+    const interval = setInterval(() => {
+      run(notificationService.getNotifications(account.tokenJwt));
+    }, MS_DELAY);
+
+    return () => clearInterval(interval);
+  }, [account, run, setNotificationsReceived]);
+
+  // closes the menu if click outside happened
   useEffect(() => {
     if (isClickOutside) toggleIsActive(false);
   }, [isClickOutside, toggleIsActive]);
 
-  useEffect(() => {
-    if (account) run(notificationService.getNotifications(account.tokenJwt));
-  }, [account, run]);
+  // reverts to previously saved notification if current are null
+  if (notificationsReceived)
+    notificationsPrevious.current = notificationsReceived;
 
-  const handleClickIcon = () => {
-    toggleIsActive();
-  };
+  // filters out previously deleted notifications which where closed during "pending" because
+  // newly received data hasn't caught up with requests during "pending"
+  const notificationsCurrent = notificationsPrevious.current.filter(
+    (notification) => !idNotificationsRemoved.current.includes(notification.id)
+  );
+
+  // besides deleting a notifcation
+  // it also keeps track of deleted notification
+  const deleteNotification = useCallback(
+    (id) => {
+      idNotificationsRemoved.current.push(id);
+      setNotificationsReceived(
+        notificationsCurrent.filter((notification) => notification.id !== id)
+      );
+    },
+    [notificationsCurrent, setNotificationsReceived]
+  );
 
   const classNameWrapper = `${styles.wrapper} ${
     isActive && styles['wrapper--active']
   }`;
 
-  console.log('notificationsReceived: ', notificationsReceived);
-  const numNotifications = notificationsReceived
-    ? notificationsReceived.length
-    : 0;
-
-  const removeNotification = useCallback(
-    (id) => {
-      setNotificationsReceived(
-        notificationsReceived.filter((notification) => notification.id !== id)
-      );
-    },
-    [notificationsReceived, setNotificationsReceived]
-  );
-
-  const valueContext = {
-    removeNotification,
-  };
-
   return (
     <div ref={ref} className={classNameWrapper}>
-      <ProviderNotifications value={valueContext}>
+      <ProviderNotifications value={{ deleteNotification }}>
         <button
-          onClick={handleClickIcon}
+          onClick={() => toggleIsActive()}
           className={styles.button}
           type="button"
         >
@@ -80,12 +99,12 @@ const Notifications = () => {
             alt="magnifying glass"
             className={styles.icon}
           />
-          {Boolean(numNotifications) && (
-            <div className={styles.counter}>{numNotifications}</div>
+          {Boolean(notificationsCurrent.length) && (
+            <div className={styles.counter}>{notificationsCurrent.length}</div>
           )}
         </button>
         {isActive && (
-          <WrapperNotifications notifications={notificationsReceived || []} />
+          <WrapperNotifications notifications={notificationsCurrent} />
         )}
       </ProviderNotifications>
     </div>
