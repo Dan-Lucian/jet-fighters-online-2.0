@@ -1,5 +1,5 @@
 import axios from 'axios';
-import typeNotification from '../utils/type-notification';
+import { getMockNotification } from '../utils/type-notification';
 
 const urlBase = '/api/notifications';
 
@@ -25,12 +25,10 @@ function createNotification(tokenJwt, type) {
   const tokenJwtDecoded = JSON.parse(atob(tokenJwt.split('.')[1]));
   const { userName } = tokenJwtDecoded;
 
-  console.log(tokenJwtDecoded);
-
   return axios
     .post(
       `${urlBase}/${userName}`,
-      getMockNoitification(type, userName),
+      getMockNotification(type, userName),
       authorize(tokenJwt)
     )
     .then((response) => response.data);
@@ -47,28 +45,3 @@ function authorize(tokenJwt) {
       }
     : null;
 }
-
-const getMockNoitification = (type, notifier) => {
-  const noitfications = {
-    [typeNotification.friendRequest]: {
-      actor: '624b0dcf1eef4cf9040ca138',
-      notifier,
-      type: 'friendRequest',
-    },
-
-    [typeNotification.friendResponse]: {
-      actor: '624b0dcf1eef4cf9040ca138',
-      notifier,
-      type: 'friendRequest',
-    },
-
-    [typeNotification.welcome]: {
-      actor: 'jetfightersonline.org',
-      notifier,
-      type: 'welcome',
-      content: 'Welcome to Jet Fighters Online!',
-    },
-  };
-
-  return noitfications[type];
-};

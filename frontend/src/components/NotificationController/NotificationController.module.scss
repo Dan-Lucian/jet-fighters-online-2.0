@@ -1,4 +1,9 @@
-.wrapper {
-  padding: 1em;
+.unknown {
   color: red;
+  background: var(--color-bg-primary);
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 0.5em;
 }

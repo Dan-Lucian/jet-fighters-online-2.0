@@ -27,7 +27,10 @@ const NotificationController = ({ notification }) => {
   if (type === typeNotification.welcome)
     return <NotificationText notification={notification} />;
 
-  return <div className={styles.wrapper}>Uknown notification: {type}</div>;
+  if (type === typeNotification.featureNotReady)
+    return <NotificationText notification={notification} />;
+
+  return <div className={styles.unknown}>Uknown notification: {type}</div>;
 };
 
 NotificationController.propTypes = propTypes;
