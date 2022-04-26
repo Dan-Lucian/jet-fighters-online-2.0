@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const db = require('../../utils/db');
-const typesNotifications = require('../../features/notifications/type-notification');
+const {
+  typesNotifications,
+} = require('../../features/notifications/type-notification');
 const { accountOne, accountTwo } = require('./account.fixture');
 
 class NotificationInDb {

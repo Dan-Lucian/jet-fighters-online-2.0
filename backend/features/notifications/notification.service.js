@@ -1,5 +1,5 @@
 const db = require('../../utils/db');
-const typesNotifications = require('./type-notification');
+const { typesNotifications } = require('./type-notification');
 
 module.exports = {
   getByNotifierUserName,

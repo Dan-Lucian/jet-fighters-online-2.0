@@ -7,6 +7,11 @@ const Role = require('../../utils/role');
 const authorize = require('../../middleware/authorize');
 const validateRequest = require('../../middleware/validate-request');
 const accountService = require('./account.service');
+const notificationService = require('../notifications/notification.service');
+const {
+  typesNotifications,
+  getMockNotification,
+} = require('../notifications/type-notification');
 
 // routes
 router.post('/register', schemaRegister, register);
@@ -28,6 +33,11 @@ router.post(
 router.post('/reset-password', schemaResetPassword, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
 router.get('/:userName', authorize(), getByUserName);
+router.post(
+  '/:userName/friends',
+  authorize([Role.Admin, Role.User]),
+  createFriendship
+);
 router.get('/many/:userName', getManyByUserName);
 router.post('/', authorize(Role.Admin), schemaCreate, create);
 router.put(
@@ -67,7 +77,11 @@ function schemaVerifyEmail(request, response, next) {
 }
 
 async function verifyEmail(request, response, next) {
-  await accountService.verifyEmail(request.body);
+  const account = await accountService.verifyEmail(request.body);
+
+  await notificationService.create(
+    getMockNotification(typesNotifications.welcome, account.userName)
+  );
 
   response.json({ message: 'Verification successful, you can now login' });
 }
@@ -200,6 +214,11 @@ async function getByUserName(request, response, next) {
     return response.json(account);
   }
   response.sendStatus(404);
+}
+
+async function createFriendship(request, response, next) {
+  // create friendship by adding each other to their friend list
+  // should check if it is actually the respondent user
 }
 
 async function getManyByUserName(request, response, next) {
