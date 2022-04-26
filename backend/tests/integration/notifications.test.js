@@ -95,10 +95,10 @@ describe('Notifications', () => {
     });
   });
 
-  describe('POST /api/notifications', () => {
+  describe('POST /api/notifications/:userName', () => {
     test('should return 201 and create notification if data ok', async () => {
       await api
-        .post('/api/notifications')
+        .post(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send(notificationNew)
         .expect(201);
@@ -125,7 +125,7 @@ describe('Notifications', () => {
       const missingActor = copyObj(notificationNew);
       delete missingActor.actor;
       await api
-        .post('/api/notifications')
+        .post(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send(missingActor)
         .expect(400);
@@ -133,7 +133,7 @@ describe('Notifications', () => {
       const missingNotifier = copyObj(notificationNew);
       delete missingNotifier.notifier;
       await api
-        .post('/api/notifications')
+        .post(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send(missingNotifier)
         .expect(400);
@@ -141,7 +141,7 @@ describe('Notifications', () => {
       const missingType = copyObj(notificationNew);
       delete missingType.type;
       await api
-        .post('/api/notifications')
+        .post(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .send(missingType)
         .expect(400);
@@ -156,12 +156,12 @@ describe('Notifications', () => {
 
     test('should return 400 if invalid or missing jwt in Auth header', async () => {
       const responseToInvalidJwt = await api
-        .get(`/api/notifications/${accountTwo._id}`)
+        .post(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer invalid_jwt_token`)
         .expect(400);
 
       const responseToMissingJwt = await api
-        .get(`/api/notifications/${accountTwo._id}`)
+        .post(`/api/notifications/${accountTwo.userName}`)
         .expect(400);
 
       expect(responseToInvalidJwt.body).toEqual({ message: 'invalid token' });
@@ -177,7 +177,7 @@ describe('Notifications', () => {
 
     test('should return 401 if jwt token is expired', async () => {
       const response = await api
-        .get(`/api/notifications/${accountOne._id}`)
+        .post(`/api/notifications/${accountTwo.userName}`)
         .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
         .expect(401);
 
@@ -192,7 +192,7 @@ describe('Notifications', () => {
     });
   });
 
-  describe('POST /api/notifications/read', () => {
+  describe('POST /api/notifications/:userName/read', () => {
     const ids = notificationsUnreadAccountTwo.map(
       (notification) => notification._id
     );
@@ -206,7 +206,7 @@ describe('Notifications', () => {
       });
 
       const response = await api
-        .post(`/api/notifications/read`)
+        .post(`/api/notifications/${accountTwo.userName}/read`)
         .send(ids)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .expect(200);
@@ -224,7 +224,7 @@ describe('Notifications', () => {
 
     test('should return 401 and not modify notifications if not his notification', async () => {
       const response = await api
-        .post(`/api/notifications/read`)
+        .post(`/api/notifications/${accountTwo.userName}/read`)
         .send(ids)
         .set('Authorization', `bearer ${tokenJwtAccountOne}`)
         .expect(401);
@@ -240,7 +240,7 @@ describe('Notifications', () => {
     test('should return 401 and not modify notifications if there are foreign notifications mixed in', async () => {
       const idsInfected = ids.concat([notificationsUnreadAccountOne[0]._id]);
       const response = await api
-        .post(`/api/notifications/read`)
+        .post(`/api/notifications/${accountTwo.userName}/read`)
         .send(idsInfected)
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .expect(401);
@@ -255,13 +255,13 @@ describe('Notifications', () => {
 
     test('should return 400 and not modify notifications if invalid or missing jwt in Auth header', async () => {
       const responseToInvalidJwt = await api
-        .post(`/api/notifications/read`)
+        .post(`/api/notifications/${accountTwo.userName}/read`)
         .send(ids)
         .set('Authorization', `bearer invalid_jwt_token`)
         .expect(400);
 
       const responseToMissingJwt = await api
-        .post(`/api/notifications/read`)
+        .post(`/api/notifications/${accountTwo.userName}/read`)
         .send(ids)
         .expect(400);
 
@@ -276,7 +276,7 @@ describe('Notifications', () => {
 
     test('should return 401 and not modify notifications if jwt token is expired', async () => {
       const response = await api
-        .post(`/api/notifications/read`)
+        .post(`/api/notifications/${accountTwo.userName}/read`)
         .send(ids)
         .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
         .expect(401);
@@ -290,7 +290,7 @@ describe('Notifications', () => {
     });
   });
 
-  describe('POST /api/notifications/read/:id', () => {
+  describe('POST /api/notifications/:userName/read/:id', () => {
     const notification = notificationsUnreadAccountTwo[0];
 
     test('should mark the notification as read', async () => {
@@ -300,7 +300,9 @@ describe('Notifications', () => {
       expect(notificationFromDbBefore.isRead).toBe(false);
 
       const response = await api
-        .post(`/api/notifications/read/${notification._id}`)
+        .post(
+          `/api/notifications/${accountTwo.userName}/read/${notification._id}`
+        )
         .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
         .expect(200);
 
@@ -315,7 +317,9 @@ describe('Notifications', () => {
 
     test('should return 401 if not his notification', async () => {
       const response = await api
-        .post(`/api/notifications/read/${notification._id}`)
+        .post(
+          `/api/notifications/${accountTwo.userName}/read/${notification._id}`
+        )
         .set('Authorization', `bearer ${tokenJwtAccountOne}`)
         .expect(401);
 
@@ -330,12 +334,16 @@ describe('Notifications', () => {
 
     test('should return 400 if invalid or missing jwt in Auth header', async () => {
       const responseToInvalidJwt = await api
-        .post(`/api/notifications/read/${notification._id}`)
+        .post(
+          `/api/notifications/${accountTwo.userName}/read/${notification._id}`
+        )
         .set('Authorization', `bearer invalid_jwt_token`)
         .expect(400);
 
       const responseToMissingJwt = await api
-        .post(`/api/notifications/read/${notification._id}`)
+        .post(
+          `/api/notifications/${accountTwo.userName}/read/${notification._id}`
+        )
         .expect(400);
 
       expect(responseToInvalidJwt.body).toEqual({ message: 'invalid token' });
@@ -350,7 +358,9 @@ describe('Notifications', () => {
 
     test('should return 401 if jwt token is expired', async () => {
       const response = await api
-        .post(`/api/notifications/read/${notification._id}`)
+        .post(
+          `/api/notifications/${accountTwo.userName}/read/${notification._id}`
+        )
         .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
         .expect(401);
 
