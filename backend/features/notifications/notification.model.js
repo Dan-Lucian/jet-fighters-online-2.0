@@ -66,8 +66,8 @@ const getFindManyByIds = (nodeEnv) => {
           $in: ids.map((id) => mongoose.Types.ObjectId(id)),
         },
       },
-      (err, docs) => {
-        console.log(docs);
+      (err) => {
+        console.log(err);
       }
     );
 
