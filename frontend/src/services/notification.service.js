@@ -6,6 +6,7 @@ const urlBase = '/api/notifications';
 export default {
   getNotifications,
   createNotification,
+  markNotificationAsRead,
 };
 
 function getNotifications(tokenJwt) {
@@ -31,6 +32,16 @@ function createNotification(tokenJwt, type) {
       getMockNotification(type, userName),
       authorize(tokenJwt)
     )
+    .then((response) => response.data);
+}
+
+function markNotificationAsRead(tokenJwt, id) {
+  if (!tokenJwt) return;
+  const tokenJwtDecoded = JSON.parse(atob(tokenJwt.split('.')[1]));
+  const { userName } = tokenJwtDecoded;
+
+  return axios
+    .post(`${urlBase}/${userName}/read/${id}`, {}, authorize(tokenJwt))
     .then((response) => response.data);
 }
 

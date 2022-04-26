@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types';
 
+// shared hooks
+import { useContextAuth } from '../../providers/ProviderAuth';
+import { useContextNotifications } from '../../providers/ProviderNotifications';
+
 // utils
 import typesNotifications from '../../utils/type-notification';
 
@@ -16,19 +20,47 @@ const propTypes = {
 };
 
 const NotificationController = ({ notification }) => {
+  const { account } = useContextAuth();
+  const { removeNotification } = useContextNotifications();
+
   const { type } = notification;
+  const { tokenJwt } = account;
 
   if (type === typesNotifications.friendshipRequest)
-    return <NotificationFriendshipRequest notification={notification} />;
+    return (
+      <NotificationFriendshipRequest
+        notification={notification}
+        tokenJwt={tokenJwt}
+        removeNotification={removeNotification}
+      />
+    );
 
   if (type === typesNotifications.friendshipResponse)
-    return <NotificationFriendshipResponse notification={notification} />;
+    return (
+      <NotificationFriendshipResponse
+        notification={notification}
+        tokenJwt={tokenJwt}
+        removeNotification={removeNotification}
+      />
+    );
 
   if (type === typesNotifications.welcome)
-    return <NotificationText notification={notification} />;
+    return (
+      <NotificationText
+        notification={notification}
+        tokenJwt={tokenJwt}
+        removeNotification={removeNotification}
+      />
+    );
 
   if (type === typesNotifications.featureNotReady)
-    return <NotificationText notification={notification} />;
+    return (
+      <NotificationText
+        notification={notification}
+        tokenJwt={tokenJwt}
+        removeNotification={removeNotification}
+      />
+    );
 
   return <div className={styles.unknown}>Uknown notification: {type}</div>;
 };

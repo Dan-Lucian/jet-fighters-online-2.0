@@ -1,0 +1,15 @@
+.button {
+  padding: 0.25em 0.5em;
+  font-weight: 700;
+  border: none;
+  background: var(--color-blue);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: none;
+  opacity: 0.7;
+
+  &:hover {
+    background: var(--color-blue);
+    opacity: 1;
+  }
+}
