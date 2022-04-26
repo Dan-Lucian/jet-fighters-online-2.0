@@ -25,6 +25,8 @@ body {
   // brightness(0) saturate(100%) prepended to convert icon to black
   --color-icon: brightness(0) saturate(100%) invert(45%) sepia(0%) saturate(0%)
     hue-rotate(227deg) brightness(93%) contrast(95%);
+
+  --opacity-text: 0.8;
 }
 
 [data-theme='dark'] {
@@ -39,6 +41,8 @@ body {
   --color-blue-dark: #004998;
   --color-shadow: rgba(0, 0, 0, 0.2);
   --color-icon: initial;
+
+  --opacity-text: 0.4;
 }
 
 // scrollbar color
