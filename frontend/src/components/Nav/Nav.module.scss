@@ -3,11 +3,22 @@
   background: var(--color-bg-secondary);
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: space-between;
   padding: 0 6em;
   z-index: 100;
   position: relative;
   box-shadow: 0 0 5px var(--color-shadow);
+}
+
+.nav__left {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
 }
 
 .index,
@@ -24,12 +35,11 @@
   }
 }
 
+.signin {
+  padding: 0.25em 1em 0.25em 0.5em;
+}
+
 .index {
   font-size: 1.5em;
   font-weight: bold;
-}
-
-.spacer {
-  flex-grow: 1;
-  align-self: stretch;
 }

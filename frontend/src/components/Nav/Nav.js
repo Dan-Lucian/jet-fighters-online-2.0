@@ -24,36 +24,39 @@ const Nav = () => {
 
   return (
     <nav className={styles.nav}>
-      <Link to="/" className={styles.index}>
-        Jet Fighters Online
-      </Link>
-      {isStateAppGame && (
-        <Link to="/game" className={styles.about}>
-          Game
+      <div className={styles.nav__left}>
+        <Link to="/" className={styles.index}>
+          Jet Fighters Online
         </Link>
-      )}
-      {(isStateAppLobby || isStateAppGame) && (
-        <Link to="/lobby" className={styles.about}>
-          Lobby
+        {isStateAppGame && (
+          <Link to="/game" className={styles.about}>
+            Game
+          </Link>
+        )}
+        {(isStateAppLobby || isStateAppGame) && (
+          <Link to="/lobby" className={styles.about}>
+            Lobby
+          </Link>
+        )}
+        <Link to="/about" className={styles.about}>
+          About
         </Link>
-      )}
-      <Link to="/about" className={styles.about}>
-        About
-      </Link>
-      <span className={styles.spacer} />
-      <Search />
-      <Notifications />
-      {account && (
-        <Link to={`/profile/${account.userName}`} className={styles.signin}>
-          {account.userName}
-        </Link>
-      )}
-      {!account && (
-        <Link to="/login" className={styles.signin}>
-          Login
-        </Link>
-      )}
-      <TogglerTheme />
+      </div>
+      <div className={styles.nav__right}>
+        <Search />
+        <Notifications />
+        {account && (
+          <Link to={`/profile/${account.userName}`} className={styles.signin}>
+            {account.userName}
+          </Link>
+        )}
+        {!account && (
+          <Link to="/login" className={styles.signin}>
+            Login
+          </Link>
+        )}
+        <TogglerTheme />
+      </div>
     </nav>
   );
 };
