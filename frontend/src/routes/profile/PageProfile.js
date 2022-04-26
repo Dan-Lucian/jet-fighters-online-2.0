@@ -66,10 +66,10 @@ const PageProfile = () => {
     // make lobby entry error to show error popup
     // after login/register redirect to this page
     accountService.sendFriendRequest(dataReceived.userName);
-    notificationService.createNotification(
-      account.tokenJwt,
-      typesNotifications.featureNotReady
-    );
+    // notificationService.createNotification(
+    //   account.tokenJwt,
+    //   typesNotifications.featureNotReady
+    // );
     setGlobal({
       ...global,
       msgPopup: `We're still working on the friendship feature, thanks for your patience.`,
