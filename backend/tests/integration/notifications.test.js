@@ -192,6 +192,104 @@ describe('Notifications', () => {
     });
   });
 
+  describe('POST /api/notifications/read', () => {
+    const ids = notificationsUnreadAccountTwo.map(
+      (notification) => notification._id
+    );
+
+    test('should mark all sent notifications as read', async () => {
+      const notificationsFromDbBefore = await db.Notification.findManyByIds(
+        ids
+      );
+      notificationsFromDbBefore.forEach((notification) => {
+        expect(notification.isRead).toBe(false);
+      });
+
+      const response = await api
+        .post(`/api/notifications/read`)
+        .send(ids)
+        .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
+        .expect(200);
+
+      expect(response.body).toHaveLength(ids.length);
+      response.body.forEach((notification) => {
+        expect(notification.isRead).toBe(true);
+      });
+
+      const notificationsFromDbAfter = await db.Notification.findManyByIds(ids);
+      notificationsFromDbAfter.forEach((notification) => {
+        expect(notification.isRead).toBe(true);
+      });
+    });
+
+    test('should return 401 and not modify notifications if not his notification', async () => {
+      const response = await api
+        .post(`/api/notifications/read`)
+        .send(ids)
+        .set('Authorization', `bearer ${tokenJwtAccountOne}`)
+        .expect(401);
+
+      expect(response.body).toEqual({ message: 'unauthorized' });
+
+      const notificationsFromDbAfter = await db.Notification.findManyByIds(ids);
+      notificationsFromDbAfter.forEach((notification) => {
+        expect(notification.isRead).toBe(false);
+      });
+    });
+
+    test('should return 401 and not modify notifications if there are foreign notifications mixed in', async () => {
+      const idsInfected = ids.concat([notificationsUnreadAccountOne[0]._id]);
+      const response = await api
+        .post(`/api/notifications/read`)
+        .send(idsInfected)
+        .set('Authorization', `bearer ${tokenJwtAccountTwo}`)
+        .expect(401);
+
+      expect(response.body).toEqual({ message: 'unauthorized' });
+
+      const notificationsFromDbAfter = await db.Notification.findManyByIds(ids);
+      notificationsFromDbAfter.forEach((notification) => {
+        expect(notification.isRead).toBe(false);
+      });
+    });
+
+    test('should return 400 and not modify notifications if invalid or missing jwt in Auth header', async () => {
+      const responseToInvalidJwt = await api
+        .post(`/api/notifications/read`)
+        .send(ids)
+        .set('Authorization', `bearer invalid_jwt_token`)
+        .expect(400);
+
+      const responseToMissingJwt = await api
+        .post(`/api/notifications/read`)
+        .send(ids)
+        .expect(400);
+
+      expect(responseToInvalidJwt.body).toEqual({ message: 'invalid token' });
+      expect(responseToMissingJwt.body).toEqual({ message: 'invalid token' });
+
+      const notificationsFromDbAfter = await db.Notification.findManyByIds(ids);
+      notificationsFromDbAfter.forEach((notification) => {
+        expect(notification.isRead).toBe(false);
+      });
+    });
+
+    test('should return 401 and not modify notifications if jwt token is expired', async () => {
+      const response = await api
+        .post(`/api/notifications/read`)
+        .send(ids)
+        .set('Authorization', `bearer ${tokenJwtAccountAdminExpired}`)
+        .expect(401);
+
+      expect(response.body).toEqual({ message: 'expired token' });
+
+      const notificationsFromDbAfter = await db.Notification.findManyByIds(ids);
+      notificationsFromDbAfter.forEach((notification) => {
+        expect(notification.isRead).toBe(false);
+      });
+    });
+  });
+
   describe('POST /api/notifications/read/:id', () => {
     const notification = notificationsUnreadAccountTwo[0];
 
