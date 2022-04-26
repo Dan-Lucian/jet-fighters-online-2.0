@@ -1,4 +1,4 @@
-const typeNotification = {
+const typesNotifications = {
   friendshipRequest: 'friendshipRequest',
   friendshipResponse: 'friendshipResponse',
   welcome: 'welcome',
@@ -7,29 +7,29 @@ const typeNotification = {
 
 const getMockNotification = (type, notifier) => {
   const notifications = {
-    [typeNotification.friendRequest]: {
+    [typesNotifications.friendRequest]: {
       actor: '624b0dcf1eef4cf9040ca138',
       notifier,
-      type: typeNotification.friendRequest,
+      type: typesNotifications.friendRequest,
     },
 
-    [typeNotification.friendResponse]: {
+    [typesNotifications.friendResponse]: {
       actor: '624b0dcf1eef4cf9040ca138',
       notifier,
-      type: typeNotification.friendResponse,
+      type: typesNotifications.friendResponse,
     },
 
-    [typeNotification.welcome]: {
+    [typesNotifications.welcome]: {
       actor: 'jetfightersonline.org',
       notifier,
-      type: typeNotification.welcome,
+      type: typesNotifications.welcome,
       content: 'Welcome to Jet Fighters Online!',
     },
 
-    [typeNotification.featureNotReady]: {
+    [typesNotifications.featureNotReady]: {
       actor: 'jetfightersonline.org',
       notifier,
-      type: typeNotification.featureNotReady,
+      type: typesNotifications.featureNotReady,
       content: `We're still working on the friendship feature, thanks for your patience.`,
     },
   };
@@ -37,5 +37,5 @@ const getMockNotification = (type, notifier) => {
   return notifications[type];
 };
 
-export default typeNotification;
+export default typesNotifications;
 export { getMockNotification };

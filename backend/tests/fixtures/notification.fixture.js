@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const db = require('../../utils/db');
-const TypeNotification = require('../../features/notifications/type-notification');
+const typesNotifications = require('../../features/notifications/type-notification');
 const { accountOne, accountTwo } = require('./account.fixture');
 
 class NotificationInDb {
@@ -17,48 +17,48 @@ class NotificationInDb {
 const notificationsUnreadAccountOne = [
   new NotificationInDb({
     notifier: accountOne.userName,
-    type: TypeNotification.friendshipRequest,
+    type: typesNotifications.friendshipRequest,
   }),
   new NotificationInDb({
     notifier: accountOne.userName,
-    type: TypeNotification.friendshipResponse,
+    type: typesNotifications.friendshipResponse,
   }),
 ];
 
 const notificationsUnreadAccountTwo = [
   new NotificationInDb({
     notifier: accountTwo.userName,
-    type: TypeNotification.friendshipRequest,
+    type: typesNotifications.friendshipRequest,
   }),
 
   new NotificationInDb({
     notifier: accountTwo.userName,
-    type: TypeNotification.friendshipResponse,
+    type: typesNotifications.friendshipResponse,
   }),
 ];
 
 const notificationsRead = [
   new NotificationInDb({
     notifier: accountTwo.userName,
-    type: TypeNotification.friendshipRequest,
+    type: typesNotifications.friendshipRequest,
     isRead: true,
   }),
 
   new NotificationInDb({
     notifier: accountTwo.userName,
-    type: TypeNotification.friendshipResponse,
+    type: typesNotifications.friendshipResponse,
     isRead: true,
   }),
 
   new NotificationInDb({
     notifier: accountOne.userName,
-    type: TypeNotification.friendshipRequest,
+    type: typesNotifications.friendshipRequest,
     isRead: true,
   }),
 
   new NotificationInDb({
     notifier: accountOne.userName,
-    type: TypeNotification.friendshipResponse,
+    type: typesNotifications.friendshipResponse,
     isRead: true,
   }),
 ];
@@ -66,7 +66,7 @@ const notificationsRead = [
 const notificationNew = {
   actor: accountOne.userName,
   notifier: accountTwo.userName,
-  type: TypeNotification.friendshipRequest,
+  type: typesNotifications.friendshipRequest,
 };
 
 const insertNotifications = async (notifications) => {

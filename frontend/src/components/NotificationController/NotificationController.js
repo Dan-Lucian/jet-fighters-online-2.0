@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // utils
-import typeNotification from '../../utils/type-notification';
+import typesNotifications from '../../utils/type-notification';
 
 // styles
 import styles from './NotificationController.module.scss';
@@ -18,16 +18,16 @@ const propTypes = {
 const NotificationController = ({ notification }) => {
   const { type } = notification;
 
-  if (type === typeNotification.friendshipRequest)
+  if (type === typesNotifications.friendshipRequest)
     return <NotificationFriendshipRequest notification={notification} />;
 
-  if (type === typeNotification.friendshipResponse)
+  if (type === typesNotifications.friendshipResponse)
     return <NotificationFriendshipResponse notification={notification} />;
 
-  if (type === typeNotification.welcome)
+  if (type === typesNotifications.welcome)
     return <NotificationText notification={notification} />;
 
-  if (type === typeNotification.featureNotReady)
+  if (type === typesNotifications.featureNotReady)
     return <NotificationText notification={notification} />;
 
   return <div className={styles.unknown}>Uknown notification: {type}</div>;

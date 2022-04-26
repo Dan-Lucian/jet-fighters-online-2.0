@@ -1,5 +1,5 @@
 const db = require('../../utils/db');
-const TypeNotification = require('./type-notification');
+const typesNotifications = require('./type-notification');
 
 module.exports = {
   getByNotifierUserName,
@@ -23,7 +23,7 @@ async function getByNotifierUserName(userName) {
 }
 
 async function create(notification) {
-  if (!Object.values(TypeNotification).includes(notification.type))
+  if (!Object.values(typesNotifications).includes(notification.type))
     throw 'notification type not found';
 
   const notificationNew = new db.Notification(notification);
