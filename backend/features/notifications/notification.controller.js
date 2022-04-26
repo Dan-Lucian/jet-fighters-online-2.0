@@ -14,9 +14,22 @@ router.get(
   authorize([Role.User, Role.Admin]),
   getByNotifierUserName
 );
-router.post('/:userName', authorize(Role.User), schemaCreate, create);
-router.post('/:userName/read', authorize(Role.User), markManyAsRead);
-router.post('/:userName/read/:id', authorize(Role.User), markAsRead);
+router.post(
+  '/:userName',
+  authorize([Role.User, Role.Admin]),
+  schemaCreate,
+  create
+);
+router.post(
+  '/:userName/read',
+  authorize([Role.User, Role.Admin]),
+  markManyAsRead
+);
+router.post(
+  '/:userName/read/:id',
+  authorize([Role.User, Role.Admin]),
+  markAsRead
+);
 
 async function getByNotifierUserName(request, response, next) {
   if (request.params.userName !== request.user.userName) {
