@@ -89,8 +89,8 @@ const Search = () => {
           aria-label="Search"
           autoComplete="off"
         />
-        {isVisibleSearch && profilesFound && (
-          <SuggestionsProfile profiles={profilesFound} />
+        {isVisibleSearch && (
+          <SuggestionsProfile profiles={profilesFound || []} />
         )}
       </form>
     </div>

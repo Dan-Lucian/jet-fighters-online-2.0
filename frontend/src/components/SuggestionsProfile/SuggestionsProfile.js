@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './SuggestionsProfile.module.scss';
 
 const propTypes = {
-  profiles: PropTypes.array,
+  profiles: PropTypes.array.isRequired,
 };
 
 const SuggestionsProfile = ({ profiles }) => {
@@ -17,18 +17,24 @@ const SuggestionsProfile = ({ profiles }) => {
   const getHandlerPointerDown = (userName) => () =>
     navigate(`/profile/${userName}`);
 
+  const noProfilesFound = profiles.length === 0;
+
   return (
     <div className={styles.wrapper}>
-      {profiles.map((profile) => (
-        // not <Link /> used for navigation because pointerDown event needed
-        <a
-          onPointerDown={getHandlerPointerDown(profile.userName)}
-          className={styles.link}
-          key={profile.id}
-        >
-          {profile.userName}
-        </a>
-      ))}
+      {noProfilesFound && (
+        <div className={styles.noSuggestions}>Nothing found</div>
+      )}
+      {!noProfilesFound &&
+        profiles.map((profile) => (
+          // not <Link /> used for navigation because pointerDown event needed
+          <a
+            onPointerDown={getHandlerPointerDown(profile.userName)}
+            className={styles.link}
+            key={profile.id}
+          >
+            {profile.userName}
+          </a>
+        ))}
     </div>
   );
 };
