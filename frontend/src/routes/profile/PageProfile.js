@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // shared hooks
 import { useContextAuth } from '../../providers/ProviderAuth';
@@ -8,7 +8,6 @@ import useAsync from '../../hooks/useAsync';
 
 // services
 import accountService from '../../services/account.service';
-import notificationService from '../../services/notification.service';
 
 // shared components
 import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
@@ -26,7 +25,6 @@ import styles from './PageProfile.module.scss';
 
 // assets
 import { typesJet } from '../../config/typesJet';
-import typesNotifications from '../../utils/type-notification';
 
 const PageProfile = () => {
   const [global, setGlobal] = useContextGlobal();
@@ -35,7 +33,6 @@ const PageProfile = () => {
   const jetsSorted = useRef(null);
   const { userName } = useParams();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   useLayoutEffect(() => {
     if (!loading) run(accountService.getByUserName(userName));
@@ -56,20 +53,26 @@ const PageProfile = () => {
   };
 
   const handleFriendRequest = () => {
-    if (!account) {
-      navigate('/login');
-      setGlobal({ ...global, pathBeforeLogin: pathname });
-      return;
-    }
     // TODO:
     // if acc not logged prompt to register or login
-    // make lobby entry error to show error popup
-    // after login/register redirect to this page
+    // after login/register return to this page
+
+    if (!account) {
+      // navigate('/login');
+      // setGlobal({ ...global, pathBeforeLogin: pathname });
+      setGlobal({
+        ...global,
+        msgPopup: `You have to login to add friends.`,
+      });
+      return;
+    }
+
     accountService.sendFriendRequest(dataReceived.userName);
     // notificationService.createNotification(
     //   account.tokenJwt,
     //   typesNotifications.featureNotReady
     // );
+
     setGlobal({
       ...global,
       msgPopup: `We're still working on the friendship feature, thanks for your patience.`,
