@@ -1,5 +1,4 @@
 .wrapper {
-  padding: 0.25em 0.5em;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -13,8 +12,8 @@
 }
 
 .button {
+  padding: 0.4em 0.5em;
   border: none;
-  padding: 0;
   background: none;
   opacity: 0.7;
   cursor: pointer;
@@ -35,7 +34,7 @@
   border: none;
   width: 0;
   transition: width 200ms ease-in-out;
-  padding: 0.2em 0 0.2em 0;
+  padding: 0;
 
   &::placeholder {
     color: var(--color-text);

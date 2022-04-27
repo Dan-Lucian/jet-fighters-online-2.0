@@ -1,5 +1,4 @@
 .wrapper {
-  background: var(--color-bg-primary);
   position: absolute;
   top: 110%;
   left: 0;
@@ -9,21 +8,25 @@
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 0 5px var(--color-shadow);
+  padding: 1em 0;
+  background: var(--color-bg-secondary);
+  white-space: nowrap;
+  font-size: 0.9em;
+  gap: 0.2em;
 }
 
 .link {
   text-decoration: none;
   border: none;
   padding: 0.5em;
-  // 22px is icon size
-  // 1em is padding-left + flex gap
-  padding-left: calc(22px + 1em);
+  padding-left: 2em;
+  border-radius: 5px;
   background: none;
-  opacity: 0.7;
   cursor: pointer;
   text-align: left;
   transition: none;
   color: var(--color-text);
+  background: var(--color-bg-primary);
 
   &:hover {
     opacity: 1;
@@ -34,4 +37,9 @@
   &:any-link {
     color: var(--color-text);
   }
+}
+
+.noSuggestions {
+  font-style: italic;
+  text-align: center;
 }
