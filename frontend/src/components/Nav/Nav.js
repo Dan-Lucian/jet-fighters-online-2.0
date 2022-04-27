@@ -28,19 +28,19 @@ const Nav = () => {
         <Link to="/" className={styles.index}>
           Jet Fighters Online
         </Link>
-        {isStateAppGame && (
-          <Link to="/game" className={styles.about}>
-            Game
-          </Link>
-        )}
+        <Link to="/about" className={styles.about}>
+          About
+        </Link>
         {(isStateAppLobby || isStateAppGame) && (
           <Link to="/lobby" className={styles.about}>
             Lobby
           </Link>
         )}
-        <Link to="/about" className={styles.about}>
-          About
-        </Link>
+        {isStateAppGame && (
+          <Link to="/game" className={styles.about}>
+            Game
+          </Link>
+        )}
       </div>
       <div className={styles.nav__right}>
         <Search />
