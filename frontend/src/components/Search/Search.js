@@ -10,7 +10,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import accountService from '../../services/account.service';
 
 // assets
-import srcMagnifyingGlass from '../../assets/magnifying-glass.svg';
+import srcMagnifyingGlass from '../../assets/images/magnifying-glass.svg';
 
 // styles
 import styles from './Search.module.scss';

@@ -10,7 +10,7 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 import notificationService from '../../services/notification.service';
 
 // assets
-import srcBell from '../../assets/bell.svg';
+import srcBell from '../../assets/images/bell.svg';
 
 // styles
 import styles from './Notifications.module.scss';

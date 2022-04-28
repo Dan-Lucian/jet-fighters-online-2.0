@@ -5,8 +5,8 @@ import { useContextTheme } from '../../providers/ProviderTheme';
 import styles from './TogglerTheme.module.scss';
 
 // assets
-import iconMoon from '../../assets/moon.svg';
-import iconSun from '../../assets/sun.svg';
+import iconMoon from '../../assets/images/moon.svg';
+import iconSun from '../../assets/images/sun.svg';
 
 const TogglerTheme = () => {
   const { theme, getTogglerTheme } = useContextTheme();

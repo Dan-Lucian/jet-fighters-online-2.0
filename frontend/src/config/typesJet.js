@@ -1,10 +1,10 @@
 // assets
-import ImgJetBlack from '../assets/jet-000.webp';
-import ImgJetWhite from '../assets/jet-fff.webp';
-import ImgJetGreen from '../assets/jet-66ff66.webp';
-import ImgJetPurple from '../assets/jet-ff91ff.webp';
-import ImgJetYellow from '../assets/jet-f4f445.webp';
-import ImgJetAzure from '../assets/jet-4ae9f7.webp';
+import ImgJetBlack from '../assets/images/jet-000.webp';
+import ImgJetWhite from '../assets/images/jet-fff.webp';
+import ImgJetGreen from '../assets/images/jet-66ff66.webp';
+import ImgJetPurple from '../assets/images/jet-ff91ff.webp';
+import ImgJetYellow from '../assets/images/jet-f4f445.webp';
+import ImgJetAzure from '../assets/images/jet-4ae9f7.webp';
 
 const arrayImgsJets = [
   ImgJetBlack,
