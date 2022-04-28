@@ -65,6 +65,7 @@ On the backend, the bulk of authorization logic is done by the `/middleware/auth
 - How to work with canvas within [React](https://reactjs.org/).
 - How to make charts using [chart.js](https://www.chartjs.org/).
 - How to implement an authorization/authentication system based on json web tokens + refresh tokens.
+- How to self-host google fonts.
 
 ## Upcoming features
 
