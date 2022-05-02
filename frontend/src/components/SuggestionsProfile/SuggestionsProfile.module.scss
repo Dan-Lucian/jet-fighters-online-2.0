@@ -54,4 +54,6 @@
 .noSuggestions {
   font-style: italic;
   text-align: center;
+  overflow: hidden;
+  padding: 0.1em; // to not cut letters from the overflow
 }
