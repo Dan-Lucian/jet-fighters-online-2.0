@@ -13,6 +13,7 @@ const WrapperNotifications = ({ notifications }) => {
 
   return (
     <div className={styles.wrapperNotifications}>
+      <h2 className={styles.title}>Notifications</h2>
       {!areThereAnyNotifications && (
         <div className={styles.noNotifications}>No notifications</div>
       )}

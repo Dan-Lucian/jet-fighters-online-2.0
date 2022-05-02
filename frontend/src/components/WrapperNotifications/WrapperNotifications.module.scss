@@ -1,5 +1,5 @@
 .wrapperNotifications {
-  padding: 1em 0.5em;
+  padding: 1em;
   background: var(--color-bg-secondary);
   position: absolute;
   top: calc(100% + 0.8em); // 0.8 = pading nav + padding button
@@ -11,7 +11,6 @@
   border-radius: 0 0 5px 5px;
   // overflow: hidden;
   box-shadow: 0 0 5px var(--color-shadow);
-  font-size: 0.9em;
 
   // hides top shadow by standing on top of it
   &::after {
@@ -25,6 +24,12 @@
     left: 0;
     z-index: 300;
   }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.4em;
+  padding: 0 0 0.8em 0;
 }
 
 .noNotifications {
