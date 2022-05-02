@@ -1,0 +1,19 @@
+.button {
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 5px 5px 0 0;
+  background: var(--color-bg-primary);
+  font-weight: 700;
+  transition: none;
+
+  &-active,
+  &:hover {
+    background: var(--color-blue);
+    color: var(--color-white);
+  }
+}

@@ -1,14 +1,14 @@
-// .wrapper {
-//   border-radius: 5px;
-//   display: flex;
-//   align-items: center;
-//   position: relative;
-// }
+.wrapper {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
-// .wrapper--active {
-//   box-shadow: inset 0 0 5px var(--color-shadow);
-//   background: var(--color-bg-primary);
-// }
+.wrapper--active {
+  box-shadow: inset 0 0 5px var(--color-shadow);
+  background: var(--color-bg-primary);
+}
 
 .button {
   padding: 0.4em 0.5em;
