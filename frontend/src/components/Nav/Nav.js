@@ -8,6 +8,7 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 import TogglerTheme from '../TogglerTheme/TogglerTheme';
 import Search from '../Search/Search';
 import Notifications from '../Notifications/Notifications';
+import { Guide } from '../Guide';
 
 // styles
 import styles from './Nav.module.scss';
@@ -45,6 +46,7 @@ const Nav = () => {
       <div className={styles.nav__right}>
         <Search />
         <Notifications />
+        <Guide />
         {account && (
           <Link to={`/profile/${account.userName}`} className={styles.signin}>
             {account.userName}
