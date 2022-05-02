@@ -2,7 +2,7 @@
   padding: 1em 0.5em;
   background: var(--color-bg-secondary);
   position: absolute;
-  top: calc(100% + 0.8em);
+  top: calc(100% + 0.8em); // 0.8 = pading nav + padding button
   left: -8em;
   right: -8em;
   display: flex;
