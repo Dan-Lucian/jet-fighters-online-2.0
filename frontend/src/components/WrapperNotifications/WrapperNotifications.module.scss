@@ -2,16 +2,29 @@
   padding: 1em 0.5em;
   background: var(--color-bg-secondary);
   position: absolute;
-  top: 110%;
+  top: calc(100% + 0.8em);
   left: -8em;
   right: -8em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  border-radius: 5px;
-  overflow: hidden;
+  border-radius: 0 0 5px 5px;
+  // overflow: hidden;
   box-shadow: 0 0 5px var(--color-shadow);
   font-size: 0.9em;
+
+  // hides top shadow by standing on top of it
+  &::after {
+    content: '';
+    display: block;
+    height: 8px;
+    background: var(--color-bg-secondary);
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    left: 0;
+    z-index: 300;
+  }
 }
 
 .noNotifications {

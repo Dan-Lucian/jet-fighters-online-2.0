@@ -10,11 +10,12 @@
   border-radius: 0 0 5px 5px;
 
   // hides top shadow by standing on top of it
-  ::after {
+  &::after {
     content: '';
     display: block;
     height: 8px;
     background: var(--color-bg-secondary);
+    background: red;
     position: absolute;
     bottom: 100%;
     right: 0;
