@@ -42,7 +42,7 @@ const Menu = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>Game guide</h2>
+      <h2 className={styles.title}>Website guide</h2>
       <ul className={styles.listButtons}>
         {Object.keys(text).map((nameButton, idx) => (
           <li key={idx}>
