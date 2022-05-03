@@ -17,19 +17,13 @@ const WrapperNotifications = ({ notifications }) => {
       {!areThereAnyNotifications && (
         <div className={styles.noNotifications}>No notifications</div>
       )}
-      {areThereAnyNotifications && (
-        <>
-          <h2 className={styles.wrapperHeading}>
-            <span className={styles.textHeading}>New</span>
-          </h2>
-          {notifications.map((notification) => (
-            <NotificationController
-              key={notification.id}
-              notification={notification}
-            />
-          ))}
-        </>
-      )}
+      {areThereAnyNotifications &&
+        notifications.map((notification) => (
+          <NotificationController
+            key={notification.id}
+            notification={notification}
+          />
+        ))}
     </div>
   );
 };
