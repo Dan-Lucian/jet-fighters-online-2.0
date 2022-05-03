@@ -25,7 +25,6 @@
 .listButtons {
   justify-content: flex-end;
   display: flex;
-  gap: 0.2em;
 }
 
 .subtitle {
@@ -40,10 +39,10 @@
 }
 
 .wrapperInner {
-  background: var(--color-bg-primary);
   border-radius: 5px 0 5px 5px;
   padding: 1em;
   line-height: 1.5em;
+  border: 2px solid var(--color-blue);
 }
 
 .listItems {
