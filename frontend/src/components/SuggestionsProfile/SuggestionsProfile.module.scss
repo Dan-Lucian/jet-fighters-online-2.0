@@ -7,11 +7,10 @@
   flex-direction: column;
   border-radius: 0 0 5px 5px;
   box-shadow: 0 0 5px var(--color-shadow);
-  padding: 1em 0;
+  padding: 1em;
   background: var(--color-bg-secondary);
   white-space: nowrap;
-  font-size: 0.9em;
-  gap: 0.2em;
+  gap: 0.8em;
 
   // hides top shadow by standing on top of it
   &::after {
@@ -27,12 +26,26 @@
   }
 }
 
+.title {
+  font-weight: 700;
+  font-size: 1.4em;
+  overflow: hidden;
+}
+
+.list {
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .link {
+  display: block;
   text-decoration: none;
   border: none;
   padding: 0.5em;
   padding-left: 2em;
-  border-radius: 5px;
   background: none;
   cursor: pointer;
   text-align: left;
@@ -55,5 +68,8 @@
   font-style: italic;
   text-align: center;
   overflow: hidden;
-  padding: 0.1em; // to not cut letters from the overflow
+  background: var(--color-bg-primary);
+  padding: 0.7em;
+  border-radius: 5px;
+  font-size: 0.9em;
 }

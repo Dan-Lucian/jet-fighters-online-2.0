@@ -21,20 +21,28 @@ const SuggestionsProfile = ({ profiles }) => {
 
   return (
     <div className={styles.wrapper}>
+      <h2 className={styles.title}>Search</h2>
       {noProfilesFound && (
         <div className={styles.noSuggestions}>Nothing found</div>
       )}
-      {!noProfilesFound &&
-        profiles.map((profile) => (
-          // not <Link /> used for navigation because pointerDown event needed
-          <a
-            onPointerDown={getHandlerPointerDown(profile.userName)}
-            className={styles.link}
-            key={profile.id}
-          >
-            {profile.userName}
-          </a>
-        ))}
+      {!noProfilesFound && (
+        <ul className={styles.list}>
+          {
+            // not <Link /> used for navigation
+            // because pointerDown event needed
+          }
+          {profiles.map((profile) => (
+            <li key={profile.id}>
+              <a
+                onPointerDown={getHandlerPointerDown(profile.userName)}
+                className={styles.link}
+              >
+                {profile.userName}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
