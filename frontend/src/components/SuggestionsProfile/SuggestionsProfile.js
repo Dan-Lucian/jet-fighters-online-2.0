@@ -23,7 +23,7 @@ const SuggestionsProfile = ({ profiles }) => {
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Search</h2>
       {noProfilesFound && (
-        <div className={styles.noSuggestions}>Nothing found</div>
+        <div className={styles.noSuggestions}>No results</div>
       )}
       {!noProfilesFound && (
         <ul className={styles.list}>
