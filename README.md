@@ -69,7 +69,11 @@ On the backend, the bulk of authorization logic is done by the `/middleware/auth
 
 ## Upcoming features
 
-- [x] <del>Possibility to search users by name and view their profile.</del>
-- [x] <del>Notification system.</del>
-- [ ] Add the possibility to add and challenge friends.
-- [ ] Add different unique powers to each jet (ex: multi shot, speed boost, invisiblity, short time immunity).
+- [x] <del>Feature: search users by name and view their profile.</del>
+- [x] <del>Feature: notification system.</del>
+- [x] <del>Feature: mini website guide.</del>
+- [ ] Chore: CI + precommit hooks.
+- [ ] Chore: e2e tests.
+- [ ] Feature: friendship system (make and challenge friends).
+- [ ] Feature: unique jet powers (ex: multi shot, speed boost, invisiblity, short time immunity).
+- [ ] Feature: solo play with an AI.
