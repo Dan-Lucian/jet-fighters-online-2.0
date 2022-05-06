@@ -59,13 +59,14 @@ On the backend, the bulk of authorization logic is done by the `/middleware/auth
 
 ## What I have learned
 
-- How to style React applications with SCSS modules.
-- How to implement websockets within [React](https://reactjs.org/).
-- How to implement websockets within [Express](https://expressjs.com/).
-- How to work with canvas within [React](https://reactjs.org/).
-- How to make charts using [chart.js](https://www.chartjs.org/).
-- How to implement an authorization/authentication system based on json web tokens + refresh tokens.
-- How to self-host google fonts.
+- [x] How to style React applications with SCSS modules.
+- [x] How to implement websockets within [React](https://reactjs.org/).
+- [x] How to implement websockets within [Express](https://expressjs.com/).
+- [x] How to work with canvas within [React](https://reactjs.org/).
+- [x] How to make charts using [chart.js](https://www.chartjs.org/).
+- [x] How to implement an authorization/authentication system based on json web tokens + refresh tokens.
+- [x] How to sned emails from the backend.
+- [x] How to self-host google fonts.
 
 ## Upcoming features
 
