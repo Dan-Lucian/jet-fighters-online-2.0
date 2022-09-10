@@ -7,6 +7,9 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.0.0",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
     "axios": "^0.26.1",
     "chart.js": "^3.7.1",
     "prop-types": "^15.8.1",
@@ -16,6 +19,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "sass": "^1.49.0",
+    "typescript-plugin-css-modules": "^3.4.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,7 +50,7 @@
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-react": "^7.16.0",
-    "@types/node": "^16.11.12",
+    "@types/node": "^16.11.58",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "eslint": "^8.4.1",
@@ -61,6 +65,6 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1",
-    "typescript": "^4.5.2"
+    "typescript": "^4.8.3"
   }
 }
