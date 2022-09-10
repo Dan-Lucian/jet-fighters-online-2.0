@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import useQuery from '../../hooks/useQuery';
-import useAsync from '../../hooks/useAsync';
+import { useAsync, EnumStatus } from 'hooks/useAsync2';
 
 // services
 import accountService from '../../services/account.service';
@@ -15,19 +15,15 @@ import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 
 // styles
 import styles from './PageResetPassword.module.scss';
-import { FixMeLater } from 'types/FixMeLater';
 
 const PageResetPassword = () => {
-  const tokenSaved = useRef(null);
+  const tokenSaved = useRef<string>();
   const query = useQuery();
   const navigate = useNavigate();
-  const { run }: FixMeLater = useAsync({
-    status: 'idle',
-    data: [],
-  });
+  const { run } = useAsync();
 
   useEffect(() => {
-    const token: FixMeLater = query.get('token');
+    const token = query.get('token') || '';
 
     // remove token from url to prevent http referer leakage
     navigate(window.location.pathname, { replace: true });
@@ -38,10 +34,10 @@ const PageResetPassword = () => {
     tokenSaved.current = token;
   }, []);
 
-  const handleSubmit = (event: FixMeLater) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const dataFromForm = new FormData(event.target);
+    const dataFromForm = new FormData(event.currentTarget);
 
     run(
       accountService.resetPassword({

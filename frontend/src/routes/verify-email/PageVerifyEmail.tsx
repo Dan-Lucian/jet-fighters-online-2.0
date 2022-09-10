@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 // shared hooks
 import useQuery from '../../hooks/useQuery';
-import useAsync from '../../hooks/useAsync';
+import { useAsync, EnumStatus } from 'hooks/useAsync2';
 
 // services
 import accountService from '../../services/account.service';
@@ -16,20 +16,19 @@ import Loader from '../../components/Loader/Loader';
 import styles from './PageVerifyEmail.module.scss';
 
 const PageVerifyEmail = () => {
-  const tokenSaved = useRef();
+  const tokenSaved = useRef<string>();
   const navigate = useNavigate();
-  const { status, run } = useAsync();
+  const { run, status } = useAsync();
   const query = useQuery();
 
-  const token = query.get('token');
-  if (token) tokenSaved.current = token;
+  tokenSaved.current = query.get('token') || '';
 
   useEffect(() => {
     // remove token from url to prevent http referer leakage
     navigate(window.location.pathname, { replace: true });
 
     // don't request server on obviously wrong tokens
-    if (!tokenSaved.current || tokenSaved.current.length !== 80) return;
+    // if (!tokenSaved.current || tokenSaved.current.length !== 80) return;
 
     run(accountService.verifyEmail(tokenSaved.current));
   }, []);
@@ -37,10 +36,10 @@ const PageVerifyEmail = () => {
   if (
     !tokenSaved.current ||
     tokenSaved.current.length !== 80 ||
-    status === 'rejected'
+    status === EnumStatus.Rejected
   )
     return <PageNonexistent />;
-  if (status === 'pending') return <Loader />;
+  if (status === EnumStatus.Pending) return <Loader />;
 
   return (
     <main className={styles.wrapper}>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './PageRegister.module.scss';
 
 // shared hooks
-import useAsync from '../../hooks/useAsync';
+import { useAsync, EnumStatus } from 'hooks/useAsync2';
 import { useContextAuth } from '../../providers/ProviderAuth';
 import { useContextGlobal } from '../../providers/ProviderGlobal';
 
@@ -18,21 +18,24 @@ import InputAuth from '../../components/InputAuth/InputAuth';
 import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 import PageProfile from '../profile/PageProfile';
 import Loader from '../../components/Loader/Loader';
+
+// local
+import IReponseRegister from './Interfaces/IResponseRegister';
 import { FixMeLater } from 'types/FixMeLater';
 
 const PageRegister = () => {
   const { account } = useContextAuth();
   const [, setGlobal]: FixMeLater = useContextGlobal();
-  const { error, status, run }: FixMeLater = useAsync({
-    status: 'idle',
-    data: [],
-  });
+  const { error, status, run } = useAsync<IReponseRegister>();
+
+  console.log('error: ', error);
 
   useEffect(() => {
     if (error)
       setGlobal((prev: FixMeLater) => ({
         ...prev,
-        msgPopup: error?.response.data.message,
+        msgPopup: error,
+        // msgPopup: error?.response.data.message,
       }));
   }, [error]);
 
@@ -51,8 +54,8 @@ const PageRegister = () => {
   };
 
   if (account) return <PageProfile />;
-  if (status === 'pending') return <Loader />;
-  if (status === 'resolved')
+  if (status === EnumStatus.Pending) return <Loader />;
+  if (status === EnumStatus.Resolved)
     return (
       <main className={styles.wrapper}>
         <div className={styles.wrapperInner}>
@@ -111,7 +114,7 @@ const PageRegister = () => {
             Forgot password
           </Link>
         </div>
-        <BtnSubmit disabled={status === 'pending'}>Register</BtnSubmit>
+        <BtnSubmit>Register</BtnSubmit>
       </FormAuth>
     </main>
   );

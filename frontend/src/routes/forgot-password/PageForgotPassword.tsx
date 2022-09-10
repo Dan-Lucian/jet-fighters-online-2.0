@@ -1,7 +1,8 @@
+import { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 // shared hooks
-import useAsync from '../../hooks/useAsync';
+import { useAsync, EnumStatus } from 'hooks/useAsync2';
 
 // services
 import accountService from '../../services/account.service';
@@ -11,21 +12,23 @@ import FormAuth from '../../components/FormAuth/FormAuth';
 import InputAuth from '../../components/InputAuth/InputAuth';
 import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 
+// local
+import IResponseForgotPassword from './Interfaces/IResponseForgotPassword';
+
 // styles
 import styles from './PageForgotPassword.module.scss';
-import { FixMeLater } from 'types/FixMeLater';
 
 const PageForgotPassword = () => {
   const {
-    data: receivedData,
-    status,
     run,
-  }: FixMeLater = useAsync({ status: 'idle', data: [] });
+    status,
+    data: receivedData,
+  } = useAsync<IResponseForgotPassword>();
 
-  const handleSubmit = (event: FixMeLater) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const dataFromForm = new FormData(event.target);
+    const dataFromForm = new FormData(event.currentTarget);
 
     run(accountService.forgotPassword(dataFromForm.get('email')));
   };
@@ -57,7 +60,7 @@ const PageForgotPassword = () => {
             Register
           </Link>
         </div>
-        <BtnSubmit disabled={status === 'pending'}>Recover</BtnSubmit>
+        <BtnSubmit disabled={status === EnumStatus.Pending}>Recover</BtnSubmit>
       </FormAuth>
     </main>
   );
