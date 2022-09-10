@@ -5,7 +5,7 @@ import styles from './BtnSubmit.module.scss';
 
 interface Props {
   children: ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const BtnSubmit = ({ disabled, children }: Props) => (

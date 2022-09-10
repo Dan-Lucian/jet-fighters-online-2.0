@@ -15,26 +15,30 @@ import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 
 // styles
 import styles from './PageResetPassword.module.scss';
+import { FixMeLater } from 'types/FixMeLater';
 
 const PageResetPassword = () => {
   const tokenSaved = useRef(null);
   const query = useQuery();
   const navigate = useNavigate();
-  const { run } = useAsync();
+  const { run }: FixMeLater = useAsync({
+    status: 'idle',
+    data: [],
+  });
 
   useEffect(() => {
-    const token = query.get('token');
+    const token: FixMeLater = query.get('token');
 
     // remove token from url to prevent http referer leakage
     navigate(window.location.pathname, { replace: true });
 
     // don't request server on obviously wrong tokens
-    if (!token || token.length !== 80) return null;
+    if (!token || token.length !== 80) return;
 
     tokenSaved.current = token;
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FixMeLater) => {
     event.preventDefault();
 
     const dataFromForm = new FormData(event.target);

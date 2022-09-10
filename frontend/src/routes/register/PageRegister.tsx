@@ -18,21 +18,25 @@ import InputAuth from '../../components/InputAuth/InputAuth';
 import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 import PageProfile from '../profile/PageProfile';
 import Loader from '../../components/Loader/Loader';
+import { FixMeLater } from 'types/FixMeLater';
 
 const PageRegister = () => {
   const { account } = useContextAuth();
-  const [, setGlobal] = useContextGlobal();
-  const { error, status, run } = useAsync();
+  const [, setGlobal]: FixMeLater = useContextGlobal();
+  const { error, status, run }: FixMeLater = useAsync({
+    status: 'idle',
+    data: [],
+  });
 
   useEffect(() => {
     if (error)
-      setGlobal((prev) => ({
+      setGlobal((prev: FixMeLater) => ({
         ...prev,
         msgPopup: error?.response.data.message,
       }));
   }, [error]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FixMeLater) => {
     event.preventDefault();
 
     const dataFromForm = new FormData(event.target);

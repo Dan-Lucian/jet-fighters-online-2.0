@@ -13,11 +13,12 @@ import Loader from '../../components/Loader/Loader';
 
 // styles
 import styles from './PageLogin.module.scss';
+import { FixMeLater } from 'types/FixMeLater';
 
 const PageLogin = () => {
   const navigate = useNavigate();
-  const { account, login, loading, error } = useContextAuth();
-  const [{ pathBeforeLogin }, setGlobal] = useContextGlobal();
+  const { account, login, loading, error }: FixMeLater = useContextAuth();
+  const [{ pathBeforeLogin }, setGlobal]: FixMeLater = useContextGlobal();
 
   useLayoutEffect(() => {
     if (account) navigate(pathBeforeLogin || `/profile/${account.userName}`);
@@ -25,13 +26,13 @@ const PageLogin = () => {
 
   useEffect(() => {
     if (error)
-      setGlobal((prev) => ({
+      setGlobal((prev: FixMeLater) => ({
         ...prev,
         msgPopup: error?.response.data.message,
       }));
   }, [error, setGlobal]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FixMeLater) => {
     event.preventDefault();
 
     const dataFromForm = new FormData(event.target);

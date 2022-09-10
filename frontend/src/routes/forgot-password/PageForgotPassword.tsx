@@ -13,11 +13,16 @@ import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
 
 // styles
 import styles from './PageForgotPassword.module.scss';
+import { FixMeLater } from 'types/FixMeLater';
 
 const PageForgotPassword = () => {
-  const { data: receivedData, status, run } = useAsync();
+  const {
+    data: receivedData,
+    status,
+    run,
+  }: FixMeLater = useAsync({ status: 'idle', data: [] });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FixMeLater) => {
     event.preventDefault();
 
     const dataFromForm = new FormData(event.target);
