@@ -20,13 +20,12 @@ import PageProfile from '../profile/PageProfile';
 import Loader from '../../components/Loader/Loader';
 
 // local
-import IReponseRegister from './Interfaces/IResponseRegister';
 import { FixMeLater } from 'types/FixMeLater';
 
 const PageRegister = () => {
   const { account } = useContextAuth();
-  const [, setGlobal]: FixMeLater = useContextGlobal();
-  const { error, status, run } = useAsync<IReponseRegister>();
+  const [, setGlobal] = useContextGlobal();
+  const { error, status, run } = useAsync();
 
   console.log('error: ', error);
 
@@ -35,7 +34,6 @@ const PageRegister = () => {
       setGlobal((prev: FixMeLater) => ({
         ...prev,
         msgPopup: error,
-        // msgPopup: error?.response.data.message,
       }));
   }, [error]);
 
