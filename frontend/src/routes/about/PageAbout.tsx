@@ -11,6 +11,7 @@ const PageAbout = () => (
         <Heading>What is this?</Heading>
         <p className={styles.indent}>{text.whatIsThis}</p>
       </section>
+
       <section className={styles.wrapperSection}>
         <Heading>How do you play this?</Heading>
         <ol>
@@ -19,6 +20,7 @@ const PageAbout = () => (
           ))}
         </ol>
       </section>
+
       <section className={styles.wrapperSection}>
         <Heading>What is the registration for?</Heading>
         <ol>
