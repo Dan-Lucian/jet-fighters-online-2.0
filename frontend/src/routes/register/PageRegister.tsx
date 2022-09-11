@@ -29,11 +29,15 @@ const PageRegister = () => {
 
   console.log('error: ', error);
 
+  // TODO: somehow extract message from error
+  // either by changing the error type or making the message from server
+  // an actual error
   useEffect(() => {
     if (error)
       setGlobal((prev: FixMeLater) => ({
         ...prev,
         msgPopup: error,
+        // msgPopup: error?.response.data.message,
       }));
   }, [error]);
 

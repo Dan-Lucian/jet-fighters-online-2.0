@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import { useCallback, useReducer } from 'react';
 
 import useSafeDispatch from '../useSafeDispatch';
