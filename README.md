@@ -73,6 +73,7 @@ On the backend, the bulk of authorization logic is done by the `/middleware/auth
 - [x] <del>Feature: search users by name and view their profile.</del>
 - [x] <del>Feature: notification system.</del>
 - [x] <del>Feature: mini website guide.</del>
+- [ ] Refactor: migrate project to typescript
 - [ ] Chore: CI + precommit hooks.
 - [ ] Chore: e2e tests.
 - [ ] Feature: friendship system (make and challenge friends).
