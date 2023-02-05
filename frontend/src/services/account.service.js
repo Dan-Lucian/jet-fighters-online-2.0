@@ -18,35 +18,27 @@ export default {
 };
 
 function register(params) {
-  return axios
-    .post(`${urlBase}/register`, params)
-    .then((response) => response.data);
+  return axios.post(`${urlBase}/register`, params).then((response) => response.data);
 }
 
 function verifyEmail(token) {
-  return axios
-    .post(`${urlBase}/verify-email`, { token })
-    .then((response) => response.data);
+  return axios.post(`${urlBase}/verify-email`, { token }).then((response) => response.data);
 }
 
 function login({ email, password }) {
-  return axios
-    .post(`${urlBase}/authenticate`, { email, password })
-    .then((response) => {
-      tokenJwt = response.data.tokenJwt;
-      startRefreshTokenTimer();
-      return response.data;
-    });
+  return axios.post(`${urlBase}/authenticate`, { email, password }).then((response) => {
+    tokenJwt = response.data.tokenJwt;
+    startRefreshTokenTimer();
+    return response.data;
+  });
 }
 
 function logout() {
-  return axios
-    .post(`${urlBase}/revoke-token`, {}, authorize())
-    .then((response) => {
-      tokenJwt = null;
-      stopRefreshTokenTimer();
-      return response.data;
-    });
+  return axios.post(`${urlBase}/revoke-token`, {}, authorize()).then((response) => {
+    tokenJwt = null;
+    stopRefreshTokenTimer();
+    return response.data;
+  });
 }
 
 function refreshToken() {
@@ -58,9 +50,7 @@ function refreshToken() {
 }
 
 function forgotPassword(email) {
-  return axios
-    .post(`${urlBase}/forgot-password`, { email })
-    .then((response) => response.data);
+  return axios.post(`${urlBase}/forgot-password`, { email }).then((response) => response.data);
 }
 
 function resetPassword({ token, password, passwordConfirm }) {
@@ -78,15 +68,11 @@ function update(id, params) {
 // }
 
 function getByUserName(userName) {
-  return axios
-    .get(`${urlBase}/${userName}`, authorize())
-    .then((response) => response.data);
+  return axios.get(`${urlBase}/${userName}`, authorize()).then((response) => response.data);
 }
 
 function getManyByUserName(userName) {
-  return axios
-    .get(`${urlBase}/many/${userName}`)
-    .then((response) => response.data);
+  return axios.get(`${urlBase}/many/${userName}`).then((response) => response.data);
 }
 
 function sendFriendRequest(userName) {
