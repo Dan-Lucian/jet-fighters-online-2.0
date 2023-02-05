@@ -1,21 +1,15 @@
 import { useEffect, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-// shared hooks
-import { useContextAuth } from '../../providers/ProviderAuth';
-import { useContextGlobal } from '../../providers/ProviderGlobal';
-
-// shared components
-import FormAuth from '../../components/FormAuth/FormAuth';
-import InputAuth from '../../components/InputAuth/InputAuth';
-import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
-import Loader from '../../components/Loader/Loader';
-
-// styles
-import styles from './PageLogin.module.scss';
+import { useContextAuth } from 'providers/ProviderAuth';
+import { useContextGlobal } from 'providers/ProviderGlobal';
+import FormAuth from 'components/FormAuth/FormAuth';
+import InputAuth from 'components/InputAuth/InputAuth';
+import BtnSubmit from 'components/BtnSubmit/BtnSubmit';
+import Loader from 'components/Loader/Loader';
+import Styles from 'routes/login/LoginPage.module.scss';
 import { FixMeLater } from 'types/FixMeLater';
 
-const PageLogin = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const { account, login, loading, error }: FixMeLater = useContextAuth();
   const [{ pathBeforeLogin }, setGlobal]: FixMeLater = useContextGlobal();
@@ -34,29 +28,23 @@ const PageLogin = () => {
 
   const handleSubmit = (event: FixMeLater) => {
     event.preventDefault();
-
     const dataFromForm = new FormData(event.target);
     const credentials = {
       email: dataFromForm.get('email'),
       password: dataFromForm.get('password'),
     };
-
     login(credentials);
   };
 
-  if (loading) return <Loader />;
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
-    <main className={styles.wrapper}>
-      <h1 className={styles.heading}>Login</h1>
+    <main className={Styles.wrapper}>
+      <h1 className={Styles.heading}>Login</h1>
       <FormAuth onSubmit={handleSubmit}>
-        <InputAuth
-          id="email"
-          label="Email"
-          type="email"
-          name="email"
-          autocomplete="email"
-        />
+        <InputAuth id="email" label="Email" type="email" name="email" autocomplete="email" />
         <InputAuth
           id="password"
           label="Password"
@@ -66,11 +54,11 @@ const PageLogin = () => {
           name="password"
           autocomplete="current-password"
         />
-        <div className={styles.wrapperLinks}>
-          <Link to="/register" className={styles.link}>
+        <div className={Styles.linksWrapper}>
+          <Link to="/register" className={Styles.link}>
             Register
           </Link>
-          <Link to="/forgot-password" className={styles.link}>
+          <Link to="/forgot-password" className={Styles.link}>
             Forgot password
           </Link>
         </div>
@@ -80,4 +68,4 @@ const PageLogin = () => {
   );
 };
 
-export default PageLogin;
+export default LoginPage;
