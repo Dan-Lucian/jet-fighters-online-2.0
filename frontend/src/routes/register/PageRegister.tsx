@@ -16,7 +16,7 @@ import accountService from '../../services/account.service';
 import FormAuth from '../../components/FormAuth/FormAuth';
 import InputAuth from '../../components/InputAuth/InputAuth';
 import BtnSubmit from '../../components/BtnSubmit/BtnSubmit';
-import PageProfile from '../profile/PageProfile';
+import ProfilePage from '../profile/ProfilePage';
 import Loader from '../../components/Loader/Loader';
 
 // local
@@ -55,7 +55,7 @@ const PageRegister = () => {
     run(accountService.register(credentials));
   };
 
-  if (account) return <PageProfile />;
+  if (account) return <ProfilePage />;
   if (status === EnumStatus.Pending) return <Loader />;
   if (status === EnumStatus.Resolved)
     return (
@@ -63,10 +63,7 @@ const PageRegister = () => {
         <div className={styles.wrapperInner}>
           <p>Account created.</p>
           <p>We've sent an activation link to the specified email.</p>
-          <p>
-            If the email does not appear even after 5 minutes then check the
-            spam section as well.
-          </p>
+          <p>If the email does not appear even after 5 minutes then check the spam section as well.</p>
         </div>
       </main>
     );
@@ -75,13 +72,7 @@ const PageRegister = () => {
     <main className={styles.wrapper}>
       <h1 className={styles.heading}>Registration</h1>
       <FormAuth onSubmit={handleSubmit}>
-        <InputAuth
-          id="email"
-          label="Email"
-          type="email"
-          name="email"
-          autocomplete="email"
-        />
+        <InputAuth id="email" label="Email" type="email" name="email" autocomplete="email" />
         <InputAuth
           id="username"
           label="Username"
