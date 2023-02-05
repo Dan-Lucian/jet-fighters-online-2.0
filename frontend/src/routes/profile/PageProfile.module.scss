@@ -14,13 +14,13 @@
   position: relative;
 }
 
-.wrapperJet {
+.jetWrapper {
   position: absolute;
   right: 100%;
   top: 0;
 }
 
-.backgroundHalf {
+.backgroundFiller {
   width: 4.5em;
   height: 45em;
   background: var(--color-bg-secondary);
@@ -83,7 +83,7 @@
   }
 }
 
-.wrapperName {
+.nameWrapper {
   background: var(--color-bg-primary);
   padding: 1em;
   display: flex;
@@ -103,8 +103,8 @@
   color: var(--color-blue);
 }
 
-.btnLogout,
-.btnAddFriend {
+.logoutButton,
+.addFriendButton {
   position: absolute;
   right: 1em;
   bottom: 1em;
@@ -133,7 +133,7 @@
   }
 }
 
-.btnAddFriend {
+.addFriendButton {
   background: var(--color-green);
 
   &:hover,
@@ -152,9 +152,9 @@
   box-shadow: inset 0 0 5px var(--color-shadow);
 }
 
-.wrapperWins,
-.wrapperLoses,
-.wrapperDraws {
+.winsWrapper,
+.losesWrapper,
+.drawsWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -166,15 +166,15 @@
   }
 }
 
-.wrapperWins {
+.winsWrapper {
   color: var(--color-green);
 }
 
-.wrapperLoses {
+.losesWrapper {
   color: var(--color-red);
 }
 
-.wrapperMostPlayed {
+.mostPlayedJetsWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
