@@ -6,15 +6,6 @@ import ImgJetPurple from '../assets/images/jet-ff91ff.webp';
 import ImgJetYellow from '../assets/images/jet-f4f445.webp';
 import ImgJetAzure from '../assets/images/jet-4ae9f7.webp';
 
-const arrayImgsJets = [
-  ImgJetBlack,
-  ImgJetWhite,
-  ImgJetGreen,
-  ImgJetPurple,
-  ImgJetYellow,
-  ImgJetAzure,
-];
-
 const typesJet = {
   balanced: {
     typeJet: 'balanced',
@@ -24,8 +15,8 @@ const typesJet = {
     speedBullet: 7,
     timeAliveMaxBullet: 60,
     scale: 1,
+    imgJet: ImgJetBlack,
   },
-
   speedster: {
     typeJet: 'speedster',
     sensitivityRotation: 2.5,
@@ -34,8 +25,8 @@ const typesJet = {
     speedBullet: 8,
     timeAliveMaxBullet: 55,
     scale: 0.9,
+    imgJet: ImgJetWhite,
   },
-
   trickster: {
     typeJet: 'trickster',
     sensitivityRotation: 4.5,
@@ -44,8 +35,8 @@ const typesJet = {
     speedBullet: 7,
     timeAliveMaxBullet: 65,
     scale: 1.2,
+    imgJet: ImgJetGreen,
   },
-
   tank: {
     typeJet: 'tank',
     sensitivityRotation: 4.5,
@@ -54,8 +45,8 @@ const typesJet = {
     speedBullet: 9,
     timeAliveMaxBullet: 50,
     scale: 1.5,
+    imgJet: ImgJetPurple,
   },
-
   micro: {
     typeJet: 'micro',
     sensitivityRotation: 3,
@@ -64,8 +55,8 @@ const typesJet = {
     speedBullet: 6,
     timeAliveMaxBullet: 65,
     scale: 0.6,
+    imgJet: ImgJetYellow,
   },
-
   'fast-bullet': {
     typeJet: 'fast-bullet',
     sensitivityRotation: 3,
@@ -74,13 +65,9 @@ const typesJet = {
     speedBullet: 9,
     timeAliveMaxBullet: 50,
     scale: 0.8,
+    imgJet: ImgJetAzure,
   },
 };
-
-// insert imgs into types jet
-Object.values(typesJet).forEach((jet, idx) => {
-  jet.imgJet = arrayImgsJets[idx];
-});
 
 // simillar to typesJet but the raw stat numbers are transformed into
 // numbers relative to the stats of other jets
