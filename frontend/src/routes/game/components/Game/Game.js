@@ -5,7 +5,7 @@ import { useRef, useEffect } from 'react';
 import { draw } from '../../utils/canvas';
 
 // config
-import { typesJet } from '../../../../config/typesJet';
+import { jetTypesConfig } from '../../../../config/jetTypesConfig';
 
 // styles
 import styles from './Game.module.scss';
@@ -18,10 +18,10 @@ const Game = ({ stateGame }) => {
     if (!stateGame.settings.idLobby) return;
 
     const imgJetOwner = new Image();
-    imgJetOwner.src = typesJet[stateGame.owner.typeJet].imgJet;
+    imgJetOwner.src = jetTypesConfig[stateGame.owner.typeJet].imgJet;
 
     const imgJetJoiner = new Image();
-    imgJetJoiner.src = typesJet[stateGame.joiner.typeJet].imgJet;
+    imgJetJoiner.src = jetTypesConfig[stateGame.joiner.typeJet].imgJet;
 
     imagesJet.current = {
       imgJetOwner,
@@ -51,21 +51,12 @@ const Game = ({ stateGame }) => {
 
   return (
     <div className={styles.wrapper}>
-      <canvas
-        ref={refCanvas}
-        width={widthMap}
-        height={heightMap}
-        className={styles.game}
-      >
+      <canvas ref={refCanvas} width={widthMap} height={heightMap} className={styles.game}>
         Game screen
       </canvas>
       <div className={styles.wrapperScores}>
-        <div style={{ color: stateGame.owner.color }}>
-          {stateGame.owner.score}
-        </div>
-        <div style={{ color: stateGame.joiner.color }}>
-          {stateGame.joiner.score}
-        </div>
+        <div style={{ color: stateGame.owner.color }}>{stateGame.owner.score}</div>
+        <div style={{ color: stateGame.joiner.color }}>{stateGame.joiner.score}</div>
       </div>
     </div>
   );

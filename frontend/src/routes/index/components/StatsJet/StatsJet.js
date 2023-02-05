@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // config
-import { typesJetStandartized } from '../../../../config/typesJet';
+import { typesJetStandartized } from '../../../../config/jetTypesConfig';
 
 // local components
 import BtnDone from '../BtnDone/BtnDone';

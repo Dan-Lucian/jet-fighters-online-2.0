@@ -6,7 +6,7 @@ import ImgJetPurple from '../assets/images/jet-ff91ff.webp';
 import ImgJetYellow from '../assets/images/jet-f4f445.webp';
 import ImgJetAzure from '../assets/images/jet-4ae9f7.webp';
 
-const typesJet = {
+export const jetTypesConfig = {
   balanced: {
     typeJet: 'balanced',
     sensitivityRotation: 3.5,
@@ -71,7 +71,7 @@ const typesJet = {
 
 // simillar to typesJet but the raw stat numbers are transformed into
 // numbers relative to the stats of other jets
-const typesJetStandartized = standartizeStatsJets(typesJet);
+export const typesJetStandartized = standartizeStatsJets(jetTypesConfig);
 
 function standartizeStatsJets(jets) {
   const copyJets = JSON.parse(JSON.stringify(jets));
@@ -80,9 +80,7 @@ function standartizeStatsJets(jets) {
     delete jet.color;
     delete jet.imgJet;
 
-    Object.keys(jet).forEach((key) =>
-      standartizeProp(jet, key, getMin(jets, key), getMax(jets, key))
-    );
+    Object.keys(jet).forEach((key) => standartizeProp(jet, key, getMin(jets, key), getMax(jets, key)));
   });
 
   return copyJets;
@@ -103,10 +101,7 @@ function standartizeProp(object, prop, min, max) {
 
   // (1 + ...) to start from 1
   // (... * 5) to standartize on 5 steps
-  const resultRounded =
-    1 + (Math.round((result + Number.EPSILON) * 100) / 100) * 5;
+  const resultRounded = 1 + (Math.round((result + Number.EPSILON) * 100) / 100) * 5;
 
   object[prop] = resultRounded;
 }
-
-export { typesJet, typesJetStandartized };

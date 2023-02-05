@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 // config
-import { typesJet } from '../../../../config/typesJet';
+import { jetTypesConfig } from '../../../../config/jetTypesConfig';
 
 // shared components
 import Jet from '../../../../components/Jet/Jet';
@@ -32,12 +32,8 @@ const Carousel = () => {
     <div className={styles.carousel}>
       <ArrowLeft onClick={handleClickArrowLeft} />
       <div ref={refWrapperInner} className={styles.wrapperJets}>
-        {Object.values(typesJet).map((jet, idx) => (
-          <Jet
-            imgJet={jet.imgJet}
-            onClick={() => setSettings((prev) => ({ ...prev, ...jet }))}
-            key={idx}
-          />
+        {Object.values(jetTypesConfig).map((jet, idx) => (
+          <Jet imgJet={jet.imgJet} onClick={() => setSettings((prev) => ({ ...prev, ...jet }))} key={idx} />
         ))}
       </div>
       <ArrowRight onClick={handleClickArrowRight} />

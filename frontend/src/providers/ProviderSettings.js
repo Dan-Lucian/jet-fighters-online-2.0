@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 // config
-import { typesJet } from '../config/typesJet';
+import { jetTypesConfig } from '../config/jetTypesConfig';
 
 // shared hooks
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -17,8 +17,7 @@ const ProviderSettings = (props) => {
 
 const useContextSettings = () => {
   const settings = useContext(ContextSettings);
-  if (settings === null)
-    throw new Error('useContextSettings must be used within ProviderSettings');
+  if (settings === null) throw new Error('useContextSettings must be used within ProviderSettings');
 
   return settings;
 };
@@ -28,7 +27,7 @@ const settingsDefault = {
   widthMap: '600',
   heightMap: '400',
   idJoin: '',
-  ...Object.values(typesJet)[0],
+  ...Object.values(jetTypesConfig)[0],
 };
 
 export { ProviderSettings, useContextSettings };
