@@ -14,9 +14,9 @@ const AboutPage = lazy(() => import('./routes/about/AboutPage'));
 const ProfilePage = lazy(() => import('./routes/profile/ProfilePage'));
 const PageLogin = lazy(() => import('./routes/login/PageLogin'));
 const PageRegister = lazy(() => import('./routes/register/PageRegister'));
-const PageForgotPassword = lazy(() => import('./routes/forgot-password/PageForgotPassword'));
+const ForgotPasswordPage = lazy(() => import('./routes/forgot-password/ForgotPasswordPage'));
 const PageResetPassword = lazy(() => import('./routes/reset-password/PageResetPassword'));
-const PageVerifyEmail = lazy(() => import('./routes/verify-email/PageVerifyEmail'));
+const VerifyEmailPage = lazy(() => import('./routes/verify-email/VerifyEmailPage'));
 const PageGame = lazy(() => import('./routes/game/PageGame'));
 const PageNonexistent = lazy(() => import('./components/PageNonexistent/PageNonexistent'));
 
@@ -41,8 +41,8 @@ ReactDOM.render(
           <Route path="profile/:userName" element={<ProfilePage />} />
           <Route path="login" element={<PageLogin />} />
           <Route path="register" element={<PageRegister />} />
-          <Route path="verify-email" element={<PageVerifyEmail />} />
-          <Route path="forgot-password" element={<PageForgotPassword />} />
+          <Route path="verify-email" element={<VerifyEmailPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="reset-password" element={<PageResetPassword />} />
           <Route path="game" element={<PageGame />} />
           <Route path="*" element={<PageNonexistent />} />

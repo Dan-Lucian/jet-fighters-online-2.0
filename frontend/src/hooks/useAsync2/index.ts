@@ -1,2 +1,2 @@
-export { default as useAsync } from './useAsync';
-export { default as EnumStatus } from './EnumStatus';
+export { useAsync } from 'hooks/useAsync2/useAsync';
+export { AsyncStatusEnum } from 'hooks/useAsync2/Enums/AsyncStatusEnum';

@@ -1,31 +1,30 @@
 import { useCallback, useReducer } from 'react';
-
-import useSafeDispatch from '../useSafeDispatch';
-import EnumStatus from './EnumStatus';
+import useSafeDispatch from 'hooks/useSafeDispatch';
+import { AsyncStatusEnum } from 'hooks/useAsync2/Enums/AsyncStatusEnum';
 
 type State<T> = {
-  status: EnumStatus;
+  status: AsyncStatusEnum;
   data?: T;
   error?: Error;
 };
 
 type Action<T> =
-  | { type: EnumStatus.Pending }
-  | { type: EnumStatus.Resolved; data: T }
-  | { type: EnumStatus.Rejected; error: Error };
+  | { type: AsyncStatusEnum.Pending }
+  | { type: AsyncStatusEnum.Resolved; data: T }
+  | { type: AsyncStatusEnum.Rejected; error: Error };
 
 const asyncReducer = <T>(state: State<T>, action: Action<T>): State<T> => {
   switch (action.type) {
-    case EnumStatus.Pending: {
-      return { status: EnumStatus.Pending };
+    case AsyncStatusEnum.Pending: {
+      return { status: AsyncStatusEnum.Pending };
     }
 
-    case EnumStatus.Resolved: {
-      return { status: EnumStatus.Resolved, data: action.data };
+    case AsyncStatusEnum.Resolved: {
+      return { status: AsyncStatusEnum.Resolved, data: action.data };
     }
 
-    case EnumStatus.Rejected: {
-      return { status: EnumStatus.Rejected, error: action.error };
+    case AsyncStatusEnum.Rejected: {
+      return { status: AsyncStatusEnum.Rejected, error: action.error };
     }
 
     default: {
@@ -43,10 +42,10 @@ const asyncReducer = <T>(state: State<T>, action: Action<T>): State<T> => {
  * @returns {object} {run, status, data, error, setData, setError}.
  * @returns status can be 'idle', 'pending', 'resolved', 'rejected'.
  */
-const useAsync = <T = undefined>(initialState?: State<T>) => {
+export const useAsync = <T = undefined>(initialState?: State<T>) => {
   const typedReducer = (arg1: any, arg2: any) => asyncReducer<T>(arg1, arg2);
   const [state, unsafeDispatch] = useReducer(typedReducer, {
-    status: EnumStatus.Idle,
+    status: AsyncStatusEnum.Idle,
     ...initialState,
   });
 
@@ -56,31 +55,25 @@ const useAsync = <T = undefined>(initialState?: State<T>) => {
 
   const run = useCallback(
     (promise: Promise<T>) => {
-      dispatch({ type: EnumStatus.Pending });
+      dispatch({ type: AsyncStatusEnum.Pending });
       promise.then(
         (dataReceived: T) => {
           dispatch({
-            type: EnumStatus.Resolved,
+            type: AsyncStatusEnum.Resolved,
             data: dataReceived,
           });
         },
         (error: Error) => {
-          dispatch({ type: EnumStatus.Rejected, error });
+          dispatch({ type: AsyncStatusEnum.Rejected, error });
         }
       );
     },
     [dispatch]
   );
 
-  const setData = useCallback(
-    (data: T) => dispatch({ type: EnumStatus.Resolved, data }),
-    [dispatch]
-  );
+  const setData = useCallback((data: T) => dispatch({ type: AsyncStatusEnum.Resolved, data }), [dispatch]);
 
-  const setError = useCallback(
-    (error: Error) => dispatch({ type: EnumStatus.Rejected, error }),
-    [dispatch]
-  );
+  const setError = useCallback((error: Error) => dispatch({ type: AsyncStatusEnum.Rejected, error }), [dispatch]);
 
   return {
     setData,
@@ -91,5 +84,3 @@ const useAsync = <T = undefined>(initialState?: State<T>) => {
     run,
   };
 };
-
-export default useAsync;

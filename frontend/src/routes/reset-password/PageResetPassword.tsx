@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 // shared hooks
 import useQuery from '../../hooks/useQuery';
-import { useAsync, EnumStatus } from 'hooks/useAsync2';
+import { useAsync } from 'hooks/useAsync2';
 
 // services
 import accountService from '../../services/account.service';

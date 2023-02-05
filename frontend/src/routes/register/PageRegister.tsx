@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './PageRegister.module.scss';
 
 // shared hooks
-import { useAsync, EnumStatus } from 'hooks/useAsync2';
+import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
 import { useContextAuth } from '../../providers/ProviderAuth';
 import { useContextGlobal } from '../../providers/ProviderGlobal';
 
@@ -56,8 +56,8 @@ const PageRegister = () => {
   };
 
   if (account) return <ProfilePage />;
-  if (status === EnumStatus.Pending) return <Loader />;
-  if (status === EnumStatus.Resolved)
+  if (status === AsyncStatusEnum.Pending) return <Loader />;
+  if (status === AsyncStatusEnum.Resolved)
     return (
       <main className={styles.wrapper}>
         <div className={styles.wrapperInner}>

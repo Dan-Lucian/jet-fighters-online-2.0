@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EnumStatus, useAsync } from 'hooks/useAsync2';
+import { AsyncStatusEnum, useAsync } from 'hooks/useAsync2';
 import { useContextAuth } from 'providers/ProviderAuth';
 import { useContextGlobal } from 'providers/ProviderGlobal';
 import accountService from 'services/account.service';
@@ -33,7 +33,7 @@ const ProfilePage = () => {
     if (!loading) run(accountService.getByUserName(userName));
   }, [loading, run, userName]);
 
-  const isWaiting = loading || status === EnumStatus.Pending || status === EnumStatus.Idle;
+  const isWaiting = loading || status === AsyncStatusEnum.Pending || status === AsyncStatusEnum.Idle;
   if (isWaiting) return <Loader />;
   if (!isDefined(dataReceived)) return <PageNonexistent />;
 
