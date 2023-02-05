@@ -6,7 +6,7 @@
   box-shadow: 0 0 5px var(--color-shadow);
 }
 
-.wrapperInner {
+.innerWrapper {
   background: var(--color-bg-primary);
   padding: 2.5em 2.5em 2.5em 0;
   display: flex;
@@ -16,7 +16,7 @@
   box-shadow: inset 0 0 5px var(--color-shadow);
 }
 
-.wrapperSection {
+.sectionWrapper {
   line-height: 1.5;
 
   p,

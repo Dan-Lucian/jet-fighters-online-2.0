@@ -10,7 +10,7 @@ import PreLobby from './routes/index/routes/index/PreLobby';
 
 // lazy loaded components
 const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
-const PageAbout = lazy(() => import('./routes/about/PageAbout'));
+const AboutPage = lazy(() => import('./routes/about/AboutPage'));
 const ProfilePage = lazy(() => import('./routes/profile/ProfilePage'));
 const PageLogin = lazy(() => import('./routes/login/PageLogin'));
 const PageRegister = lazy(() => import('./routes/register/PageRegister'));
@@ -37,7 +37,7 @@ ReactDOM.render(
             <Route path="/" element={<PreLobby />} />
             <Route path="lobby" element={<Lobby />} />
           </Route>
-          <Route path="about" element={<PageAbout />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="profile/:userName" element={<ProfilePage />} />
           <Route path="login" element={<PageLogin />} />
           <Route path="register" element={<PageRegister />} />

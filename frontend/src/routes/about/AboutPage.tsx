@@ -1,18 +1,15 @@
-// local components
-import Heading from './components/Heading/Heading';
+import Heading from 'routes/about/components/Heading/Heading';
+import Styles from 'routes/about/AboutPage.module.scss';
 
-// styles
-import styles from './PageAbout.module.scss';
-
-const PageAbout = () => (
-  <main className={styles.card}>
-    <div className={styles.wrapperInner}>
-      <section className={styles.wrapperSection}>
+const AboutPage = () => (
+  <main className={Styles.card}>
+    <div className={Styles.innerWrapper}>
+      <section className={Styles.sectionWrapper}>
         <Heading>What is this?</Heading>
-        <p className={styles.indent}>{text.whatIsThis}</p>
+        <p className={Styles.indent}>{text.whatIsThis}</p>
       </section>
 
-      <section className={styles.wrapperSection}>
+      <section className={Styles.sectionWrapper}>
         <Heading>How do you play this?</Heading>
         <ol>
           {text.howToPlay.map((textBullet, idx) => (
@@ -21,7 +18,7 @@ const PageAbout = () => (
         </ol>
       </section>
 
-      <section className={styles.wrapperSection}>
+      <section className={Styles.sectionWrapper}>
         <Heading>What is the registration for?</Heading>
         <ol>
           {text.whyRegistration.map((textBullet, idx) => (
@@ -54,4 +51,4 @@ const text = {
   ],
 };
 
-export default PageAbout;
+export default AboutPage;
