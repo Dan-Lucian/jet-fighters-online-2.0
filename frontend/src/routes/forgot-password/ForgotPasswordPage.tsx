@@ -8,24 +8,29 @@ import BtnSubmit from 'components/BtnSubmit/BtnSubmit';
 import { IForgotPasswordResponse } from 'routes/forgot-password/Interfaces/IForgotPasswordResponse';
 import Styles from 'routes/forgot-password/ForgotPasswordPage.module.scss';
 import { isDefined } from 'utils/GeneralTypeUtils';
+import Loader from 'components/Loader/Loader';
+import AuthResult from 'components/AuthResult/AuthResult';
 
 const ForgotPasswordPage = () => {
   const { run, status, data: receivedData } = useAsync<IForgotPasswordResponse>();
+
+  if (status === AsyncStatusEnum.Pending) {
+    return <Loader />;
+  }
+
+  if (status === AsyncStatusEnum.Rejected) {
+    return <AuthResult text={forgotPasswordText.fail} />;
+  }
+
+  if (isDefined(receivedData) && status === AsyncStatusEnum.Resolved) {
+    return <AuthResult text={forgotPasswordText.success} />;
+  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const dataFromForm = new FormData(event.currentTarget);
     run(accountService.forgotPassword(dataFromForm.get('email')));
   };
-
-  if (isDefined(receivedData)) {
-    return (
-      <main className={Styles.messageWrapper}>
-        <p>An email with instructions has been sent.</p>
-        <p>In case there's no email, check your spam section as well.</p>
-      </main>
-    );
-  }
 
   return (
     <main className={Styles.wrapper}>
@@ -40,10 +45,16 @@ const ForgotPasswordPage = () => {
             Register
           </Link>
         </div>
-        <BtnSubmit disabled={status === AsyncStatusEnum.Pending}>Recover</BtnSubmit>
+        <BtnSubmit>Recover</BtnSubmit>
       </FormAuth>
     </main>
   );
 };
+
+const forgotPasswordText = {
+  success: 'An email with the next steps has been sent to the aforementioned email address.',
+  fail: 'There was an error, please try reseting the password again.',
+};
+
 
 export default ForgotPasswordPage;
