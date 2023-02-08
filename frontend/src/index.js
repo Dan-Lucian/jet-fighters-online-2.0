@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // components
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import App from './App';
-import PageIndex from './routes/index/PageIndex';
+import IndexPage from './routes/index/IndexPage';
 import PreLobby from './routes/index/routes/index/PreLobby';
 
 // lazy loaded components
@@ -33,7 +33,7 @@ ReactDOM.render(
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/" element={<PageIndex />}>
+          <Route path="/" element={<IndexPage />}>
             <Route path="/" element={<PreLobby />} />
             <Route path="lobby" element={<Lobby />} />
           </Route>

@@ -12,7 +12,6 @@ const VerifyEmailPage = () => {
   const navigate = useNavigate();
   const { run, status } = useAsync();
   const query = useQuery();
-  console.log('status: ', status);
 
   cachedToken.current = query.get('token') || '';
 

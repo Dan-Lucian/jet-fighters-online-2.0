@@ -1,4 +1,4 @@
-.selectJet {
+.mainWrapper {
   position: fixed;
   z-index: 200;
   right: 0;
@@ -18,7 +18,7 @@
   }
 }
 
-.wrapperContent {
+.innerWrapper {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
