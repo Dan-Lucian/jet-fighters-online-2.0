@@ -9,6 +9,16 @@ export function delay(ms: number): Promise<undefined> {
   });
 }
 
+/**
+ * Capitalizes a string.
+ * @param {string} string
+ * @returns {string} capitalized string.
+ */
+export function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+// -----------------------------------------------------------------------------
 // Error utils
 type ErrorWithMessage = {
   message: string;
@@ -42,13 +52,4 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
  */
 export function getErrorMessage(error: unknown): string {
   return toErrorWithMessage(error).message;
-}
-
-/**
- * Capitalizes a string.
- * @param {string} string
- * @returns {string} capitalized string.
- */
-export function capitalize(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
 }

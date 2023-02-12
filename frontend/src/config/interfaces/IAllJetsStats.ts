@@ -1,4 +1,4 @@
-import { JetTypeEnum } from 'enums/JetTypeEnum';
+import { JetTypeEnum } from 'config/enums/JetTypeEnum';
 
 export interface IJetStats {
   wins: number;

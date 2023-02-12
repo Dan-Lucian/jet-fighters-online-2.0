@@ -13,10 +13,10 @@ import Styles from 'routes/profile/ProfilePage.module.scss';
 import { isFullProfileResponse } from 'routes/profile/utils/ProfilePageTypeUtils';
 import { FixMeLater } from 'types/FixMeLater';
 import { IFullProfileResponse } from 'routes/profile/interfaces/IFullProfileResponse';
-import { IJetStats } from 'routes/profile/interfaces/IAllJetsStats';
+import { IJetStats } from 'config/interfaces/IAllJetsStats';
 import { ISemiProfileResponse } from 'routes/profile/interfaces/ISemiProfileResponse';
 import { jetTypesConfig } from 'config/jetTypesConfig';
-import { JetTypeEnum } from 'enums/JetTypeEnum';
+import { JetTypeEnum } from 'config/enums/JetTypeEnum';
 import { isDefined } from 'utils/GeneralTypeUtils';
 
 const ProfilePage = () => {

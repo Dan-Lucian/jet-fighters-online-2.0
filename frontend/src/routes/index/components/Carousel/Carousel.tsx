@@ -7,6 +7,7 @@ import { isNotNull } from 'utils/GeneralTypeUtils';
 import ArrowButton from 'routes/index/components/ArrowButton/ArrowButton';
 import { ArrowDirectionEnum } from 'routes/index/components/ArrowButton/enums/ArrowDirectionEnum';
 import Styles from 'routes/index/components/Carousel/Carousel.module.scss';
+import { IJetConfig } from 'config/interfaces/IJetConfig';
 
 const Carousel = () => {
   const [, setSettings]: FixMeLater = useContextSettings();
@@ -28,7 +29,7 @@ const Carousel = () => {
     <div className={Styles.mainWrapper}>
       <ArrowButton direction={ArrowDirectionEnum.Left} onClick={handleClickArrowLeft} />
       <div ref={refWrapperInner} className={Styles.jetsWrapper}>
-        {Object.values(jetTypesConfig).map((jet, idx) => (
+        {Object.values(jetTypesConfig).map((jet: IJetConfig, idx) => (
           <Jet imgJet={jet.imgJet} onClick={() => setSettings((prev: FixMeLater) => ({ ...prev, ...jet }))} key={idx} />
         ))}
       </div>

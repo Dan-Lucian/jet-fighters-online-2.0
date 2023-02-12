@@ -1,7 +1,7 @@
 import { jetTypesConfig } from 'config/jetTypesConfig';
 import Jet from 'components/Jet/Jet';
 import Styles from 'routes/profile/components/FavouriteJet/FavouriteJet.module.scss';
-import { JetTypeEnum } from 'enums/JetTypeEnum';
+import { JetTypeEnum } from 'config/enums/JetTypeEnum';
 import { capitalize } from 'utils/GeneralUtils';
 
 interface IFavouriteJetProps {

@@ -1,5 +1,5 @@
-import { IAllJetsStats, IJetStats } from 'routes/profile/interfaces/IAllJetsStats';
-import { JetTypeEnum } from 'enums/JetTypeEnum';
+import { IAllJetsStats, IJetStats } from 'config/interfaces/IAllJetsStats';
+import { JetTypeEnum } from 'config/enums/JetTypeEnum';
 
 /**
  * Sorts jets in a descending order by theit total amount of games.

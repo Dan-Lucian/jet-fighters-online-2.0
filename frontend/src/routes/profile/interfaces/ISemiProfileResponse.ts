@@ -1,4 +1,4 @@
-import { IAllJetsStats } from 'routes/profile/interfaces/IAllJetsStats';
+import { IAllJetsStats } from 'config/interfaces/IAllJetsStats';
 
 export interface ISemiProfileResponse {
   id: string;

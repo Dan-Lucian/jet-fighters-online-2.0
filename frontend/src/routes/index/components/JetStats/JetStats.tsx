@@ -1,23 +1,28 @@
-import { typesJetStandartized } from 'config/jetTypesConfig';
+import { standartizedJetTypesConfig } from 'config/jetTypesConfig';
 import DoneButton from 'routes/index/components/DoneButton/DoneButton';
 import TitleSmall from 'routes/index/components/TitleSmall/TitleSmall';
-import ChartRadar from 'routes/index/components/ChartRadar/ChartRadar';
+import RadarChart from 'routes/index/components/RadarChart/RadarChart';
 import { useContextSettings } from 'providers/ProviderSettings';
 import { FixMeLater } from 'types/FixMeLater';
 import Styles from 'routes/index/components/JetStats/JetStats.module.scss';
+import { hasObjectKey } from 'utils/GeneralTypeUtils';
 
 interface IJetStatsProps {
   toggleIsOpen: (forceValue?: boolean) => void;
 }
 
 const JetStats = ({ toggleIsOpen }: IJetStatsProps) => {
-  const [{ typeJet }]: FixMeLater = useContextSettings();
+  const [{ type }]: FixMeLater = useContextSettings();
+
+  if (!hasObjectKey(standartizedJetTypesConfig, type)) {
+    return <div></div>;
+  }
 
   return (
     <div className={Styles.wrapper}>
       <div className={Styles.wrapperChart}>
-        <TitleSmall>Type: {typeJet}</TitleSmall>
-        <ChartRadar statsJet={typesJetStandartized[typeJet]} />
+        <TitleSmall>Type: {type}</TitleSmall>
+        <RadarChart standartizedJetStats={standartizedJetTypesConfig[type]} />
       </div>
       <DoneButton onClick={() => toggleIsOpen(false)} />
     </div>
