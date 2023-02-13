@@ -7,13 +7,15 @@ interface IJetSelectionMenuProps {
   toggleIsOpen: (forceValue?: boolean) => void;
 }
 
-const JetSelectionMenu = ({ isOpen, toggleIsOpen }: IJetSelectionMenuProps) => (
-  <aside className={`${Styles.mainWrapper} ${isOpen && Styles.isOpen}`}>
-    <div className={Styles.innerWrapper}>
-      <Carousel />
-      <JetStats toggleIsOpen={toggleIsOpen} />
-    </div>
-  </aside>
-);
+const JetSelectionMenu = ({ isOpen, toggleIsOpen }: IJetSelectionMenuProps) => {
+  return (
+    <aside className={`${Styles.mainWrapper} ${isOpen && Styles.isOpen}`}>
+      <div className={Styles.innerWrapper}>
+        <Carousel />
+        <JetStats toggleIsOpen={toggleIsOpen} />
+      </div>
+    </aside>
+  );
+};
 
 export default JetSelectionMenu;

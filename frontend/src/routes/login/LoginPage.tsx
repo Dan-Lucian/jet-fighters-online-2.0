@@ -4,7 +4,7 @@ import { useContextAuth } from 'providers/ProviderAuth';
 import { useContextGlobal } from 'providers/ProviderGlobal';
 import FormAuth from 'components/FormAuth/FormAuth';
 import InputAuth from 'components/InputAuth/InputAuth';
-import BtnSubmit from 'components/BtnSubmit/BtnSubmit';
+import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Loader from 'components/Loader/Loader';
 import Styles from 'routes/login/LoginPage.module.scss';
 import { FixMeLater } from 'types/FixMeLater';
@@ -62,7 +62,7 @@ const LoginPage = () => {
             Forgot password
           </Link>
         </div>
-        <BtnSubmit>Login</BtnSubmit>
+        <SubmitButton>Login</SubmitButton>
       </FormAuth>
     </main>
   );

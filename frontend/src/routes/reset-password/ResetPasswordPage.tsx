@@ -5,7 +5,7 @@ import { AsyncStatusEnum, useAsync } from 'hooks/useAsync2';
 import accountService from 'services/account.service';
 import FormAuth from 'components/FormAuth/FormAuth';
 import InputAuth from 'components/InputAuth/InputAuth';
-import BtnSubmit from 'components/BtnSubmit/BtnSubmit';
+import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Styles from 'routes/reset-password/ResetPasswordPage.module.scss';
 import { isDefined } from 'utils/GeneralTypeUtils';
 import PageNonexistent from 'components/PageNonexistent/PageNonexistent';
@@ -80,7 +80,7 @@ const ResetPasswordPage = () => {
             Register
           </Link>
         </div>
-        <BtnSubmit>Reset password</BtnSubmit>
+        <SubmitButton>Reset password</SubmitButton>
       </FormAuth>
     </main>
   );

@@ -9,18 +9,14 @@ import styles from './NotificationFriendshipResponse.module.scss';
 
 // shared components
 import TimeAgo from '../TimeAgo/TimeAgo';
-import ButtonCloseNotification from '../ButtonCloseNotification/ButtonCloseNotification';
+import CloseNotificationButton from '../CloseNotificationButton/CloseNotificationButton';
 
 const propTypes = {
   notification: PropTypes.object.isRequired,
   tokenJwt: PropTypes.string.isRequired,
   deleteNotification: PropTypes.func.isRequired,
 };
-const NotificationFriendshipResponse = ({
-  notification,
-  tokenJwt,
-  deleteNotification,
-}) => {
+const NotificationFriendshipResponse = ({ notification, tokenJwt, deleteNotification }) => {
   const { actor, created, id } = notification;
 
   const handleClick = () => {
@@ -37,7 +33,7 @@ const NotificationFriendshipResponse = ({
         accepted your friendship request
       </p>
       <TimeAgo timestamp={created} />
-      <ButtonCloseNotification onClick={handleClick} />
+      <CloseNotificationButton onClick={handleClick} />
     </div>
   );
 };

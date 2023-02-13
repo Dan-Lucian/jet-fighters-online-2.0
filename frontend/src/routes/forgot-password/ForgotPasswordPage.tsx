@@ -4,7 +4,7 @@ import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
 import accountService from 'services/account.service';
 import FormAuth from 'components/FormAuth/FormAuth';
 import InputAuth from 'components/InputAuth/InputAuth';
-import BtnSubmit from 'components/BtnSubmit/BtnSubmit';
+import SubmitButton from 'components/SubmitButton/SubmitButton';
 import { IForgotPasswordResponse } from 'routes/forgot-password/Interfaces/IForgotPasswordResponse';
 import Styles from 'routes/forgot-password/ForgotPasswordPage.module.scss';
 import { isDefined } from 'utils/GeneralTypeUtils';
@@ -45,7 +45,7 @@ const ForgotPasswordPage = () => {
             Register
           </Link>
         </div>
-        <BtnSubmit>Recover</BtnSubmit>
+        <SubmitButton>Recover</SubmitButton>
       </FormAuth>
     </main>
   );
@@ -55,6 +55,5 @@ const forgotPasswordText = {
   success: 'An email with the next steps has been sent to the aforementioned email address.',
   fail: 'There was an error, please try reseting the password again.',
 };
-
 
 export default ForgotPasswordPage;

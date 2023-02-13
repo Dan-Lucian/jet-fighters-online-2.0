@@ -6,7 +6,7 @@ import { useContextGlobal } from 'providers/ProviderGlobal';
 import accountService from 'services/account.service';
 import FormAuth from 'components/FormAuth/FormAuth';
 import InputAuth from 'components/InputAuth/InputAuth';
-import BtnSubmit from 'components/BtnSubmit/BtnSubmit';
+import SubmitButton from 'components/SubmitButton/SubmitButton';
 import ProfilePage from 'routes/profile/ProfilePage';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
@@ -102,7 +102,7 @@ const RegisterPage = () => {
             Forgot password
           </Link>
         </div>
-        <BtnSubmit>Register</BtnSubmit>
+        <SubmitButton>Register</SubmitButton>
       </FormAuth>
     </main>
   );

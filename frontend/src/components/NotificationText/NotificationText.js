@@ -8,7 +8,7 @@ import styles from './NotificationText.module.scss';
 
 // shared components
 import TimeAgo from '../TimeAgo/TimeAgo';
-import ButtonCloseNotification from '../ButtonCloseNotification/ButtonCloseNotification';
+import CloseNotificationButton from '../CloseNotificationButton/CloseNotificationButton';
 
 const propTypes = {
   notification: PropTypes.object.isRequired,
@@ -28,7 +28,7 @@ const NotificationText = ({ notification, tokenJwt, deleteNotification }) => {
     <div className={styles.wrapper}>
       <p>{content}</p>
       <TimeAgo timestamp={created} />
-      <ButtonCloseNotification onClick={handleClick} />
+      <CloseNotificationButton onClick={handleClick} />
     </div>
   );
 };
