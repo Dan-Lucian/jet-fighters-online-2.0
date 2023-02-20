@@ -1,10 +1,8 @@
-import { ReactNode } from 'react';
-import Styles from './Heading.module.scss';
+import { IChildrenProp } from 'interfaces/GeneralInterfaces';
+import Styles from 'routes/about/components/Heading/Heading.module.scss';
 
-interface IHeadingProps {
-  children: ReactNode;
-}
-
-const Heading = ({ children }: IHeadingProps) => <h2 className={Styles.heading}>{children}</h2>;
+const Heading = ({ children }: IChildrenProp) => {
+  return <h2 className={Styles.heading}>{children}</h2>;
+};
 
 export default Heading;
