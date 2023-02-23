@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
 import accountService from 'services/account.service';
-import FormAuth from 'components/FormAuth/FormAuth';
+import AuthForm from 'components/AuthForm/AuthForm';
 import InputAuth from 'components/InputAuth/InputAuth';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import { IForgotPasswordResponse } from 'routes/forgot-password/Interfaces/IForgotPasswordResponse';
@@ -35,7 +35,7 @@ const ForgotPasswordPage = () => {
   return (
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Recovery</h1>
-      <FormAuth onSubmit={handleSubmit}>
+      <AuthForm onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" autocomplete="email" />
         <div className={Styles.linksWrapper}>
           <Link to="/login" className={Styles.link}>
@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
           </Link>
         </div>
         <SubmitButton>Recover</SubmitButton>
-      </FormAuth>
+      </AuthForm>
     </main>
   );
 };

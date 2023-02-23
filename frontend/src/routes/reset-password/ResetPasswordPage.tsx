@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useQuery from 'hooks/useQuery';
 import { AsyncStatusEnum, useAsync } from 'hooks/useAsync2';
 import accountService from 'services/account.service';
-import FormAuth from 'components/FormAuth/FormAuth';
+import AuthForm from 'components/AuthForm/AuthForm';
 import InputAuth from 'components/InputAuth/InputAuth';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Styles from 'routes/reset-password/ResetPasswordPage.module.scss';
@@ -56,7 +56,7 @@ const ResetPasswordPage = () => {
   return (
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Reset</h1>
-      <FormAuth onSubmit={handleSubmit}>
+      <AuthForm onSubmit={handleSubmit}>
         <InputAuth
           id="password"
           label="Password"
@@ -81,7 +81,7 @@ const ResetPasswordPage = () => {
           </Link>
         </div>
         <SubmitButton>Reset password</SubmitButton>
-      </FormAuth>
+      </AuthForm>
     </main>
   );
 };

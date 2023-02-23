@@ -1,8 +1,8 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { FormEvent, useEffect, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContextAuth } from 'providers/ProviderAuth';
 import { useContextGlobal } from 'providers/ProviderGlobal';
-import FormAuth from 'components/FormAuth/FormAuth';
+import AuthForm from 'components/AuthForm/AuthForm';
 import InputAuth from 'components/InputAuth/InputAuth';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Loader from 'components/Loader/Loader';
@@ -26,9 +26,9 @@ const LoginPage = () => {
       }));
   }, [error, setGlobal]);
 
-  const handleSubmit = (event: FixMeLater) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const dataFromForm = new FormData(event.target);
+    const dataFromForm = new FormData(event.currentTarget);
     const credentials = {
       email: dataFromForm.get('email'),
       password: dataFromForm.get('password'),
@@ -43,7 +43,7 @@ const LoginPage = () => {
   return (
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Login</h1>
-      <FormAuth onSubmit={handleSubmit}>
+      <AuthForm onSubmit={handleSubmit}>
         <InputAuth id="email" label="Email" type="email" name="email" autocomplete="email" />
         <InputAuth
           id="password"
@@ -63,7 +63,7 @@ const LoginPage = () => {
           </Link>
         </div>
         <SubmitButton>Login</SubmitButton>
-      </FormAuth>
+      </AuthForm>
     </main>
   );
 };

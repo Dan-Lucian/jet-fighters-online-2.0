@@ -45,6 +45,7 @@ const Search = () => {
     toggleIsVisibleSearch(false);
   };
 
+  // use event: FormEvent<HTMLFormElement>
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataFromForm = new FormData(event.target);
