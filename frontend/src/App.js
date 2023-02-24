@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // shared components
-import WrapperApp from './components/WrapperApp/WrapperApp';
-import WrapperPage from './components/WrapperPage/WrapperPage';
+import AppWrapper from './components/AppWrapper/AppWrapper';
+import PageWrapper from './components/PageWrapper/PageWrapper';
 import Nav from './components/Nav/Nav';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import ErrorRouteFallback from './components/ErrorRouteFallback/ErrorRouteFallback';
@@ -23,11 +23,11 @@ import PhoneOverlay from './components/PhoneOverlay/PhoneOverlay';
 const App = () => (
   <ProviderGlobal>
     <ProviderTheme>
-      <WrapperApp>
+      <AppWrapper>
         <ProviderAuth>
           <Nav />
           <PhoneOverlay />
-          <WrapperPage>
+          <PageWrapper>
             <ProviderSettings>
               <ProviderLobby>
                 <ProviderWebsocket>
@@ -39,10 +39,10 @@ const App = () => (
                 </ProviderWebsocket>
               </ProviderLobby>
             </ProviderSettings>
-          </WrapperPage>
+          </PageWrapper>
           <Popup />
         </ProviderAuth>
-      </WrapperApp>
+      </AppWrapper>
     </ProviderTheme>
   </ProviderGlobal>
 );
