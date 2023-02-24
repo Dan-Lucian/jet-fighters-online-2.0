@@ -4,13 +4,14 @@ import useQuery from 'hooks/useQuery';
 import { AsyncStatusEnum, useAsync } from 'hooks/useAsync2';
 import accountService from 'services/account.service';
 import AuthForm from 'components/AuthForm/AuthForm';
-import InputAuth from 'components/InputAuth/InputAuth';
+import AuthInput from 'components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
-import Styles from 'routes/reset-password/ResetPasswordPage.module.scss';
 import { isDefined } from 'utils/GeneralTypeUtils';
 import PageNonexistent from 'components/PageNonexistent/PageNonexistent';
 import Loader from 'components/Loader/Loader';
 import AuthResult from 'components/AuthResult/AuthResult';
+import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
+import Styles from 'routes/reset-password/ResetPasswordPage.module.scss';
 
 const ResetPasswordPage = () => {
   const cachedToken = useRef<string | null>(null);
@@ -57,18 +58,18 @@ const ResetPasswordPage = () => {
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Reset</h1>
       <AuthForm onSubmit={handleSubmit}>
-        <InputAuth
+        <AuthInput
           id="password"
           label="Password"
-          type="password"
+          type={InputTypeEnum.Password}
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
           name="password"
         />
-        <InputAuth
+        <AuthInput
           id="password-confirm"
           label="Confirm the password"
-          type="password"
+          type={InputTypeEnum.Password}
           pattern="^.{8,25}$"
           name="passwordConfirm"
         />

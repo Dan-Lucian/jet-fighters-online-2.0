@@ -5,11 +5,12 @@ import { useContextAuth } from 'providers/ProviderAuth';
 import { useContextGlobal } from 'providers/ProviderGlobal';
 import accountService from 'services/account.service';
 import AuthForm from 'components/AuthForm/AuthForm';
-import InputAuth from 'components/InputAuth/InputAuth';
+import AuthInput from 'components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import ProfilePage from 'routes/profile/ProfilePage';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
+import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
 import Styles from 'routes/register/RegisterPage.module.scss';
 
 const RegisterPage = () => {
@@ -67,29 +68,29 @@ const RegisterPage = () => {
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Registration</h1>
       <AuthForm onSubmit={handleSubmit}>
-        <InputAuth id="email" label="Email" type="email" name="email" autocomplete="email" />
-        <InputAuth
+        <AuthInput id="email" label="Email" type={InputTypeEnum.Email} name="email" autocomplete="email" />
+        <AuthInput
           id="username"
           label="Username"
-          type="text"
+          type={InputTypeEnum.Text}
           undertext="* 3-15 characters"
           pattern="^.{3,15}$"
           name="userName"
           autocomplete="username"
         />
-        <InputAuth
+        <AuthInput
           id="password"
           label="Password"
-          type="password"
+          type={InputTypeEnum.Password}
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
           name="password"
           autocomplete="new-password"
         />
-        <InputAuth
+        <AuthInput
           id="password-confirm"
           label="Confirm the password"
-          type="password"
+          type={InputTypeEnum.Password}
           pattern="^.{8,25}$"
           name="passwordConfirm"
           autocomplete="new-password"

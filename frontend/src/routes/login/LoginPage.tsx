@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContextAuth } from 'providers/ProviderAuth';
 import { useContextGlobal } from 'providers/ProviderGlobal';
 import AuthForm from 'components/AuthForm/AuthForm';
-import InputAuth from 'components/InputAuth/InputAuth';
+import AuthInput from 'components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Loader from 'components/Loader/Loader';
-import Styles from 'routes/login/LoginPage.module.scss';
 import { FixMeLater } from 'types/FixMeLater';
+import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
+import Styles from 'routes/login/LoginPage.module.scss';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -44,11 +45,11 @@ const LoginPage = () => {
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Login</h1>
       <AuthForm onSubmit={handleSubmit}>
-        <InputAuth id="email" label="Email" type="email" name="email" autocomplete="email" />
-        <InputAuth
+        <AuthInput id="email" label="Email" type={InputTypeEnum.Email} name="email" autocomplete="email" />
+        <AuthInput
           id="password"
           label="Password"
-          type="password"
+          type={InputTypeEnum.Password}
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
           name="password"
