@@ -1,6 +1,6 @@
 import useLocalStorage from 'hooks/useLocalStorage';
-import GuideButton from 'components/Guide/components/GuideButton/GuideButton';
-import Styles from 'components/Guide/components/GuideMenu/GuideMenu.module.scss';
+import GuideButton from 'modules/Guide/components/GuideButton/GuideButton';
+import Styles from 'modules/Guide/components/GuideMenu/GuideMenu.module.scss';
 
 const GuideMenu = () => {
   const [tab, setTab]: [tab: keyof typeof text, setTab: (s: string) => void] = useLocalStorage(

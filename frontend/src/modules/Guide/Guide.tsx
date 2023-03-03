@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import useToggle from 'hooks/useToggle';
 import useOutsideClick from 'hooks/useOutsideClick';
 import bookIconSrc from 'assets/images/book.svg';
-import GuideMenu from 'components/Guide/components/GuideMenu/Menu';
-import Styles from 'components/Guide/Guide.module.scss';
+import GuideMenu from 'modules/Guide/components/GuideMenu/Menu';
+import Styles from 'modules/Guide/Guide.module.scss';
 
 const Guide = () => {
   const [isActive, toggleIsActive] = useToggle(false);

@@ -1,4 +1,4 @@
-import Styles from 'components/Guide/components/GuideButton/GuideButton.module.scss';
+import Styles from 'modules/Guide/components/GuideButton/GuideButton.module.scss';
 
 interface IGuideButtonProps {
   tab: string;

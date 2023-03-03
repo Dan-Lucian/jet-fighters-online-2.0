@@ -8,7 +8,7 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
 import Search from '../Search/Search';
 import Notifications from '../../modules/Notifications/Notifications';
-import Guide from '../Guide/Guide';
+import Guide from '../../modules/Guide/Guide';
 
 // styles
 import styles from './Nav.module.scss';
