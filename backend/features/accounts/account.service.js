@@ -382,6 +382,7 @@ async function sendEmailAlreadyRegistered(email, origin) {
 }
 
 async function sendEmailResetPassword(account, origin) {
+  console.log('SENDING EMAIL');
   let message;
   if (origin) {
     const resetUrl = `${origin}/reset-password?token=${account.resetToken.token}`;

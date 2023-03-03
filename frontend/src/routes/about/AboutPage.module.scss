@@ -1,0 +1,32 @@
+.card {
+  background: var(--color-bg-secondary);
+  width: 44em;
+  padding: 2.5em;
+  border-radius: 5px;
+  box-shadow: 0 0 5px var(--color-shadow);
+}
+
+.innerWrapper {
+  background: var(--color-bg-primary);
+  padding: 2.5em 2.5em 2.5em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px var(--color-shadow);
+}
+
+.sectionWrapper {
+  line-height: 1.5;
+
+  p,
+  ol {
+    padding-top: 1em;
+    padding-left: 2.5em;
+    list-style-type: number;
+  }
+}
+
+.indent {
+  text-indent: 1.5em;
+}

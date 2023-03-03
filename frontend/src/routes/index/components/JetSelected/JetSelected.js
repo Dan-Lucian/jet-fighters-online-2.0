@@ -13,7 +13,7 @@ import ErrorRouteFallback from '../../../../components/ErrorRouteFallback/ErrorR
 import styles from './JetSelected.module.scss';
 
 // lazy loaded components
-const SelectJet = lazy(() => import('../SelectJet/SelectJet'));
+const JetSelectionMenu = lazy(() => import('../JetSelectionMenu/JetSelectionMenu'));
 
 const JetSelected = () => {
   const [isOpen, toggleIsOpen] = useToggle(false);
@@ -34,7 +34,7 @@ const JetSelected = () => {
       </button>
       <ErrorBoundary FallbackComponent={ErrorRouteFallback}>
         <Suspense fallback={<span />}>
-          <SelectJet isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+          <JetSelectionMenu isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
         </Suspense>
       </ErrorBoundary>
     </div>

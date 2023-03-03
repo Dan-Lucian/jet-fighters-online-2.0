@@ -5,10 +5,10 @@ import { useContextGlobal } from '../../providers/ProviderGlobal';
 import { useContextAuth } from '../../providers/ProviderAuth';
 
 // shared components
-import TogglerTheme from '../TogglerTheme/TogglerTheme';
+import ThemeToggler from '../ThemeToggler/ThemeToggler';
 import Search from '../Search/Search';
-import Notifications from '../Notifications/Notifications';
-import { Guide } from '../Guide';
+import Notifications from '../../modules/Notifications/Notifications';
+import Guide from '../Guide/Guide';
 
 // styles
 import styles from './Nav.module.scss';
@@ -20,8 +20,7 @@ const Nav = () => {
   const { stateApp } = global;
 
   const isStateAppLobby = stateApp === 'lobby';
-  const isStateAppGame =
-    stateApp === 'game' || stateApp === 'countdown' || stateApp === 'gameOver';
+  const isStateAppGame = stateApp === 'game' || stateApp === 'countdown' || stateApp === 'gameOver';
 
   return (
     <nav className={styles.nav}>
@@ -57,7 +56,7 @@ const Nav = () => {
             Login
           </Link>
         )}
-        <TogglerTheme />
+        <ThemeToggler />
       </div>
     </nav>
   );

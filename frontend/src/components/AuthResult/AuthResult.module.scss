@@ -1,0 +1,38 @@
+.wrapper {
+  width: 27em;
+  padding: 2.5em;
+  border-radius: 5px;
+  background: var(--color-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  box-shadow: 0 0 5px var(--color-shadow);
+}
+
+.heading {
+  background: var(--color-bg-primary);
+  font-size: 1.5em;
+  align-self: flex-start;
+  padding: 0.75em;
+  box-shadow: inset 0 0 5px var(--color-shadow);
+}
+
+.linksWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5em;
+  background: var(--color-bg-primary);
+  box-shadow: inset 0 0 5px var(--color-shadow);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 0.9em;
+
+  &:hover,
+  &:focus {
+    color: var(--color-blue);
+    outline: none;
+  }
+}

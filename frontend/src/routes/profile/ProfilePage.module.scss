@@ -1,0 +1,194 @@
+.wrapper {
+  display: flex;
+  box-shadow: 2px 2px 5px -2px var(--color-shadow);
+}
+
+.card {
+  background: var(--color-bg-secondary);
+  padding: 2em;
+  // padding-left: 6.5em;
+  width: 27em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+}
+
+.jetWrapper {
+  position: absolute;
+  right: 100%;
+  top: 0;
+}
+
+.backgroundFiller {
+  width: 4.5em;
+  height: 45em;
+  background: var(--color-bg-secondary);
+}
+
+.jet {
+  position: absolute;
+  right: 0;
+  top: 4.5em;
+  background: var(--color-blue);
+  width: 9em;
+  height: 9em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  box-shadow: 0 0 3px 2px var(--color-shadow),
+    0 0 0 1em var(--color-bg-secondary);
+  transition: box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1);
+
+  &::before,
+  &::after {
+    content: '';
+    width: 9em;
+    height: 9em;
+    background: var(--color-bg-primary);
+    border-radius: 50%;
+    position: absolute;
+  }
+
+  &::before {
+    top: calc(100% + 1em);
+    height: 31em;
+    background: var(--color-bg-primary);
+    border-radius: 10em 10em 0 0;
+  }
+
+  &::after {
+    bottom: calc(100% + 1em);
+  }
+}
+
+.img {
+  width: 6em;
+  animation-name: rotate;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.nameWrapper {
+  background: var(--color-bg-primary);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: inset 0 0 5px var(--color-shadow);
+}
+
+.name {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.email {
+  color: var(--color-blue);
+}
+
+.logoutButton,
+.addFriendButton {
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  background: var(--color-red);
+  color: var(--color-white);
+  box-shadow: 0 4px 0 var(--color-shadow-box);
+  cursor: pointer;
+  transition: none;
+
+  &:hover {
+    background: var(--color-red-dark);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+  }
+
+  &:disabled {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-shadow-box);
+    background: var(--color-red-dark);
+  }
+}
+
+.addFriendButton {
+  background: var(--color-green);
+
+  &:hover,
+  &:disabled {
+    background: var(--color-green-dark);
+  }
+}
+
+.stats {
+  padding: 1em 0;
+  display: flex;
+  justify-content: space-evenly;
+  background: var(--color-bg-primary);
+  font-size: 1.2em;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px var(--color-shadow);
+}
+
+.winsWrapper,
+.losesWrapper,
+.drawsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+
+  & p:last-child {
+    font-weight: 700;
+    font-size: 1.2em;
+  }
+}
+
+.winsWrapper {
+  color: var(--color-green);
+}
+
+.losesWrapper {
+  color: var(--color-red);
+}
+
+.mostPlayedJetsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 1.5em 1.5em 1.5em;
+  background: var(--color-bg-primary);
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px var(--color-shadow);
+}
+
+.heading {
+  padding: 0.5em 1.5em;
+  border-radius: 5px;
+  font-size: 1.5em;
+  background: var(--color-bg-secondary);
+  box-shadow: 0 0 5px var(--color-shadow);
+}
