@@ -6,7 +6,7 @@ import AuthForm from 'components/AuthForm/AuthForm';
 import AuthInput from 'components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import { IForgotPasswordResponse } from 'routes/forgot-password/Interfaces/IForgotPasswordResponse';
-import { isDefined } from 'utils/GeneralTypeUtils';
+import { isDefined } from 'utils/generalTypeUtils';
 import Loader from 'components/Loader/Loader';
 import AuthResult from 'components/AuthResult/AuthResult';
 import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';

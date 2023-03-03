@@ -1,5 +1,5 @@
 import timeAgo from 'utils/timeAgo';
-import Styles from 'components/TimeAgo/TimeAgo.module.scss';
+import Styles from 'modules/Notifications/components/TimeAgo/TimeAgo.module.scss';
 
 interface ITimeAgoProps {
   timestamp: string;

@@ -1,14 +1,14 @@
 // assets
-import ImgJetBlack from 'assets/images/jet-000.webp';
-import ImgJetWhite from 'assets/images/jet-fff.webp';
-import ImgJetGreen from 'assets/images/jet-66ff66.webp';
-import ImgJetPurple from 'assets/images/jet-ff91ff.webp';
-import ImgJetYellow from 'assets/images/jet-f4f445.webp';
-import ImgJetAzure from 'assets/images/jet-4ae9f7.webp';
+import blackJetImageSrc from 'assets/images/jet-000.webp';
+import whiteJetImageSrc from 'assets/images/jet-fff.webp';
+import greenJetImageSrc from 'assets/images/jet-66ff66.webp';
+import purpleJetImageSrc from 'assets/images/jet-ff91ff.webp';
+import yellowJetImageSrc from 'assets/images/jet-f4f445.webp';
+import azureJetImageSrc from 'assets/images/jet-4ae9f7.webp';
 import { JetHexColorEnum } from 'config/enums/JetHexColorEnum';
 import { JetTypeEnum } from 'config/enums/JetTypeEnum';
 import { IAllJetsConfig } from 'config/interfaces/IAllJetsConfig';
-import { standartizeJetTypesConfig } from './ConfigUtils';
+import { standartizeJetTypesConfig } from 'config/configUtils';
 
 export const jetTypesConfig: IAllJetsConfig = {
   [JetTypeEnum.Balanced]: {
@@ -19,7 +19,7 @@ export const jetTypesConfig: IAllJetsConfig = {
     speedBullet: 7,
     timeAliveMaxBullet: 60,
     scale: 1,
-    imgJet: ImgJetBlack,
+    jetImageSrc: blackJetImageSrc,
   },
   [JetTypeEnum.Speedster]: {
     type: JetTypeEnum.Speedster,
@@ -29,7 +29,7 @@ export const jetTypesConfig: IAllJetsConfig = {
     speedBullet: 8,
     timeAliveMaxBullet: 55,
     scale: 0.9,
-    imgJet: ImgJetWhite,
+    jetImageSrc: whiteJetImageSrc,
   },
   [JetTypeEnum.Trickster]: {
     type: JetTypeEnum.Trickster,
@@ -39,7 +39,7 @@ export const jetTypesConfig: IAllJetsConfig = {
     speedBullet: 7,
     timeAliveMaxBullet: 65,
     scale: 1.2,
-    imgJet: ImgJetGreen,
+    jetImageSrc: greenJetImageSrc,
   },
   [JetTypeEnum.Tank]: {
     type: JetTypeEnum.Tank,
@@ -49,7 +49,7 @@ export const jetTypesConfig: IAllJetsConfig = {
     speedBullet: 9,
     timeAliveMaxBullet: 50,
     scale: 1.5,
-    imgJet: ImgJetPurple,
+    jetImageSrc: purpleJetImageSrc,
   },
   [JetTypeEnum.Micro]: {
     type: JetTypeEnum.Micro,
@@ -59,7 +59,7 @@ export const jetTypesConfig: IAllJetsConfig = {
     speedBullet: 6,
     timeAliveMaxBullet: 65,
     scale: 0.6,
-    imgJet: ImgJetYellow,
+    jetImageSrc: yellowJetImageSrc,
   },
   [JetTypeEnum.FastBullet]: {
     type: JetTypeEnum.FastBullet,
@@ -69,7 +69,7 @@ export const jetTypesConfig: IAllJetsConfig = {
     speedBullet: 9,
     timeAliveMaxBullet: 50,
     scale: 0.8,
-    imgJet: ImgJetAzure,
+    jetImageSrc: azureJetImageSrc,
   },
 };
 

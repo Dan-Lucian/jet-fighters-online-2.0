@@ -1,7 +1,8 @@
-import Styles from 'components/CloseNotificationButton/CloseNotificationButton.module.scss';
+import { MouseEvent } from 'react';
+import Styles from 'modules/Notifications/components/CloseNotificationButton/CloseNotificationButton.module.scss';
 
 interface ICloseNotificationButtonProps {
-  onClick: () => void;
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CloseNotificationButton = ({ onClick }: ICloseNotificationButtonProps) => {

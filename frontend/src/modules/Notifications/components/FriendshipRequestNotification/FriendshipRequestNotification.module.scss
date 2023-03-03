@@ -1,4 +1,4 @@
-.wrapper {
+.mainWrapper {
   background: var(--color-bg-primary);
   padding: 0.5em;
   display: flex;
@@ -17,13 +17,13 @@
   }
 }
 
-.wrapperText {
+.textWrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
 
-.wrapperButtons {
+.buttonsWrapper {
   display: flex;
   justify-content: space-around;
 }
@@ -37,7 +37,7 @@
   transition: none;
 }
 
-.accept {
+.acceptButton {
   background: var(--color-green);
 
   &:hover {
@@ -45,7 +45,7 @@
   }
 }
 
-.decline {
+.declineButton {
   background: var(--color-red);
 
   &:hover {

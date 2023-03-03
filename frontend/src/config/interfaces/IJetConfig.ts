@@ -9,5 +9,5 @@ export interface IJetConfig {
   speedBullet: number;
   timeAliveMaxBullet: number;
   scale: number;
-  imgJet: string;
+  jetImageSrc: string;
 }

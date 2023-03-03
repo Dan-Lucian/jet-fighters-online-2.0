@@ -2,7 +2,7 @@ import { jetTypesConfig } from 'config/jetTypesConfig';
 import Jet from 'components/Jet/Jet';
 import Styles from 'routes/profile/components/FavouriteJet/FavouriteJet.module.scss';
 import { JetTypeEnum } from 'config/enums/JetTypeEnum';
-import { capitalize } from 'utils/GeneralUtils';
+import { capitalize } from 'utils/generalUtils';
 
 interface IFavouriteJetProps {
   jetType: JetTypeEnum;
@@ -17,7 +17,7 @@ const FavouriteJet = ({ jetType, wins, loses, draws }: IFavouriteJetProps) => {
   return (
     <div className={Styles.wrapper}>
       <div className={Styles.jetWrapper}>
-        <Jet onClick={() => {}} imgJet={jetTypesConfig[jetType].imgJet} />
+        <Jet onClick={() => {}} jetImageSrc={jetTypesConfig[jetType].jetImageSrc} />
         <div className={Styles.jetTypeWrapper}>
           <p>{capitalize(jetType)}</p>
           <p className={Styles.games}>{total} games</p>

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useToggle from 'hooks/useToggle';
 import useOutsideClick from 'hooks/useOutsideClick';
-import srcBook from 'assets/images/book.svg';
+import bookIconSrc from 'assets/images/book.svg';
 import GuideMenu from 'components/Guide/components/GuideMenu/Menu';
 import Styles from 'components/Guide/Guide.module.scss';
 
@@ -19,7 +19,7 @@ const Guide = () => {
   return (
     <div ref={ref} className={wrapperClassName}>
       <button onClick={() => toggleIsActive()} className={Styles.button} type="button">
-        <img width="22px" height="22px" src={srcBook} alt="magnifying glass" className={Styles.icon} />
+        <img width="22px" height="22px" src={bookIconSrc} alt="book" className={Styles.icon} />
       </button>
       {isActive && <GuideMenu />}
     </div>

@@ -4,7 +4,7 @@ import SmallTitle from 'routes/index/components/SmallTitle/SmallTitle';
 import RadarChart from 'routes/index/components/RadarChart/RadarChart';
 import { useContextSettings } from 'providers/ProviderSettings';
 import { FixMeLater } from 'types/FixMeLater';
-import { hasObjectKey } from 'utils/GeneralTypeUtils';
+import { hasObjectKey } from 'utils/generalTypeUtils';
 import Styles from 'routes/index/components/JetStats/JetStats.module.scss';
 
 interface IJetStatsProps {

@@ -1,4 +1,4 @@
-import { hasObjectKey } from 'utils/GeneralTypeUtils';
+import { hasObjectKey } from 'utils/generalTypeUtils';
 import { IAllJetsConfig } from 'config/interfaces/IAllJetsConfig';
 import { IStandartizedJetConfig } from 'config/interfaces/IStandartizedJetConfig';
 import { IAllStandartizedJetsConfig } from 'config/interfaces/IAllStandartizedJetsConfig';
@@ -12,7 +12,7 @@ export function standartizeJetTypesConfig(jets: IAllJetsConfig): IAllStandartize
   Object.values(jetsCopy).forEach((jet) => {
     delete jet.type;
     delete jet.color;
-    delete jet.imgJet;
+    delete jet.jetImageSrc;
 
     Object.keys(jet).forEach((key) => standartizeProp(jet, key, getMin(jets, key), getMax(jets, key)));
   });

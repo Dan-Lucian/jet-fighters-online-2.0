@@ -3,7 +3,7 @@ import { jetTypesConfig } from 'config/jetTypesConfig';
 import Jet from 'components/Jet/Jet';
 import { useContextSettings } from 'providers/ProviderSettings';
 import { FixMeLater } from 'types/FixMeLater';
-import { isNotNull } from 'utils/GeneralTypeUtils';
+import { isNotNull } from 'utils/generalTypeUtils';
 import ArrowButton from 'routes/index/components/ArrowButton/ArrowButton';
 import { ArrowDirectionEnum } from 'routes/index/components/ArrowButton/enums/ArrowDirectionEnum';
 import Styles from 'routes/index/components/Carousel/Carousel.module.scss';
@@ -30,7 +30,11 @@ const Carousel = () => {
       <ArrowButton direction={ArrowDirectionEnum.Left} onClick={handleClickArrowLeft} />
       <div ref={refWrapperInner} className={Styles.jetsWrapper}>
         {Object.values(jetTypesConfig).map((jet: IJetConfig, idx) => (
-          <Jet imgJet={jet.imgJet} onClick={() => setSettings((prev: FixMeLater) => ({ ...prev, ...jet }))} key={idx} />
+          <Jet
+            jetImageSrc={jet.jetImageSrc}
+            onClick={() => setSettings((prev: FixMeLater) => ({ ...prev, ...jet }))}
+            key={idx}
+          />
         ))}
       </div>
       <ArrowButton direction={ArrowDirectionEnum.Right} onClick={handleClickArrowRight} />

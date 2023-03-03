@@ -6,7 +6,7 @@ import accountService from 'services/account.service';
 import AuthForm from 'components/AuthForm/AuthForm';
 import AuthInput from 'components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
-import { isDefined } from 'utils/GeneralTypeUtils';
+import { isDefined } from 'utils/generalTypeUtils';
 import PageNonexistent from 'components/PageNonexistent/PageNonexistent';
 import Loader from 'components/Loader/Loader';
 import AuthResult from 'components/AuthResult/AuthResult';

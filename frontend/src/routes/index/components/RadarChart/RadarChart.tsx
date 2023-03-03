@@ -12,8 +12,8 @@ interface IRadarChartProps {
 
 const RadarChart = ({ standartizedJetStats }: IRadarChartProps) => {
   const { theme } = useContextTheme();
-  const options = getOptions(theme);
-  const data = getData(standartizedJetStats);
+  const options = constructRadarChartOptions(theme);
+  const data = constructRadarChartData(standartizedJetStats);
 
   return (
     <div className={Styles.wrapper}>
@@ -22,7 +22,7 @@ const RadarChart = ({ standartizedJetStats }: IRadarChartProps) => {
   );
 };
 
-function getOptions(theme: string) {
+function constructRadarChartOptions(theme: string) {
   const colorGrid = theme === 'dark' ? 'rgb(255, 255, 255, 0.25)' : 'rgb(0, 0, 0, 0.25)';
   const colorText = theme === 'dark' ? 'rgb(255, 255, 255, 0.5)' : 'rgb(0, 0, 0, 0.5)';
   const colorBgTicks = theme === 'dark' ? '#141c2f' : '#f5f8ff';
@@ -62,7 +62,7 @@ function getOptions(theme: string) {
   };
 }
 
-function getData(standartizedJetStats: IStandartizedJetConfig) {
+function constructRadarChartData(standartizedJetStats: IStandartizedJetConfig) {
   return {
     labels: ['Steering', 'Speed', 'Bullet speed', 'Bullet life-time', 'Size'],
     datasets: [

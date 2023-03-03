@@ -44,3 +44,12 @@ export function isString<T>(value: T | undefined): value is T {
 export function hasObjectKey<T>(object: T, key: PropertyKey): key is keyof T {
   return Object.prototype.hasOwnProperty.call(object, key);
 }
+
+/**
+ * Type guard to check if a value is an array with at least one value.
+ * @param {any} value
+ * @returns {boolean} true if value is a non-empty array.
+ */
+export function isDefinedArray<T>(value: any): value is T[] {
+  return Array.isArray(value) && value.length > 0;
+}

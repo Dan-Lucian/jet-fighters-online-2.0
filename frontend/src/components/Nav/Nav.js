@@ -7,7 +7,7 @@ import { useContextAuth } from '../../providers/ProviderAuth';
 // shared components
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
 import Search from '../Search/Search';
-import Notifications from '../Notifications/Notifications';
+import Notifications from '../../modules/Notifications/Notifications';
 import Guide from '../Guide/Guide';
 
 // styles

@@ -17,7 +17,7 @@ import { IJetStats } from 'config/interfaces/IAllJetsStats';
 import { ISemiProfileResponse } from 'routes/profile/interfaces/ISemiProfileResponse';
 import { jetTypesConfig } from 'config/jetTypesConfig';
 import { JetTypeEnum } from 'config/enums/JetTypeEnum';
-import { isDefined } from 'utils/GeneralTypeUtils';
+import { isDefined } from 'utils/generalTypeUtils';
 
 const ProfilePage = () => {
   const [global, setGlobal] = useContextGlobal();
@@ -65,7 +65,7 @@ const ProfilePage = () => {
     }
 
     accountService.sendFriendRequest(dataReceived.userName);
-    // notificationService.createNotification(
+    // NotificationService.createNotification(
     //   account.tokenJwt,
     //   typesNotifications.featureNotReady
     // );
@@ -82,7 +82,7 @@ const ProfilePage = () => {
         <div className={Styles.jetWrapper}>
           <div className={Styles.backgroundFiller} />
           <div className={Styles.jet}>
-            <img className={Styles.img} src={jetTypesConfig[sortedJets.current[0][0]].imgJet} alt="jet" />
+            <img className={Styles.img} src={jetTypesConfig[sortedJets.current[0][0]].jetImageSrc} alt="jet" />
           </div>
         </div>
 
