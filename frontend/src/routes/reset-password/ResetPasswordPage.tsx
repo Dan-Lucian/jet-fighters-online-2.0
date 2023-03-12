@@ -16,6 +16,7 @@ import { ResetPasswordFormInputNameEnum } from './enums/ResetPasswordFormInputNa
 import { IResetPasswordCredentials } from 'modules/Auth/interfaces/IResetPasswordCredentials';
 import { RESET_TOKEN_LENGTH } from 'routes/reset-password/config/resetPasswordPageConfig';
 
+// TODO: move auth pages to auth module
 const ResetPasswordPage = () => {
   const cachedToken = useRef<string | null>(null);
   const query = useQuery();
