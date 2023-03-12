@@ -13,7 +13,7 @@ import { ProviderSettings } from './providers/ProviderSettings';
 import { ProviderWebsocket } from './providers/ProviderWebsocket';
 import { ProviderLobby } from './providers/ProviderLobby';
 import { ProviderGlobal } from './providers/ProviderGlobal';
-import { ProviderAuth } from './providers/ProviderAuth';
+import { AuthProvider } from './modules/Auth/providers/AuthProvider';
 import { ProviderTheme } from './providers/ProviderTheme';
 
 // styles
@@ -24,7 +24,7 @@ const App = () => (
   <ProviderGlobal>
     <ProviderTheme>
       <AppWrapper>
-        <ProviderAuth>
+        <AuthProvider>
           <Nav />
           <PhoneOverlay />
           <PageWrapper>
@@ -41,7 +41,7 @@ const App = () => (
             </ProviderSettings>
           </PageWrapper>
           <Popup />
-        </ProviderAuth>
+        </AuthProvider>
       </AppWrapper>
     </ProviderTheme>
   </ProviderGlobal>

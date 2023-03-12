@@ -1,6 +1,6 @@
-import { IJwtTokenContent } from "interfaces/GeneralInterfaces";
+import { IJwtTokenContent } from "interfaces/generalInterfaces";
 
-export function authorize(jwtToken: string) {
+export function authorize(jwtToken?: string) {
   return jwtToken
     ? {
         headers: {

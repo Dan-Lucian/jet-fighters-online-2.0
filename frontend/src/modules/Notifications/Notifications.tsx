@@ -2,15 +2,15 @@ import { useEffect, useCallback, useRef } from 'react';
 import useToggle from 'hooks/useToggle';
 import { AsyncStatusEnum, useAsync } from 'hooks/useAsync2';
 import useOutsideClick from 'hooks/useOutsideClick';
-import { useContextAuth } from 'providers/ProviderAuth';
+import { useAuthContext } from 'modules/Auth/providers/AuthProvider';
 import { NotificationService } from './services/NotificationService';
 import bellIconSrc from 'assets/images/bell.svg';
 import NotificationsWrapper from 'modules/Notifications/components/NotificationsWrapper/NotificationsWrapper';
 import { NotificationsProvider } from 'modules/Notifications/providers/NotificationsProvider';
 import { INotification } from './interfaces/INotification';
-import { FixMeLater } from 'types/FixMeLater';
 import Styles from 'modules/Notifications/Notifications.module.scss';
 import { NOTIFICATION_REFRESH_INTERVAL } from 'modules/Notifications/config/notificationsConfig';
+import { isDefined } from 'utils/generalTypeUtils';
 
 const Notifications = () => {
   // keeps track of deleted notifications
@@ -19,7 +19,7 @@ const Notifications = () => {
   // during pending data is null
   const previousNotifications = useRef<INotification[]>([]);
   const [isActive, toggleIsActive] = useToggle(false);
-  const { account }: FixMeLater = useContextAuth();
+  const { account } = useAuthContext();
   const [ref, isClickOutside] = useOutsideClick();
   const {
     data: getNotificationsResponse,
@@ -29,9 +29,10 @@ const Notifications = () => {
 
   // sets up the periodic notification fetching
   useEffect(() => {
-    if (!account) {
+    if (!isDefined(account)) {
       setNotificationsResponse([]);
       previousNotifications.current = [];
+  
       return;
     }
 

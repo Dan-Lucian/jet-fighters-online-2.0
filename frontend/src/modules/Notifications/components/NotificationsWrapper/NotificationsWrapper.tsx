@@ -1,15 +1,14 @@
 import NotificationController from 'modules/Notifications/components/NotificationController/NotificationController';
 import { INotification } from 'modules/Notifications/interfaces/INotification';
 import Styles from 'modules/Notifications/components/NotificationsWrapper/NotificationsWrapper.module.scss';
-import { isDefinedArray } from 'utils/generalTypeUtils';
+import { isArrayDefined } from 'utils/generalUtils';
 
 interface INotificationsWrapperProps {
   notifications: INotification[];
 }
 
 const NotificationsWrapper = ({ notifications }: INotificationsWrapperProps) => {
-  // TODO: make isArrayDefined typeguard
-  const areThereAnyNotifications = isDefinedArray(notifications);
+  const areThereAnyNotifications = isArrayDefined(notifications);
 
   return (
     <div className={Styles.mainWrapper}>

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import useToggle from 'hooks/useToggle';
 import useOutsideClick from 'hooks/useOutsideClick';
 import bookIconSrc from 'assets/images/book.svg';
-import GuideMenu from 'modules/Guide/components/GuideMenu/Menu';
+import GuideMenu from 'modules/Guide/components/GuideMenu/GuideMenu';
 import Styles from 'modules/Guide/Guide.module.scss';
 
 const Guide = () => {
@@ -10,6 +10,7 @@ const Guide = () => {
   const [ref, isClickOutside] = useOutsideClick();
 
   // closes the menu if click outside happened
+  // using useEffect instead of state directly because button needs callback to modify state
   useEffect(() => {
     if (isClickOutside) toggleIsActive(false);
   }, [isClickOutside, toggleIsActive]);

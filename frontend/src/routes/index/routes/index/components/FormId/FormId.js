@@ -1,5 +1,5 @@
 // shared hooks
-import { useContextAuth } from '../../../../../../providers/ProviderAuth';
+import { useAuthContext } from '../../../../../../modules/Auth/providers/AuthProvider';
 import { useContextGlobal } from '../../../../../../providers/ProviderGlobal';
 import { useContextSettings } from '../../../../../../providers/ProviderSettings';
 import { useContextWebsocket } from '../../../../../../providers/ProviderWebsocket';
@@ -11,7 +11,7 @@ const FormId = () => {
   const [{ stateApp }] = useContextGlobal();
   const [{ idJoin }, setSettings] = useContextSettings();
   const { sendMessage } = useContextWebsocket();
-  const { account } = useContextAuth();
+  const { account } = useAuthContext();
 
   const isstateAppPreLobby = stateApp === 'preLobby';
 
@@ -29,9 +29,7 @@ const FormId = () => {
 
     return (event) => {
       event.preventDefault();
-      console.log(
-        `join denial because needed stateApp=preLobby but stateApp=${stateApp}`
-      );
+      console.log(`join denial because needed stateApp=preLobby but stateApp=${stateApp}`);
     };
   };
 

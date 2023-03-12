@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AsyncStatusEnum, useAsync } from 'hooks/useAsync2';
-import { useContextAuth } from 'providers/ProviderAuth';
+import { useAuthContext } from 'modules/Auth/providers/AuthProvider';
 import { useContextGlobal } from 'providers/ProviderGlobal';
-import accountService from 'services/account.service';
+import { AccountService } from 'modules/Auth/services/AccountService';
 import Loader from 'components/Loader/Loader';
 import PageNonexistent from 'components/PageNonexistent/PageNonexistent';
 import FavouriteJet from 'routes/profile/components/FavouriteJet/FavouriteJet';
@@ -17,30 +17,33 @@ import { IJetStats } from 'config/interfaces/IAllJetsStats';
 import { ISemiProfileResponse } from 'routes/profile/interfaces/ISemiProfileResponse';
 import { jetTypesConfig } from 'config/jetTypesConfig';
 import { JetTypeEnum } from 'config/enums/JetTypeEnum';
-import { isDefined } from 'utils/generalTypeUtils';
+import { isDefined, isStringDefined } from 'utils/generalTypeUtils';
+import { accountService } from 'services/GlobalServices';
 
+// TODO: code styles fixes
 const ProfilePage = () => {
   const [global, setGlobal] = useContextGlobal();
-  const { account, logout, loading }: { account: FixMeLater; logout: FixMeLater; loading: FixMeLater } =
-    useContextAuth();
-  const { run, status, data: dataReceived } = useAsync<IFullProfileResponse | ISemiProfileResponse>();
+  const { account, logout, loading }: FixMeLater = useAuthContext();
+  const { run, status, data: profileData } = useAsync<IFullProfileResponse | ISemiProfileResponse>();
   const sortedJets = useRef<[JetTypeEnum, IJetStats][] | null>(null);
   const allJetsStatsSummedUp = useRef<IJetStats | null>(null);
   const { userName } = useParams();
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    if (!loading) run(accountService.getByUserName(userName));
+    if (!loading && isStringDefined(userName)) {
+      run(accountService.getByUserName(userName));
+    }
   }, [loading, run, userName]);
 
   const isWaiting = loading || status === AsyncStatusEnum.Pending || status === AsyncStatusEnum.Idle;
   if (isWaiting) return <Loader />;
-  if (!isDefined(dataReceived)) return <PageNonexistent />;
+  if (!isDefined(profileData)) return <PageNonexistent />;
 
-  const isHisAccount = isFullProfileResponse(dataReceived);
+  const isHisAccount = isFullProfileResponse(profileData);
 
   if (!sortedJets.current || !allJetsStatsSummedUp.current) {
-    sortedJets.current = sortJetsDescendingByTotalGamesAmount(dataReceived.stats).slice(1, 4);
+    sortedJets.current = sortJetsDescendingByTotalGamesAmount(profileData.stats).slice(1, 4);
     allJetsStatsSummedUp.current = sumAllJetsStats(sortedJets.current);
   }
 
@@ -64,7 +67,7 @@ const ProfilePage = () => {
       return;
     }
 
-    accountService.sendFriendRequest(dataReceived.userName);
+    AccountService.sendFriendRequest(profileData.userName);
     // NotificationService.createNotification(
     //   account.tokenJwt,
     //   typesNotifications.featureNotReady
@@ -87,11 +90,11 @@ const ProfilePage = () => {
         </div>
 
         <section className={Styles.nameWrapper}>
-          <h1 className={Styles.name}>{dataReceived.userName}</h1>
+          <h1 className={Styles.name}>{profileData.userName}</h1>
           {isHisAccount && (
             <>
-              <p className={Styles.email}>{dataReceived.email}</p>
-              <p>{formatTime(dataReceived.created)}</p>
+              <p className={Styles.email}>{profileData.email}</p>
+              <p>{formatTime(profileData.created)}</p>
               <button className={Styles.logoutButton} onClick={handleLogout} type="button">
                 Log out
               </button>

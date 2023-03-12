@@ -3,7 +3,7 @@ import { jetTypesConfig } from 'config/jetTypesConfig';
 import Jet from 'components/Jet/Jet';
 import { useContextSettings } from 'providers/ProviderSettings';
 import { FixMeLater } from 'types/FixMeLater';
-import { isNotNull } from 'utils/generalTypeUtils';
+import { isNull } from 'utils/generalTypeUtils';
 import ArrowButton from 'routes/index/components/ArrowButton/ArrowButton';
 import { ArrowDirectionEnum } from 'routes/index/components/ArrowButton/enums/ArrowDirectionEnum';
 import Styles from 'routes/index/components/Carousel/Carousel.module.scss';
@@ -14,13 +14,13 @@ const Carousel = () => {
   const refWrapperInner = useRef<HTMLDivElement>(null);
 
   const handleClickArrowLeft = () => {
-    if (isNotNull(refWrapperInner.current)) {
+    if (!isNull(refWrapperInner.current)) {
       refWrapperInner.current.scrollBy({ left: -150, behavior: 'smooth' });
     }
   };
 
   const handleClickArrowRight = () => {
-    if (isNotNull(refWrapperInner.current)) {
+    if (!isNull(refWrapperInner.current)) {
       refWrapperInner.current.scrollBy({ left: 150, behavior: 'smooth' });
     }
   };

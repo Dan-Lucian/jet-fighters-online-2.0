@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Styles from 'components/AuthResult/AuthResult.module.scss';
+import Styles from 'modules/Auth/components/AuthResult/AuthResult.module.scss';
 
 interface IAuthResultProps {
   text: string;

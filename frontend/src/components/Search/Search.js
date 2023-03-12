@@ -7,7 +7,7 @@ import useAsync from '../../hooks/useAsync';
 import { useDebounce } from '../../hooks/useDebounce';
 
 // services
-import accountService from '../../services/account.service';
+import { AccountService } from '../../modules/Auth/services/AccountService';
 
 // assets
 import srcMagnifyingGlass from '../../assets/images/magnifying-glass.svg';
@@ -28,8 +28,7 @@ const Search = () => {
 
   useDebounce(
     () => {
-      if (textSearch.length >= 3)
-        run(accountService.getManyByUserName(textSearch));
+      if (textSearch.length >= 3) run(AccountService.getManyByUserName(textSearch));
     },
     700,
     [textSearch]
@@ -48,33 +47,18 @@ const Search = () => {
   // use event: FormEvent<HTMLFormElement>
   const handleSubmit = (event) => {
     event.preventDefault();
-    const dataFromForm = new FormData(event.target);
-    navigate(`/profile/${dataFromForm.get('search')}`);
+    const formData = new FormData(event.target);
+    navigate(`/profile/${formData.get('search')}`);
   };
 
-  const classNameWrapper = `${styles.wrapper} ${
-    isVisibleSearch && styles['wrapper--visible']
-  }`;
+  const classNameWrapper = `${styles.wrapper} ${isVisibleSearch && styles['wrapper--visible']}`;
 
-  const classNameSearch = `${styles.search} ${
-    isVisibleSearch && styles['search--visible']
-  }`;
+  const classNameSearch = `${styles.search} ${isVisibleSearch && styles['search--visible']}`;
 
   return (
     <div className={classNameWrapper}>
-      <button
-        ref={refButton}
-        className={styles.button}
-        onClick={handleClickIcon}
-        type="button"
-      >
-        <img
-          width="22px"
-          height="22px"
-          src={srcMagnifyingGlass}
-          alt="magnifying glass"
-          className={styles.icon}
-        />
+      <button ref={refButton} className={styles.button} onClick={handleClickIcon} type="button">
+        <img width="22px" height="22px" src={srcMagnifyingGlass} alt="magnifying glass" className={styles.icon} />
       </button>
       <form onSubmit={handleSubmit}>
         <input
@@ -90,9 +74,7 @@ const Search = () => {
           aria-label="Search"
           autoComplete="off"
         />
-        {isVisibleSearch && (
-          <SuggestionsProfile profiles={profilesFound || []} />
-        )}
+        {isVisibleSearch && <SuggestionsProfile profiles={profilesFound || []} />}
       </form>
     </div>
   );

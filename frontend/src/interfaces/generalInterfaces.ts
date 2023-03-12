@@ -6,6 +6,7 @@ export interface IChildrenProp {
 
 export interface IJwtTokenContent {
   userName: string;
+  exp: number;
 }
 
 export interface IProviderProps<T> {

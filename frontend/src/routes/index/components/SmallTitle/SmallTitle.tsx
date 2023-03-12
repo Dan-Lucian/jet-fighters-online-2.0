@@ -1,4 +1,4 @@
-import { IChildrenProp } from 'interfaces/GeneralInterfaces';
+import { IChildrenProp } from 'interfaces/generalInterfaces';
 import Styles from 'routes/index/components/SmallTitle/SmallTitle.module.scss';
 
 const SmallTitle = ({ children }: IChildrenProp) => {

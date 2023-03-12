@@ -1,5 +1,6 @@
-import { IProviderProps } from 'interfaces/GeneralInterfaces';
 import { createContext, useContext } from 'react';
+import { IProviderProps } from 'interfaces/generalInterfaces';
+import { isNull } from 'utils/generalTypeUtils';
 
 interface INotificationsContextProps {
   deleteNotificationById: (id: string) => void;
@@ -13,8 +14,11 @@ export const NotificationsProvider = (props: IProviderProps<INotificationsContex
 };
 
 export const useNotificationsContext = () => {
-  const data = useContext(NotificationsContext);
-  if (data === null) throw new Error('useNotificationsContext must be used within NotificationsProvider');
+  const contextValue = useContext(NotificationsContext);
 
-  return data;
+  if (isNull(contextValue)) {
+    throw new Error('useNotificationsContext must be used within NotificationsProvider');
+  }
+
+  return contextValue;
 };

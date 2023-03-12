@@ -18,12 +18,12 @@ export function isDefined<T>(value: T | undefined): value is T {
 }
 
 /**
- * Type guard to check if a value is not null.
- * @param {T} value
- * @returns {boolean} true if value is not null.
+ * Type guard to check if a value is null.
+ * @param {any} value
+ * @returns {boolean} true if value is null.
  */
-export function isNotNull<T>(value: T | null): value is T {
-  return value !== null;
+export function isNull(value: any): value is null {
+  return value === null;
 }
 
 /**
@@ -31,8 +31,17 @@ export function isNotNull<T>(value: T | null): value is T {
  * @param {T} value
  * @returns {boolean} true if value is of string type.
  */
-export function isString<T>(value: T | undefined): value is T {
-  return typeof value !== JavaScriptTypeEnum.String;
+export function isString(value: any): value is string {
+  return typeof value === JavaScriptTypeEnum.String;
+}
+
+/**
+ * Type guard to check if a value is of string type and has at least 1 char.
+ * @param {T} value
+ * @returns {boolean} true if value is of string type and has at least 1 char.
+ */
+export function isStringDefined(value: any): value is string {
+  return isString(value) && value.length > 0;
 }
 
 /**
@@ -46,10 +55,10 @@ export function hasObjectKey<T>(object: T, key: PropertyKey): key is keyof T {
 }
 
 /**
- * Type guard to check if a value is an array with at least one value.
+ * Type guard to check if result of `new FormData()` is an object with defined props.
  * @param {any} value
- * @returns {boolean} true if value is a non-empty array.
+ * @returns {boolean}
  */
-export function isDefinedArray<T>(value: any): value is T[] {
-  return Array.isArray(value) && value.length > 0;
+export function isFormDataDefined(value: any): value is { [key: string]: string } {
+  return Object.values(value).every((v) => isStringDefined(v));
 }

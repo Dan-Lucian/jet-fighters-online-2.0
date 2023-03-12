@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// TODO: remove this file
 const urlBase = '/accounts';
 let tokenJwt;
 

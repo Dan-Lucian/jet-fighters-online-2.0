@@ -1,11 +1,12 @@
 import useLocalStorage from 'hooks/useLocalStorage';
 import GuideButton from 'modules/Guide/components/GuideButton/GuideButton';
 import Styles from 'modules/Guide/components/GuideMenu/GuideMenu.module.scss';
+import { GuideTabEnum } from 'modules/Guide/enums/GuideTabEnum';
 
 const GuideMenu = () => {
-  const [tab, setTab]: [tab: keyof typeof text, setTab: (s: string) => void] = useLocalStorage(
+  const [tab, setTab]: [tab: GuideTabEnum, setTab: (tab: GuideTabEnum) => void] = useLocalStorage(
     'tabInGuideMenu',
-    'create'
+    GuideTabEnum.Create
   );
 
   return (
@@ -14,7 +15,7 @@ const GuideMenu = () => {
       <ul className={Styles.listButtons}>
         {Object.keys(text).map((buttonName, idx) => (
           <li key={idx}>
-            <GuideButton tab={tab} setTab={setTab} text={buttonName} />
+            <GuideButton isActive={buttonName === tab} tab={buttonName as GuideTabEnum} setTab={setTab} />
           </li>
         ))}
       </ul>
@@ -31,7 +32,7 @@ const GuideMenu = () => {
 };
 
 const text = {
-  create: {
+  [GuideTabEnum.Create]: {
     title: 'Create a game:',
     items: [
       'Create a lobby.',
@@ -41,7 +42,7 @@ const text = {
       'Press "Start" button when both players are ready.',
     ],
   },
-  join: {
+  [GuideTabEnum.Join]: {
     title: 'Join a game:',
     items: [
       'Paste the received code.',
@@ -51,7 +52,7 @@ const text = {
       'Press "Start" button when both players are ready.',
     ],
   },
-  play: {
+  [GuideTabEnum.Play]: {
     title: 'Play the game:',
     items: ['Left arrow - steer left.', 'Right arrow - steer right.', 'Spacebar - shoot.'],
   },

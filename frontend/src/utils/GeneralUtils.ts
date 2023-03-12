@@ -19,6 +19,18 @@ export function capitalize(s: string): string {
 }
 
 // -----------------------------------------------------------------------------
+// Array utils
+
+/**
+ * Check if a value is an array with at least one value.
+ * @param {any[]} value
+ * @returns {boolean} true if value is a non-empty array.
+ */
+export function isArrayDefined(value: any[]): boolean {
+  return Array.isArray(value) && value.length > 0;
+}
+
+// -----------------------------------------------------------------------------
 // Error utils
 type ErrorWithMessage = {
   message: string;

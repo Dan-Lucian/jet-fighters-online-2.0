@@ -3,9 +3,9 @@ import TimeAgo from 'modules/Notifications/components/TimeAgo/TimeAgo';
 import CloseNotificationButton from 'modules/Notifications/components/CloseNotificationButton/CloseNotificationButton';
 import { INotification } from 'modules/Notifications/interfaces/INotification';
 import { useNotificationsContext } from 'modules/Notifications/providers/NotificationsProvider';
-import { useContextAuth } from 'providers/ProviderAuth';
-import { FixMeLater } from 'types/FixMeLater';
+import { useAuthContext } from 'modules/Auth/providers/AuthProvider';
 import Styles from 'modules/Notifications/components/TextNotification/TextNotification.module.scss';
+import { isDefined } from 'utils/generalTypeUtils';
 
 interface ITextNotificationProps {
   notification: INotification;
@@ -13,12 +13,14 @@ interface ITextNotificationProps {
 
 const TextNotification = ({ notification }: ITextNotificationProps) => {
   const { deleteNotificationById } = useNotificationsContext();
-  const { account }: FixMeLater = useContextAuth();
+  const { account } = useAuthContext();
   const { id, created, content } = notification;
 
   const consumeNotifcation = () => {
-    NotificationService.markNotificationAsRead(account.tokenJwt, id);
-    deleteNotificationById(id);
+    if (isDefined(account)) {
+      NotificationService.markNotificationAsRead(account.tokenJwt, id);
+      deleteNotificationById(id);
+    }
   };
 
   return (

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../providers/ProviderGlobal';
-import { useContextAuth } from '../../providers/ProviderAuth';
+import { useAuthContext } from '../../modules/Auth/providers/AuthProvider';
 
 // shared components
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
@@ -15,7 +15,7 @@ import styles from './Nav.module.scss';
 
 const Nav = () => {
   const [global] = useContextGlobal();
-  const { account } = useContextAuth();
+  const { account } = useAuthContext();
 
   const { stateApp } = global;
 

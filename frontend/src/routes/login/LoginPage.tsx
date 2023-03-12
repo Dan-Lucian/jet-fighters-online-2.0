@@ -1,18 +1,20 @@
 import { FormEvent, useEffect, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContextAuth } from 'providers/ProviderAuth';
+import { useAuthContext } from 'modules/Auth/providers/AuthProvider';
 import { useContextGlobal } from 'providers/ProviderGlobal';
-import AuthForm from 'components/AuthForm/AuthForm';
-import AuthInput from 'components/AuthInput/AuthInput';
+import AuthForm from 'modules/Auth/components/AuthForm/AuthForm';
+import AuthInput from 'modules/Auth/components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
-import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
+import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
 import Styles from 'routes/login/LoginPage.module.scss';
+import { LoginFormInputNameEnum } from './enums/LoginFormInputNameEnum';
 
+// TODO: test login page works
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { account, login, loading, error }: FixMeLater = useContextAuth();
+  const { account, login, loading, error } = useAuthContext();
   const [{ pathBeforeLogin }, setGlobal]: FixMeLater = useContextGlobal();
 
   useLayoutEffect(() => {
@@ -23,17 +25,19 @@ const LoginPage = () => {
     if (error)
       setGlobal((prev: FixMeLater) => ({
         ...prev,
-        msgPopup: error?.response.data.message,
+        msgPopup: error.message,
       }));
   }, [error, setGlobal]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const dataFromForm = new FormData(event.currentTarget);
+
+    const formData = new FormData(event.currentTarget);
     const credentials = {
-      email: dataFromForm.get('email'),
-      password: dataFromForm.get('password'),
+      email: String(formData.get(LoginFormInputNameEnum.Email)),
+      password: String(formData.get(LoginFormInputNameEnum.Password)),
     };
+
     login(credentials);
   };
 
@@ -45,14 +49,20 @@ const LoginPage = () => {
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Login</h1>
       <AuthForm onSubmit={handleSubmit}>
-        <AuthInput id="email" label="Email" type={InputTypeEnum.Email} name="email" autocomplete="email" />
+        <AuthInput
+          id="email"
+          label="Email"
+          type={InputTypeEnum.Email}
+          name={LoginFormInputNameEnum.Email}
+          autocomplete="email"
+        />
         <AuthInput
           id="password"
           label="Password"
           type={InputTypeEnum.Password}
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
-          name="password"
+          name={LoginFormInputNameEnum.Password}
           autocomplete="current-password"
         />
         <div className={Styles.linksWrapper}>

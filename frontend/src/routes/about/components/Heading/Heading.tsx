@@ -1,4 +1,4 @@
-import { IChildrenProp } from 'interfaces/GeneralInterfaces';
+import { IChildrenProp } from 'interfaces/generalInterfaces';
 import Styles from 'routes/about/components/Heading/Heading.module.scss';
 
 const Heading = ({ children }: IChildrenProp) => {

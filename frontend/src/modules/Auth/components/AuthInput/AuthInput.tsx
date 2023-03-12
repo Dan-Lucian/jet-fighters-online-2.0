@@ -1,5 +1,5 @@
-import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
-import Styles from 'components/AuthInput/AuthInput.module.scss';
+import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
+import Styles from 'modules/Auth/components/AuthInput/AuthInput.module.scss';
 
 interface IAuthInputProps {
   id: string;

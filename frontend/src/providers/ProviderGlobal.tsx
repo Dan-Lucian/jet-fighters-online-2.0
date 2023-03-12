@@ -1,12 +1,14 @@
 import { createContext, useContext, useState } from 'react';
+import { isNull } from 'utils/generalTypeUtils';
 
 // TODO: create an enum for stateApp
+// TODO: refactor this
 interface IDataGlobal {
-  isOwnerLobby: boolean,
-  name: string,
-  stateApp: string,
-  msgPopup: string | null,
-  pathBeforeLogin: string | null,
+  isOwnerLobby: boolean;
+  name: string;
+  stateApp: string;
+  msgPopup: string | null;
+  pathBeforeLogin: string | null;
 }
 
 type TypeContext = [IDataGlobal, React.Dispatch<React.SetStateAction<IDataGlobal>>];
@@ -31,8 +33,9 @@ const ProviderGlobal = (props: any) => {
 const useContextGlobal = () => {
   const dataGlobal = useContext(ContextGlobal);
 
-  if (dataGlobal === null)
+  if (isNull(dataGlobal)) {
     throw new Error('useContextGlobal must be used within ProviderGlobal');
+  }
 
   return dataGlobal;
 };

@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useQuery from 'hooks/useQuery';
 import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
-import accountService from 'services/account.service';
+import { AccountService } from 'modules/Auth/services/AccountService';
 import PageNonexistent from 'components/PageNonexistent/PageNonexistent';
 import Loader from 'components/Loader/Loader';
-import AuthResult from 'components/AuthResult/AuthResult';
+import AuthResult from 'modules/Auth/components/AuthResult/AuthResult';
 
 const VerifyEmailPage = () => {
   const cachedToken = useRef<string | null>(null);
@@ -22,7 +22,7 @@ const VerifyEmailPage = () => {
     // don't request server on obviously wrong tokens
     if (!cachedToken.current || cachedToken.current.length !== 80) return;
 
-    run(accountService.verifyEmail(cachedToken.current));
+    run(AccountService.verifyEmail(cachedToken.current));
   }, []);
 
   if (status === AsyncStatusEnum.Pending) {

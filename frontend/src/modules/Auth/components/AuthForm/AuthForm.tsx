@@ -1,5 +1,5 @@
 import { FormEvent, ReactNode } from 'react';
-import Styles from 'components/AuthForm/AuthForm.module.scss';
+import Styles from 'modules/Auth/components/AuthForm/AuthForm.module.scss';
 
 interface IAuthFormProps {
   children: ReactNode;

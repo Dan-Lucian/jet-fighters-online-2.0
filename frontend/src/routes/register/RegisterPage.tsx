@@ -1,22 +1,25 @@
 import { FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
-import { useContextAuth } from 'providers/ProviderAuth';
+import { useAuthContext } from 'modules/Auth/providers/AuthProvider';
 import { useContextGlobal } from 'providers/ProviderGlobal';
-import accountService from 'services/account.service';
-import AuthForm from 'components/AuthForm/AuthForm';
-import AuthInput from 'components/AuthInput/AuthInput';
+import { AccountService } from 'modules/Auth/services/AccountService';
+import AuthForm from 'modules/Auth/components/AuthForm/AuthForm';
+import AuthInput from 'modules/Auth/components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import ProfilePage from 'routes/profile/ProfilePage';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
-import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
+import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
 import Styles from 'routes/register/RegisterPage.module.scss';
+import { RegisterFormInputNameEnum } from './enums/RegisterFormInputNameEnum';
+import { IRegisterCredentials } from 'modules/Auth/interfaces/IRegisterCredentials';
+import { isDefined } from 'utils/generalTypeUtils';
 
 const RegisterPage = () => {
-  const { account }: FixMeLater = useContextAuth();
+  const { account } = useAuthContext();
   const [, setGlobal] = useContextGlobal();
-  const { error, status, run }: FixMeLater = useAsync();
+  const { error, status, run } = useAsync();
 
   console.log('error: ', error);
 
@@ -34,17 +37,19 @@ const RegisterPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const dataFromForm = new FormData(event.currentTarget);
-    const credentials = {
-      email: dataFromForm.get('email'),
-      userName: dataFromForm.get('userName'),
-      password: dataFromForm.get('password'),
-      passwordConfirm: dataFromForm.get('passwordConfirm'),
+    
+    const formData = new FormData(event.currentTarget);
+    const credentials: IRegisterCredentials = {
+      email: String(formData.get(RegisterFormInputNameEnum.Email)),
+      userName: String(formData.get(RegisterFormInputNameEnum.UserName)),
+      password: String(formData.get(RegisterFormInputNameEnum.Password)),
+      passwordConfirm: String(formData.get(RegisterFormInputNameEnum.ConfirmPassword)),
     };
-    run(accountService.register(credentials));
+
+    run(AccountService.register(credentials));
   };
 
-  if (account) {
+  if (isDefined(account)) {
     return <ProfilePage />;
   }
 
@@ -68,14 +73,20 @@ const RegisterPage = () => {
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Registration</h1>
       <AuthForm onSubmit={handleSubmit}>
-        <AuthInput id="email" label="Email" type={InputTypeEnum.Email} name="email" autocomplete="email" />
+        <AuthInput
+          id="email"
+          label="Email"
+          type={InputTypeEnum.Email}
+          name={RegisterFormInputNameEnum.Email}
+          autocomplete="email"
+        />
         <AuthInput
           id="username"
           label="Username"
           type={InputTypeEnum.Text}
           undertext="* 3-15 characters"
           pattern="^.{3,15}$"
-          name="userName"
+          name={RegisterFormInputNameEnum.UserName}
           autocomplete="username"
         />
         <AuthInput
@@ -84,7 +95,7 @@ const RegisterPage = () => {
           type={InputTypeEnum.Password}
           undertext="* 8-25 characters"
           pattern="^.{8,25}$"
-          name="password"
+          name={RegisterFormInputNameEnum.Password}
           autocomplete="new-password"
         />
         <AuthInput
@@ -92,7 +103,7 @@ const RegisterPage = () => {
           label="Confirm the password"
           type={InputTypeEnum.Password}
           pattern="^.{8,25}$"
-          name="passwordConfirm"
+          name={RegisterFormInputNameEnum.ConfirmPassword}
           autocomplete="new-password"
         />
         <div className={Styles.linksWrapper}>

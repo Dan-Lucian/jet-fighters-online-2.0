@@ -1,20 +1,18 @@
 import Styles from 'modules/Guide/components/GuideButton/GuideButton.module.scss';
+import { GuideTabEnum } from 'modules/Guide/enums/GuideTabEnum';
 
 interface IGuideButtonProps {
-  tab: string;
-  text: string;
-  setTab: (text: string) => void;
+  isActive: boolean;
+  tab: GuideTabEnum;
+  setTab: (tab: GuideTabEnum) => void;
 }
 
-const GuideButton = ({ tab, text, setTab }: IGuideButtonProps) => {
-  const handleClick = () => {
-    setTab(text);
-  };
-
-  const isActive = text === tab;
+const GuideButton = ({ isActive, tab, setTab }: IGuideButtonProps) => {
   const classNameWrapper = `${Styles.button} ${isActive && Styles['button-active']}`;
-
-  const capitalizedText = text[0].toUpperCase() + text.slice(1);
+  const capitalizedText = tab[0].toUpperCase() + tab.slice(1);
+  const handleClick = () => {
+    setTab(tab);
+  };
 
   return (
     <button onClick={handleClick} type="button" className={classNameWrapper}>

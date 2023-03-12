@@ -1,16 +1,17 @@
 import { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
-import accountService from 'services/account.service';
-import AuthForm from 'components/AuthForm/AuthForm';
-import AuthInput from 'components/AuthInput/AuthInput';
+import AuthForm from 'modules/Auth/components/AuthForm/AuthForm';
+import AuthInput from 'modules/Auth/components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
 import { IForgotPasswordResponse } from 'routes/forgot-password/Interfaces/IForgotPasswordResponse';
 import { isDefined } from 'utils/generalTypeUtils';
 import Loader from 'components/Loader/Loader';
-import AuthResult from 'components/AuthResult/AuthResult';
-import { InputTypeEnum } from 'components/AuthInput/enums/InputTypeEnum';
+import AuthResult from 'modules/Auth/components/AuthResult/AuthResult';
+import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
 import Styles from 'routes/forgot-password/ForgotPasswordPage.module.scss';
+import { AccountService } from 'modules/Auth/services/AccountService';
+import { ForgotPasswordFormInputNameEnum } from './enums/ForgotPasswordFormInputNameEnum';
 
 const ForgotPasswordPage = () => {
   const { run, status, data: receivedData } = useAsync<IForgotPasswordResponse>();
@@ -29,15 +30,24 @@ const ForgotPasswordPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const dataFromForm = new FormData(event.currentTarget);
-    run(accountService.forgotPassword(dataFromForm.get('email')));
+
+    const formData = new FormData(event.currentTarget);
+    const email = String(formData.get(ForgotPasswordFormInputNameEnum.Email));
+
+    run(AccountService.forgotPassword(email));
   };
 
   return (
     <main className={Styles.wrapper}>
       <h1 className={Styles.heading}>Recovery</h1>
       <AuthForm onSubmit={handleSubmit}>
-        <AuthInput id="email" label="Email" type={InputTypeEnum.Email} name="email" autocomplete="email" />
+        <AuthInput
+          id="email"
+          label="Email"
+          type={InputTypeEnum.Email}
+          name={ForgotPasswordFormInputNameEnum.Email}
+          autocomplete="email"
+        />
         <div className={Styles.linksWrapper}>
           <Link to="/login" className={Styles.link}>
             Login
