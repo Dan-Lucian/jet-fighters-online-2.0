@@ -17,7 +17,7 @@ const RegisterPage = lazy(() => import('./modules/Auth/components/RegisterPage/R
 const ForgotPasswordPage = lazy(() => import('./modules/Auth/components/ForgotPasswordPage/ForgotPasswordPage'));
 const ResetPasswordPage = lazy(() => import('./modules/Auth/components/ResetPasswordPage/ResetPasswordPage'));
 const VerifyEmailPage = lazy(() => import('./modules/Auth/components/VerifyEmailPage/VerifyEmailPage'));
-const PageGame = lazy(() => import('./routes/game/PageGame'));
+const PageGame = lazy(() => import('./modules/Game/PageGame'));
 const PageNonexistent = lazy(() => import('./components/PageNonexistent/PageNonexistent'));
 
 // replace console.* for disable log on production

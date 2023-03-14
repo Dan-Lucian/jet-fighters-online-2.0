@@ -3,10 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 // shared hooks
 import { useContextGlobal } from '../../../providers/ProviderGlobal';
-import {
-  useContextLobby,
-  valueDefaultProviderLobby,
-} from '../../../providers/ProviderLobby';
+import { useContextLobby, valueDefaultProviderLobby } from '../../../providers/ProviderLobby';
 import { useContextWebsocket } from '../../../providers/ProviderWebsocket';
 
 const useGameWsEvents = () => {
