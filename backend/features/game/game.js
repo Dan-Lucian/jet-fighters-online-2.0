@@ -1,6 +1,6 @@
 // helpers
 const { getRandomInt } = require('../../utils/getRandomInt');
-const { typesJet, delayInterval, imgW, imgH } = require('./config');
+const { jetTypes, delayInterval, imgW, imgH } = require('./config');
 const logger = require('../../utils/logger');
 const helperLobby = require('./lobby');
 
@@ -15,7 +15,7 @@ const createStateGameInitial = (lobby) => {
   return {
     owner: {
       name: lobby.owner.name,
-      typeJet: lobby.owner.typeJet,
+      type: lobby.owner.type,
       x: getRandomInt(imgW, widthMap - imgW),
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
@@ -25,11 +25,11 @@ const createStateGameInitial = (lobby) => {
       bullets: [],
       score: 0,
       isOwner: true,
-      ...typesJet[lobby.owner.typeJet],
+      ...jetTypes[lobby.owner.type],
     },
     joiner: {
       name: lobby.joiner.name,
-      typeJet: lobby.joiner.typeJet,
+      type: lobby.joiner.type,
       x: getRandomInt(imgW, widthMap - imgW),
       y: getRandomInt(imgH, heightMap - imgH),
       angle: getRandomInt(0, 360),
@@ -39,7 +39,7 @@ const createStateGameInitial = (lobby) => {
       bullets: [],
       score: 0,
       isOwner: false,
-      ...typesJet[lobby.joiner.typeJet],
+      ...jetTypes[lobby.joiner.type],
     },
     settings: {
       winner: null,
@@ -76,8 +76,7 @@ const startLoopGame = (lobby) => {
     // then this "% of correctness" gets factored in when calculcation next game
     // state, thus the game will run the same on different server OS',
     // on windows setIntervals would add ~14ms more than desired, idk the reason
-    const sizeTick =
-      Math.round((timeBetweenIntervals / delayInterval) * 100) / 100;
+    const sizeTick = Math.round((timeBetweenIntervals / delayInterval) * 100) / 100;
 
     if (hasOneSecondPassed(timeStart)) {
       console.log('FPS: ', fps);
@@ -94,10 +93,8 @@ const startLoopGame = (lobby) => {
     goTheWayIsFacing(owner, sizeTick);
     goTheWayIsFacing(joiner, sizeTick);
 
-    if (isOutOfBounds(owner, widthMap, heightMap))
-      teleportToOppositeSide(owner, widthMap, heightMap);
-    if (isOutOfBounds(joiner, widthMap, heightMap))
-      teleportToOppositeSide(joiner, widthMap, heightMap);
+    if (isOutOfBounds(owner, widthMap, heightMap)) teleportToOppositeSide(owner, widthMap, heightMap);
+    if (isOutOfBounds(joiner, widthMap, heightMap)) teleportToOppositeSide(joiner, widthMap, heightMap);
 
     if (didJetsCollide(stateGame)) {
       resetPositionJets([owner, joiner], widthMap, heightMap);
@@ -114,9 +111,7 @@ const startLoopGame = (lobby) => {
       clearInterval(idInterval);
       updateWins(lobby, winner);
       sendGameOver([wsOwner, wsJoiner], lobby);
-      gameService
-        .updateStats(stateGame)
-        .catch((error) => logger.error('Error caught: ', error));
+      gameService.updateStats(stateGame).catch((error) => logger.error('Error caught: ', error));
       helperLobby.removeStateGame(lobby.settings.idLobby);
     }
 
@@ -219,30 +214,22 @@ const didJetsCollide = (stateGame) => {
   const bottom2 = y2 + (imgH * scale2) / 2;
 
   // check corners of jet 1 entering area of jet 2
-  if (left1 > left2 && left1 < right2 && top1 > top2 && top1 < bottom2)
-    return true;
+  if (left1 > left2 && left1 < right2 && top1 > top2 && top1 < bottom2) return true;
 
-  if (right1 > left2 && right1 < right2 && top1 > top2 && top1 < bottom2)
-    return true;
+  if (right1 > left2 && right1 < right2 && top1 > top2 && top1 < bottom2) return true;
 
-  if (right1 > left2 && right1 < right2 && bottom1 > top2 && bottom1 < bottom2)
-    return true;
+  if (right1 > left2 && right1 < right2 && bottom1 > top2 && bottom1 < bottom2) return true;
 
-  if (left1 > left2 && left1 < right2 && bottom1 > top2 && bottom1 < bottom2)
-    return true;
+  if (left1 > left2 && left1 < right2 && bottom1 > top2 && bottom1 < bottom2) return true;
 
   // check corners of jet 2 entering area of jet 1
-  if (left2 > left1 && left2 < right1 && top2 > top1 && top2 < bottom1)
-    return true;
+  if (left2 > left1 && left2 < right1 && top2 > top1 && top2 < bottom1) return true;
 
-  if (right2 > left1 && right2 < right1 && top2 > top1 && top2 < bottom1)
-    return true;
+  if (right2 > left1 && right2 < right1 && top2 > top1 && top2 < bottom1) return true;
 
-  if (right2 > left1 && right2 < right1 && bottom2 > top1 && bottom2 < bottom1)
-    return true;
+  if (right2 > left1 && right2 < right1 && bottom2 > top1 && bottom2 < bottom1) return true;
 
-  if (left2 > left1 && left2 < right1 && bottom2 > top1 && bottom2 < bottom1)
-    return true;
+  if (left2 > left1 && left2 < right1 && bottom2 > top1 && bottom2 < bottom1) return true;
 };
 
 const resetPositionJets = (arrayStates, widthMap, heightMap) => {
@@ -311,26 +298,16 @@ const updateLocationBullets = (arrayStates, widthMap, heightMap, sizeTick) => {
 const destroyOldBullets = (arrayStates) => {
   for (let i = 0; i < arrayStates.length; i += 1) {
     for (let j = arrayStates[i].bullets.length - 1; j > -1; j -= 1) {
-      if (
-        arrayStates[i].bullets[j].timeAlive > arrayStates[i].timeAliveMaxBullet
-      ) {
+      if (arrayStates[i].bullets[j].timeAlive > arrayStates[i].timeAliveMaxBullet) {
         arrayStates[i].bullets.splice(j, 1);
       }
     }
   }
 };
 
-const updateScoreIfBulletLand = (
-  statePlayer1,
-  statePlayer2,
-  widthMap,
-  heightMap
-) => {
+const updateScoreIfBulletLand = (statePlayer1, statePlayer2, widthMap, heightMap) => {
   for (let i = statePlayer1.bullets.length - 1; i > -1; i -= 1) {
-    const didBulletLand = checkBulletLand(
-      statePlayer1.bullets[i],
-      statePlayer2
-    );
+    const didBulletLand = checkBulletLand(statePlayer1.bullets[i], statePlayer2);
 
     if (didBulletLand) {
       incrementScores([statePlayer1], 1);
@@ -341,10 +318,7 @@ const updateScoreIfBulletLand = (
   }
 
   for (let i = statePlayer2.bullets.length - 1; i > -1; i -= 1) {
-    const didBulletLand = checkBulletLand(
-      statePlayer2.bullets[i],
-      statePlayer1
-    );
+    const didBulletLand = checkBulletLand(statePlayer2.bullets[i], statePlayer1);
 
     if (didBulletLand) {
       incrementScores([statePlayer2], 1);
@@ -396,14 +370,7 @@ const updateWins = (lobby, winner) => {
 };
 
 const injectInputIntoGame = (message, stateGame) => {
-  const {
-    isOwnerLobby,
-    isPressedRight,
-    isPressedLeft,
-    isPressedFire,
-    isReleasedRight,
-    isReleasedLeft,
-  } = message;
+  const { isOwnerLobby, isPressedRight, isPressedLeft, isPressedFire, isReleasedRight, isReleasedLeft } = message;
 
   const whoIsPlayer = isOwnerLobby ? 'owner' : 'joiner';
 
@@ -411,12 +378,10 @@ const injectInputIntoGame = (message, stateGame) => {
 
   const isPressedRightSaved = stateGame[whoIsPlayer].isPressedRight;
   stateGame[whoIsPlayer].isPressedRight =
-    isPressedRight ||
-    (!isPressedRight && !isReleasedRight && isPressedRightSaved);
+    isPressedRight || (!isPressedRight && !isReleasedRight && isPressedRightSaved);
 
   const isPressedLeftSaved = stateGame[whoIsPlayer].isPressedLeft;
-  stateGame[whoIsPlayer].isPressedLeft =
-    isPressedLeft || (!isPressedLeft && !isReleasedLeft && isPressedLeftSaved);
+  stateGame[whoIsPlayer].isPressedLeft = isPressedLeft || (!isPressedLeft && !isReleasedLeft && isPressedLeftSaved);
 };
 
 module.exports = { createStateGameInitial, startLoopGame, injectInputIntoGame };

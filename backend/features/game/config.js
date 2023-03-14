@@ -1,6 +1,6 @@
-const typesJet = {
+const jetTypes = {
   balanced: {
-    typeJet: 'balanced',
+    type: 'balanced',
     sensitivityRotation: 3.5,
     speed: 4,
     color: '#000', // black
@@ -10,7 +10,7 @@ const typesJet = {
   },
 
   speedster: {
-    typeJet: 'speedster',
+    type: 'speedster',
     sensitivityRotation: 2.5,
     speed: 5,
     color: '#fff', // white
@@ -20,7 +20,7 @@ const typesJet = {
   },
 
   trickster: {
-    typeJet: 'trickster',
+    type: 'trickster',
     sensitivityRotation: 4.5,
     speed: 3.5,
     color: '#66ff66', // green
@@ -30,7 +30,7 @@ const typesJet = {
   },
 
   tank: {
-    typeJet: 'tank',
+    type: 'tank',
     sensitivityRotation: 4.5,
     speed: 2,
     color: '#ff91ff', // purple
@@ -40,7 +40,7 @@ const typesJet = {
   },
 
   micro: {
-    typeJet: 'micro',
+    type: 'micro',
     sensitivityRotation: 3,
     speed: 3,
     color: '#f4f445', // yellow
@@ -50,7 +50,7 @@ const typesJet = {
   },
 
   'fast-bullet': {
-    typeJet: 'fast-bullet',
+    type: 'fast-bullet',
     sensitivityRotation: 3,
     speed: 4,
     color: '#4ae9f7', // azure
@@ -66,4 +66,4 @@ const delayInterval = 1000 / fpsDesired;
 const imgW = 48;
 const imgH = 48;
 
-module.exports = { typesJet, delayInterval, imgW, imgH };
+module.exports = { jetTypes, delayInterval, imgW, imgH };

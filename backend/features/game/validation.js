@@ -1,4 +1,4 @@
-const { typesJet } = require('./config');
+const { jetTypes } = require('./config');
 
 const regexp = {
   scoreMax: '^[1-9]|[1-9][0-9]|[1-9][0-9][0-9]|1000$',
@@ -7,21 +7,16 @@ const regexp = {
 };
 
 const areValidSettingsGame = (settings) => {
-  console.log('received settings: ', settings);
   const regexpScoreMax = new RegExp(regexp.scoreMax);
   if (!settings.scoreMax.match(regexpScoreMax)) return false;
-  console.log('LOG 1');
 
   const regexpWidthMap = new RegExp(regexp.widthMap);
   if (!settings.widthMap.match(regexpWidthMap)) return false;
-  console.log('LOG 2');
 
   const regexpHeightMap = new RegExp(regexp.heightMap);
   if (!settings.heightMap.match(regexpHeightMap)) return false;
-  console.log('LOG 3');
 
-  if (!typesJet[settings.typeJet]) return false;
-  console.log('LOG 4');
+  if (!jetTypes[settings.type]) return false;
 
   return true;
 };

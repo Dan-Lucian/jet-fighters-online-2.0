@@ -5,8 +5,8 @@ module.exports = {
 };
 
 async function updateStats(stateGame) {
-  const { name: nameOwner, typeJet: typeJetOwner } = stateGame.owner;
-  const { name: nameJoiner, typeJet: typeJetJoiner } = stateGame.joiner;
+  const { name: nameOwner, type: typeOwner } = stateGame.owner;
+  const { name: nameJoiner, type: typeJoiner } = stateGame.joiner;
   const { winner: outcomeGame } = stateGame.settings;
 
   const accountOwner =
@@ -20,28 +20,28 @@ async function updateStats(stateGame) {
 
   switch (outcomeGame) {
     case 'draw':
-      await incrementStats(accountOwner, typeJetOwner, 'draws');
-      await incrementStats(accountJoiner, typeJetJoiner, 'draws');
+      await incrementStats(accountOwner, typeOwner, 'draws');
+      await incrementStats(accountJoiner, typeJoiner, 'draws');
       break;
 
     case 'owner':
-      await incrementStats(accountOwner, typeJetOwner, 'wins');
-      await incrementStats(accountJoiner, typeJetJoiner, 'loses');
+      await incrementStats(accountOwner, typeOwner, 'wins');
+      await incrementStats(accountJoiner, typeJoiner, 'loses');
       break;
 
     case 'joiner':
-      await incrementStats(accountOwner, typeJetOwner, 'loses');
-      await incrementStats(accountJoiner, typeJetJoiner, 'wins');
+      await incrementStats(accountOwner, typeOwner, 'loses');
+      await incrementStats(accountJoiner, typeJoiner, 'wins');
       break;
 
     case 'quitOwner':
-      await incrementStats(accountOwner, typeJetOwner, 'loses');
-      await incrementStats(accountJoiner, typeJetJoiner, 'wins');
+      await incrementStats(accountOwner, typeOwner, 'loses');
+      await incrementStats(accountJoiner, typeJoiner, 'wins');
       break;
 
     case 'quitJoiner':
-      await incrementStats(accountOwner, typeJetOwner, 'wins');
-      await incrementStats(accountJoiner, typeJetJoiner, 'loses');
+      await incrementStats(accountOwner, typeOwner, 'wins');
+      await incrementStats(accountJoiner, typeJoiner, 'loses');
       break;
 
     default:
@@ -50,11 +50,11 @@ async function updateStats(stateGame) {
 }
 
 // helper functions
-async function incrementStats(account, typeJet, stat) {
+async function incrementStats(account, type, stat) {
   if (!account) return;
 
   account.stats.total[stat] += 1;
-  account.stats[typeJet][stat] += 1;
+  account.stats[type][stat] += 1;
 
   await account.save();
 }

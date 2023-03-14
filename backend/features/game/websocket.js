@@ -1,11 +1,7 @@
 /* eslint-disable no-shadow */
 const { WebSocketServer } = require('ws');
 const helperLobby = require('./lobby');
-const {
-  createStateGameInitial,
-  startLoopGame,
-  injectInputIntoGame,
-} = require('./game');
+const { createStateGameInitial, startLoopGame, injectInputIntoGame } = require('./game');
 const { areValidSettingsGame } = require('./validation');
 const logger = require('../../utils/logger');
 const gameService = require('./game.service');
@@ -139,7 +135,7 @@ const websocket = (expressServer) => {
           return;
         }
 
-        const { typeJet, scoreMax, widthMap, heightMap } = settings;
+        const { type, scoreMax, widthMap, heightMap } = settings;
 
         const lobby = helperLobby.getById(idLobby);
         if (!lobby) {
@@ -150,7 +146,7 @@ const websocket = (expressServer) => {
         lobby.settings = { scoreMax, widthMap, heightMap, idLobby };
 
         if (isOwnerLobby && lobby.joiner) {
-          lobby.owner.typeJet = typeJet;
+          lobby.owner.type = type;
           lobby.joiner.ws.send(JSON.stringify(response));
           return;
         }
@@ -160,7 +156,7 @@ const websocket = (expressServer) => {
           return;
         }
 
-        lobby.joiner.typeJet = typeJet;
+        lobby.joiner.type = type;
         lobby.owner.ws.send(JSON.stringify(response));
         return;
       }
@@ -169,7 +165,7 @@ const websocket = (expressServer) => {
       // received are isReady for double checking and player's settings
       if (event === 'responseReady') {
         const { idLobby, isReady, isOwnerLobby, settings } = messageJson;
-        const { typeJet } = settings;
+        const { type } = settings;
         const lobby = helperLobby.getById(idLobby);
         if (!lobby) {
           logger.error('No lobby found at EVENT: responseReady');
@@ -178,7 +174,7 @@ const websocket = (expressServer) => {
         const response = { event: 'start' };
 
         if (isOwnerLobby && isReady) {
-          lobby.owner.typeJet = typeJet;
+          lobby.owner.type = type;
           lobby.stateGame = createStateGameInitial(lobby);
           response.stateGame = lobby.stateGame;
 
@@ -193,7 +189,7 @@ const websocket = (expressServer) => {
           return;
         }
 
-        lobby.joiner.typeJet = typeJet;
+        lobby.joiner.type = type;
         lobby.stateGame = createStateGameInitial(lobby);
         response.stateGame = lobby.stateGame;
 
@@ -255,9 +251,7 @@ const websocket = (expressServer) => {
       if (lobby.stateGame) {
         // "winner" used by gameService.updateStats() below
         lobby.stateGame.settings.winner = winner;
-        gameService
-          .updateStats(lobby.stateGame)
-          .catch((error) => logger.error('Error caught: ', error));
+        gameService.updateStats(lobby.stateGame).catch((error) => logger.error('Error caught: ', error));
         helperLobby.removeStateGame(idLobby);
       }
 
