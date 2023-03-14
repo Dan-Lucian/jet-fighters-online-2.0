@@ -4,12 +4,12 @@ import { useAsync, AsyncStatusEnum } from 'hooks/useAsync2';
 import AuthForm from 'modules/Auth/components/AuthForm/AuthForm';
 import AuthInput from 'modules/Auth/components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
-import { IForgotPasswordResponse } from 'routes/forgot-password/Interfaces/IForgotPasswordResponse';
+import { IForgotPasswordResponse } from 'modules/Auth/interfaces/IForgotPasswordResponse';
 import { isDefined } from 'utils/generalTypeUtils';
 import Loader from 'components/Loader/Loader';
 import AuthResult from 'modules/Auth/components/AuthResult/AuthResult';
 import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
-import Styles from 'routes/forgot-password/ForgotPasswordPage.module.scss';
+import Styles from 'modules/Auth/components/ForgotPasswordPage/ForgotPasswordPage.module.scss';
 import { AccountService } from 'modules/Auth/services/AccountService';
 import { ForgotPasswordFormInputNameEnum } from './enums/ForgotPasswordFormInputNameEnum';
 

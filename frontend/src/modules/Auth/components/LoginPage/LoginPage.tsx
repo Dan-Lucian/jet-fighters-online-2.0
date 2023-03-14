@@ -8,7 +8,7 @@ import SubmitButton from 'components/SubmitButton/SubmitButton';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
 import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
-import Styles from 'routes/login/LoginPage.module.scss';
+import Styles from 'modules/Auth/components/LoginPage/LoginPage.module.scss';
 import { LoginFormInputNameEnum } from './enums/LoginFormInputNameEnum';
 
 // TODO: test login page works

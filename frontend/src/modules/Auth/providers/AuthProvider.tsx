@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, useLayoutEffect, useMem
 import { IProviderProps } from 'interfaces/generalInterfaces';
 import { IAccount } from 'modules/Auth/interfaces/IAccount';
 import { ILoginCredentials } from 'modules/Auth/interfaces/ILoginCredentials';
-import { accountService } from 'services/GlobalServices';
+import { accountService } from 'services/globalServices';
 import { isNull } from 'utils/generalTypeUtils';
 
 interface IAuthContextProps {

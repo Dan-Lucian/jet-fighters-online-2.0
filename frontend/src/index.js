@@ -12,11 +12,11 @@ import PreLobby from './routes/index/routes/index/PreLobby';
 const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
 const AboutPage = lazy(() => import('./routes/about/AboutPage'));
 const ProfilePage = lazy(() => import('./routes/profile/ProfilePage'));
-const LoginPage = lazy(() => import('./routes/login/LoginPage'));
-const RegisterPage = lazy(() => import('./routes/register/RegisterPage'));
-const ForgotPasswordPage = lazy(() => import('./routes/forgot-password/ForgotPasswordPage'));
-const ResetPasswordPage = lazy(() => import('./routes/reset-password/ResetPasswordPage'));
-const VerifyEmailPage = lazy(() => import('./routes/verify-email/VerifyEmailPage'));
+const LoginPage = lazy(() => import('./modules/Auth/components/LoginPage/LoginPage'));
+const RegisterPage = lazy(() => import('./modules/Auth/components/RegisterPage/RegisterPage'));
+const ForgotPasswordPage = lazy(() => import('./modules/Auth/components/ForgotPasswordPage/ForgotPasswordPage'));
+const ResetPasswordPage = lazy(() => import('./modules/Auth/components/ResetPasswordPage/ResetPasswordPage'));
+const VerifyEmailPage = lazy(() => import('./modules/Auth/components/VerifyEmailPage/VerifyEmailPage'));
 const PageGame = lazy(() => import('./routes/game/PageGame'));
 const PageNonexistent = lazy(() => import('./components/PageNonexistent/PageNonexistent'));
 

@@ -18,7 +18,7 @@ import { ISemiProfileResponse } from 'routes/profile/interfaces/ISemiProfileResp
 import { jetTypesConfig } from 'config/jetTypesConfig';
 import { JetTypeEnum } from 'config/enums/JetTypeEnum';
 import { isDefined, isStringDefined } from 'utils/generalTypeUtils';
-import { accountService } from 'services/GlobalServices';
+import { accountService } from 'services/globalServices';
 
 // TODO: code styles fixes
 const ProfilePage = () => {

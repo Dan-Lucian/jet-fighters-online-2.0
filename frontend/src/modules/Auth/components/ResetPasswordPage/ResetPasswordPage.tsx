@@ -11,10 +11,10 @@ import PageNonexistent from 'components/PageNonexistent/PageNonexistent';
 import Loader from 'components/Loader/Loader';
 import AuthResult from 'modules/Auth/components/AuthResult/AuthResult';
 import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
-import Styles from 'routes/reset-password/ResetPasswordPage.module.scss';
+import Styles from 'modules/Auth/components/ResetPasswordPage/ResetPasswordPage.module.scss';
 import { ResetPasswordFormInputNameEnum } from './enums/ResetPasswordFormInputNameEnum';
 import { IResetPasswordCredentials } from 'modules/Auth/interfaces/IResetPasswordCredentials';
-import { RESET_TOKEN_LENGTH } from 'routes/reset-password/config/resetPasswordPageConfig';
+import { RESET_TOKEN_LENGTH } from 'modules/Auth/config/authConfig';
 
 // TODO: move auth pages to auth module
 const ResetPasswordPage = () => {

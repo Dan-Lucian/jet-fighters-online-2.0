@@ -11,8 +11,8 @@ import ProfilePage from 'routes/profile/ProfilePage';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
 import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';
-import Styles from 'routes/register/RegisterPage.module.scss';
-import { RegisterFormInputNameEnum } from './enums/RegisterFormInputNameEnum';
+import Styles from 'modules/Auth/components/RegisterPage/RegisterPage.module.scss';
+import { RegisterFormInputNameEnum } from 'modules/Auth/components/RegisterPage/enums/RegisterFormInputNameEnum';
 import { IRegisterCredentials } from 'modules/Auth/interfaces/IRegisterCredentials';
 import { isDefined } from 'utils/generalTypeUtils';
 
@@ -37,7 +37,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     const formData = new FormData(event.currentTarget);
     const credentials: IRegisterCredentials = {
       email: String(formData.get(RegisterFormInputNameEnum.Email)),
