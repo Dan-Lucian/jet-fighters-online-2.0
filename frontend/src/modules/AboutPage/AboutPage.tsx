@@ -1,5 +1,5 @@
-import Heading from 'routes/about/components/Heading/Heading';
-import Styles from 'routes/about/AboutPage.module.scss';
+import Heading from 'modules/AboutPage/components/Heading/Heading';
+import Styles from 'modules/AboutPage/AboutPage.module.scss';
 
 const AboutPage = () => (
   <main className={Styles.card}>
