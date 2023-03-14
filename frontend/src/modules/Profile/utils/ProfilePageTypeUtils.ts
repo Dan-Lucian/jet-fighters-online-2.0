@@ -1,5 +1,5 @@
-import { IFullProfileResponse } from 'routes/profile/interfaces/IFullProfileResponse';
-import { ISemiProfileResponse } from 'routes/profile/interfaces/ISemiProfileResponse';
+import { IFullProfileResponse } from 'modules/Profile/interfaces/IFullProfileResponse';
+import { ISemiProfileResponse } from 'modules/Profile/interfaces/ISemiProfileResponse';
 
 enum PropOnlyInFullProfileResponseEnum {
   Created = 'created',

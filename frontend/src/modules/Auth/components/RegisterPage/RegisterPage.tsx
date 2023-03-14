@@ -7,7 +7,7 @@ import { AccountService } from 'modules/Auth/services/AccountService';
 import AuthForm from 'modules/Auth/components/AuthForm/AuthForm';
 import AuthInput from 'modules/Auth/components/AuthInput/AuthInput';
 import SubmitButton from 'components/SubmitButton/SubmitButton';
-import ProfilePage from 'routes/profile/ProfilePage';
+import ProfilePage from 'modules/Profile/ProfilePage';
 import Loader from 'components/Loader/Loader';
 import { FixMeLater } from 'types/FixMeLater';
 import { InputTypeEnum } from 'modules/Auth/enums/InputTypeEnum';

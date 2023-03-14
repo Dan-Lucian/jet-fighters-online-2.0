@@ -11,7 +11,7 @@ import PreLobby from './routes/index/routes/index/PreLobby';
 // lazy loaded components
 const Lobby = lazy(() => import('./routes/index/routes/lobby/Lobby'));
 const AboutPage = lazy(() => import('./modules/AboutPage/AboutPage'));
-const ProfilePage = lazy(() => import('./routes/profile/ProfilePage'));
+const ProfilePage = lazy(() => import('./modules/Profile/ProfilePage'));
 const LoginPage = lazy(() => import('./modules/Auth/components/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('./modules/Auth/components/RegisterPage/RegisterPage'));
 const ForgotPasswordPage = lazy(() => import('./modules/Auth/components/ForgotPasswordPage/ForgotPasswordPage'));
