@@ -10,7 +10,7 @@ import PageNonexistent from '../../components/PageNonexistent/PageNonexistent';
 
 // local components
 import Game from './components/Game/Game';
-import TablePlayers from './components/TablePlayers/TablePlayers';
+import TablePlayers from './components/PlayersTable/PlayersTable';
 import Overlay from './components/Overlay/Overlay';
 
 // styles
@@ -21,14 +21,14 @@ const PageGame = () => {
   const stateGame = useGameWsEvents();
   useKeyEvents();
 
-  const isStateAppNotGame =
-    !stateApp || stateApp === 'lobby' || stateApp === 'preLobby';
-  if (isStateAppNotGame) return <PageNonexistent />;
+  // const isStateAppNotGame =
+  //   !stateApp || stateApp === 'lobby' || stateApp === 'preLobby';
+  // if (isStateAppNotGame) return <PageNonexistent />;
 
   return (
     <main className={styles.pageGame}>
       <Game stateGame={stateGame} />
-      <TablePlayers stateGame={stateGame} />
+      <TablePlayers gameState={stateGame} />
       <Overlay />
     </main>
   );

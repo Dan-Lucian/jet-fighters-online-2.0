@@ -135,7 +135,7 @@ const websocket = (expressServer) => {
           return;
         }
 
-        const { type, scoreMax, widthMap, heightMap } = settings;
+        const { type, maxScore, widthMap, heightMap } = settings;
 
         const lobby = helperLobby.getById(idLobby);
         if (!lobby) {
@@ -143,7 +143,7 @@ const websocket = (expressServer) => {
           return;
         }
         const response = { event: 'requestReady' };
-        lobby.settings = { scoreMax, widthMap, heightMap, idLobby };
+        lobby.settings = { maxScore, widthMap, heightMap, idLobby };
 
         if (isOwnerLobby && lobby.joiner) {
           lobby.owner.type = type;

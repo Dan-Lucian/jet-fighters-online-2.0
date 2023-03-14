@@ -62,7 +62,7 @@ const startLoopGame = (lobby) => {
   const { stateGame } = lobby;
 
   allStatesGame.set(wsOwner.idLobby, stateGame);
-  const { widthMap, heightMap, scoreMax } = stateGame.settings;
+  const { widthMap, heightMap, maxScore } = stateGame.settings;
 
   let timeStartInterval = Date.now();
   let timeEndInterval = Date.now();
@@ -106,7 +106,7 @@ const startLoopGame = (lobby) => {
     updateScoreIfBulletLand(owner, joiner, widthMap, heightMap);
     createNewBulletsIfFirePressed([owner, joiner]);
 
-    const winner = getWinner([owner, joiner], scoreMax);
+    const winner = getWinner([owner, joiner], maxScore);
     if (winner) {
       clearInterval(idInterval);
       updateWins(lobby, winner);
@@ -347,11 +347,11 @@ const incrementScores = (arrayStates, amount) => {
   }
 };
 
-const getWinner = (arrayStates, scoreMax) => {
+const getWinner = (arrayStates, maxScore) => {
   const winners = [];
 
   for (let i = 0; i < arrayStates.length; i += 1) {
-    if (arrayStates[i].score >= scoreMax) winners.push(arrayStates[i]);
+    if (arrayStates[i].score >= maxScore) winners.push(arrayStates[i]);
   }
 
   if (winners.length === 1) return winners[0].isOwner ? 'owner' : 'joiner';
